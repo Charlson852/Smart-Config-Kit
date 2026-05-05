@@ -349,7 +349,7 @@ tcpdump -n -i any port 443       # 应看到持续流量 → DoH 正常
 - **CMFA** = Clash Meta For Android / mihomo-party-android / **[ClashMi](https://github.com/KaringX/clashmi)**（KaringX 跨平台 Flutter GUI，iOS/macOS/Android/Windows/Linux，同样 bundle MetaCubeX mainline，直接复用 `CMFA(mihomo).yaml`；导入流程与差异点见 [CMFA 子目录 §九](./Clash%20Meta%20For%20Android/README.md#九兼容客户端clashmi跨平台)）
 - **FlClash** = 跨平台 Flutter GUI（Android/Windows/macOS/Linux），推荐使用 [覆写脚本](./FlClash/FlClash(mihomo).js)（动态节点分类 + 家宽识别），也兼容 [CMFA YAML](./Clash%20Meta%20For%20Android/CMFA(mihomo).yaml)。导入前需先在「覆写脚本」创建脚本，再到订阅「更多→覆写」关联
 - **QX** = Quantumult X
-- **sing-box** = sing-box 通用客户端（SFA / SFM / SFI / Hiddify / NekoBox / Karing / HomeProxy）
+- **sing-box** = sing-box 通用客户端（SFA / SFM / SFI / Hiddify / Karing / HomeProxy；NekoBox 不兼容，详见 [SingBox README §2c](./SingBox/README.md#2c-nekobox--nekoray-用户看这里)）
 - **v2rayN Xray** = v2rayN 默认 Xray 核模式
 - **v2rayN mihomo** = v2rayN 切到 mihomo 或 sing-box 核
 - **Happ** = [Happ Proxy Utility](https://www.happ.su)（Flyfrog LLC，Xray-core 内核，跨平台；路由仅 Direct/Proxy/Block 三出站，复用 `v2rayN(xray).json`，详见 `v2rayN/README.md`）
