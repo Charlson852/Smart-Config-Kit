@@ -1,5 +1,5 @@
 // FlClash 覆写脚本 — 标准 Mihomo 内核动态分流版
-// 版本：v5.4.2-flclash.1 (2026-05-05)
+// 版本：v5.4.2-flclash.2 (2026-05-05)
 // 架构：22 url-test 区域组（11 全部 + 11 家宽）+ 31 业务策略组（含 13 流媒体平台组）+ 371+ rule-providers 100%+ 服务覆盖
 // 基线：Clash Party Normal v5.4.2-normal.1（规则 100% 等价；区域组为 url-test — FlClash 内核为标准 Mihomo，不支持 smart + LightGBM）
 // 适用：FlClash >= v0.8.85（覆盖脚本功能自该版本引入）；其他使用标准 Mihomo 内核的客户端
@@ -35,7 +35,7 @@
 //  版本常量
 // ================================================================
 
-const VERSION = 'v5.4.2-flclash.1'
+const VERSION = 'v5.4.2-flclash.2'
 
 // FlClash JS 引擎环境兼容：QuickJS 可能不提供 console，安全包装
 var log = (typeof console !== 'undefined' && console.log) ? console.log.bind(console) : function(){}
@@ -1172,7 +1172,7 @@ function injectRuleProviders(config) {
 // ================================================================
 
 function injectRules(config) {
-  config.rules = [
+  var _newRules = [
     // v5.4.2 P0-FIX#41: 小米核心服务 DIRECT 白名单——前置 miuiprivacy/advertisingmitv
     `DOMAIN-SUFFIX,account.xiaomi.com,DIRECT`,
     `DOMAIN-SUFFIX,passport.xiaomi.com,DIRECT`,
@@ -2206,6 +2206,9 @@ function injectRules(config) {
     `GEOIP,CN,${BIZ.CN_SITE},no-resolve`,
     `MATCH,${BIZ.FINAL}`,
   ]
+  // FlClash: 原地写入（splice 清空 + 逐个 push），不能在 QuickJS FFI 桥接层直接重赋值
+  config.rules.splice(0, config.rules.length)
+  for (var _ri = 0; _ri < _newRules.length; _ri++) { config.rules.push(_newRules[_ri]) }
   log(`[${VERSION}] Injected ${config.rules.length} rules`)
 }
 

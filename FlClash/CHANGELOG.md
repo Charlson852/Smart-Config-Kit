@@ -5,6 +5,13 @@
 
 ---
 
+## v5.4.2-flclash.2 (2026-05-05)
+
+- ★ FIX#41-P0-QuickJS：injectRules 重赋值 → 原地 splice+push（修复 QuickJS ↔ Dart FFI 桥接层丢失路由规则）
+  - `config.rules = [...]` 在 FlClash QuickJS 环境中创建新数组，Dart 端持有旧引用 → 所有规则丢失
+  - 改为 `_newRules` 临时数组 + `config.rules.splice(0)` + 逐个 `push` 原地写入
+  - 此 bug 导致 FlClash 用户在 cleanupSubscription 清空规则后注入的 1000+ 条规则全部丢失
+
 ## v5.4.2-flclash.1 (2026-05-05)
 
 - ★ FIX#41-P0：小米核心服务 DIRECT 白名单（跟随 Clash Party v5.4.2 基线）
