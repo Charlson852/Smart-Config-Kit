@@ -1,11 +1,11 @@
 # Clash Party / Clash Verge / Mihomo Party 使用教程
 
-> 覆写脚本：**两份二选一**，规则 100% 等价，仅 18 区域组（9 全部 + 9 家宽）的内核选路算法不同
-> - `ClashParty(mihomo-smart).js`（**v5.3.0**，2026-04-26）— Smart 内核 + LightGBM ML 评估
-> - `ClashParty(mihomo).js`（**v5.3.0-normal.1**，2026-04-26）— 普通内核 url-test 延迟选路
+> 覆写脚本：**两份二选一**，规则 100% 等价，仅 22 区域组（11 全部 + 11 家宽）的内核选路算法不同
+> - `ClashParty(mihomo-smart).js`（**v5.4.1**，2026-05-05）— Smart 内核 + LightGBM ML 评估
+> - `ClashParty(mihomo).js`（**v5.4.1-normal.2**，2026-05-05）— 普通内核 url-test 延迟选路
 >
 > UI 补充配置：已整合到本文「四、粘贴 UI 补充配置」章节
-> 架构：**SUB-STORE 多机场融合** + 18 区域组（9 全部 + 9 家宽）+ 31 业务策略组 + **373+ rule-providers**
+> 架构：**SUB-STORE 多机场融合** + 22 区域组（11 全部 + 11 家宽）+ 31 业务策略组 + **371+ rule-providers**
 > 适用客户端：
 > - **Mihomo Party**（桌面端，推荐，原生支持 JS 覆写；内置 Smart 内核）
 > - **Clash Verge Rev**（桌面端，支持 JS/YAML 双覆写）
@@ -16,7 +16,7 @@
 
 ## 📌 Smart 版 vs 普通版：怎么选？
 
-同目录下两个脚本**规则、策略组、rule-providers、DNS/嗅探完全一致**，唯一区别在 18 区域组（9 全部 + 9 家宽）内部如何从候选节点里挑一个具体出站：
+同目录下两个脚本**规则、策略组、rule-providers、DNS/嗅探完全一致**，唯一区别在 22 区域组（11 全部 + 11 家宽）内部如何从候选节点里挑一个具体出站：
 
 | 维度 | `ClashParty(mihomo-smart).js`（Smart 版） | `ClashParty(mihomo).js`（普通版） |
 |------|---------------------------------------|-------------------------------------|
@@ -68,7 +68,7 @@
 
 ### 跑起来之后怎么验证成功？
 - 浏览器打开 `https://www.google.com`，能打开说明代理通了。
-- 客户端左侧「代理」页面应能看到 **49 个代理组**（18 区域 + 31 业务）。
+- 客户端左侧「代理」页面最多会看到 **53 个代理组**（22 区域 + 31 业务；空区域会自动不建组）。
 - 左侧「连接」页面可以看每条请求走了哪个组/哪个节点。
 
 ### 最常见的第一次踩坑
@@ -142,7 +142,7 @@ Clash Party 系列（Mihomo Party / Clash Verge Rev / Clash Nyanpasu）底层都
 脚本会自动为所有节点：
 - 剔除信息类节点（导航/流量/到期/官网…）
 - 剔除高倍率节点（10x/20x/100x）
-- 按地区/城市/IATA 代码/ISO 代码**多维度分类**到 18 区域组（9 全部 + 9 家宽）
+- 按地区/城市/IATA 代码/ISO 代码**多维度分类**到 22 区域组（11 全部 + 11 家宽）
 
 ### 场景 C：在线订阅转换站（备选方案）
 
@@ -165,7 +165,7 @@ Clash Party 系列（Mihomo Party / Clash Verge Rev / Clash Nyanpasu）底层都
 
 1. 左侧菜单 → **覆写（Override）** → 右上角 ➕。
 2. 类型选择 **JavaScript（.js）**。
-3. 名称：`Clash Smart v5.2.5` 或 `Clash Normal v5.2.5`（根据你粘贴的那份）。
+3. 名称：`Clash Smart v5.4.1` 或 `Clash Normal v5.4.1`（根据你粘贴的那份）。
 4. 内容：复制 `Clash Party/ClashParty(mihomo-smart).js` **或** `Clash Party/ClashParty(mihomo).js` 的**全文**粘贴进去（两份脚本都在 2200+ 行左右）。
 5. 保存。
 6. 返回「订阅」页面，右键你的订阅 → **编辑** → **启用覆写** → 勾选刚才的脚本 → 保存（**只勾一份**，不要同时启用）。

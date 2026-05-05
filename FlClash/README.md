@@ -3,6 +3,7 @@
 > 覆写脚本：`FlClash(mihomo).js`
 > 适用客户端：**FlClash**（Android / Windows / macOS / Linux）
 > 内核要求：FlClash >= **v0.8.85**
+> 当前版本：**v5.4.1-flclash.2**（22 url-test 区域组 + 31 业务策略组）
 
 <table><tr>
 <td><img width="160" alt="FlClash 截图1" src="https://github.com/user-attachments/assets/e88e0724-2bc0-4111-851e-e8aa0a9141d3"></td>
@@ -45,7 +46,7 @@
 ### 验证
 
 点「代理」标签，应看到：
-- **18 区域组**（9 全部 + 9 家宽）：🌍 全球节点、🇭🇰 香港节点……
+- **最多 22 个区域组**（11 全部 + 11 家宽；空区域自动跳过）：🌍 全球节点、🇭🇰 香港节点、🇸🇬 狮城节点、🌏 其他节点……
 - **31 业务组**：🤖 AI 服务、🎥 Netflix、📱 社交媒体……
 
 ---

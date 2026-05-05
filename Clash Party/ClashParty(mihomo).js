@@ -1,7 +1,7 @@
 // Clash 覆写脚本 - SUB-STORE 多机场精细分流版
-// 版本：v5.4.1-normal.1 (2026-05-05)
+// 版本：v5.4.1-normal.2 (2026-05-05)
 // 架构：22 url-test 区域组（11 全部 + 11 家宽）+ 31 业务策略组 + 371+ rule-providers
-// 基线：Clash Party v5.3.0（与同目录 ClashParty(mihomo-smart).js 规则 100% 等价，仅 18 区域组从 smart 改为 url-test）
+// 基线：Clash Party v5.4.1（与同目录 ClashParty(mihomo-smart).js 规则 100% 等价，仅区域组从 smart 改为 url-test）
 // 适用：Mihomo / Clash.Meta 稳定版内核、不支持 smart + LightGBM 的分支；也适用于想完全关闭 ML 评估的用户
 // 变更历史：见 `Clash Party/CHANGELOG.md`
 
@@ -9,7 +9,7 @@
 //  版本常量
 // ================================================================
 
-const VERSION = 'v5.4.1-normal.1'
+const VERSION = 'v5.4.1-normal.2'
 
 // ================================================================
 //  模块 A：节点过滤 / 家宽识别
@@ -17,8 +17,9 @@ const VERSION = 'v5.4.1-normal.1'
 
 function isInfoNode(name) {
   const infoPatterns = ['导航网址', '距离下次重置', '剩余流量', '套餐到期', '网址导航', '官网', '订阅', '到期', '剩余', '重置']
+  const infoRes = [/\b(?:USE|USED|TOTAL|EXPIRE|EMAIL)\b/i, /Panel|Channel|Author|剩余流量|已用流量|到期时间|下次重置/i]
   const s = String(name || '')
-  return infoPatterns.some(p => s.includes(p)) || /\b(?:USE|USED|TOTAL|EXPIRE|EMAIL)\b/i.test(s) || /Panel|Channel|Author/i.test(s) || /\b(?:USE|USED|TOTAL|EXPIRE|EMAIL)\b/i.test(s) || /Panel|Channel|Author/i.test(s)
+  return infoPatterns.some(p => s.includes(p)) || infoRes.some(re => re.test(s))
 }
 
 const RESIDENTIAL_PATTERNS = [
@@ -86,7 +87,7 @@ const _compiledRegions = REGION_DB.map(function(region) {
 
 function classifyNode(name) {
   var nameStr = String(name || '')
-  if (!nameStr) return 'OTHER'
+  if (!nameStr) return null
   for (var i = 0; i < _compiledRegions.length; i++) {
     var region = _compiledRegions[i]
     for (var j = 0; j < region.matchers.length; j++) {
@@ -95,11 +96,12 @@ function classifyNode(name) {
       else { if (m.regex.test(nameStr)) return region.id }
     }
   }
-  return null
+  return 'OTHER'
 }
 
 function classifyAllNodes(proxies) {
   var result = {
+    HK: [], TW: [], CN: [], JP: [], KR: [], SG: [], US: [], EU: [], AM: [], AF: [], OTHER: [], ALL: [],
     HOME_HK: [], HOME_TW: [], HOME_CN: [], HOME_JP: [], HOME_KR: [], HOME_SG: [], HOME_US: [], HOME_EU: [], HOME_AM: [], HOME_AF: [], HOME_OTHER: [], HOME_ALL: [],
   }
   for (var i = 0; i < proxies.length; i++) {
@@ -161,8 +163,9 @@ const BIZ = {
 const REGION_ORDER = ['GLOBAL', 'HK', 'TW', 'SG', 'JPKR', 'APAC', 'US', 'EU', 'AMERICAS', 'AFRICA', 'OTHER']
 const REGION_HOME_MAP = {
   GLOBAL: 'GLOBAL_HOME', HK: 'HK_HOME', TW: 'TW_HOME',
-  JPKR: 'JPKR_HOME', APAC: 'APAC_HOME', US: 'US_HOME',
+  SG: 'SG_HOME', JPKR: 'JPKR_HOME', APAC: 'APAC_HOME', US: 'US_HOME',
   EU: 'EU_HOME', AMERICAS: 'AMERICAS_HOME', AFRICA: 'AFRICA_HOME',
+  OTHER: 'OTHER_HOME',
 }
 
 function withResidential(keys) {
@@ -209,7 +212,7 @@ function buildTrackerProxies() {
 }
 
 function buildSeaProxies() {
-  return withResidential(['SG', 'SG', 'APAC', 'GLOBAL', 'HK', 'JPKR', 'US']).concat('DIRECT')
+  return withResidential(['SG', 'APAC', 'GLOBAL', 'HK', 'JPKR', 'US']).concat('DIRECT')
 }
 
 // v5.1.2: GeoRouting 区域列表（module-level，供 providers + rules 共用）

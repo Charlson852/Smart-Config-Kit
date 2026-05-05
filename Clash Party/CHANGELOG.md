@@ -7,6 +7,13 @@
 
 ---
 
+## v5.4.1-normal.2 (2026-05-05)
+
+- ★ FIX#FlClash-Review-P0：修复标准 Mihomo JS 运行时分类桶初始化回归
+  - `ClashParty(mihomo).js` 补回 `HK/TW/CN/JP/KR/SG/US/EU/AM/AF/OTHER/ALL` buckets，避免 `result.ALL.push(...)` 在有节点输入时 TypeError
+  - 补齐 `REGION_HOME_MAP` 的 `SG` / `OTHER` 家宽映射，并移除东南亚候选链里的重复 `SG`
+  - 同构审计：Smart 主线分类桶正常；FlClash 同步修复；CMFA/OpenClash/iOS/Passwall/sing-box/v2rayN 无此 JS 初始化回归
+
 ## v5.4.0 (2026-05-05)
 
 - ★ FEAT#SG：新增 🇸🇬 狮城节点 + 🏡 狮城家宽 独立区域组
