@@ -5,6 +5,11 @@
 ---
 
 
+## v5.4.2-Surge.1 (2026-05-05)
+
+- ★ FIX#41-P0：小米核心服务 DIRECT 白名单（跟随 Clash Party v5.4.2 基线）
+  - 新增 11 条 DOMAIN/DOMAIN-SUFFIX DIRECT 规则前置广告拦截段
+
 ## v5.4.0-Surge.1 (2026-05-05)
 
 - ★ FEAT#SG：新增 🇸🇬 狮城节点 + 🏡 狮城家宽 独立区域组

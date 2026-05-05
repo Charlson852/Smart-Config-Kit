@@ -1,8 +1,8 @@
 # ================================================================
-# Clash Smart v5.4.1-cmfa.1 - CMFA (Clash Meta for Android) 配置
+# Clash Smart v5.4.2-cmfa.1 - CMFA (Clash Meta for Android) 配置
 # Build: 2026-05-05
 # 架构：proxy-providers 订阅 + 22 url-test 区域组（11 全部 + 11 家宽）+ 31 业务策略组（含 13 流媒体平台组）+ 384+ rule-providers
-# 基线：Clash Party v5.4.1（唯一主线）
+# 基线：Clash Party v5.4.2（唯一主线）
 # 变更历史：见 `Clash Meta For Android/CHANGELOG.md`
 # ================================================================
 # ★ 快速上手：
@@ -3520,6 +3520,17 @@ rule-providers:
     interval: 91347
     proxy: '🚫 受限网站'
 rules:
+- 'DOMAIN-SUFFIX,account.xiaomi.com,DIRECT'
+- 'DOMAIN-SUFFIX,passport.xiaomi.com,DIRECT'
+- 'DOMAIN-SUFFIX,micloud.xiaomi.com,DIRECT'
+- 'DOMAIN,i.mi.com,DIRECT'
+- 'DOMAIN,auth.be.sec.miui.com,DIRECT'
+- 'DOMAIN,idm.api.io.mi.com,DIRECT'
+- 'DOMAIN,api.installer.xiaomi.com,DIRECT'
+- 'DOMAIN,flash.sec.miui.com,DIRECT'
+- 'DOMAIN,mazu.sec.miui.com,DIRECT'
+- 'DOMAIN,ccc.sys.miui.com,DIRECT'
+- 'DOMAIN,register.xmpush.xiaomi.com,DIRECT'
 - 'RULE-SET,anti-ad,🛑 广告拦截'
 - 'RULE-SET,sukka-phishing,🛑 广告拦截'
 - 'RULE-SET,hagezi-tif,🛑 广告拦截'

@@ -7,6 +7,12 @@
 
 ---
 
+## v5.4.2-oc-normal.1 / v5.4.2-oc-smart.1 (2026-05-05)
+
+- ★ FIX#41-P0：小米核心服务 DIRECT 白名单（跟随 Clash Party v5.4.2 基线）
+  - 新增 11 条 DIRECT 规则前置广告拦截段，修复 miuiprivacy/advertisingmitv 误杀认证安全域名
+  - Normal + Smart 两份 shell 同步修改
+
 ## v5.4.0 (2026-05-05) — 新增 🇸🇬 狮城节点 + 🏡 狮城家宽 独立区域组
 
 - ★ FEAT#SG：跟随 Clash Party v5.4.0 基线，新增狮城节点组

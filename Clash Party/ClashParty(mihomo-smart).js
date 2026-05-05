@@ -1,14 +1,14 @@
 // Clash Smart 内核覆写脚本 - SUB-STORE 多机场精细分流版
-// 版本：v5.4.1 (2026-05-05)
+// 版本：v5.4.2 (2026-05-05)
 // 架构：SUB-STORE 多机场融合 + 22 Smart 区域组（11 全部 + 11 家宽）+ 31 业务策略组（含 13 流媒体平台组）+ 371+ rule-providers 100%+ 服务覆盖
-// v5.4.1: P0 fake-ip-filter 扩展（传统域名列表，Smart内核不支持 rule-set 模式）· P1 否定式 OTHER · P2 Hosts DNS + isInfoNode EN · P3 QUIC阻断 + Mixed Listeners
+// v5.4.2: P0-FIX#41 小米核心服务 DIRECT 白名单——修复 miuiprivacy/advertisingmitv 误杀账号认证安全域名导致的登录"网络错误"
 // 变更历史：见 `Clash Party/CHANGELOG.md`
 
 // ================================================================
 //  版本常量
 // ================================================================
 
-const VERSION = 'v5.4.1'
+const VERSION = 'v5.4.2'
 
 // ================================================================
 //  模块 A：节点过滤 / 家宽识别
@@ -1142,6 +1142,22 @@ function injectRuleProviders(config) {
 
 function injectRules(config) {
   config.rules = [
+    // v5.4.2 P0-FIX#41: 小米核心服务 DIRECT 白名单——前置 miuiprivacy/advertisingmitv
+    // 小米账号认证安全域名（auth.be.sec.miui.com / idm.api.io.mi.com 在 miuiprivacy 中被误杀导致登录"网络错误"）
+    `DOMAIN-SUFFIX,account.xiaomi.com,DIRECT`,
+    `DOMAIN-SUFFIX,passport.xiaomi.com,DIRECT`,
+    // 小米云服务
+    `DOMAIN-SUFFIX,micloud.xiaomi.com,DIRECT`,
+    `DOMAIN,i.mi.com,DIRECT`,
+    // 小米系统安全（均在 miuiprivacy 中被误杀）
+    `DOMAIN,auth.be.sec.miui.com,DIRECT`,
+    `DOMAIN,idm.api.io.mi.com,DIRECT`,
+    `DOMAIN,api.installer.xiaomi.com,DIRECT`,
+    `DOMAIN,flash.sec.miui.com,DIRECT`,
+    `DOMAIN,mazu.sec.miui.com,DIRECT`,
+    `DOMAIN,ccc.sys.miui.com,DIRECT`,
+    // 小米推送注册（register.xmpush.xiaomi.com 在 advertisingmitv 中被误杀）
+    `DOMAIN,register.xmpush.xiaomi.com,DIRECT`,
     `RULE-SET,anti-ad,${BIZ.AD}`,
     // v5.1: P0 安全 - 钓鱼域名拦截（13万条，SukkaW）
     `RULE-SET,sukka-phishing,${BIZ.AD}`,

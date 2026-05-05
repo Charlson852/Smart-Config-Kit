@@ -7,6 +7,14 @@
 
 ---
 
+## v5.4.2 / v5.4.2-normal.1 (2026-05-05)
+
+- ★ FIX#41-P0：小米核心服务 DIRECT 白名单——修复 miuiprivacy/advertisingmitv 误杀认证安全域名
+  - `auth.be.sec.miui.com`（安全认证后端）/ `idm.api.io.mi.com`（身份管理 API）在 miuiprivacy 中被 REJECT
+  - 导致小米账号登录安全握手失败 → 客户端显示"网络错误"，云备份连带不可用
+  - 新增 11 条 DOMAIN/DOMAIN-SUFFIX DIRECT 白名单规则，前置所有广告拦截规则段
+  - Smart JS + Normal JS 同步修改；本次修复传递到全部 10 个受影响产物
+
 ## v5.4.1-normal.2 (2026-05-05)
 
 - ★ FIX#FlClash-Review-P0：修复标准 Mihomo JS 运行时分类桶初始化回归

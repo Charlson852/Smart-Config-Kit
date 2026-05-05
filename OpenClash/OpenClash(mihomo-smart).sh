@@ -2,10 +2,10 @@
 . /usr/share/openclash/log.sh
 
 # ============================================================================
-# Clash Smart v5.4.1-oc-smart.1 — OpenClash 覆写脚本（与 Clash Party 主线同等规则量）
+# Clash Smart v5.4.2-oc-smart.1 — OpenClash 覆写脚本（与 Clash Party 主线同等规则量）
 # Build: 2026-05-05
 # ============================================================================
-# 定位：对齐 Clash Party v5.4.1 JS 主线的 OpenClash 全量版本。v5.4.1: SG狮城 + OTHER否定式 + P0~P3整合。
+# 定位：对齐 Clash Party v5.4.2 JS 主线的 OpenClash 全量版本。v5.4.2: P0-FIX#41 小米白名单。
 #       与同目录 OpenClash(mihomo).sh（Normal）互补：
 #         - Normal 面向稳定版 mihomo / 经典 url-test
 #         - full  面向 4GB+ 路由器 / 需要与 Clash Party 桌面端一致的细粒度分流
@@ -23,7 +23,7 @@
 
 
 
-VERSION_TAG="v5.4.1-oc-smart.1"
+VERSION_TAG="v5.4.2-oc-smart.1"
 CONFIG_FILE="$1"
 LOG_FILE="/tmp/openclash.log"
 
@@ -3183,6 +3183,17 @@ rule-providers:
     interval: 91307
     proxy: "\U0001F6AB 受限网站"
 rules:
+- "DOMAIN-SUFFIX,account.xiaomi.com,DIRECT"
+- "DOMAIN-SUFFIX,passport.xiaomi.com,DIRECT"
+- "DOMAIN-SUFFIX,micloud.xiaomi.com,DIRECT"
+- "DOMAIN,i.mi.com,DIRECT"
+- "DOMAIN,auth.be.sec.miui.com,DIRECT"
+- "DOMAIN,idm.api.io.mi.com,DIRECT"
+- "DOMAIN,api.installer.xiaomi.com,DIRECT"
+- "DOMAIN,flash.sec.miui.com,DIRECT"
+- "DOMAIN,mazu.sec.miui.com,DIRECT"
+- "DOMAIN,ccc.sys.miui.com,DIRECT"
+- "DOMAIN,register.xmpush.xiaomi.com,DIRECT"
 - "RULE-SET,anti-ad,\U0001F6D1 广告拦截"
 - "RULE-SET,sukka-phishing,\U0001F6D1 广告拦截"
 - "RULE-SET,hagezi-tif,\U0001F6D1 广告拦截"
