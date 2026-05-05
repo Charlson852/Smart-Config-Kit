@@ -443,8 +443,19 @@ tcpdump -n -i any port 443       # 应看到持续流量 → DoH 正常
 
 ## ⚠️ 免责声明
 
+> [!CAUTION]
+> **禁止违规传播**
+>
+> 禁止任何形式的转载或发布至 🇨🇳 中国大陆境内的任何公共平台。
+> Any form of reprinting or posting to the 🇨🇳 mainland platform is prohibited.
+
+> [!WARNING]
+> **合规使用警告**
+>
+> 本项目仅供技术交流与学习，中国大陆用户请严格遵守《中华人民共和国网络安全法》及相关法律法规。
+> Mainland China users please abide by the laws and regulations of your country.
+
 - 本仓库仅用于网络技术学习与配置研究，不提供任何订阅服务；
-- 请遵守你所在地区法律法规；
 - 使用本仓库产生的风险需自行评估与承担。
 
 ---
