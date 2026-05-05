@@ -10,7 +10,9 @@
 ## 🚀 零基础快速开始
 
 ### 这是什么？
-一份 **sing-box 原生 JSON 配置**。sing-box 是一个新一代跨平台代理内核，**比 Clash 内存占用更低、协议支持更新**。任何加载 sing-box 内核的客户端都能用这份配置——包括 **Hiddify**、**SFA**（sing-box for Android）、**SFM**（Mac）、**SFI**（iOS）、**Karing**、**NekoBox**、以及 **v2rayN 切到 sing-box 核**。
+一份 **sing-box 原生 JSON 配置**。sing-box 是一个新一代跨平台代理内核，**比 Clash 内存占用更低、协议支持更新**。任何加载 sing-box 内核的客户端都能用这份配置——包括 **Hiddify**、**SFA**（sing-box for Android）、**SFM**（Mac）、**SFI**（iOS）、**Karing**、以及 **v2rayN 切到 sing-box 核**。
+
+> ⚠️ **NekoBox / NekoRay 不支持本配置**：NekoBox 是 GUI 拨动开关式简易分流工具，路由模型（平面规则匹配）与本仓库的 51 组嵌套智能选择体系在架构层面不兼容（出站 tag 命名不同 / 无 rule_set 支持 / DNS 模型冲突）。NekoBox 用户请改用 Hiddify（§2a）。NekoRay Desktop 已于 2024 年末归档停维，建议迁移到 Clash Verge Rev / Mihomo Party / FlClash。详见 §2c。
 
 ### 术语速查
 - **sing-box**：一个代理内核（类比 mihomo/Xray）。**不是**一个具体的客户端 App，它是核心引擎，由各种 GUI 客户端调用。
@@ -26,7 +28,7 @@
 基本一样。所有吃 sing-box JSON 的客户端都是"导入 JSON → 启用"。不同的仅仅是每个客户端按钮位置不同：
 - **SFA**（Android）、**SFM**（Mac）、**SFI**（iOS）：官方客户端，UI 最干净
 - **Karing**：跨平台，UI 更漂亮
-- **NekoBox / NekoRay**：Android/PC，多核切换方便
+- ~~**NekoBox / NekoRay**~~：**不兼容**（架构差异大，详见 §2c）；NekoRay Desktop 已归档，请改用 Hiddify 或 Mihomo 系客户端
 - **v2rayN**：Windows，需要先在「设置 → 核心基础设置」切到 **sing-box**，然后「自定义配置服务器」导入本 JSON
 
 ### 跑起来怎么验证？
@@ -193,6 +195,32 @@ node 'SingBox/SingBox(sing-box)-generator.js'
 - **TUN 由 HomeProxy 接管**：和 Hiddify 一样，HomeProxy 会用自己的 `tun` inbound 配置覆盖 JSON 里的 `inbounds.tun` 段，保留或删除都能跑。
 - **节点替换**：HomeProxy 支持直接订阅机场 URL，让机场节点自动填充本 JSON 里的占位出站（`proxy-hk-1` / `proxy-us-1` 等）——省去手工改 JSON。
 - **与 Passwall / Passwall2 / SSR+ 的对比**：这三个插件**不能**消费本仓库的 JSON（它们没有 sing-box 核）。HomeProxy 是软路由用户想跑"官方 sing-box + 完整 25+9 架构"的最佳选择；另一个选择是本仓库 `OpenClash/`（mihomo 核 + 功能更全，但内存占用更高）。
+
+---
+
+## 2c. NekoBox / NekoRay 用户看这里
+
+**不建议直接导入本仓库的 sing-box JSON 到 NekoBox。** 这不是"语法不同需要翻译"的问题，而是路由模型在哲学层面就不同——NekoBox 是 GUI 拨动开关式简易分流，本仓库是 51 组嵌套智能选择。
+
+### 架构差异（不可调和的 5 个冲突点）
+
+| 维度 | 本仓库 sing-box JSON | NekoBox for Android |
+|------|---------------------|---------------------|
+| **路由模型** | 51 组嵌套 selector/urltest（业务组 → 区域组 → 节点） | 平面规则匹配（几个 GUI 开关：中国域名 / 中国 IP / 屏蔽广告 / 屏蔽跟踪器 / 屏蔽 QUIC） |
+| **出站 tag** | 中文 emoji 名称（`🐟 漏网之鱼` / `🚫 受限网站` / `🤖 AI 服务` …） | 内置 tag 常量（`proxy` / `bypass` / `block` / `direct`），导入完整配置后 GUI 路由失效 |
+| **rule_set** | 39 个 remote rule_set（SRS 二进制） | **不支持** rule_set；规则只能写内联的 domain/ip/geosite |
+| **DNS** | 手动多层 DNS（`dns_direct` DoH + `dns_proxy` DoH + `dns_final` 兜底） | 自动 split-DNS（"直连 DNS / 远程 DNS"自动切换，由 NB4A 封装而非 sing-box 原生） |
+| **配置入口** | 外部 JSON 文件，用户编辑后导入 | GUI 为主，配置存储在 App 内部；自定义 JSON 仅作补丁合并，不作为主配置 |
+
+### 结论
+
+即使把 `SingBox(sing-box)-full.json` 导入为 NekoBox 的"自定义配置"，也无法正常工作——tag 不匹配导致路由规则全部失效，rule_set 无法加载，DNS 行为不可预期。
+
+### 替代方案
+
+- **Android 用户** → 改用 **Hiddify**（Android + sing-box 核心，可直接导入本 JSON，参见 §2a）
+- **Desktop 用户** → 改用 **Clash Verge Rev** / **Mihomo Party**（mihomo 核心，使用 `Clash Party/` 的 JS 覆写脚本，含 Smart + LightGBM）或 **Hiddify**（sing-box 核心，使用本 JSON）
+- **NekoRay Desktop 已归档**：原作者 MatsuriDayo 于 2024 年末声明"不再维护，自寻替代品"并归档仓库，推荐迁移到 Clash Verge Rev / FlClash / Mihomo Party（均已在本仓库覆盖）
 
 ---
 
