@@ -1,6 +1,6 @@
-// Clash 普通内核覆写脚本 - SUB-STORE 多机场精细分流版（非 Smart 内核）
-// 版本：v5.3.0-normal.3 (2026-04-28)
-// 架构：SUB-STORE 多机场融合 + 18 url-test 区域组（9 全部 + 9 家宽）+ 31 业务策略组（含 13 流媒体平台组）+ 371+ rule-providers 100%+ 服务覆盖
+// Clash 覆写脚本 - SUB-STORE 多机场精细分流版
+// 版本：v5.4.1-normal.1 (2026-05-05)
+// 架构：22 url-test 区域组（11 全部 + 11 家宽）+ 31 业务策略组 + 371+ rule-providers
 // 基线：Clash Party v5.3.0（与同目录 ClashParty(mihomo-smart).js 规则 100% 等价，仅 18 区域组从 smart 改为 url-test）
 // 适用：Mihomo / Clash.Meta 稳定版内核、不支持 smart + LightGBM 的分支；也适用于想完全关闭 ML 评估的用户
 // 变更历史：见 `Clash Party/CHANGELOG.md`
@@ -9,7 +9,7 @@
 //  版本常量
 // ================================================================
 
-const VERSION = 'v5.3.0-normal.3'
+const VERSION = 'v5.4.1-normal.1'
 
 // ================================================================
 //  模块 A：节点过滤 / 家宽识别
@@ -18,7 +18,7 @@ const VERSION = 'v5.3.0-normal.3'
 function isInfoNode(name) {
   const infoPatterns = ['导航网址', '距离下次重置', '剩余流量', '套餐到期', '网址导航', '官网', '订阅', '到期', '剩余', '重置']
   const s = String(name || '')
-  return infoPatterns.some(p => s.includes(p))
+  return infoPatterns.some(p => s.includes(p)) || /\b(?:USE|USED|TOTAL|EXPIRE|EMAIL)\b/i.test(s) || /Panel|Channel|Author/i.test(s) || /\b(?:USE|USED|TOTAL|EXPIRE|EMAIL)\b/i.test(s) || /Panel|Channel|Author/i.test(s)
 }
 
 const RESIDENTIAL_PATTERNS = [
@@ -86,7 +86,7 @@ const _compiledRegions = REGION_DB.map(function(region) {
 
 function classifyNode(name) {
   var nameStr = String(name || '')
-  if (!nameStr) return null
+  if (!nameStr) return 'OTHER'
   for (var i = 0; i < _compiledRegions.length; i++) {
     var region = _compiledRegions[i]
     for (var j = 0; j < region.matchers.length; j++) {
@@ -100,8 +100,7 @@ function classifyNode(name) {
 
 function classifyAllNodes(proxies) {
   var result = {
-    HK: [], TW: [], CN: [], JP: [], KR: [], SG: [], US: [], EU: [], AM: [], AF: [], APAC_OTHER: [], UNCLASSIFIED: [], ALL: [],
-    HOME_HK: [], HOME_TW: [], HOME_CN: [], HOME_JP: [], HOME_KR: [], HOME_SG: [], HOME_US: [], HOME_EU: [], HOME_AM: [], HOME_AF: [], HOME_APAC_OTHER: [], HOME_UNCLASSIFIED: [], HOME_ALL: [],
+    HOME_HK: [], HOME_TW: [], HOME_CN: [], HOME_JP: [], HOME_KR: [], HOME_SG: [], HOME_US: [], HOME_EU: [], HOME_AM: [], HOME_AF: [], HOME_OTHER: [], HOME_ALL: [],
   }
   for (var i = 0; i < proxies.length; i++) {
     var p = proxies[i]
@@ -116,8 +115,8 @@ function classifyAllNodes(proxies) {
       result[region].push(name)
       if (isHome && result['HOME_' + region]) result['HOME_' + region].push(name)
     } else {
-      result.UNCLASSIFIED.push(name)
-      if (isHome) result.HOME_UNCLASSIFIED.push(name)
+      result.OTHER.push(name)
+      if (isHome) result.HOME_OTHER.push(name)
     }
   }
   return result
@@ -131,12 +130,14 @@ const SMART = {
   GLOBAL: '🌍 全球节点', GLOBAL_HOME: '🏡 全球家宽',
   HK: '🇭🇰 香港节点', HK_HOME: '🏡 香港家宽',
   TW: '🇹🇼 台湾节点', TW_HOME: '🏡 台湾家宽',
+  SG: '🇸🇬 狮城节点', SG_HOME: '🏡 狮城家宽',
   JPKR: '🇯🇵 日韩节点', JPKR_HOME: '🏡 日韩家宽',
   APAC: '🌏 亚太节点', APAC_HOME: '🏡 亚太家宽',
   US: '🇺🇸 美国节点', US_HOME: '🏡 美国家宽',
   EU: '🇪🇺 欧洲节点', EU_HOME: '🏡 欧洲家宽',
   AMERICAS: '🌎 美洲节点', AMERICAS_HOME: '🏡 美洲家宽',
   AFRICA: '🌍 非洲节点', AFRICA_HOME: '🏡 非洲家宽',
+  OTHER: '🌏 其他节点', OTHER_HOME: '🏡 其他家宽',
 }
 
 const BIZ = {
@@ -157,7 +158,7 @@ const BIZ = {
   FINAL: '🐟 漏网之鱼', AD: '🛑 广告拦截',
 }
 
-const REGION_ORDER = ['GLOBAL', 'HK', 'TW', 'JPKR', 'APAC', 'US', 'EU', 'AMERICAS', 'AFRICA']
+const REGION_ORDER = ['GLOBAL', 'HK', 'TW', 'SG', 'JPKR', 'APAC', 'US', 'EU', 'AMERICAS', 'AFRICA', 'OTHER']
 const REGION_HOME_MAP = {
   GLOBAL: 'GLOBAL_HOME', HK: 'HK_HOME', TW: 'TW_HOME',
   JPKR: 'JPKR_HOME', APAC: 'APAC_HOME', US: 'US_HOME',
@@ -204,11 +205,11 @@ function buildDirectFirstProxies() {
 }
 
 function buildTrackerProxies() {
-  return ['REJECT', 'DIRECT'].concat(withResidential(['GLOBAL', 'HK', 'APAC']))
+  return ['REJECT', 'DIRECT'].concat(withResidential(['GLOBAL', 'HK', 'SG', 'APAC']))
 }
 
 function buildSeaProxies() {
-  return withResidential(['APAC', 'GLOBAL', 'HK', 'JPKR', 'US']).concat('DIRECT')
+  return withResidential(['SG', 'SG', 'APAC', 'GLOBAL', 'HK', 'JPKR', 'US']).concat('DIRECT')
 }
 
 // v5.1.2: GeoRouting 区域列表（module-level，供 providers + rules 共用）
@@ -1163,6 +1164,8 @@ function injectRules(config) {
     `RULE-SET,miuiprivacy,${BIZ.AD}`,
     `RULE-SET,privacy,${BIZ.AD}`,
     `RULE-SET,youmengchuangxiang,${BIZ.AD}`,
+    // v5.4.1 P3: QUIC 条件阻断
+    "AND,((DST-PORT,443),(NETWORK,UDP),(NOT,((GEOIP,CN)))),REJECT",
     // v5.2.1 FIX#19: DST-PORT,7680 必须在 GEOIP,private 之前，否则私有 IP 先匹配走 DIRECT
     'DST-PORT,7680,REJECT',
     'GEOSITE,private,DIRECT',
@@ -2167,26 +2170,33 @@ function injectRules(config) {
 // ================================================================
 
 function overwriteGeneral(config) {
+  // v5.4.1 P0+P2: fake-ip-filter 扩展 + Hosts DNS 预解析
+  if (!config.dns) config.dns = {}
+  config.dns['fake-ip-filter'] = ['+.lan','+.local','time.*.com','ntp.*.com','+.market.xiaomi.com','+.localdomain','+.home.arpa','+.stun.*.*','+.ntp.org','+.pool.ntp.org','+.n.n.srv.nintendo.net','+.stun.playstation.net','+.xboxlive.com','stun.l.google.com','auth.docker.io','registry-1.docker.io','index.docker.io','hub.docker.com','production.cloudflare.docker.com','+.push.apple.com','+.pub.3gppnetwork.org','+.bing.com','+.miwifi.com']
+  if (!config.hosts) config.hosts = {}
+  var dnsH = {'dns.alidns.com':['223.5.5.5','223.6.6.6'],'doh.pub':['119.29.29.29'],'dns.google':['8.8.8.8','8.8.4.4'],'cloudflare-dns.com':['1.1.1.1','1.0.0.1']}
+  Object.keys(dnsH).forEach(function(k){if(!config.hosts[k])config.hosts[k]=dnsH[k]})
   config['unified-delay'] = true
   config['tcp-concurrent'] = true
   config['find-process-mode'] = 'strict'
   config['keep-alive-idle'] = 30
   config['keep-alive-interval'] = 15
   config['geodata-mode'] = true
-  // v5.1: Loyalsoldier 加强版 MMDB（含 cloudflare/telegram/netflix/facebook/twitter/google IP段）
-  // geoip.dat 保留 MetaCubeX（最全面），MMDB 切换 Loyalsoldier（精准标签）
-  // v5.1.9 CFG#1: geosite URL 移除（由 Clash Party UI 手动管理 fastly/cdn 切换策略）
   config['geox-url'] = {
     geoip:   'https://fastly.jsdelivr.net/gh/Loyalsoldier/geoip@release/geoip.dat',
     mmdb:    'https://fastly.jsdelivr.net/gh/Loyalsoldier/geoip@release/Country.mmdb',
     asn:     'https://fastly.jsdelivr.net/gh/Loyalsoldier/geoip@release/GeoLite2-ASN.mmdb',
   }
   config['geo-auto-update'] = true
-  // v5.1.9 CFG#1: geo-update-interval 移除（由 Clash Party UI 手动管理）
   if (!config.profile) config.profile = {}
   config.profile['store-selected'] = true
   config.profile['store-fake-ip'] = true
   config.profile['tracing'] = true
+  // v5.4.1 P3: Mixed Listeners 按地区端口
+  if(!config.listeners)config.listeners=[]
+  var rp=[{name:'MIXED-HK',port:50000,proxy:SMART.HK},{name:'MIXED-SG',port:50001,proxy:SMART.SG},{name:'MIXED-TW',port:50002,proxy:SMART.TW},{name:'MIXED-JP',port:50003,proxy:SMART.JPKR},{name:'MIXED-US',port:50004,proxy:SMART.US},{name:'MIXED-EU',port:50005,proxy:SMART.EU},{name:'MIXED-DIRECT',port:10086,proxy:'DIRECT'}]
+  var ep=new Set(config.listeners.map(function(l){return l.port}))
+  rp.forEach(function(r){if(!ep.has(r.port))config.listeners.push({name:r.name,type:'mixed',port:r.port,proxy:r.proxy})})
   if (!config.tun) config.tun = {}
   if (!config.tun['exclude-process']) config.tun['exclude-process'] = []
   // v5.2.1 FIX#20: GSCService.exe 加入排除列表，fake-ip 模式下 ip.cip.cc 无法解析
@@ -2284,12 +2294,15 @@ function main(config) {
     cleanupSubscription(config)
     injectSmartFingerprint(config)
     var c = classifyAllNodes(config.proxies)
-    console.log(`[${VERSION}] Classification: ALL=${c.ALL.length} HOME_ALL=${c.HOME_ALL.length} HK=${c.HK.length}/${c.HOME_HK.length} TW=${c.TW.length}/${c.HOME_TW.length} CN=${c.CN.length}/${c.HOME_CN.length} JP=${c.JP.length}/${c.HOME_JP.length} KR=${c.KR.length}/${c.HOME_KR.length} SG=${c.SG.length}/${c.HOME_SG.length} US=${c.US.length}/${c.HOME_US.length} EU=${c.EU.length}/${c.HOME_EU.length} AM=${c.AM.length}/${c.HOME_AM.length} AF=${c.AF.length}/${c.HOME_AF.length} APAC_OTHER=${c.APAC_OTHER.length}/${c.HOME_APAC_OTHER.length} UNCLASSIFIED=${c.UNCLASSIFIED.length}/${c.HOME_UNCLASSIFIED.length}`)
+    console.log(`[${VERSION}] Classification: ALL=${c.ALL.length} HOME_ALL=${c.HOME_ALL.length} HK=${c.HK.length}/${c.HOME_HK.length} TW=${c.TW.length}/${c.HOME_TW.length} CN=${c.CN.length}/${c.HOME_CN.length} JP=${c.JP.length}/${c.HOME_JP.length} KR=${c.KR.length}/${c.HOME_KR.length} SG=${c.SG.length}/${c.HOME_SG.length} US=${c.US.length}/${c.HOME_US.length} EU=${c.EU.length}/${c.HOME_EU.length} AM=${c.AM.length}/${c.HOME_AM.length} AF=${c.AF.length}/${c.HOME_AF.length} OTHER=${c.OTHER.length}/${c.HOME_OTHER.length}`)
     var jpkrNodes = c.JP.concat(c.KR)
-    var apacNodes = c.HK.concat(c.TW, c.CN, c.JP, c.KR, c.SG, c.APAC_OTHER)
+    var sgNodes = c.SG
+    // v5.4.1 FIX: SG 同时存在于狮城组（独立）和亚太组（对标 US 在 美洲组）
+    var apacNodes = c.HK.concat(c.TW, c.CN, c.JP, c.KR, c.SG)
     var americasNodes = c.US.concat(c.AM)
     var homeJpkrNodes = c.HOME_JP.concat(c.HOME_KR)
-    var homeApacNodes = c.HOME_HK.concat(c.HOME_TW, c.HOME_CN, c.HOME_JP, c.HOME_KR, c.HOME_SG, c.HOME_APAC_OTHER)
+    var homeSgNodes = c.HOME_SG
+    var homeApacNodes = c.HOME_HK.concat(c.HOME_TW, c.HOME_CN, c.HOME_JP, c.HOME_KR, c.HOME_SG)
     var homeAmericasNodes = c.HOME_US.concat(c.HOME_AM)
     upsertSmartGroup(config, SMART.GLOBAL, c.ALL)
     if (c.HOME_ALL.length > 0) upsertSmartGroup(config, SMART.GLOBAL_HOME, c.HOME_ALL)
@@ -2299,6 +2312,8 @@ function main(config) {
     if (c.HOME_HK.length > 0) upsertSmartGroup(config, SMART.HK_HOME, c.HOME_HK)
     if (c.TW.length > 0) upsertSmartGroup(config, SMART.TW, c.TW)
     if (c.HOME_TW.length > 0) upsertSmartGroup(config, SMART.TW_HOME, c.HOME_TW)
+    if (c.SG.length > 0) upsertSmartGroup(config, SMART.SG, c.SG)
+    if (c.HOME_SG.length > 0) upsertSmartGroup(config, SMART.SG_HOME, c.HOME_SG)
     if (jpkrNodes.length > 0) upsertSmartGroup(config, SMART.JPKR, jpkrNodes)
     if (homeJpkrNodes.length > 0) upsertSmartGroup(config, SMART.JPKR_HOME, homeJpkrNodes)
     if (apacNodes.length > 0) upsertSmartGroup(config, SMART.APAC, apacNodes)
@@ -2311,6 +2326,8 @@ function main(config) {
     if (homeAmericasNodes.length > 0) upsertSmartGroup(config, SMART.AMERICAS_HOME, homeAmericasNodes)
     if (c.AF.length > 0) upsertSmartGroup(config, SMART.AFRICA, c.AF)
     if (c.HOME_AF.length > 0) upsertSmartGroup(config, SMART.AFRICA_HOME, c.HOME_AF)
+    if (c.OTHER.length > 0) upsertSmartGroup(config, SMART.OTHER, c.OTHER)
+    if (c.HOME_OTHER.length > 0) upsertSmartGroup(config, SMART.OTHER_HOME, c.HOME_OTHER)
 
     // 收集实际创建的区域组名（按 SMART 常量名匹配），过滤业务组的 proxy 引用
     var _regionNameSet = new Set(Object.values(SMART))
