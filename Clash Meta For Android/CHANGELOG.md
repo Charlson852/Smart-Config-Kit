@@ -6,6 +6,11 @@
 ---
 
 
+## v5.4.3-cmfa.1 (2026-05-06)
+
+- ★ FEAT：家宽 filter 添加 `|home` 关键词（跟随 Clash Party v5.4.3 基线）
+  - 所有 11 个家宽区域组的 `filter:` 内 `resi(dential)?|...|broadband|isp` 追加 `|home`，匹配仅含 Home 的节点名
+
 ## v5.4.2-cmfa.1 (2026-05-05)
 
 - ★ FIX#41-P0：小米核心服务 DIRECT 白名单（跟随 Clash Party v5.4.2 基线）

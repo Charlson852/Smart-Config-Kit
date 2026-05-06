@@ -2,12 +2,12 @@
 . /usr/share/openclash/log.sh
 
 # ============================================================================
-# Clash Smart v5.4.2-oc-normal.1 — OpenClash 覆写脚本（非 Smart 内核 / url-test 区域组）
-# Build: 2026-05-05
+# Clash Smart v5.4.3-oc-normal.1 — OpenClash 覆写脚本（非 Smart 内核 / url-test 区域组）
+# Build: 2026-05-06
 # ============================================================================
 # 定位：与同目录 OpenClash(mihomo-smart).sh 规则 100% 等价的「非 Smart 内核」版本。
 #       两者唯一区别：22 个区域组（11 全部 + 11 家宽）从 type: smart（uselightgbm）换成 type: url-test。
-#       对齐 Clash Party v5.4.2 JS 基线。
+#       对齐 Clash Party v5.4.3 JS 基线。
 #       适用场景：
 #         - OpenClash 内核选的是 Meta(mihomo 稳定版) 而非 Meta Alpha，不支持 smart + LightGBM
 #         - 或者明确想关闭 LightGBM ML 评估、只靠经典 url-test 延迟选路
@@ -26,7 +26,7 @@
 
 
 
-VERSION_TAG="v5.4.2-oc-normal.1"
+VERSION_TAG="v5.4.3-oc-normal.1"
 CONFIG_FILE="$1"
 LOG_FILE="/tmp/openclash.log"
 
@@ -4214,6 +4214,7 @@ RESIDENTIAL_PATTERNS = [
   /\bresi(?:dential)?\b/i,
   /\bhome(?:\s|-|_)?ip\b/i,
   /\bhome(?:\s|-|_)?broadband\b/i,
+  /\bhome\b/i,
   /\bbroadband\b/i,
   /\bisp\b/i,
 ]

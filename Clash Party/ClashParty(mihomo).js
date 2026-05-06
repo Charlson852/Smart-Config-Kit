@@ -1,5 +1,5 @@
 // Clash 覆写脚本 - SUB-STORE 多机场精细分流版
-// 版本：v5.4.2-normal.1 (2026-05-05)
+// 版本：v5.4.3-normal.1 (2026-05-06)
 // 架构：22 url-test 区域组（11 全部 + 11 家宽）+ 31 业务策略组 + 371+ rule-providers
 // 基线：Clash Party v5.4.2（与同目录 ClashParty(mihomo-smart).js 规则 100% 等价，仅区域组从 smart 改为 url-test）
 // 适用：Mihomo / Clash.Meta 稳定版内核、不支持 smart + LightGBM 的分支；也适用于想完全关闭 ML 评估的用户
@@ -9,7 +9,7 @@
 //  版本常量
 // ================================================================
 
-const VERSION = 'v5.4.2-normal.1'
+const VERSION = 'v5.4.3-normal.1'
 
 // ================================================================
 //  模块 A：节点过滤 / 家宽识别
@@ -27,6 +27,7 @@ const RESIDENTIAL_PATTERNS = [
   /\bresi(?:dential)?\b/i,
   /\bhome(?:\s|-|_)?ip\b/i,
   /\bhome(?:\s|-|_)?broadband\b/i,
+  /\bhome\b/i,
   /\bbroadband\b/i,
   /\bisp\b/i,
 ]

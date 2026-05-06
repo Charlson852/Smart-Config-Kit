@@ -1,7 +1,7 @@
 // FlClash 覆写脚本 — 标准 Mihomo 内核动态分流版
-// 版本：v5.4.2-flclash.2 (2026-05-05)
+// 版本：v5.4.3-flclash.1 (2026-05-06)
 // 架构：22 url-test 区域组（11 全部 + 11 家宽）+ 31 业务策略组（含 13 流媒体平台组）+ 371+ rule-providers 100%+ 服务覆盖
-// 基线：Clash Party Normal v5.4.2-normal.1（规则 100% 等价；区域组为 url-test — FlClash 内核为标准 Mihomo，不支持 smart + LightGBM）
+// 基线：Clash Party Normal v5.4.3-normal.1（规则 100% 等价；区域组为 url-test — FlClash 内核为标准 Mihomo，不支持 smart + LightGBM）
 // 适用：FlClash >= v0.8.85（覆盖脚本功能自该版本引入）；其他使用标准 Mihomo 内核的客户端
 // 变更历史：见 `FlClash/CHANGELOG.md`
 //
@@ -35,7 +35,7 @@
 //  版本常量
 // ================================================================
 
-const VERSION = 'v5.4.2-flclash.2'
+const VERSION = 'v5.4.3-flclash.1'
 
 // FlClash JS 引擎环境兼容：QuickJS 可能不提供 console，安全包装
 var log = (typeof console !== 'undefined' && console.log) ? console.log.bind(console) : function(){}
@@ -56,6 +56,7 @@ const RESIDENTIAL_PATTERNS = [
   /\bresi(?:dential)?\b/i,
   /\bhome(?:\s|-|_)?ip\b/i,
   /\bhome(?:\s|-|_)?broadband\b/i,
+  /\bhome\b/i,
   /\bbroadband\b/i,
   /\bisp\b/i,
 ]

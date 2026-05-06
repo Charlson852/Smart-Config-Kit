@@ -5,6 +5,11 @@
 
 ---
 
+## v5.4.3-flclash.1 (2026-05-06)
+
+- ★ FEAT：家宽节点识别新增 `\bhome\b` 关键词（跟随 Clash Party v5.4.3 基线）
+  - `RESIDENTIAL_PATTERNS` 数组追加 `/\bhome\b/i`，匹配仅含 Home 的节点名
+
 ## v5.4.2-flclash.2 (2026-05-05)
 
 - ★ FIX#41-P0-QuickJS：injectRules 重赋值 → 原地 splice+push（修复 QuickJS ↔ Dart FFI 桥接层丢失路由规则）

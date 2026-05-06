@@ -7,6 +7,12 @@
 
 ---
 
+## v5.4.3 / v5.4.3-normal.1 (2026-05-06)
+
+- ★ FEAT：家宽节点识别新增 `\bhome\b` 关键词——部分节点名仅含 Home（如 `HK-Home-01`），原 `home[-_ ]?(ip|broadband)` 无法匹配独立的 Home
+  - `RESIDENTIAL_PATTERNS` 数组追加 `/\bhome\b/i`（JS word-boundary 匹配，防止误伤 `homepage` / `homebase` 等）
+  - Smart JS + Normal JS 同步修改
+
 ## v5.4.2 / v5.4.2-normal.1 (2026-05-05)
 
 - ★ FIX#41-P0：小米核心服务 DIRECT 白名单——修复 miuiprivacy/advertisingmitv 误杀认证安全域名

@@ -2,10 +2,10 @@
 . /usr/share/openclash/log.sh
 
 # ============================================================================
-# Clash Smart v5.4.2-oc-smart.1 — OpenClash 覆写脚本（与 Clash Party 主线同等规则量）
-# Build: 2026-05-05
+# Clash Smart v5.4.3-oc-smart.1 — OpenClash 覆写脚本（与 Clash Party 主线同等规则量）
+# Build: 2026-05-06
 # ============================================================================
-# 定位：对齐 Clash Party v5.4.2 JS 主线的 OpenClash 全量版本。v5.4.2: P0-FIX#41 小米白名单。
+# 定位：对齐 Clash Party v5.4.3 JS 主线的 OpenClash 全量版本。v5.4.2: P0-FIX#41 小米白名单。
 #       与同目录 OpenClash(mihomo).sh（Normal）互补：
 #         - Normal 面向稳定版 mihomo / 经典 url-test
 #         - full  面向 4GB+ 路由器 / 需要与 Clash Party 桌面端一致的细粒度分流
@@ -23,7 +23,7 @@
 
 
 
-VERSION_TAG="v5.4.2-oc-smart.1"
+VERSION_TAG="v5.4.3-oc-smart.1"
 CONFIG_FILE="$1"
 LOG_FILE="/tmp/openclash.log"
 
@@ -4211,6 +4211,7 @@ RESIDENTIAL_PATTERNS = [
   /\bresi(?:dential)?\b/i,
   /\bhome(?:\s|-|_)?ip\b/i,
   /\bhome(?:\s|-|_)?broadband\b/i,
+  /\bhome\b/i,
   /\bbroadband\b/i,
   /\bisp\b/i
 ]

@@ -5,6 +5,11 @@
 ---
 
 
+## v5.4.3-Loon.1 (2026-05-06)
+
+- ★ FEAT：家宽 FilterKey 添加 `|home` 关键词（跟随 Clash Party v5.4.3 基线）
+  - 所有 9 个 `*_HOME_Filter` 的 FilterKey 追加 `|home`，匹配仅含 Home 的节点名
+
 ## v5.4.2-Loon.1 (2026-05-05)
 
 - ★ FIX#41-P0：小米核心服务 DIRECT 白名单（跟随 Clash Party v5.4.2 基线）

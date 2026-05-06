@@ -1,5 +1,5 @@
 // Clash Smart 内核覆写脚本 - SUB-STORE 多机场精细分流版
-// 版本：v5.4.2 (2026-05-05)
+// 版本：v5.4.3 (2026-05-06)
 // 架构：SUB-STORE 多机场融合 + 22 Smart 区域组（11 全部 + 11 家宽）+ 31 业务策略组（含 13 流媒体平台组）+ 371+ rule-providers 100%+ 服务覆盖
 // v5.4.2: P0-FIX#41 小米核心服务 DIRECT 白名单——修复 miuiprivacy/advertisingmitv 误杀账号认证安全域名导致的登录"网络错误"
 // 变更历史：见 `Clash Party/CHANGELOG.md`
@@ -8,7 +8,7 @@
 //  版本常量
 // ================================================================
 
-const VERSION = 'v5.4.2'
+const VERSION = 'v5.4.3'
 
 // ================================================================
 //  模块 A：节点过滤 / 家宽识别
@@ -26,6 +26,7 @@ const RESIDENTIAL_PATTERNS = [
   /\bresi(?:dential)?\b/i,
   /\bhome(?:\s|-|_)?ip\b/i,
   /\bhome(?:\s|-|_)?broadband\b/i,
+  /\bhome\b/i,
   /\bbroadband\b/i,
   /\bisp\b/i,
 ]

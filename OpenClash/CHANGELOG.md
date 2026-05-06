@@ -7,6 +7,11 @@
 
 ---
 
+## v5.4.3-oc-normal.1 / v5.4.3-oc-smart.1 (2026-05-06)
+
+- ★ FEAT：家宽 Ruby RESIDENTIAL_PATTERNS 添加 `\bhome\b` 关键词（跟随 Clash Party v5.4.3 基线）
+  - 两份 shell 脚本的 `RESIDENTIAL_PATTERNS` 数组追加 `/\bhome\b/i`，匹配仅含 Home 的节点名
+
 ## v5.4.2-oc-normal.1 / v5.4.2-oc-smart.1 (2026-05-05)
 
 - ★ FIX#41-P0：小米核心服务 DIRECT 白名单（跟随 Clash Party v5.4.2 基线）
