@@ -6,6 +6,15 @@
 ---
 
 
+## v5.4.4-cmfa.1 (2026-05-07)
+
+- ★ FIX#144：bbys.app DIRECT 规则
+  - 新增 `DOMAIN-SUFFIX,bbys.app,DIRECT` 规则（置于 acc-chinamax 后、GFW 前），bbys.app 视频域名直连
+- ★ FEAT#143：家宽 filter 新增 IEPL/IPLC/专线识别
+  - 所有家宽区域组的 `filter:` 正则中追加 `iplc|iepl|专线`，匹配含 IPLC/IEPL/专线标识的家宽类型节点
+- ★ FIX#142（DNS 冷启动）为 Clash Party JS 专属修复，静态配置豁免（无同构改动）
+- Bump: `v5.4.3-cmfa.1` → `v5.4.4-cmfa.1`
+
 ## v5.4.3-cmfa.1 (2026-05-06)
 
 - ★ FEAT：家宽 filter 添加 `|home` 关键词（跟随 Clash Party v5.4.3 基线）

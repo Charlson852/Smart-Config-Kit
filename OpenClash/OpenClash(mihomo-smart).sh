@@ -2,8 +2,8 @@
 . /usr/share/openclash/log.sh
 
 # ============================================================================
-# Clash Smart v5.4.3-oc-smart.1 — OpenClash 覆写脚本（与 Clash Party 主线同等规则量）
-# Build: 2026-05-06
+# Clash Smart v5.4.4-oc-smart.1 — OpenClash 覆写脚本（与 Clash Party 主线同等规则量）
+# Build: 2026-05-07
 # ============================================================================
 # 定位：对齐 Clash Party v5.4.3 JS 主线的 OpenClash 全量版本。v5.4.2: P0-FIX#41 小米白名单。
 #       与同目录 OpenClash(mihomo).sh（Normal）互补：
@@ -23,7 +23,7 @@
 
 
 
-VERSION_TAG="v5.4.3-oc-smart.1"
+VERSION_TAG="v5.4.4-oc-smart.1"
 CONFIG_FILE="$1"
 LOG_FILE="/tmp/openclash.log"
 
@@ -4089,6 +4089,7 @@ rules:
 - "DOMAIN-SUFFIX,alimama.com,\U0001F3E0 国内网站"
 - "DOMAIN-SUFFIX,zxtdjy.com,\U0001F3E0 国内网站"
 - "RULE-SET,acc-chinamax,\U0001F3E0 国内网站"
+- "DOMAIN-SUFFIX,bbys.app,DIRECT"
 - "RULE-SET,acc-homeip-us,\U0001F310 国外网站,no-resolve"
 - "RULE-SET,acc-homeip-jp,\U0001F310 国外网站,no-resolve"
 - "RULE-SET,acc-aqara-cn,\U0001F3E0 国内网站"
@@ -4207,13 +4208,15 @@ INFO_PATTERNS = [
   /^剩余|^到期|^流量|^官网/
 ]
 RESIDENTIAL_PATTERNS = [
-  /家宽|家庭宽带|家庭住宅|住宅宽带|住宅|宽带/,
+  /家宽|家庭宽带|家庭住宅|住宅宽带|住宅|宽带|专线/,
   /\bresi(?:dential)?\b/i,
   /\bhome(?:\s|-|_)?ip\b/i,
   /\bhome(?:\s|-|_)?broadband\b/i,
   /\bhome\b/i,
   /\bbroadband\b/i,
-  /\bisp\b/i
+  /\bisp\b/i,
+  /\biplc\b/i,
+  /\biepl\b/i
 ]
 
 raw_proxies = (config["proxies"] || []).dup

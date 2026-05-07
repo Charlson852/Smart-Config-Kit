@@ -7,6 +7,15 @@
 
 ---
 
+## v5.4.4-oc-normal.1 / v5.4.4-oc-smart.1 (2026-05-07)
+
+- ★ FIX#144：bbys.app DIRECT 规则
+  - 两份 shell 脚本 rules 段新增 `DOMAIN-SUFFIX,bbys.app,DIRECT`（置于 acc-chinamax 后、GFW 前），bbys.app 视频域名直连
+- ★ FEAT#143：家宽 Ruby RESIDENTIAL_PATTERNS 新增 IPLC/IEPL/专线识别
+  - 两份 shell 脚本的 `RESIDENTIAL_PATTERNS` 数组追加 `/\biplc\b/i`、`/\biepl\b/i` 以及 `专线` 关键词，匹配含 IPLC/IEPL/专线标识的家宽类型节点
+- ★ FIX#142（DNS 冷启动）为 Clash Party JS 专属修复，静态配置豁免（无同构改动）
+- Bump: `v5.4.3-oc-normal.1` → `v5.4.4-oc-normal.1` / `v5.4.3-oc-smart.1` → `v5.4.4-oc-smart.1`
+
 ## v5.4.3-oc-normal.1 / v5.4.3-oc-smart.1 (2026-05-06)
 
 - ★ FEAT：家宽 Ruby RESIDENTIAL_PATTERNS 添加 `\bhome\b` 关键词（跟随 Clash Party v5.4.3 基线）

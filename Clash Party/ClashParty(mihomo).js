@@ -1,7 +1,7 @@
 // Clash 覆写脚本 - SUB-STORE 多机场精细分流版
-// 版本：v5.4.3-normal.1 (2026-05-06)
+// 版本：v5.4.4-normal.1 (2026-05-07)
 // 架构：22 url-test 区域组（11 全部 + 11 家宽）+ 31 业务策略组 + 371+ rule-providers
-// 基线：Clash Party v5.4.2（与同目录 ClashParty(mihomo-smart).js 规则 100% 等价，仅区域组从 smart 改为 url-test）
+// 基线：Clash Party v5.4.4（与同目录 ClashParty(mihomo-smart).js 规则 100% 等价，仅区域组从 smart 改为 url-test）
 // 适用：Mihomo / Clash.Meta 稳定版内核、不支持 smart + LightGBM 的分支；也适用于想完全关闭 ML 评估的用户
 // 变更历史：见 `Clash Party/CHANGELOG.md`
 
@@ -9,7 +9,7 @@
 //  版本常量
 // ================================================================
 
-const VERSION = 'v5.4.3-normal.1'
+const VERSION = 'v5.4.4-normal.1'
 
 // ================================================================
 //  模块 A：节点过滤 / 家宽识别
@@ -30,6 +30,10 @@ const RESIDENTIAL_PATTERNS = [
   /\bhome\b/i,
   /\bbroadband\b/i,
   /\bisp\b/i,
+  // v5.4.4 FEAT#143: IEPL/IPLC 专线节点纳入家宽组——专线质量与家宽同级
+  /\biplc\b/i,
+  /\biepl\b/i,
+  /专线/,
 ]
 
 function isResidentialNode(name) {
@@ -2113,6 +2117,8 @@ function injectRules(config) {
     // v5.1.2 FIX#6: RULE-SET,acc-chinadns 已删除（中国DNS由CN兜底自然直连）
     // v5.2.5 FIX#23-P1: acc-geositecn / acc-china 删除（与 metaDomain('cn','cn') 纯重复）
     `RULE-SET,acc-chinamax,${BIZ.CN_SITE}`,
+    // v5.4.4 FIX#144: bbys.app 视频播放走直连
+    `DOMAIN-SUFFIX,bbys.app,DIRECT`,
     // v5.1.2 FIX#4: HomeIP × 2国 → INTL_SITE（v5.1.1 误归入 CN_SITE 导致美日IP段走直连）
     `RULE-SET,acc-homeip-us,${BIZ.INTL_SITE},no-resolve`,
     `RULE-SET,acc-homeip-jp,${BIZ.INTL_SITE},no-resolve`,
@@ -2190,8 +2196,14 @@ function injectRules(config) {
 // ================================================================
 
 function overwriteGeneral(config) {
-  // v5.4.1 P0+P2: fake-ip-filter 扩展 + Hosts DNS 预解析
+  // v5.4.4 FIX#142: 修复 v5.4.1+ 引入的 DNS 空壳 bug——创建 config.dns 时未提供 nameserver
+  //   导致内核跳过默认 DNS，国内网站 DIRECT 连接因 DNS 解析失败而超时
   if (!config.dns) config.dns = {}
+  if (!config.dns['enhanced-mode']) config.dns['enhanced-mode'] = 'fake-ip'
+  if (!config.dns.nameserver || !Array.isArray(config.dns.nameserver) || config.dns.nameserver.length === 0) {
+    config.dns.nameserver = ['223.5.5.5', '119.29.29.29']
+  }
+  // v5.4.1 P0+P2: fake-ip-filter 扩展 + Hosts DNS 预解析
   config.dns['fake-ip-filter'] = ['+.lan','+.local','time.*.com','ntp.*.com','+.market.xiaomi.com','+.localdomain','+.home.arpa','+.stun.*.*','+.ntp.org','+.pool.ntp.org','+.n.n.srv.nintendo.net','+.stun.playstation.net','+.xboxlive.com','stun.l.google.com','auth.docker.io','registry-1.docker.io','index.docker.io','hub.docker.com','production.cloudflare.docker.com','+.push.apple.com','+.pub.3gppnetwork.org','+.bing.com','+.miwifi.com']
   if (!config.hosts) config.hosts = {}
   var dnsH = {'dns.alidns.com':['223.5.5.5','223.6.6.6'],'doh.pub':['119.29.29.29'],'dns.google':['8.8.8.8','8.8.4.4'],'cloudflare-dns.com':['1.1.1.1','1.0.0.1']}

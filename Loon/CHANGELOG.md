@@ -5,6 +5,14 @@
 ---
 
 
+## v5.4.4-Loon.1 (2026-05-07)
+
+- ★ FIX#144：新增 bbys.app 直连规则（国内可访问视频站点 CDN 域名直连）
+  - 于阶段 28（国内网站兜底）末尾新增 `DOMAIN-SUFFIX,bbys.app,DIRECT`
+  - 跟随 Clash Party v5.4.4 基线
+- ★ 主版本号 v5.4.3 → v5.4.4，Build 2026-05-06 → 2026-05-07
+- FIX#142（DNS 工作流收敛）和 FEAT#143（IEPL/IPLC 节点分类）为 Clash Party JS 专属运行时逻辑，静态配置文件豁免
+
 ## v5.4.3-Loon.1 (2026-05-06)
 
 - ★ FEAT：家宽 FilterKey 添加 `|home` 关键词（跟随 Clash Party v5.4.3 基线）

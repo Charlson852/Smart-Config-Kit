@@ -2,7 +2,7 @@
     {
       "id": "scki-000-meta",
       "enabled": false,
-      "remarks": "Smart-Config-Kit v5.4.0-v2n.1 | Build 2026-05-05 | Baseline Clash Party v5.4.0 (Feat SG 狮城节点豁免) | changelog: v2rayN/CHANGELOG.md",
+      "remarks": "Smart-Config-Kit v5.4.4-v2n.1 | Build 2026-05-07 | Baseline Clash Party v5.4.4 (Feat SG 狮城节点豁免) | changelog: v2rayN/CHANGELOG.md",
       "outboundTag": "direct",
       "domain": [
         "domain:smart-config-kit.invalid"
@@ -578,6 +578,20 @@
       "ip": [
         "geoip:cn"
       ],
+      "port": "",
+      "protocol": [],
+      "inboundTag": [],
+      "network": "tcp,udp"
+    },
+    {
+      "id": "scki-051-bbys-app",
+      "enabled": true,
+      "remarks": "国内网站 - bbys.app 视频播放 → 直连 (FIX#144)",
+      "outboundTag": "direct",
+      "domain": [
+        "domain:bbys.app"
+      ],
+      "ip": [],
       "port": "",
       "protocol": [],
       "inboundTag": [],

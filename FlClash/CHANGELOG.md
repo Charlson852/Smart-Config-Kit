@@ -5,6 +5,17 @@
 
 ---
 
+## v5.4.4-flclash.1 (2026-05-07)
+
+- ★ FIX#142-CRITICAL：DNS 安全兜底 nameserver 注入 — 避免空 DNS 导致 DIRECT 超时
+  - overwriteGeneral 新增 DNS 保护代码，在 App UI 未配置 DNS 时自动注入 `223.5.5.5` / `119.29.29.29`
+  - 设置 `enhanced-mode: fake-ip` 确保 DNS 解析模式不会因外部配置缺失而失效
+- ★ FIX#144-P1：bbys.app DIRECT 直连规则
+  - injectRules 中 acc-chinamax 规则后新增 `DOMAIN-SUFFIX,bbys.app,DIRECT`
+- ★ FEAT#143：IEPL/IPLC 家宽识别关键词扩展
+  - RESIDENTIAL_PATTERNS 新增 `/\biplc\b/i`、`/\biepl\b/i`、`/专线/` 三条规则
+- 跟随基线 Clash Party v5.4.4
+
 ## v5.4.3-flclash.1 (2026-05-06)
 
 - ★ FEAT：家宽节点识别新增 `\bhome\b` 关键词（跟随 Clash Party v5.4.3 基线）

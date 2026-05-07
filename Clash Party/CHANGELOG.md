@@ -7,6 +7,20 @@
 
 ---
 
+## v5.4.4 / v5.4.4-normal.1 (2026-05-07)
+
+- ★ FIX#142-P0：修复 v5.4.1+ 引入的 DNS 空壳 bug——`overwriteGeneral` 创建 `config.dns` 时未提供 `nameserver`
+  - 当订阅无 DNS 配置时，`if (!config.dns) config.dns = {}` 创建空 DNS 对象
+  - mihomo 内核检测到 `dns` 对象存在即跳过默认 DNS，因无 nameserver 导致所有 DIRECT 连接 DNS 解析失败 → 超时
+  - 修复：创建 `config.dns` 后增加 `enhanced-mode` + `nameserver` 兜底（`223.5.5.5`, `119.29.29.29`）
+  - Smart JS + Normal JS 同步修复；静态配置产物（CMFA/OpenClash/SR/Surge/Loon/QX/SingBox）无运行时 DNS 创建逻辑，豁免
+- ★ FIX#144：bbys.app 视频播放走直连——新增 `DOMAIN-SUFFIX,bbys.app,DIRECT` 规则
+  - 该域名未被现有 rule-provider 覆盖，视频 CDN 子域可能解析到非 CN IP 走代理导致黑屏
+  - Smart JS + Normal JS 同步添加；全产物同步（见各产物 CHANGELOG）
+- ★ FEAT#143：IEPL/IPLC 专线节点纳入家宽组——`RESIDENTIAL_PATTERNS` 新增 `\biplc\b`, `\biepl\b`, `专线`
+  - 专线（IEPL/IPLC）与家宽同为高质量非共享连接，纳入后 Smart 算法可选择专线节点
+  - Smart JS + Normal JS + FlClash JS 同步修改
+
 ## v5.4.3 / v5.4.3-normal.1 (2026-05-06)
 
 - ★ FEAT：家宽节点识别新增 `\bhome\b` 关键词——部分节点名仅含 Home（如 `HK-Home-01`），原 `home[-_ ]?(ip|broadband)` 无法匹配独立的 Home

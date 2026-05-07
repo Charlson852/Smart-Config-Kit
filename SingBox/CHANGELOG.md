@@ -6,6 +6,15 @@
 ---
 
 
+## v5.4.4-sing.1 (2026-05-07)
+
+- ★ FIX#144：bbys.app 视频播放走直连——新增 `domain_suffix: bbys.app` → `outbound: DIRECT`
+  - 该域名未被现有 rule-provider 覆盖，视频 CDN 子域可能解析到非 CN IP 走代理导致黑屏
+  - 由生成器自动从 Clash Party v5.4.4 基线重新生成
+- ★ FIX#142（DNS nameserver 兜底）：SingBox 无运行时 DNS 创建逻辑，豁免
+- ★ FEAT#143（IEPL/IPLC 家宽识别）：SingBox 按静态 outbound 列表，不涉及节点分类运行时逻辑，豁免
+- Bump: `v5.4.0-sing.1` → `v5.4.4-sing.1`
+
 ## v5.4.0-sing.1 (2026-05-05)
 
 - ★ FEAT#SG：新增 🇸🇬 狮城节点 + 🏡 狮城家宽 独立区域组

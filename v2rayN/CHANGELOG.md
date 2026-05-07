@@ -8,6 +8,15 @@
 ---
 
 
+## v5.4.4-v2n.1 (2026-05-07)
+
+- ★ FIX#144：bbys.app 视频播放走直连——新增 `scki-051-bbys-app` 规则，`domain:bbys.app` → `direct`
+  - 该域名未被现有 geosite 规则覆盖，Xray 路由新增一条 domain 匹配规则
+  - 排在 `scki-050-cn-site` 之后、`scki-099-final` 之前
+- ★ FIX#142（DNS nameserver 兜底）：v2rayN Xray 无运行时 DNS 创建逻辑，豁免
+- ★ FEAT#143（IEPL/IPLC 家宽识别）：v2rayN Xray 仅路由规则（无节点分类），豁免
+- Bump: `v5.4.0-v2n.1` → `v5.4.4-v2n.1`
+
 ## v5.4.0-v2n.1 (2026-05-05)
 
 - ★ FEAT#SG：新增 🇸🇬 狮城节点 + 🏡 狮城家宽 独立区域组

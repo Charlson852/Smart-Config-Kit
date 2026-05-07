@@ -1,7 +1,7 @@
 // FlClash 覆写脚本 — 标准 Mihomo 内核动态分流版
-// 版本：v5.4.3-flclash.1 (2026-05-06)
+// 版本：v5.4.4-flclash.1 (2026-05-07)
 // 架构：22 url-test 区域组（11 全部 + 11 家宽）+ 31 业务策略组（含 13 流媒体平台组）+ 371+ rule-providers 100%+ 服务覆盖
-// 基线：Clash Party Normal v5.4.3-normal.1（规则 100% 等价；区域组为 url-test — FlClash 内核为标准 Mihomo，不支持 smart + LightGBM）
+// 基线：Clash Party Normal v5.4.4-normal.1（规则 100% 等价；区域组为 url-test — FlClash 内核为标准 Mihomo，不支持 smart + LightGBM）
 // 适用：FlClash >= v0.8.85（覆盖脚本功能自该版本引入）；其他使用标准 Mihomo 内核的客户端
 // 变更历史：见 `FlClash/CHANGELOG.md`
 //
@@ -35,7 +35,7 @@
 //  版本常量
 // ================================================================
 
-const VERSION = 'v5.4.3-flclash.1'
+const VERSION = 'v5.4.4-flclash.1'
 
 // FlClash JS 引擎环境兼容：QuickJS 可能不提供 console，安全包装
 var log = (typeof console !== 'undefined' && console.log) ? console.log.bind(console) : function(){}
@@ -59,6 +59,9 @@ const RESIDENTIAL_PATTERNS = [
   /\bhome\b/i,
   /\bbroadband\b/i,
   /\bisp\b/i,
+  /\biplc\b/i,
+  /\biepl\b/i,
+  /专线/,
 ]
 
 function isResidentialNode(name) {
@@ -2138,6 +2141,7 @@ function injectRules(config) {
     // v5.1.2 FIX#6: RULE-SET,acc-chinadns 已删除（中国DNS由CN兜底自然直连）
     // v5.2.5 FIX#23-P1: acc-geositecn / acc-china 删除（与 metaDomain('cn','cn') 纯重复）
     `RULE-SET,acc-chinamax,${BIZ.CN_SITE}`,
+    `DOMAIN-SUFFIX,bbys.app,DIRECT`,
     // v5.1.2 FIX#4: HomeIP × 2国 → INTL_SITE（v5.1.1 误归入 CN_SITE 导致美日IP段走直连）
     `RULE-SET,acc-homeip-us,${BIZ.INTL_SITE},no-resolve`,
     `RULE-SET,acc-homeip-jp,${BIZ.INTL_SITE},no-resolve`,
@@ -2223,10 +2227,14 @@ function overwriteGeneral(config) {
   config['find-process-mode'] = 'strict'
   config['keep-alive-idle'] = 30
   config['keep-alive-interval'] = 15
-  // FlClash: 端口/TUN/DNS/GeoX 均由 App UI 管理，脚本不覆写。
+  // FlClash: 端口/TUN/GeoX 由 App UI 管理，脚本不覆写。
   //   - 外部资源（GeoX URL）：见 FlClash/README.md §必改配置
-  //   - 进阶配置（DNS）：见 FlClash/README.md §必改配置
-  //   （与 Clash Party Sub-Store 版不同，后者由脚本注入全部全局设置）
+  //   - DNS：注入安全兜底 nameserver（仅当 App UI 未配置时），避免空 DNS 超时
+  if (!config.dns) config.dns = {}
+  if (!config.dns['enhanced-mode']) config.dns['enhanced-mode'] = 'fake-ip'
+  if (!config.dns.nameserver || !Array.isArray(config.dns.nameserver) || config.dns.nameserver.length === 0) {
+    config.dns.nameserver = ['223.5.5.5', '119.29.29.29']
+  }
   if (!config.profile) config.profile = {}
   config.profile['store-selected'] = true
   config.profile['store-fake-ip'] = true
