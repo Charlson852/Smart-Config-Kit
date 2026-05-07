@@ -1,7 +1,7 @@
 // FlClash 覆写脚本 — 标准 Mihomo 内核动态分流版
-// 版本：v5.4.4-flclash.1 (2026-05-07)
+// 版本：v5.4.5-flclash.1 (2026-05-07)
 // 架构：22 url-test 区域组（11 全部 + 11 家宽）+ 31 业务策略组（含 13 流媒体平台组）+ 371+ rule-providers 100%+ 服务覆盖
-// 基线：Clash Party Normal v5.4.4-normal.1（规则 100% 等价；区域组为 url-test — FlClash 内核为标准 Mihomo，不支持 smart + LightGBM）
+// 基线：Clash Party Normal v5.4.5-normal.1（规则 100% 等价；区域组为 url-test — FlClash 内核为标准 Mihomo，不支持 smart + LightGBM）
 // 适用：FlClash >= v0.8.85（覆盖脚本功能自该版本引入）；其他使用标准 Mihomo 内核的客户端
 // 变更历史：见 `FlClash/CHANGELOG.md`
 //
@@ -35,7 +35,7 @@
 //  版本常量
 // ================================================================
 
-const VERSION = 'v5.4.4-flclash.1'
+const VERSION = 'v5.4.5-flclash.1'
 
 // FlClash JS 引擎环境兼容：QuickJS 可能不提供 console，安全包装
 var log = (typeof console !== 'undefined' && console.log) ? console.log.bind(console) : function(){}
@@ -2314,9 +2314,16 @@ function sortProxyGroups(config) {
   const smartOrder = Object.values(SMART)
   smartGroups.sort((a, b) => { const ia = smartOrder.indexOf(a.name); const ib = smartOrder.indexOf(b.name); return (ia === -1 ? 999 : ia) - (ib === -1 ? 999 : ib) })
   // FlClash: 必须原地修改，不能重新赋值（QuickJS FFI 桥接层限制）
+  var globalGroup = null, restSmartGroups = []
+  for (var s = 0; s < smartGroups.length; s++) {
+    if (smartGroups[s].name === SMART.GLOBAL) { globalGroup = smartGroups[s] }
+    else { restSmartGroups.push(smartGroups[s]) }
+  }
   config['proxy-groups'].splice(0, config['proxy-groups'].length)
-  var sorted = smartGroups.concat(bizGroups, otherGroups)
-  for (var i = 0; i < sorted.length; i++) { config['proxy-groups'].push(sorted[i]) }
+  if (globalGroup) { config['proxy-groups'].push(globalGroup) }
+  for (var i = 0; i < bizGroups.length; i++) { config['proxy-groups'].push(bizGroups[i]) }
+  for (var j = 0; j < restSmartGroups.length; j++) { config['proxy-groups'].push(restSmartGroups[j]) }
+  for (var k = 0; k < otherGroups.length; k++) { config['proxy-groups'].push(otherGroups[k]) }
 }
 
 // ================================================================

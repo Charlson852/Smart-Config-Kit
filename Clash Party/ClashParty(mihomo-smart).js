@@ -1,14 +1,14 @@
 // Clash Smart 内核覆写脚本 - SUB-STORE 多机场精细分流版
-// 版本：v5.4.4 (2026-05-07)
+// 版本：v5.4.5 (2026-05-07)
 // 架构：SUB-STORE 多机场融合 + 22 Smart 区域组（11 全部 + 11 家宽）+ 31 业务策略组（含 13 流媒体平台组）+ 371+ rule-providers 100%+ 服务覆盖
-// v5.4.4: FIX#142 DNS nameserver 兜底 · FIX#144 bbys.app DIRECT · FEAT#143 IEPL/IPLC 家宽识别
+// v5.4.5: 🌍 全球节点置顶 · v5.4.4: FIX#142 DNS · FIX#144 bbys.app · FEAT#143 IEPL/IPLC
 // 变更历史：见 `Clash Party/CHANGELOG.md`
 
 // ================================================================
 //  版本常量
 // ================================================================
 
-const VERSION = 'v5.4.4'
+const VERSION = 'v5.4.5'
 
 // ================================================================
 //  模块 A：节点过滤 / 家宽识别
@@ -2348,7 +2348,10 @@ function sortProxyGroups(config) {
   bizGroups.sort((a, b) => bizOrder.indexOf(a.name) - bizOrder.indexOf(b.name))
   const smartOrder = Object.values(SMART)
   smartGroups.sort((a, b) => { const ia = smartOrder.indexOf(a.name); const ib = smartOrder.indexOf(b.name); return (ia === -1 ? 999 : ia) - (ib === -1 ? 999 : ib) })
-  config['proxy-groups'] = [...smartGroups, ...bizGroups, ...otherGroups]
+  // v5.4.5: 🌍 全球节点置顶，方便查看全部节点状态和测速
+  var globalGroup = smartGroups.find(function(g) { return g.name === SMART.GLOBAL })
+  var restSmartGroups = smartGroups.filter(function(g) { return g.name !== SMART.GLOBAL })
+  config['proxy-groups'] = globalGroup ? [globalGroup, ...bizGroups, ...restSmartGroups, ...otherGroups] : [...bizGroups, ...smartGroups, ...otherGroups]
 }
 
 // ================================================================

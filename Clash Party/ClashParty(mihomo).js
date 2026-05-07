@@ -1,7 +1,7 @@
 // Clash 覆写脚本 - SUB-STORE 多机场精细分流版
-// 版本：v5.4.4-normal.1 (2026-05-07)
+// 版本：v5.4.5-normal.1 (2026-05-07)
 // 架构：22 url-test 区域组（11 全部 + 11 家宽）+ 31 业务策略组 + 371+ rule-providers
-// 基线：Clash Party v5.4.4（与同目录 ClashParty(mihomo-smart).js 规则 100% 等价，仅区域组从 smart 改为 url-test）
+// 基线：Clash Party v5.4.5（与同目录 ClashParty(mihomo-smart).js 规则 100% 等价，仅区域组从 smart 改为 url-test）
 // 适用：Mihomo / Clash.Meta 稳定版内核、不支持 smart + LightGBM 的分支；也适用于想完全关闭 ML 评估的用户
 // 变更历史：见 `Clash Party/CHANGELOG.md`
 
@@ -9,7 +9,7 @@
 //  版本常量
 // ================================================================
 
-const VERSION = 'v5.4.4-normal.1'
+const VERSION = 'v5.4.5-normal.1'
 
 // ================================================================
 //  模块 A：节点过滤 / 家宽识别
@@ -2308,7 +2308,9 @@ function sortProxyGroups(config) {
   bizGroups.sort((a, b) => bizOrder.indexOf(a.name) - bizOrder.indexOf(b.name))
   const smartOrder = Object.values(SMART)
   smartGroups.sort((a, b) => { const ia = smartOrder.indexOf(a.name); const ib = smartOrder.indexOf(b.name); return (ia === -1 ? 999 : ia) - (ib === -1 ? 999 : ib) })
-  config['proxy-groups'] = [...smartGroups, ...bizGroups, ...otherGroups]
+  var globalGroup = smartGroups.find(function(g) { return g.name === SMART.GLOBAL })
+  var restSmartGroups = smartGroups.filter(function(g) { return g.name !== SMART.GLOBAL })
+  config['proxy-groups'] = globalGroup ? [globalGroup, ...bizGroups, ...restSmartGroups, ...otherGroups] : [...bizGroups, ...smartGroups, ...otherGroups]
 }
 
 // ================================================================
