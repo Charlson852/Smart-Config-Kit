@@ -7,6 +7,13 @@
 ---
 
 
+## v5.4.4-pw2.1 (2026-05-07)
+
+- ★ FIX#144：bbys.app 视频播放走直连
+  - `shunt-rules/27-cn-site.list` 新增 `domain:bbys.app`（置于 geosite:cn 之前优先匹配）
+- ★ FEAT#143（IEPL/IPLC 家宽识别）和 FIX#142（DNS 冷启动）均为 Clash Party JS 运行时逻辑，Passwall2 静态规则豁免
+- Bump: `v5.4.0-pw2.1` → `v5.4.4-pw2.1`
+
 ## v5.4.0-pw2.1 (2026-05-05)
 
 - ★ FEAT#SG：新增 🇸🇬 狮城节点 + 🏡 狮城家宽 独立区域组

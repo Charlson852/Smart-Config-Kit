@@ -4421,7 +4421,7 @@ config["proxies"] = filtered_proxies
   config[key] = override[key] if override.key?(key)
 end
 
-# 清空并重建 proxy-groups：18 个区域组在前，仅保留已实际创建的候选组引用
+# 清空并重建 proxy-groups：🌍 全球节点 → 业务组 → 其余区域组
 active_region_names = smart_groups.map { |g| g["name"] } + ["DIRECT", "REJECT"]
 override_biz_groups = (override["proxy-groups"] || []).map do |group|
   next group unless group.is_a?(Hash) && group["proxies"].is_a?(Array)
@@ -4430,7 +4430,8 @@ override_biz_groups = (override["proxy-groups"] || []).map do |group|
   patched["proxies"] = group["proxies"].select { |proxy| active_region_names.include?(proxy) }
   patched
 end
-config["proxy-groups"] = smart_groups + override_biz_groups
+# 🌍 全球节点移至最前，业务组居中，其余区域组兜底（smart_groups 首个元素即 🌍 全球节点）
+config["proxy-groups"] = [smart_groups.shift] + override_biz_groups + smart_groups
 
 # 清空并重建 rule-providers 和 rules
 config["rule-providers"] = override["rule-providers"] if override["rule-providers"]

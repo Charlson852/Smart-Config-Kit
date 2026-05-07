@@ -6,6 +6,7 @@
 # 在「IP 列表」字段里粘贴本文件末尾 [IP] 段落内容。
 
 # [Domain List]
+domain:bbys.app
 geosite:cn
 
 # [IP List]

@@ -165,6 +165,14 @@ proxy-providers:
       interval: 300
     exclude-filter: '(?i)(导航网址|距离下次重置|剩余流量|套餐到期|网址导航|官网|订阅|到期|剩余|重置)'
 proxy-groups:
+  url: 'https://www.gstatic.com/generate_204'
+  interval: 120
+  tolerance: 30
+  lazy: true
+  name: '🌍 全球节点'
+  use:
+  - Subscribe
+- type: url-test
 - name: '🤖 AI 服务'
   type: select
   proxies: &id001
@@ -567,14 +575,6 @@ proxy-groups:
   proxies:
   - REJECT
   - DIRECT
-- type: url-test
-  url: 'https://www.gstatic.com/generate_204'
-  interval: 120
-  tolerance: 30
-  lazy: true
-  name: '🌍 全球节点'
-  use:
-  - Subscribe
 - type: url-test
   url: 'https://www.gstatic.com/generate_204'
   interval: 120

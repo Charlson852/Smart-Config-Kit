@@ -98,197 +98,6 @@
       "tolerance": 50
     },
     {
-      "type": "urltest",
-      "tag": "🏡 全球家宽",
-      "outbounds": [
-        "🏡 香港家宽",
-        "🏡 台湾家宽",
-        "🏡 日韩家宽",
-        "🏡 狮城家宽",
-        "🏡 亚太家宽",
-        "🏡 美国家宽",
-        "🏡 欧洲家宽",
-        "🏡 美洲家宽",
-        "🏡 非洲家宽"
-      ],
-      "interval": "3m",
-      "tolerance": 50
-    },
-    {
-      "type": "selector",
-      "tag": "🇭🇰 香港节点",
-      "outbounds": [
-        "proxy-hk-1",
-        "proxy-hk-2",
-        "DIRECT"
-      ],
-      "default": "proxy-hk-1"
-    },
-    {
-      "type": "selector",
-      "tag": "🏡 香港家宽",
-      "outbounds": [
-        "proxy-hk-home-1",
-        "DIRECT"
-      ],
-      "default": "proxy-hk-home-1"
-    },
-    {
-      "type": "selector",
-      "tag": "🇹🇼 台湾节点",
-      "outbounds": [
-        "proxy-tw-1",
-        "DIRECT"
-      ],
-      "default": "proxy-tw-1"
-    },
-    {
-      "type": "selector",
-      "tag": "🏡 台湾家宽",
-      "outbounds": [
-        "proxy-tw-home-1",
-        "DIRECT"
-      ],
-      "default": "proxy-tw-home-1"
-    },
-    {
-      "type": "selector",
-      "tag": "🇯🇵 日韩节点",
-      "outbounds": [
-        "proxy-jp-1",
-        "proxy-kr-1",
-        "DIRECT"
-      ],
-      "default": "proxy-jp-1"
-    },
-    {
-      "type": "selector",
-      "tag": "🏡 日韩家宽",
-      "outbounds": [
-        "proxy-jp-home-1",
-        "proxy-kr-home-1",
-        "DIRECT"
-      ],
-      "default": "proxy-jp-home-1"
-    },
-    {
-      "type": "selector",
-      "tag": "🇸🇬 狮城节点",
-      "outbounds": [
-        "proxy-sg-1",
-        "DIRECT"
-      ],
-      "default": "proxy-sg-1"
-    },
-    {
-      "type": "selector",
-      "tag": "🏡 狮城家宽",
-      "outbounds": [
-        "proxy-sg-home-1",
-        "DIRECT"
-      ],
-      "default": "proxy-sg-home-1"
-    },
-    {
-      "type": "selector",
-      "tag": "🌏 亚太节点",
-      "outbounds": [
-        "proxy-sg-1",
-        "proxy-id-1",
-        "proxy-hk-1",
-        "proxy-jp-1",
-        "DIRECT"
-      ],
-      "default": "proxy-sg-1"
-    },
-    {
-      "type": "selector",
-      "tag": "🏡 亚太家宽",
-      "outbounds": [
-        "proxy-sg-home-1",
-        "proxy-hk-home-1",
-        "proxy-jp-home-1",
-        "proxy-tw-home-1",
-        "DIRECT"
-      ],
-      "default": "proxy-sg-home-1"
-    },
-    {
-      "type": "selector",
-      "tag": "🇺🇸 美国节点",
-      "outbounds": [
-        "proxy-us-1",
-        "proxy-us-2",
-        "DIRECT"
-      ],
-      "default": "proxy-us-1"
-    },
-    {
-      "type": "selector",
-      "tag": "🏡 美国家宽",
-      "outbounds": [
-        "proxy-us-home-1",
-        "DIRECT"
-      ],
-      "default": "proxy-us-home-1"
-    },
-    {
-      "type": "selector",
-      "tag": "🇪🇺 欧洲节点",
-      "outbounds": [
-        "proxy-eu-1",
-        "DIRECT"
-      ],
-      "default": "proxy-eu-1"
-    },
-    {
-      "type": "selector",
-      "tag": "🏡 欧洲家宽",
-      "outbounds": [
-        "proxy-eu-home-1",
-        "DIRECT"
-      ],
-      "default": "proxy-eu-home-1"
-    },
-    {
-      "type": "selector",
-      "tag": "🌎 美洲节点",
-      "outbounds": [
-        "proxy-ca-1",
-        "proxy-us-1",
-        "DIRECT"
-      ],
-      "default": "proxy-ca-1"
-    },
-    {
-      "type": "selector",
-      "tag": "🏡 美洲家宽",
-      "outbounds": [
-        "proxy-ca-home-1",
-        "proxy-us-home-1",
-        "DIRECT"
-      ],
-      "default": "proxy-ca-home-1"
-    },
-    {
-      "type": "selector",
-      "tag": "🌍 非洲节点",
-      "outbounds": [
-        "proxy-af-1",
-        "DIRECT"
-      ],
-      "default": "proxy-af-1"
-    },
-    {
-      "type": "selector",
-      "tag": "🏡 非洲家宽",
-      "outbounds": [
-        "proxy-af-home-1",
-        "DIRECT"
-      ],
-      "default": "proxy-af-home-1"
-    },
-    {
       "type": "selector",
       "tag": "🤖 AI 服务",
       "outbounds": [
@@ -1125,6 +934,197 @@
         "DIRECT"
       ],
       "default": "REJECT"
+    },
+    {
+      "type": "urltest",
+      "tag": "🏡 全球家宽",
+      "outbounds": [
+        "🏡 香港家宽",
+        "🏡 台湾家宽",
+        "🏡 日韩家宽",
+        "🏡 狮城家宽",
+        "🏡 亚太家宽",
+        "🏡 美国家宽",
+        "🏡 欧洲家宽",
+        "🏡 美洲家宽",
+        "🏡 非洲家宽"
+      ],
+      "interval": "3m",
+      "tolerance": 50
+    },
+    {
+      "type": "selector",
+      "tag": "🇭🇰 香港节点",
+      "outbounds": [
+        "proxy-hk-1",
+        "proxy-hk-2",
+        "DIRECT"
+      ],
+      "default": "proxy-hk-1"
+    },
+    {
+      "type": "selector",
+      "tag": "🏡 香港家宽",
+      "outbounds": [
+        "proxy-hk-home-1",
+        "DIRECT"
+      ],
+      "default": "proxy-hk-home-1"
+    },
+    {
+      "type": "selector",
+      "tag": "🇹🇼 台湾节点",
+      "outbounds": [
+        "proxy-tw-1",
+        "DIRECT"
+      ],
+      "default": "proxy-tw-1"
+    },
+    {
+      "type": "selector",
+      "tag": "🏡 台湾家宽",
+      "outbounds": [
+        "proxy-tw-home-1",
+        "DIRECT"
+      ],
+      "default": "proxy-tw-home-1"
+    },
+    {
+      "type": "selector",
+      "tag": "🇯🇵 日韩节点",
+      "outbounds": [
+        "proxy-jp-1",
+        "proxy-kr-1",
+        "DIRECT"
+      ],
+      "default": "proxy-jp-1"
+    },
+    {
+      "type": "selector",
+      "tag": "🏡 日韩家宽",
+      "outbounds": [
+        "proxy-jp-home-1",
+        "proxy-kr-home-1",
+        "DIRECT"
+      ],
+      "default": "proxy-jp-home-1"
+    },
+    {
+      "type": "selector",
+      "tag": "🇸🇬 狮城节点",
+      "outbounds": [
+        "proxy-sg-1",
+        "DIRECT"
+      ],
+      "default": "proxy-sg-1"
+    },
+    {
+      "type": "selector",
+      "tag": "🏡 狮城家宽",
+      "outbounds": [
+        "proxy-sg-home-1",
+        "DIRECT"
+      ],
+      "default": "proxy-sg-home-1"
+    },
+    {
+      "type": "selector",
+      "tag": "🌏 亚太节点",
+      "outbounds": [
+        "proxy-sg-1",
+        "proxy-id-1",
+        "proxy-hk-1",
+        "proxy-jp-1",
+        "DIRECT"
+      ],
+      "default": "proxy-sg-1"
+    },
+    {
+      "type": "selector",
+      "tag": "🏡 亚太家宽",
+      "outbounds": [
+        "proxy-sg-home-1",
+        "proxy-hk-home-1",
+        "proxy-jp-home-1",
+        "proxy-tw-home-1",
+        "DIRECT"
+      ],
+      "default": "proxy-sg-home-1"
+    },
+    {
+      "type": "selector",
+      "tag": "🇺🇸 美国节点",
+      "outbounds": [
+        "proxy-us-1",
+        "proxy-us-2",
+        "DIRECT"
+      ],
+      "default": "proxy-us-1"
+    },
+    {
+      "type": "selector",
+      "tag": "🏡 美国家宽",
+      "outbounds": [
+        "proxy-us-home-1",
+        "DIRECT"
+      ],
+      "default": "proxy-us-home-1"
+    },
+    {
+      "type": "selector",
+      "tag": "🇪🇺 欧洲节点",
+      "outbounds": [
+        "proxy-eu-1",
+        "DIRECT"
+      ],
+      "default": "proxy-eu-1"
+    },
+    {
+      "type": "selector",
+      "tag": "🏡 欧洲家宽",
+      "outbounds": [
+        "proxy-eu-home-1",
+        "DIRECT"
+      ],
+      "default": "proxy-eu-home-1"
+    },
+    {
+      "type": "selector",
+      "tag": "🌎 美洲节点",
+      "outbounds": [
+        "proxy-ca-1",
+        "proxy-us-1",
+        "DIRECT"
+      ],
+      "default": "proxy-ca-1"
+    },
+    {
+      "type": "selector",
+      "tag": "🏡 美洲家宽",
+      "outbounds": [
+        "proxy-ca-home-1",
+        "proxy-us-home-1",
+        "DIRECT"
+      ],
+      "default": "proxy-ca-home-1"
+    },
+    {
+      "type": "selector",
+      "tag": "🌍 非洲节点",
+      "outbounds": [
+        "proxy-af-1",
+        "DIRECT"
+      ],
+      "default": "proxy-af-1"
+    },
+    {
+      "type": "selector",
+      "tag": "🏡 非洲家宽",
+      "outbounds": [
+        "proxy-af-home-1",
+        "DIRECT"
+      ],
+      "default": "proxy-af-home-1"
     },
     {
       "type": "trojan",

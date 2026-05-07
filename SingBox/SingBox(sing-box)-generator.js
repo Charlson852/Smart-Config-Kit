@@ -283,6 +283,7 @@ function buildOutbounds() {
       SMART.AMERICAS,
       SMART.AFRICA
     ]),
+    ...businessOutbounds,
     urltest(SMART.GLOBAL_HOME, [
       SMART.HK_HOME,
       SMART.TW_HOME,
@@ -312,7 +313,6 @@ function buildOutbounds() {
     selector(SMART.AMERICAS_HOME, REGION_SELECTOR_MEMBERS.AMERICAS_HOME),
     selector(SMART.AFRICA, REGION_SELECTOR_MEMBERS.AFRICA),
     selector(SMART.AFRICA_HOME, REGION_SELECTOR_MEMBERS.AFRICA_HOME),
-    ...businessOutbounds,
     ...REGION_PLACEHOLDERS.map(([tag, server]) => trojanTemplate(tag, server)),
     { type: 'direct', tag: 'DIRECT' },
     { type: 'block', tag: 'REJECT' }
