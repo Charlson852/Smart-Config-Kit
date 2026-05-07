@@ -10,8 +10,11 @@
 - ★ FIX#144：新增 bbys.app 直连规则（国内可访问视频站点 CDN 域名直连）
   - 于阶段 28（国内网站兜底）末尾新增 `DOMAIN-SUFFIX,bbys.app,DIRECT`
   - 跟随 Clash Party v5.4.4 基线
+- ★ FEAT#143：家宽 policy-regex-filter 新增 IEPL/IPLC/专线识别
+  - 所有 10 个家宽区域组的 `policy-regex-filter` 中 residential 子模式追加 `[Ii][Pp][Ll][Cc]|[Ii][Ee][Pp][Ll]|专线`
+  - 匹配含 IPLC/IEPL/专线标识的家宽类型节点
 - ★ 主版本号 v5.4.3 → v5.4.4，Build 2026-05-06 → 2026-05-07
-- FIX#142（DNS 工作流收敛）和 FEAT#143（IEPL/IPLC 节点分类）为 Clash Party JS 专属运行时逻辑，静态配置文件豁免
+- FIX#142（DNS 冷启动）为 Clash Party JS 专属修复，静态配置文件豁免
 
 ## v5.4.3-Surge.1 (2026-05-06)
 
