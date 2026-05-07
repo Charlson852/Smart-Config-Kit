@@ -2308,7 +2308,7 @@ function sortProxyGroups(config) {
   bizGroups.sort((a, b) => bizOrder.indexOf(a.name) - bizOrder.indexOf(b.name))
   const smartOrder = Object.values(SMART)
   smartGroups.sort((a, b) => { const ia = smartOrder.indexOf(a.name); const ib = smartOrder.indexOf(b.name); return (ia === -1 ? 999 : ia) - (ib === -1 ? 999 : ib) })
-  config['proxy-groups'] = [...bizGroups, ...otherGroups, ...smartGroups]
+  config['proxy-groups'] = [...smartGroups, ...bizGroups, ...otherGroups]
 }
 
 // ================================================================

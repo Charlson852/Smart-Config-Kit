@@ -2315,7 +2315,7 @@ function sortProxyGroups(config) {
   smartGroups.sort((a, b) => { const ia = smartOrder.indexOf(a.name); const ib = smartOrder.indexOf(b.name); return (ia === -1 ? 999 : ia) - (ib === -1 ? 999 : ib) })
   // FlClash: 必须原地修改，不能重新赋值（QuickJS FFI 桥接层限制）
   config['proxy-groups'].splice(0, config['proxy-groups'].length)
-  var sorted = bizGroups.concat(otherGroups, smartGroups)
+  var sorted = smartGroups.concat(bizGroups, otherGroups)
   for (var i = 0; i < sorted.length; i++) { config['proxy-groups'].push(sorted[i]) }
 }
 
