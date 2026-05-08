@@ -5,6 +5,16 @@
 
 ---
 
+## v5.4.6-flclash.1 (2026-05-08)
+
+- ★ FEAT#145：WeChat CDN 直连 — 新增 `DOMAIN-SUFFIX,cdn.weixin.qq.com,DIRECT`
+  - 置于 iwipwedabay.com 后、binance 前
+  - 跟随 Clash Party Normal v5.4.6-normal.1 基线
+
+## v5.4.5-flclash.1 (2026-05-07)
+
+- ★ 全球节点置顶 + 全产品组顺序同步（跟随基线 v5.4.5）
+
 ## v5.4.4-flclash.1 (2026-05-07)
 
 - ★ FIX#142-CRITICAL：DNS 安全兜底 nameserver 注入 — 避免空 DNS 导致 DIRECT 超时

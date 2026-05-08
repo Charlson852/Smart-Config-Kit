@@ -2,8 +2,8 @@
 . /usr/share/openclash/log.sh
 
 # ============================================================================
-# Clash Smart v5.4.4-oc-normal.1 — OpenClash 覆写脚本（非 Smart 内核 / url-test 区域组）
-# Build: 2026-05-07
+# Clash Smart v5.4.6-oc-normal.1 — OpenClash 覆写脚本（非 Smart 内核 / url-test 区域组）
+# Build: 2026-05-08
 # ============================================================================
 # 定位：与同目录 OpenClash(mihomo-smart).sh 规则 100% 等价的「非 Smart 内核」版本。
 #       两者唯一区别：22 个区域组（11 全部 + 11 家宽）从 type: smart（uselightgbm）换成 type: url-test。
@@ -26,7 +26,7 @@
 
 
 
-VERSION_TAG="v5.4.4-oc-normal.1"
+VERSION_TAG="v5.4.6-oc-normal.1"
 CONFIG_FILE="$1"
 LOG_FILE="/tmp/openclash.log"
 
@@ -3242,6 +3242,7 @@ rules:
 - "PROCESS-NAME,WeChat.exe,\U0001F3E0 国内网站"
 - DOMAIN-SUFFIX,chiphell.com,DIRECT
 - DOMAIN-SUFFIX,iwipwedabay.com,DIRECT
+- DOMAIN-SUFFIX,cdn.weixin.qq.com,DIRECT
 - "DOMAIN-SUFFIX,binance.vision,\U0001F4B0 加密货币"
 - "DOMAIN-SUFFIX,binance.com,\U0001F4B0 加密货币"
 - "DOMAIN-SUFFIX,binance.info,\U0001F4B0 加密货币"

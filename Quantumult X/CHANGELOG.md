@@ -7,6 +7,16 @@
 ---
 
 
+## v5.4.6-QX.1 (2026-05-08)
+
+- ★ FEAT#145：WeChat CDN 直连 — 新增 `host-suffix, cdn.weixin.qq.com, DIRECT`
+  - 于阶段 28（Chiphell 论坛直连）`iwipwedabay.com` 后新增，WeChat CDN 域名直连
+  - 跟随 Clash Party v5.4.6 基线
+
+## v5.4.5-QX.1 (2026-05-07)
+
+- ★ 全球节点置顶 + 全产品组顺序同步（跟随基线 v5.4.5）
+
 ## v5.4.4-QX.1 (2026-05-07)
 
 - ★ FIX#144：新增 bbys.app 直连规则（国内可访问视频站点 CDN 域名直连）

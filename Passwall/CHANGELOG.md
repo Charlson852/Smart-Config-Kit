@@ -8,6 +8,16 @@
 ---
 
 
+## v5.4.6-pw.1 (2026-05-08)
+
+- ★ FEAT#145：WeChat CDN 直连
+  - `shunt-rules/27-cn-site.list` 新增 `domain:cdn.weixin.qq.com`（置于 bbys.app 之后、geosite:cn 之前）
+  - 跟随 Clash Party v5.4.6 基线
+
+## v5.4.5-pw.1 (2026-05-07)
+
+- ★ 全球节点置顶 + 全产品组顺序同步（跟随基线 v5.4.5）
+
 ## v5.4.4-pw.1 (2026-05-07)
 
 - ★ FIX#144：bbys.app 视频播放走直连

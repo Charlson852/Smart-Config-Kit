@@ -6,6 +6,16 @@
 ---
 
 
+## v5.4.6-sing.1 (2026-05-08)
+
+- ★ FEAT#145：WeChat CDN 直连 — 新增 `domain_suffix: cdn.weixin.qq.com` → `outbound: DIRECT`
+  - 置于 iwipwedabay.com 后、binance 前
+  - 跟随 Clash Party v5.4.6 基线
+
+## v5.4.5-sing.1 (2026-05-07)
+
+- ★ 全球节点置顶 + 全产品组顺序同步（跟随基线 v5.4.5）
+
 ## v5.4.4-sing.1 (2026-05-07)
 
 - ★ FIX#144：bbys.app 视频播放走直连——新增 `domain_suffix: bbys.app` → `outbound: DIRECT`

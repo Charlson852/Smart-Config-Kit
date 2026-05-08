@@ -2,7 +2,7 @@
     {
       "id": "scki-000-meta",
       "enabled": false,
-      "remarks": "Smart-Config-Kit v5.4.4-v2n.1 | Build 2026-05-07 | Baseline Clash Party v5.4.4 (Feat SG 狮城节点豁免) | changelog: v2rayN/CHANGELOG.md",
+      "remarks": "Smart-Config-Kit v5.4.6-v2n.1 | Build 2026-05-08 | Baseline Clash Party v5.4.6 | changelog: v2rayN/CHANGELOG.md",
       "outboundTag": "direct",
       "domain": [
         "domain:smart-config-kit.invalid"
@@ -590,6 +590,20 @@
       "outboundTag": "direct",
       "domain": [
         "domain:bbys.app"
+      ],
+      "ip": [],
+      "port": "",
+      "protocol": [],
+      "inboundTag": [],
+      "network": "tcp,udp"
+    },
+    {
+      "id": "scki-052-cdn-weixin",
+      "enabled": true,
+      "remarks": "国内网站 - WeChat CDN cdn.weixin.qq.com → 直连",
+      "outboundTag": "direct",
+      "domain": [
+        "domain:cdn.weixin.qq.com"
       ],
       "ip": [],
       "port": "",

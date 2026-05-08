@@ -2039,6 +2039,13 @@
       },
       {
         "domain_suffix": [
+          "cdn.weixin.qq.com"
+        ],
+        "action": "route",
+        "outbound": "DIRECT"
+      },
+      {
+        "domain_suffix": [
           "binance.vision"
         ],
         "action": "route",

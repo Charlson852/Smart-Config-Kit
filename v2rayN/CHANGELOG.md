@@ -8,6 +8,16 @@
 ---
 
 
+## v5.4.6-v2n.1 (2026-05-08)
+
+- ★ FEAT#145：WeChat CDN 直连 — 新增 `scki-052-cdn-weixin` 规则，`domain:cdn.weixin.qq.com` → `direct`
+  - 排在 `scki-051-bbys-app` 之后、`scki-099-final` 之前
+  - 跟随 Clash Party v5.4.6 基线
+
+## v5.4.5-v2n.1 (2026-05-07)
+
+- ★ 全球节点置顶 + 全产品组顺序同步（跟随基线 v5.4.5）
+
 ## v5.4.4-v2n.1 (2026-05-07)
 
 - ★ FIX#144：bbys.app 视频播放走直连——新增 `scki-051-bbys-app` 规则，`domain:bbys.app` → `direct`

@@ -1,8 +1,8 @@
 # ================================================================
-# Clash Smart v5.4.4-cmfa.1 - CMFA (Clash Meta for Android) 配置
-# Build: 2026-05-07
+# Clash Smart v5.4.6-cmfa.1 - CMFA (Clash Meta for Android) 配置
+# Build: 2026-05-08
 # 架构：proxy-providers 订阅 + 22 url-test 区域组（11 全部 + 11 家宽，家宽 filter 新增 IEPL/IPLC/专线识别）+ 31 业务策略组（含 13 流媒体平台组）+ 384+ rule-providers
-# 基线：Clash Party v5.4.4（唯一主线）
+# 基线：Clash Party v5.4.6（唯一主线）
 # 变更历史：见 `Clash Meta For Android/CHANGELOG.md`
 # ================================================================
 # ★ 快速上手：
@@ -3571,6 +3571,7 @@ rules:
 - DST-PORT,3479,DIRECT
 - DOMAIN-SUFFIX,chiphell.com,DIRECT
 - DOMAIN-SUFFIX,iwipwedabay.com,DIRECT
+- DOMAIN-SUFFIX,cdn.weixin.qq.com,DIRECT
 - 'DOMAIN-SUFFIX,binance.vision,💰 加密货币'
 - 'DOMAIN-SUFFIX,binance.com,💰 加密货币'
 - 'DOMAIN-SUFFIX,binance.info,💰 加密货币'

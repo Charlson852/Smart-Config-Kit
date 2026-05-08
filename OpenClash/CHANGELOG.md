@@ -7,6 +7,16 @@
 
 ---
 
+## v5.4.6-oc-normal.1 / v5.4.6-oc-smart.1 (2026-05-08)
+
+- ★ FEAT#145：WeChat CDN 直连
+  - 两份 shell 脚本 rules 段新增 `DOMAIN-SUFFIX,cdn.weixin.qq.com,DIRECT`（置于 iwipwedabay.com 后、binance 前）
+  - 跟随 Clash Party v5.4.6 基线
+
+## v5.4.5-oc-normal.1 / v5.4.5-oc-smart.1 (2026-05-07)
+
+- ★ 全球节点置顶 + 全产品组顺序同步（跟随基线 v5.4.5）
+
 ## v5.4.4-oc-normal.1 / v5.4.4-oc-smart.1 (2026-05-07)
 
 - ★ FIX#144：bbys.app DIRECT 规则

@@ -7,7 +7,13 @@
 
 ---
 
-## v5.4.4 / v5.4.4-normal.1 (2026-05-07)
+## v5.4.6 / v5.4.6-normal.1 (2026-05-08)
+
+- ★ FEAT#145：WeChat CDN `cdn.weixin.qq.com` 直连
+  - 新增 `DOMAIN-SUFFIX,cdn.weixin.qq.com,DIRECT` 规则，所有微信 CDN 流量直连
+  - 全线 14 产物同步
+
+## v5.4.5 / v5.4.5-normal.1 (2026-05-07)
 
 - ★ FIX#142-P0：修复 v5.4.1+ 引入的 DNS 空壳 bug——`overwriteGeneral` 创建 `config.dns` 时未提供 `nameserver`
   - 当订阅无 DNS 配置时，`if (!config.dns) config.dns = {}` 创建空 DNS 对象

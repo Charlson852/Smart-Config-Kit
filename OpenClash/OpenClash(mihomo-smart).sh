@@ -2,8 +2,8 @@
 . /usr/share/openclash/log.sh
 
 # ============================================================================
-# Clash Smart v5.4.4-oc-smart.1 — OpenClash 覆写脚本（与 Clash Party 主线同等规则量）
-# Build: 2026-05-07
+# Clash Smart v5.4.6-oc-smart.1 — OpenClash 覆写脚本（与 Clash Party 主线同等规则量）
+# Build: 2026-05-08
 # ============================================================================
 # 定位：对齐 Clash Party v5.4.3 JS 主线的 OpenClash 全量版本。v5.4.2: P0-FIX#41 小米白名单。
 #       与同目录 OpenClash(mihomo).sh（Normal）互补：
@@ -23,7 +23,7 @@
 
 
 
-VERSION_TAG="v5.4.4-oc-smart.1"
+VERSION_TAG="v5.4.6-oc-smart.1"
 CONFIG_FILE="$1"
 LOG_FILE="/tmp/openclash.log"
 
@@ -3239,6 +3239,7 @@ rules:
 - "PROCESS-NAME,WeChat.exe,\U0001F3E0 国内网站"
 - DOMAIN-SUFFIX,chiphell.com,DIRECT
 - DOMAIN-SUFFIX,iwipwedabay.com,DIRECT
+- DOMAIN-SUFFIX,cdn.weixin.qq.com,DIRECT
 - "DOMAIN-SUFFIX,binance.vision,\U0001F4B0 加密货币"
 - "DOMAIN-SUFFIX,binance.com,\U0001F4B0 加密货币"
 - "DOMAIN-SUFFIX,binance.info,\U0001F4B0 加密货币"
@@ -4184,7 +4185,7 @@ cat > "$RUBY_SCRIPT" << 'RUBY_EOF'
 require 'yaml'
 require 'digest'
 
-VERSION = "v5.4.1-oc-smart.1"
+VERSION = "v5.4.6-oc-smart.1"
 
 STATUS_LOG = "/tmp/clash_smart_status.log"
 File.open(STATUS_LOG, 'w') { |f| f.puts "[#{VERSION}] start" }

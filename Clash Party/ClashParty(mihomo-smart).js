@@ -1,14 +1,14 @@
 // Clash Smart 内核覆写脚本 - SUB-STORE 多机场精细分流版
-// 版本：v5.4.5 (2026-05-07)
+// 版本：v5.4.6 (2026-05-08)
 // 架构：SUB-STORE 多机场融合 + 22 Smart 区域组（11 全部 + 11 家宽）+ 31 业务策略组（含 13 流媒体平台组）+ 371+ rule-providers 100%+ 服务覆盖
-// v5.4.5: 🌍 全球节点置顶 · v5.4.4: FIX#142 DNS · FIX#144 bbys.app · FEAT#143 IEPL/IPLC
+// v5.4.6: WeChat CDN 直连 · v5.4.5: 🌍 全球节点置顶 · v5.4.4: FIX#142 DNS · FIX#144 bbys.app · FEAT#143 IEPL/IPLC
 // 变更历史：见 `Clash Party/CHANGELOG.md`
 
 // ================================================================
 //  版本常量
 // ================================================================
 
-const VERSION = 'v5.4.5'
+const VERSION = 'v5.4.6'
 
 // ================================================================
 //  模块 A：节点过滤 / 家宽识别
@@ -1218,6 +1218,7 @@ function injectRules(config) {
     'DST-PORT,3479,DIRECT',
     'DOMAIN-SUFFIX,chiphell.com,DIRECT',
     'DOMAIN-SUFFIX,iwipwedabay.com,DIRECT',
+    'DOMAIN-SUFFIX,cdn.weixin.qq.com,DIRECT',
     // v5.2.0 CLEAN#2: Binance 精确 DOMAIN 规则已清理（全部被同组 DOMAIN-SUFFIX 覆盖）
     // 保留 fake-ip-filter 中的精确域名（DNS 层独立于规则层，不受影响）
     `DOMAIN-SUFFIX,binance.vision,${BIZ.CRYPTO}`,

@@ -1,7 +1,7 @@
 // Clash 覆写脚本 - SUB-STORE 多机场精细分流版
-// 版本：v5.4.5-normal.1 (2026-05-07)
+// 版本：v5.4.6-normal.1 (2026-05-08)
 // 架构：22 url-test 区域组（11 全部 + 11 家宽）+ 31 业务策略组 + 371+ rule-providers
-// 基线：Clash Party v5.4.5（与同目录 ClashParty(mihomo-smart).js 规则 100% 等价，仅区域组从 smart 改为 url-test）
+// 基线：Clash Party v5.4.6（与同目录 ClashParty(mihomo-smart).js 规则 100% 等价，仅区域组从 smart 改为 url-test）
 // 适用：Mihomo / Clash.Meta 稳定版内核、不支持 smart + LightGBM 的分支；也适用于想完全关闭 ML 评估的用户
 // 变更历史：见 `Clash Party/CHANGELOG.md`
 
@@ -9,7 +9,7 @@
 //  版本常量
 // ================================================================
 
-const VERSION = 'v5.4.5-normal.1'
+const VERSION = 'v5.4.6-normal.1'
 
 // ================================================================
 //  模块 A：节点过滤 / 家宽识别
@@ -1220,6 +1220,7 @@ function injectRules(config) {
     'DST-PORT,3479,DIRECT',
     'DOMAIN-SUFFIX,chiphell.com,DIRECT',
     'DOMAIN-SUFFIX,iwipwedabay.com,DIRECT',
+    'DOMAIN-SUFFIX,cdn.weixin.qq.com,DIRECT',
     // v5.2.0 CLEAN#2: Binance 精确 DOMAIN 规则已清理（全部被同组 DOMAIN-SUFFIX 覆盖）
     // 保留 fake-ip-filter 中的精确域名（DNS 层独立于规则层，不受影响）
     `DOMAIN-SUFFIX,binance.vision,${BIZ.CRYPTO}`,
