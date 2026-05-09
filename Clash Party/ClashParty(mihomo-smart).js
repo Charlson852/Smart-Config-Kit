@@ -2037,7 +2037,6 @@ function injectRules(config) {
     `DOMAIN-SUFFIX,box.com,${BIZ.INTL_SITE}`,
     `DOMAIN-SUFFIX,boxcdn.net,${BIZ.INTL_SITE}`,
     `DOMAIN-SUFFIX,noip.com,${BIZ.INTL_SITE}`,
-    `GEOIP,cloudflare,${BIZ.INTL_SITE},no-resolve`,
     `DOMAIN-SUFFIX,bca.co.id,${BIZ.PAYMENTS}`,
     `DOMAIN-SUFFIX,klikbca.com,${BIZ.PAYMENTS}`,
     `DOMAIN-SUFFIX,bni.co.id,${BIZ.PAYMENTS}`,
@@ -2178,7 +2177,6 @@ function injectRules(config) {
     `RULE-SET,acc-aqara-cn,${BIZ.CN_SITE}`,
     `RULE-SET,acc-geo-d-asia-china,${BIZ.CN_SITE}`,
     `RULE-SET,acc-geo-ip-asia-china,${BIZ.CN_SITE},no-resolve`,
-    `GEOIP,CN,${BIZ.CN_SITE},no-resolve`,
 
     // ============ GEOIP 标签路由 ============
     `GEOIP,ID,${BIZ.INTL_SITE},no-resolve`,
