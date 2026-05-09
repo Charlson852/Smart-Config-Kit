@@ -2181,6 +2181,8 @@ function injectRules(config) {
     `RULE-SET,acc-alipan,${BIZ.CNMEDIA}`,
     `RULE-SET,acc-baidunetdisk,${BIZ.CNMEDIA}`,
     `RULE-SET,acc-weiyun,${BIZ.CNMEDIA}`,
+    // v5.1.1: Accademia FakeLocation × 10 平台（国内APP IP归属地伪装）
+    ...['bilibili','douyin','kuaishou','xiaohongshu','xigua',
         'weibo','zhihu','tieba','douban','xianyu'].map(app => `RULE-SET,acc-fl-${app},${BIZ.CNMEDIA}`),
 
     // ============ 🏠 国内网站 ============
