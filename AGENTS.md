@@ -173,6 +173,7 @@ Smart-Config-Kit 同时发布 **11 种客户端形态的等价产物**（分属 
 | 错误 | 历史出处 | 为什么错 | 正确做法 |
 |------|---------|---------|---------|
 | OpenClash Normal 的 `rule-providers.proxy: DIRECT` | v5.3.1-oc-normal 之前 | 墙内无法直连 jsdelivr / GitHub，规则下载失败 | 全部改 `proxy: 🚫 受限网站` |
+| 把 UI 代理组顺序当成规则匹配顺序 | v5.4.8 之前 | 导致误把 `MATCH/FINAL` 兜底顺序搞乱，或让广告拦截失效 | UI 组顺序与内部匹配顺序分离；广告拦截必须在最前，MATCH 必须在最后 |
 | CMFA 的 `rule-providers.proxy: '☁️ 云与CDN'` | v5.2.0-cmfa 之前 | 与 Clash Party FIX#17-P0 不一致，墙内同样失败 | 改 `proxy: '🚫 受限网站'` |
 | Shadowrocket 多出 `🎵 TikTok` 组 | v5.2.2-SR.1 | 基线只有 31 业务组，TikTok 应归 `📱 社交媒体` | 删组，规则目标改 `📱 社交媒体` → v5.4.7 重新提升为正式基线组（32 业务组） |
 | Shadowrocket 引用 `🇸🇬 亚太节点` | v5.2.2-SR.1 | 实际组名是 `🌏 亚太节点`，引用不存在，SR 会静默忽略该候选 | 统一使用 `🌏 亚太节点` |

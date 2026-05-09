@@ -6,6 +6,12 @@
 ---
 
 
+## v5.4.8-SR.1 (2026-05-09)
+
+- ★ ORDER#RULE-TAIL：同步 Clash Party v5.4.8 规则尾段匹配顺序
+  - `[Proxy Group]` UI 顺序不变；仅调整 `[Rule]` 顺序
+  - `🎵 TikTok` 保持前置，避免 ByteDance 共用域被国内流媒体抢先命中
+
 ## v5.4.7-SR.1 (2026-05-09)
 
 - ★ FEAT#TikTok：新增独立 `🎵 TikTok` 业务组（32 业务组），置于 `📺 国内流媒体` 与 `🎥 Netflix` 之间
