@@ -1,9 +1,9 @@
 #!/bin/sh
 # ═══════════════════════════════════════════════════════════════════════════
 # Smart-Config-Kit for Passwall — UCI batch helper
-# Version: v5.4.6-pw.1 | Build 2026-05-08
+# Version: v5.4.7-pw.1 | Build 2026-05-09
 #
-# 用途：一次性在 Passwall（全功能版）中创建 31 条 shunt rule（含域名列表 + IP 列表），
+# 用途：一次性在 Passwall（全功能版）中创建 32 条 shunt rule（含域名列表 + IP 列表），
 #       每条目标节点留空（NEED_CONFIG），用户之后到 LuCI 里手工选节点。
 #
 # 变更：v5.3.0-pw.3 — 跟随基线将流媒体重组为按平台分组
@@ -11,7 +11,7 @@
 #   • 移除 🇺🇸 美国流媒体（拆分为 7 个平台组 + 🌐 其他国外流媒体）
 #   • 新增 8 个平台流媒体组：Netflix / Disney+ / HBO/Max / Hulu /
 #     Prime Video / YouTube / 音乐流媒体 / 其他国外流媒体
-#   • 规则数从 25 条扩展为 31 条
+#   • 规则数从 25 条扩展为 32 条
 #
 # 备注：Passwall 和 Passwall2 是 Openwrt-Passwall 组织（原 xiaorouji 个人仓库迁入）
 #       并行维护的两款插件，UCI key 不同（passwall vs passwall2）。
@@ -36,7 +36,7 @@
 # ⚠️  警告：
 #   • 本脚本在 ImmortalWrt / OpenWrt 官方源的 Passwall 上测过
 #   • 运行前建议备份: cp /etc/config/passwall /etc/config/passwall.bak
-#   • 运行会 append 31 条新规则，不会删除既有的（重复运行会产生副本）
+#   • 运行会 append 32 条新规则，不会删除既有的（重复运行会产生副本）
 # ═══════════════════════════════════════════════════════════════════════════
 
 set -e
@@ -57,7 +57,7 @@ echo "建议先备份: cp /etc/config/${CONFIG_NAME} /etc/config/${CONFIG_NAME}.
 echo "按 Ctrl+C 取消，回车继续..."
 read _
 
-echo "开始创建 31 条 shunt rule..."
+echo "开始创建 32 条 shunt rule..."
 
 # [01] 🛑 广告拦截
 SEC="$(uci add ${CONFIG_NAME} shunt_rules)"
@@ -138,13 +138,19 @@ uci set ${CONFIG_NAME}.${SEC}.remarks='📱 社交媒体'
 uci add_list ${CONFIG_NAME}.${SEC}.domain_list='geosite:twitter'
 uci add_list ${CONFIG_NAME}.${SEC}.domain_list='geosite:facebook'
 uci add_list ${CONFIG_NAME}.${SEC}.domain_list='geosite:instagram'
-uci add_list ${CONFIG_NAME}.${SEC}.domain_list='geosite:tiktok'
 uci add_list ${CONFIG_NAME}.${SEC}.domain_list='geosite:reddit'
 uci add_list ${CONFIG_NAME}.${SEC}.domain_list='geosite:pinterest'
 uci add_list ${CONFIG_NAME}.${SEC}.domain_list='geosite:linkedin'
 uci add_list ${CONFIG_NAME}.${SEC}.domain_list='geosite:snap'
 uci add_list ${CONFIG_NAME}.${SEC}.ip_list='geoip:twitter'
 uci add_list ${CONFIG_NAME}.${SEC}.ip_list='geoip:facebook'
+uci set ${CONFIG_NAME}.${SEC}.network='tcp,udp'
+# uci set ${CONFIG_NAME}.${SEC}.tcp_node='NEED_CONFIG_IN_LUCI'
+
+# [06b] 🎵 TikTok
+SEC="$(uci add ${CONFIG_NAME} shunt_rules)"
+uci set ${CONFIG_NAME}.${SEC}.remarks='🎵 TikTok'
+uci add_list ${CONFIG_NAME}.${SEC}.domain_list='geosite:tiktok'
 uci set ${CONFIG_NAME}.${SEC}.network='tcp,udp'
 # uci set ${CONFIG_NAME}.${SEC}.tcp_node='NEED_CONFIG_IN_LUCI'
 
@@ -447,7 +453,7 @@ uci set ${CONFIG_NAME}.${SEC}.network='tcp,udp'
 
 uci commit ${CONFIG_NAME}
 
-echo "✓ 31 条 shunt rule 创建完成。"
+echo "✓ 32 条 shunt rule 创建完成。"
 echo "下一步："
 echo "  1. LuCI → Passwall → 节点列表 → 按区域创建 TCP 节点 + 负载均衡组"
 echo "  2. LuCI → Passwall → 分流控制 → 逐条为每个 rule 指定 tcp_node"
