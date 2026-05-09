@@ -8,6 +8,11 @@
 ---
 
 
+## v5.4.8-v2n.1 (2026-05-09)
+
+- ★ ORDER#RULE-TAIL：同步 Clash Party v5.4.8 路由规则顺序语义
+  - Xray 仅 proxy/direct/block 三出站，无新增出站
+
 ## v5.4.7-v2n.1 (2026-05-09)
 
 - ★ FEAT#TikTok：Xray 路由仅 proxy/direct/block 三出站，`geosite:tiktok` 已在 proxy，功能无变化；仅 `_meta.version` bump

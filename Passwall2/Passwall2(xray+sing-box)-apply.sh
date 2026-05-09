@@ -1,7 +1,7 @@
 #!/bin/sh
 # ═══════════════════════════════════════════════════════════════════════════
 # Smart-Config-Kit for Passwall / Passwall2 — UCI batch helper
-# Version: v5.4.7-pw2.1 | Build 2026-05-09
+# Version: v5.4.8-pw2.1 | Build 2026-05-09
 #
 # 用途：一次性在 Passwall2 中创建 32 条 shunt rule（含域名列表 + IP 列表），
 #       每条目标节点留空（NEED_CONFIG），用户之后到 LuCI 里手工选节点。
@@ -161,21 +161,7 @@ uci add_list ${CONFIG_NAME}.${SEC}.domain_list='domain:meet.google.com'
 uci set ${CONFIG_NAME}.${SEC}.network='tcp,udp'
 # uci set ${CONFIG_NAME}.${SEC}.node='NEED_CONFIG_IN_LUCI'
 
-# [08] 📺 国内流媒体
-SEC="$(uci add ${CONFIG_NAME} shunt_rules)"
-uci set ${CONFIG_NAME}.${SEC}.remarks='📺 国内流媒体'
-uci add_list ${CONFIG_NAME}.${SEC}.domain_list='geosite:bilibili'
-uci add_list ${CONFIG_NAME}.${SEC}.domain_list='geosite:iqiyi'
-uci add_list ${CONFIG_NAME}.${SEC}.domain_list='geosite:youku'
-uci add_list ${CONFIG_NAME}.${SEC}.domain_list='geosite:tencentvideo'
-uci add_list ${CONFIG_NAME}.${SEC}.domain_list='geosite:mgtv'
-uci add_list ${CONFIG_NAME}.${SEC}.domain_list='geosite:douyin'
-uci add_list ${CONFIG_NAME}.${SEC}.domain_list='geosite:netease-music'
-uci add_list ${CONFIG_NAME}.${SEC}.domain_list='geosite:qqmusic'
-uci set ${CONFIG_NAME}.${SEC}.network='tcp,udp'
-# uci set ${CONFIG_NAME}.${SEC}.node='NEED_CONFIG_IN_LUCI'
-
-# [09] 🎥 Netflix
+# [08] 🎥 Netflix
 SEC="$(uci add ${CONFIG_NAME} shunt_rules)"
 uci set ${CONFIG_NAME}.${SEC}.remarks='🎥 Netflix'
 uci add_list ${CONFIG_NAME}.${SEC}.domain_list='geosite:netflix'
@@ -183,14 +169,14 @@ uci add_list ${CONFIG_NAME}.${SEC}.ip_list='geoip:netflix'
 uci set ${CONFIG_NAME}.${SEC}.network='tcp,udp'
 # uci set ${CONFIG_NAME}.${SEC}.node='NEED_CONFIG_IN_LUCI'
 
-# [10] 🎬 Disney+
+# [09] 🎬 Disney+
 SEC="$(uci add ${CONFIG_NAME} shunt_rules)"
 uci set ${CONFIG_NAME}.${SEC}.remarks='🎬 Disney+'
 uci add_list ${CONFIG_NAME}.${SEC}.domain_list='geosite:disney'
 uci set ${CONFIG_NAME}.${SEC}.network='tcp,udp'
 # uci set ${CONFIG_NAME}.${SEC}.node='NEED_CONFIG_IN_LUCI'
 
-# [11] 📡 HBO/Max
+# [10] 📡 HBO/Max
 SEC="$(uci add ${CONFIG_NAME} shunt_rules)"
 uci set ${CONFIG_NAME}.${SEC}.remarks='📡 HBO/Max'
 uci add_list ${CONFIG_NAME}.${SEC}.domain_list='geosite:hbo'
@@ -199,28 +185,28 @@ uci add_list ${CONFIG_NAME}.${SEC}.domain_list='domain:hbomax.com'
 uci set ${CONFIG_NAME}.${SEC}.network='tcp,udp'
 # uci set ${CONFIG_NAME}.${SEC}.node='NEED_CONFIG_IN_LUCI'
 
-# [12] 📺 Hulu
+# [11] 📺 Hulu
 SEC="$(uci add ${CONFIG_NAME} shunt_rules)"
 uci set ${CONFIG_NAME}.${SEC}.remarks='📺 Hulu'
 uci add_list ${CONFIG_NAME}.${SEC}.domain_list='geosite:hulu'
 uci set ${CONFIG_NAME}.${SEC}.network='tcp,udp'
 # uci set ${CONFIG_NAME}.${SEC}.node='NEED_CONFIG_IN_LUCI'
 
-# [13] 🎬 Prime Video
+# [12] 🎬 Prime Video
 SEC="$(uci add ${CONFIG_NAME} shunt_rules)"
 uci set ${CONFIG_NAME}.${SEC}.remarks='🎬 Prime Video'
 uci add_list ${CONFIG_NAME}.${SEC}.domain_list='geosite:primevideo'
 uci set ${CONFIG_NAME}.${SEC}.network='tcp,udp'
 # uci set ${CONFIG_NAME}.${SEC}.node='NEED_CONFIG_IN_LUCI'
 
-# [14] 📹 YouTube
+# [13] 📹 YouTube
 SEC="$(uci add ${CONFIG_NAME} shunt_rules)"
 uci set ${CONFIG_NAME}.${SEC}.remarks='📹 YouTube'
 uci add_list ${CONFIG_NAME}.${SEC}.domain_list='geosite:youtube'
 uci set ${CONFIG_NAME}.${SEC}.network='tcp,udp'
 # uci set ${CONFIG_NAME}.${SEC}.node='NEED_CONFIG_IN_LUCI'
 
-# [15] 🎵 音乐流媒体
+# [14] 🎵 音乐流媒体
 SEC="$(uci add ${CONFIG_NAME} shunt_rules)"
 uci set ${CONFIG_NAME}.${SEC}.remarks='🎵 音乐流媒体'
 uci add_list ${CONFIG_NAME}.${SEC}.domain_list='geosite:spotify'
@@ -231,7 +217,58 @@ uci add_list ${CONFIG_NAME}.${SEC}.domain_list='domain:pandora.com'
 uci set ${CONFIG_NAME}.${SEC}.network='tcp,udp'
 # uci set ${CONFIG_NAME}.${SEC}.node='NEED_CONFIG_IN_LUCI'
 
-# [16] 🌐 其他国外流媒体（合并自原东南亚流媒体 + 美国流媒体余项）
+# [15] 🇭🇰 香港流媒体
+SEC="$(uci add ${CONFIG_NAME} shunt_rules)"
+uci set ${CONFIG_NAME}.${SEC}.remarks='🇭🇰 香港流媒体'
+uci add_list ${CONFIG_NAME}.${SEC}.domain_list='geosite:mytvsuper'
+uci add_list ${CONFIG_NAME}.${SEC}.domain_list='domain:mytvsuper.com'
+uci add_list ${CONFIG_NAME}.${SEC}.domain_list='domain:now.com'
+uci add_list ${CONFIG_NAME}.${SEC}.domain_list='domain:viu.tv'
+uci add_list ${CONFIG_NAME}.${SEC}.domain_list='domain:encoretvb.com'
+uci add_list ${CONFIG_NAME}.${SEC}.domain_list='domain:rthk.hk'
+uci set ${CONFIG_NAME}.${SEC}.network='tcp,udp'
+# uci set ${CONFIG_NAME}.${SEC}.node='NEED_CONFIG_IN_LUCI'
+
+# [16] 🇹🇼 台湾流媒体
+SEC="$(uci add ${CONFIG_NAME} shunt_rules)"
+uci set ${CONFIG_NAME}.${SEC}.remarks='🇹🇼 台湾流媒体'
+uci add_list ${CONFIG_NAME}.${SEC}.domain_list='geosite:bahamut'
+uci add_list ${CONFIG_NAME}.${SEC}.domain_list='domain:bahamut.com.tw'
+uci add_list ${CONFIG_NAME}.${SEC}.domain_list='domain:hinet.net'
+uci add_list ${CONFIG_NAME}.${SEC}.domain_list='domain:kktv.me'
+uci add_list ${CONFIG_NAME}.${SEC}.domain_list='domain:litv.tv'
+uci add_list ${CONFIG_NAME}.${SEC}.domain_list='domain:hamivideo.hinet.net'
+uci add_list ${CONFIG_NAME}.${SEC}.domain_list='domain:friday.tw'
+uci set ${CONFIG_NAME}.${SEC}.network='tcp,udp'
+# uci set ${CONFIG_NAME}.${SEC}.node='NEED_CONFIG_IN_LUCI'
+
+# [17] 🇯🇵 日韩流媒体
+SEC="$(uci add ${CONFIG_NAME} shunt_rules)"
+uci set ${CONFIG_NAME}.${SEC}.remarks='🇯🇵 日韩流媒体'
+uci add_list ${CONFIG_NAME}.${SEC}.domain_list='geosite:abema'
+uci add_list ${CONFIG_NAME}.${SEC}.domain_list='geosite:niconico'
+uci add_list ${CONFIG_NAME}.${SEC}.domain_list='domain:dazn.com'
+uci add_list ${CONFIG_NAME}.${SEC}.domain_list='domain:dmm.com'
+uci add_list ${CONFIG_NAME}.${SEC}.domain_list='domain:tv-tokyo.co.jp'
+uci add_list ${CONFIG_NAME}.${SEC}.domain_list='domain:tver.jp'
+uci add_list ${CONFIG_NAME}.${SEC}.domain_list='domain:rakuten.tv'
+uci set ${CONFIG_NAME}.${SEC}.network='tcp,udp'
+# uci set ${CONFIG_NAME}.${SEC}.node='NEED_CONFIG_IN_LUCI'
+
+# [18] 🇪🇺 欧洲流媒体
+SEC="$(uci add ${CONFIG_NAME} shunt_rules)"
+uci set ${CONFIG_NAME}.${SEC}.remarks='🇪🇺 欧洲流媒体'
+uci add_list ${CONFIG_NAME}.${SEC}.domain_list='geosite:bbc'
+uci add_list ${CONFIG_NAME}.${SEC}.domain_list='domain:itv.com'
+uci add_list ${CONFIG_NAME}.${SEC}.domain_list='domain:channel4.com'
+uci add_list ${CONFIG_NAME}.${SEC}.domain_list='domain:my5.tv'
+uci add_list ${CONFIG_NAME}.${SEC}.domain_list='domain:sky.com'
+uci add_list ${CONFIG_NAME}.${SEC}.domain_list='domain:skygo.com'
+uci add_list ${CONFIG_NAME}.${SEC}.domain_list='domain:britbox.co.uk'
+uci set ${CONFIG_NAME}.${SEC}.network='tcp,udp'
+# uci set ${CONFIG_NAME}.${SEC}.node='NEED_CONFIG_IN_LUCI'
+
+# [19] 🌐 其他国外流媒体（合并自原东南亚流媒体 + 美国流媒体余项）
 SEC="$(uci add ${CONFIG_NAME} shunt_rules)"
 uci set ${CONFIG_NAME}.${SEC}.remarks='🌐 其他国外流媒体'
 # 原东南亚流媒体
@@ -249,68 +286,86 @@ uci add_list ${CONFIG_NAME}.${SEC}.domain_list='domain:vrv.co'
 uci set ${CONFIG_NAME}.${SEC}.network='tcp,udp'
 # uci set ${CONFIG_NAME}.${SEC}.node='NEED_CONFIG_IN_LUCI'
 
-# [17] 🇭🇰 香港流媒体
+# [20] 🔧 工具与服务（新设，合并自原搜索引擎 + 开发者服务）
 SEC="$(uci add ${CONFIG_NAME} shunt_rules)"
-uci set ${CONFIG_NAME}.${SEC}.remarks='🇭🇰 香港流媒体'
-uci add_list ${CONFIG_NAME}.${SEC}.domain_list='geosite:mytvsuper'
-uci add_list ${CONFIG_NAME}.${SEC}.domain_list='domain:mytvsuper.com'
-uci add_list ${CONFIG_NAME}.${SEC}.domain_list='domain:now.com'
-uci add_list ${CONFIG_NAME}.${SEC}.domain_list='domain:viu.tv'
-uci add_list ${CONFIG_NAME}.${SEC}.domain_list='domain:encoretvb.com'
-uci add_list ${CONFIG_NAME}.${SEC}.domain_list='domain:rthk.hk'
+uci set ${CONFIG_NAME}.${SEC}.remarks='🔧 工具与服务'
+# 原 🔍 搜索引擎
+uci add_list ${CONFIG_NAME}.${SEC}.domain_list='geosite:google'
+uci add_list ${CONFIG_NAME}.${SEC}.domain_list='geosite:bing'
+uci add_list ${CONFIG_NAME}.${SEC}.domain_list='geosite:duckduckgo'
+uci add_list ${CONFIG_NAME}.${SEC}.domain_list='geosite:yandex'
+uci add_list ${CONFIG_NAME}.${SEC}.domain_list='domain:scholar.google.com'
+uci add_list ${CONFIG_NAME}.${SEC}.ip_list='geoip:google'
+# 原 📟 开发者服务
+uci add_list ${CONFIG_NAME}.${SEC}.domain_list='geosite:github'
+uci add_list ${CONFIG_NAME}.${SEC}.domain_list='geosite:gitlab'
+uci add_list ${CONFIG_NAME}.${SEC}.domain_list='geosite:docker'
+uci add_list ${CONFIG_NAME}.${SEC}.domain_list='geosite:npmjs'
+uci add_list ${CONFIG_NAME}.${SEC}.domain_list='geosite:pypi'
+uci add_list ${CONFIG_NAME}.${SEC}.domain_list='geosite:python'
+uci add_list ${CONFIG_NAME}.${SEC}.domain_list='domain:jetbrains.com'
+uci add_list ${CONFIG_NAME}.${SEC}.domain_list='domain:stackoverflow.com'
+uci add_list ${CONFIG_NAME}.${SEC}.domain_list='domain:stackexchange.com'
 uci set ${CONFIG_NAME}.${SEC}.network='tcp,udp'
 # uci set ${CONFIG_NAME}.${SEC}.node='NEED_CONFIG_IN_LUCI'
 
-# [18] 🇹🇼 台湾流媒体
+# [21] Ⓜ️ 微软服务
 SEC="$(uci add ${CONFIG_NAME} shunt_rules)"
-uci set ${CONFIG_NAME}.${SEC}.remarks='🇹🇼 台湾流媒体'
-uci add_list ${CONFIG_NAME}.${SEC}.domain_list='geosite:bahamut'
-uci add_list ${CONFIG_NAME}.${SEC}.domain_list='domain:bahamut.com.tw'
-uci add_list ${CONFIG_NAME}.${SEC}.domain_list='domain:hinet.net'
-uci add_list ${CONFIG_NAME}.${SEC}.domain_list='domain:kktv.me'
-uci add_list ${CONFIG_NAME}.${SEC}.domain_list='domain:litv.tv'
-uci add_list ${CONFIG_NAME}.${SEC}.domain_list='domain:hamivideo.hinet.net'
-uci add_list ${CONFIG_NAME}.${SEC}.domain_list='domain:friday.tw'
+uci set ${CONFIG_NAME}.${SEC}.remarks='Ⓜ️ 微软服务'
+uci add_list ${CONFIG_NAME}.${SEC}.domain_list='geosite:microsoft'
+uci add_list ${CONFIG_NAME}.${SEC}.domain_list='geosite:onedrive'
+uci add_list ${CONFIG_NAME}.${SEC}.domain_list='domain:office.com'
+uci add_list ${CONFIG_NAME}.${SEC}.domain_list='domain:live.com'
+uci add_list ${CONFIG_NAME}.${SEC}.domain_list='domain:microsoftedge.com'
 uci set ${CONFIG_NAME}.${SEC}.network='tcp,udp'
 # uci set ${CONFIG_NAME}.${SEC}.node='NEED_CONFIG_IN_LUCI'
 
-# [19] 🇯🇵 日韩流媒体
+# [22] 🍎 苹果服务
 SEC="$(uci add ${CONFIG_NAME} shunt_rules)"
-uci set ${CONFIG_NAME}.${SEC}.remarks='🇯🇵 日韩流媒体'
-uci add_list ${CONFIG_NAME}.${SEC}.domain_list='geosite:abema'
-uci add_list ${CONFIG_NAME}.${SEC}.domain_list='geosite:niconico'
-uci add_list ${CONFIG_NAME}.${SEC}.domain_list='domain:dazn.com'
-uci add_list ${CONFIG_NAME}.${SEC}.domain_list='domain:dmm.com'
-uci add_list ${CONFIG_NAME}.${SEC}.domain_list='domain:tv-tokyo.co.jp'
-uci add_list ${CONFIG_NAME}.${SEC}.domain_list='domain:tver.jp'
-uci add_list ${CONFIG_NAME}.${SEC}.domain_list='domain:rakuten.tv'
+uci set ${CONFIG_NAME}.${SEC}.remarks='🍎 苹果服务'
+uci add_list ${CONFIG_NAME}.${SEC}.domain_list='geosite:apple'
+uci add_list ${CONFIG_NAME}.${SEC}.domain_list='geosite:icloud'
+uci add_list ${CONFIG_NAME}.${SEC}.domain_list='domain:appstore.com'
+uci add_list ${CONFIG_NAME}.${SEC}.domain_list='domain:mzstatic.com'
+uci add_list ${CONFIG_NAME}.${SEC}.domain_list='domain:itunes.com'
+uci add_list ${CONFIG_NAME}.${SEC}.domain_list='domain:applemusic.com'
+uci add_list ${CONFIG_NAME}.${SEC}.domain_list='domain:apple-dns.net'
 uci set ${CONFIG_NAME}.${SEC}.network='tcp,udp'
 # uci set ${CONFIG_NAME}.${SEC}.node='NEED_CONFIG_IN_LUCI'
 
-# [20] 🇪🇺 欧洲流媒体
+# [23] 📥 下载更新
 SEC="$(uci add ${CONFIG_NAME} shunt_rules)"
-uci set ${CONFIG_NAME}.${SEC}.remarks='🇪🇺 欧洲流媒体'
-uci add_list ${CONFIG_NAME}.${SEC}.domain_list='geosite:bbc'
-uci add_list ${CONFIG_NAME}.${SEC}.domain_list='domain:itv.com'
-uci add_list ${CONFIG_NAME}.${SEC}.domain_list='domain:channel4.com'
-uci add_list ${CONFIG_NAME}.${SEC}.domain_list='domain:my5.tv'
-uci add_list ${CONFIG_NAME}.${SEC}.domain_list='domain:sky.com'
-uci add_list ${CONFIG_NAME}.${SEC}.domain_list='domain:skygo.com'
-uci add_list ${CONFIG_NAME}.${SEC}.domain_list='domain:britbox.co.uk'
+uci set ${CONFIG_NAME}.${SEC}.remarks='📥 下载更新'
+uci add_list ${CONFIG_NAME}.${SEC}.domain_list='domain:dl.google.com'
+uci add_list ${CONFIG_NAME}.${SEC}.domain_list='domain:play.googleapis.com'
+uci add_list ${CONFIG_NAME}.${SEC}.domain_list='domain:msftconnecttest.com'
+uci add_list ${CONFIG_NAME}.${SEC}.domain_list='domain:windowsupdate.com'
+uci add_list ${CONFIG_NAME}.${SEC}.domain_list='domain:cdn-apple.com'
+uci add_list ${CONFIG_NAME}.${SEC}.domain_list='domain:ubuntu.com'
+uci add_list ${CONFIG_NAME}.${SEC}.domain_list='domain:mozilla.org'
+uci add_list ${CONFIG_NAME}.${SEC}.domain_list='domain:apkpure.com'
 uci set ${CONFIG_NAME}.${SEC}.network='tcp,udp'
 # uci set ${CONFIG_NAME}.${SEC}.node='NEED_CONFIG_IN_LUCI'
 
-# [21] 🕹️ 国内游戏
+# [24] 🛰️ BT/PT Tracker
 SEC="$(uci add ${CONFIG_NAME} shunt_rules)"
-uci set ${CONFIG_NAME}.${SEC}.remarks='🕹️ 国内游戏'
-uci add_list ${CONFIG_NAME}.${SEC}.domain_list='geosite:steamcn'
-uci add_list ${CONFIG_NAME}.${SEC}.domain_list='domain:wanmei.com'
-uci add_list ${CONFIG_NAME}.${SEC}.domain_list='domain:majsoul.com'
-uci add_list ${CONFIG_NAME}.${SEC}.domain_list='domain:battlenet.com.cn'
+uci set ${CONFIG_NAME}.${SEC}.remarks='🛰️ BT/PT Tracker'
+uci add_list ${CONFIG_NAME}.${SEC}.domain_list='geosite:private-tracker'
+uci add_list ${CONFIG_NAME}.${SEC}.domain_list='domain:opentrackr.org'
+uci add_list ${CONFIG_NAME}.${SEC}.domain_list='domain:openbittorrent.com'
+uci add_list ${CONFIG_NAME}.${SEC}.domain_list='domain:nyaa.si'
 uci set ${CONFIG_NAME}.${SEC}.network='tcp,udp'
 # uci set ${CONFIG_NAME}.${SEC}.node='NEED_CONFIG_IN_LUCI'
 
-# [22] 🎮 国外游戏
+# [25] 🚫 受限网站
+SEC="$(uci add ${CONFIG_NAME} shunt_rules)"
+uci set ${CONFIG_NAME}.${SEC}.remarks='🚫 受限网站'
+uci add_list ${CONFIG_NAME}.${SEC}.domain_list='geosite:gfw'
+uci add_list ${CONFIG_NAME}.${SEC}.domain_list='geosite:greatfire'
+uci set ${CONFIG_NAME}.${SEC}.network='tcp,udp'
+# uci set ${CONFIG_NAME}.${SEC}.node='NEED_CONFIG_IN_LUCI'
+
+# [26] 🎮 国外游戏
 SEC="$(uci add ${CONFIG_NAME} shunt_rules)"
 uci set ${CONFIG_NAME}.${SEC}.remarks='🎮 国外游戏'
 uci add_list ${CONFIG_NAME}.${SEC}.domain_list='geosite:steam'
@@ -326,72 +381,7 @@ uci add_list ${CONFIG_NAME}.${SEC}.domain_list='domain:mihoyo.com'
 uci set ${CONFIG_NAME}.${SEC}.network='tcp,udp'
 # uci set ${CONFIG_NAME}.${SEC}.node='NEED_CONFIG_IN_LUCI'
 
-# [23] Ⓜ️ 微软服务
-SEC="$(uci add ${CONFIG_NAME} shunt_rules)"
-uci set ${CONFIG_NAME}.${SEC}.remarks='Ⓜ️ 微软服务'
-uci add_list ${CONFIG_NAME}.${SEC}.domain_list='geosite:microsoft'
-uci add_list ${CONFIG_NAME}.${SEC}.domain_list='geosite:onedrive'
-uci add_list ${CONFIG_NAME}.${SEC}.domain_list='domain:office.com'
-uci add_list ${CONFIG_NAME}.${SEC}.domain_list='domain:live.com'
-uci add_list ${CONFIG_NAME}.${SEC}.domain_list='domain:microsoftedge.com'
-uci set ${CONFIG_NAME}.${SEC}.network='tcp,udp'
-# uci set ${CONFIG_NAME}.${SEC}.node='NEED_CONFIG_IN_LUCI'
-
-# [24] 🍎 苹果服务
-SEC="$(uci add ${CONFIG_NAME} shunt_rules)"
-uci set ${CONFIG_NAME}.${SEC}.remarks='🍎 苹果服务'
-uci add_list ${CONFIG_NAME}.${SEC}.domain_list='geosite:apple'
-uci add_list ${CONFIG_NAME}.${SEC}.domain_list='geosite:icloud'
-uci add_list ${CONFIG_NAME}.${SEC}.domain_list='domain:appstore.com'
-uci add_list ${CONFIG_NAME}.${SEC}.domain_list='domain:mzstatic.com'
-uci add_list ${CONFIG_NAME}.${SEC}.domain_list='domain:itunes.com'
-uci add_list ${CONFIG_NAME}.${SEC}.domain_list='domain:applemusic.com'
-uci add_list ${CONFIG_NAME}.${SEC}.domain_list='domain:apple-dns.net'
-uci set ${CONFIG_NAME}.${SEC}.network='tcp,udp'
-# uci set ${CONFIG_NAME}.${SEC}.node='NEED_CONFIG_IN_LUCI'
-
-# [25] 📥 下载更新
-SEC="$(uci add ${CONFIG_NAME} shunt_rules)"
-uci set ${CONFIG_NAME}.${SEC}.remarks='📥 下载更新'
-uci add_list ${CONFIG_NAME}.${SEC}.domain_list='domain:dl.google.com'
-uci add_list ${CONFIG_NAME}.${SEC}.domain_list='domain:play.googleapis.com'
-uci add_list ${CONFIG_NAME}.${SEC}.domain_list='domain:msftconnecttest.com'
-uci add_list ${CONFIG_NAME}.${SEC}.domain_list='domain:windowsupdate.com'
-uci add_list ${CONFIG_NAME}.${SEC}.domain_list='domain:cdn-apple.com'
-uci add_list ${CONFIG_NAME}.${SEC}.domain_list='domain:ubuntu.com'
-uci add_list ${CONFIG_NAME}.${SEC}.domain_list='domain:mozilla.org'
-uci add_list ${CONFIG_NAME}.${SEC}.domain_list='domain:apkpure.com'
-uci set ${CONFIG_NAME}.${SEC}.network='tcp,udp'
-# uci set ${CONFIG_NAME}.${SEC}.node='NEED_CONFIG_IN_LUCI'
-
-# [26] 🛰️ BT/PT Tracker
-SEC="$(uci add ${CONFIG_NAME} shunt_rules)"
-uci set ${CONFIG_NAME}.${SEC}.remarks='🛰️ BT/PT Tracker'
-uci add_list ${CONFIG_NAME}.${SEC}.domain_list='geosite:private-tracker'
-uci add_list ${CONFIG_NAME}.${SEC}.domain_list='domain:opentrackr.org'
-uci add_list ${CONFIG_NAME}.${SEC}.domain_list='domain:openbittorrent.com'
-uci add_list ${CONFIG_NAME}.${SEC}.domain_list='domain:nyaa.si'
-uci set ${CONFIG_NAME}.${SEC}.network='tcp,udp'
-# uci set ${CONFIG_NAME}.${SEC}.node='NEED_CONFIG_IN_LUCI'
-
-# [27] 🏠 国内网站
-SEC="$(uci add ${CONFIG_NAME} shunt_rules)"
-uci set ${CONFIG_NAME}.${SEC}.remarks='🏠 国内网站'
-uci add_list ${CONFIG_NAME}.${SEC}.domain_list='geosite:cn'
-uci add_list ${CONFIG_NAME}.${SEC}.ip_list='geoip:cn'
-uci add_list ${CONFIG_NAME}.${SEC}.ip_list='geoip:private'
-uci set ${CONFIG_NAME}.${SEC}.network='tcp,udp'
-# uci set ${CONFIG_NAME}.${SEC}.node='NEED_CONFIG_IN_LUCI'
-
-# [28] 🚫 受限网站
-SEC="$(uci add ${CONFIG_NAME} shunt_rules)"
-uci set ${CONFIG_NAME}.${SEC}.remarks='🚫 受限网站'
-uci add_list ${CONFIG_NAME}.${SEC}.domain_list='geosite:gfw'
-uci add_list ${CONFIG_NAME}.${SEC}.domain_list='geosite:greatfire'
-uci set ${CONFIG_NAME}.${SEC}.network='tcp,udp'
-# uci set ${CONFIG_NAME}.${SEC}.node='NEED_CONFIG_IN_LUCI'
-
-# [29] 🌐 国外网站（合并自原邮件服务 + 云与CDN）
+# [27] 🌐 国外网站（合并自原邮件服务 + 云与CDN）
 SEC="$(uci add ${CONFIG_NAME} shunt_rules)"
 uci set ${CONFIG_NAME}.${SEC}.remarks='🌐 国外网站'
 uci add_list ${CONFIG_NAME}.${SEC}.domain_list='geosite:geolocation-!cn'
@@ -417,26 +407,36 @@ uci add_list ${CONFIG_NAME}.${SEC}.ip_list='geoip:fastly'
 uci set ${CONFIG_NAME}.${SEC}.network='tcp,udp'
 # uci set ${CONFIG_NAME}.${SEC}.node='NEED_CONFIG_IN_LUCI'
 
-# [30] 🔧 工具与服务（新设，合并自原搜索引擎 + 开发者服务）
+# [28] 🕹️ 国内游戏
 SEC="$(uci add ${CONFIG_NAME} shunt_rules)"
-uci set ${CONFIG_NAME}.${SEC}.remarks='🔧 工具与服务'
-# 原 🔍 搜索引擎
-uci add_list ${CONFIG_NAME}.${SEC}.domain_list='geosite:google'
-uci add_list ${CONFIG_NAME}.${SEC}.domain_list='geosite:bing'
-uci add_list ${CONFIG_NAME}.${SEC}.domain_list='geosite:duckduckgo'
-uci add_list ${CONFIG_NAME}.${SEC}.domain_list='geosite:yandex'
-uci add_list ${CONFIG_NAME}.${SEC}.domain_list='domain:scholar.google.com'
-uci add_list ${CONFIG_NAME}.${SEC}.ip_list='geoip:google'
-# 原 📟 开发者服务
-uci add_list ${CONFIG_NAME}.${SEC}.domain_list='geosite:github'
-uci add_list ${CONFIG_NAME}.${SEC}.domain_list='geosite:gitlab'
-uci add_list ${CONFIG_NAME}.${SEC}.domain_list='geosite:docker'
-uci add_list ${CONFIG_NAME}.${SEC}.domain_list='geosite:npmjs'
-uci add_list ${CONFIG_NAME}.${SEC}.domain_list='geosite:pypi'
-uci add_list ${CONFIG_NAME}.${SEC}.domain_list='geosite:python'
-uci add_list ${CONFIG_NAME}.${SEC}.domain_list='domain:jetbrains.com'
-uci add_list ${CONFIG_NAME}.${SEC}.domain_list='domain:stackoverflow.com'
-uci add_list ${CONFIG_NAME}.${SEC}.domain_list='domain:stackexchange.com'
+uci set ${CONFIG_NAME}.${SEC}.remarks='🕹️ 国内游戏'
+uci add_list ${CONFIG_NAME}.${SEC}.domain_list='geosite:steamcn'
+uci add_list ${CONFIG_NAME}.${SEC}.domain_list='domain:wanmei.com'
+uci add_list ${CONFIG_NAME}.${SEC}.domain_list='domain:majsoul.com'
+uci add_list ${CONFIG_NAME}.${SEC}.domain_list='domain:battlenet.com.cn'
+uci set ${CONFIG_NAME}.${SEC}.network='tcp,udp'
+# uci set ${CONFIG_NAME}.${SEC}.node='NEED_CONFIG_IN_LUCI'
+
+# [29] 📺 国内流媒体
+SEC="$(uci add ${CONFIG_NAME} shunt_rules)"
+uci set ${CONFIG_NAME}.${SEC}.remarks='📺 国内流媒体'
+uci add_list ${CONFIG_NAME}.${SEC}.domain_list='geosite:bilibili'
+uci add_list ${CONFIG_NAME}.${SEC}.domain_list='geosite:iqiyi'
+uci add_list ${CONFIG_NAME}.${SEC}.domain_list='geosite:youku'
+uci add_list ${CONFIG_NAME}.${SEC}.domain_list='geosite:tencentvideo'
+uci add_list ${CONFIG_NAME}.${SEC}.domain_list='geosite:mgtv'
+uci add_list ${CONFIG_NAME}.${SEC}.domain_list='geosite:douyin'
+uci add_list ${CONFIG_NAME}.${SEC}.domain_list='geosite:netease-music'
+uci add_list ${CONFIG_NAME}.${SEC}.domain_list='geosite:qqmusic'
+uci set ${CONFIG_NAME}.${SEC}.network='tcp,udp'
+# uci set ${CONFIG_NAME}.${SEC}.node='NEED_CONFIG_IN_LUCI'
+
+# [30] 🏠 国内网站
+SEC="$(uci add ${CONFIG_NAME} shunt_rules)"
+uci set ${CONFIG_NAME}.${SEC}.remarks='🏠 国内网站'
+uci add_list ${CONFIG_NAME}.${SEC}.domain_list='geosite:cn'
+uci add_list ${CONFIG_NAME}.${SEC}.ip_list='geoip:cn'
+uci add_list ${CONFIG_NAME}.${SEC}.ip_list='geoip:private'
 uci set ${CONFIG_NAME}.${SEC}.network='tcp,udp'
 # uci set ${CONFIG_NAME}.${SEC}.node='NEED_CONFIG_IN_LUCI'
 

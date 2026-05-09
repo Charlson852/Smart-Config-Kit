@@ -2122,6 +2122,1140 @@
         "outbound": "💰 加密货币"
       },
       {
+        "rule_set": [
+          "bbc"
+        ],
+        "action": "route",
+        "outbound": "🇪🇺 欧洲流媒体"
+      },
+      {
+        "domain_suffix": [
+          "itv.com"
+        ],
+        "action": "route",
+        "outbound": "🇪🇺 欧洲流媒体"
+      },
+      {
+        "domain_suffix": [
+          "itvstatic.com"
+        ],
+        "action": "route",
+        "outbound": "🇪🇺 欧洲流媒体"
+      },
+      {
+        "domain_suffix": [
+          "channel4.com"
+        ],
+        "action": "route",
+        "outbound": "🇪🇺 欧洲流媒体"
+      },
+      {
+        "domain_suffix": [
+          "channel5.com"
+        ],
+        "action": "route",
+        "outbound": "🇪🇺 欧洲流媒体"
+      },
+      {
+        "domain_suffix": [
+          "sky.com"
+        ],
+        "action": "route",
+        "outbound": "🇪🇺 欧洲流媒体"
+      },
+      {
+        "domain_suffix": [
+          "nowtv.co.uk"
+        ],
+        "action": "route",
+        "outbound": "🇪🇺 欧洲流媒体"
+      },
+      {
+        "domain_suffix": [
+          "britbox.com"
+        ],
+        "action": "route",
+        "outbound": "🇪🇺 欧洲流媒体"
+      },
+      {
+        "domain_suffix": [
+          "canalplus.com"
+        ],
+        "action": "route",
+        "outbound": "🇪🇺 欧洲流媒体"
+      },
+      {
+        "domain_suffix": [
+          "mycanal.fr"
+        ],
+        "action": "route",
+        "outbound": "🇪🇺 欧洲流媒体"
+      },
+      {
+        "domain_suffix": [
+          "france.tv"
+        ],
+        "action": "route",
+        "outbound": "🇪🇺 欧洲流媒体"
+      },
+      {
+        "domain_suffix": [
+          "tf1.fr"
+        ],
+        "action": "route",
+        "outbound": "🇪🇺 欧洲流媒体"
+      },
+      {
+        "domain_suffix": [
+          "molotov.tv"
+        ],
+        "action": "route",
+        "outbound": "🇪🇺 欧洲流媒体"
+      },
+      {
+        "domain_suffix": [
+          "arte.tv"
+        ],
+        "action": "route",
+        "outbound": "🇪🇺 欧洲流媒体"
+      },
+      {
+        "domain_suffix": [
+          "joyn.de"
+        ],
+        "action": "route",
+        "outbound": "🇪🇺 欧洲流媒体"
+      },
+      {
+        "domain_suffix": [
+          "zdf.de"
+        ],
+        "action": "route",
+        "outbound": "🇪🇺 欧洲流媒体"
+      },
+      {
+        "domain_suffix": [
+          "ard.de"
+        ],
+        "action": "route",
+        "outbound": "🇪🇺 欧洲流媒体"
+      },
+      {
+        "domain_suffix": [
+          "ardmediathek.de"
+        ],
+        "action": "route",
+        "outbound": "🇪🇺 欧洲流媒体"
+      },
+      {
+        "domain_suffix": [
+          "rtlplus.com"
+        ],
+        "action": "route",
+        "outbound": "🇪🇺 欧洲流媒体"
+      },
+      {
+        "domain_suffix": [
+          "raiplay.it"
+        ],
+        "action": "route",
+        "outbound": "🇪🇺 欧洲流媒体"
+      },
+      {
+        "domain_suffix": [
+          "rtve.es"
+        ],
+        "action": "route",
+        "outbound": "🇪🇺 欧洲流媒体"
+      },
+      {
+        "domain_suffix": [
+          "videoland.com"
+        ],
+        "action": "route",
+        "outbound": "🇪🇺 欧洲流媒体"
+      },
+      {
+        "domain_suffix": [
+          "ruutu.fi"
+        ],
+        "action": "route",
+        "outbound": "🇪🇺 欧洲流媒体"
+      },
+      {
+        "domain_suffix": [
+          "tv2.dk"
+        ],
+        "action": "route",
+        "outbound": "🇪🇺 欧洲流媒体"
+      },
+      {
+        "domain_suffix": [
+          "svtplay.se"
+        ],
+        "action": "route",
+        "outbound": "🇪🇺 欧洲流媒体"
+      },
+      {
+        "domain_suffix": [
+          "nrk.no"
+        ],
+        "action": "route",
+        "outbound": "🇪🇺 欧洲流媒体"
+      },
+      {
+        "domain_suffix": [
+          "ivi.ru"
+        ],
+        "action": "route",
+        "outbound": "🇪🇺 欧洲流媒体"
+      },
+      {
+        "domain_suffix": [
+          "kinopoisk.ru"
+        ],
+        "action": "route",
+        "outbound": "🇪🇺 欧洲流媒体"
+      },
+      {
+        "domain_suffix": [
+          "okko.tv"
+        ],
+        "action": "route",
+        "outbound": "🇪🇺 欧洲流媒体"
+      },
+      {
+        "domain_suffix": [
+          "more.tv"
+        ],
+        "action": "route",
+        "outbound": "🇪🇺 欧洲流媒体"
+      },
+      {
+        "domain_suffix": [
+          "wetv.vip"
+        ],
+        "action": "route",
+        "outbound": "🌐 其他国外流媒体"
+      },
+      {
+        "domain_suffix": [
+          "wetvinfo.com"
+        ],
+        "action": "route",
+        "outbound": "🌐 其他国外流媒体"
+      },
+      {
+        "domain_suffix": [
+          "iq.com"
+        ],
+        "action": "route",
+        "outbound": "🌐 其他国外流媒体"
+      },
+      {
+        "domain_suffix": [
+          "vidio.com"
+        ],
+        "action": "route",
+        "outbound": "🌐 其他国外流媒体"
+      },
+      {
+        "domain_suffix": [
+          "vidio.static6.com"
+        ],
+        "action": "route",
+        "outbound": "🌐 其他国外流媒体"
+      },
+      {
+        "domain_suffix": [
+          "rctiplus.com"
+        ],
+        "action": "route",
+        "outbound": "🌐 其他国外流媒体"
+      },
+      {
+        "domain_suffix": [
+          "visionplus.id"
+        ],
+        "action": "route",
+        "outbound": "🌐 其他国外流媒体"
+      },
+      {
+        "domain_suffix": [
+          "genflix.co.id"
+        ],
+        "action": "route",
+        "outbound": "🌐 其他国外流媒体"
+      },
+      {
+        "domain_suffix": [
+          "goplay.co.id"
+        ],
+        "action": "route",
+        "outbound": "🌐 其他国外流媒体"
+      },
+      {
+        "domain_suffix": [
+          "maxstream.tv"
+        ],
+        "action": "route",
+        "outbound": "🌐 其他国外流媒体"
+      },
+      {
+        "rule_set": [
+          "biliintl"
+        ],
+        "action": "route",
+        "outbound": "🌐 其他国外流媒体"
+      },
+      {
+        "domain_suffix": [
+          "viki.com"
+        ],
+        "action": "route",
+        "outbound": "🌐 其他国外流媒体"
+      },
+      {
+        "domain_suffix": [
+          "viki.io"
+        ],
+        "action": "route",
+        "outbound": "🌐 其他国外流媒体"
+      },
+      {
+        "domain_suffix": [
+          "iflix.com"
+        ],
+        "action": "route",
+        "outbound": "🌐 其他国外流媒体"
+      },
+      {
+        "domain_suffix": [
+          "catchplay.com"
+        ],
+        "action": "route",
+        "outbound": "🌐 其他国外流媒体"
+      },
+      {
+        "domain_suffix": [
+          "mewatch.sg"
+        ],
+        "action": "route",
+        "outbound": "🌐 其他国外流媒体"
+      },
+      {
+        "domain_suffix": [
+          "trueid.net"
+        ],
+        "action": "route",
+        "outbound": "🌐 其他国外流媒体"
+      },
+      {
+        "domain_suffix": [
+          "dimsum.my"
+        ],
+        "action": "route",
+        "outbound": "🌐 其他国外流媒体"
+      },
+      {
+        "domain_suffix": [
+          "crunchyroll.com"
+        ],
+        "action": "route",
+        "outbound": "🌐 其他国外流媒体"
+      },
+      {
+        "domain_suffix": [
+          "vrv.co"
+        ],
+        "action": "route",
+        "outbound": "🌐 其他国外流媒体"
+      },
+      {
+        "domain_suffix": [
+          "pluto.tv"
+        ],
+        "action": "route",
+        "outbound": "🌐 其他国外流媒体"
+      },
+      {
+        "domain_suffix": [
+          "tubi.tv"
+        ],
+        "action": "route",
+        "outbound": "🌐 其他国外流媒体"
+      },
+      {
+        "domain_suffix": [
+          "fubo.tv"
+        ],
+        "action": "route",
+        "outbound": "🌐 其他国外流媒体"
+      },
+      {
+        "domain_suffix": [
+          "discoveryplus.com"
+        ],
+        "action": "route",
+        "outbound": "🌐 其他国外流媒体"
+      },
+      {
+        "domain_suffix": [
+          "appletv.com"
+        ],
+        "action": "route",
+        "outbound": "🌐 其他国外流媒体"
+      },
+      {
+        "domain_suffix": [
+          "vimeo.com"
+        ],
+        "action": "route",
+        "outbound": "🌐 其他国外流媒体"
+      },
+      {
+        "domain_suffix": [
+          "dailymotion.com"
+        ],
+        "action": "route",
+        "outbound": "🌐 其他国外流媒体"
+      },
+      {
+        "rule_set": [
+          "google"
+        ],
+        "action": "route",
+        "outbound": "🔧 工具与服务"
+      },
+      {
+        "rule_set": [
+          "google-ip"
+        ],
+        "action": "route",
+        "outbound": "🔧 工具与服务"
+      },
+      {
+        "domain_suffix": [
+          "aws.amazon.com"
+        ],
+        "action": "route",
+        "outbound": "🔧 工具与服务"
+      },
+      {
+        "domain_suffix": [
+          "elasticbeanstalk.com"
+        ],
+        "action": "route",
+        "outbound": "🔧 工具与服务"
+      },
+      {
+        "domain_suffix": [
+          "yahoo.com"
+        ],
+        "action": "route",
+        "outbound": "🔧 工具与服务"
+      },
+      {
+        "domain_suffix": [
+          "yahoo.co.jp"
+        ],
+        "action": "route",
+        "outbound": "🔧 工具与服务"
+      },
+      {
+        "domain_suffix": [
+          "duckduckgo.com"
+        ],
+        "action": "route",
+        "outbound": "🔧 工具与服务"
+      },
+      {
+        "domain_suffix": [
+          "ddg.co"
+        ],
+        "action": "route",
+        "outbound": "🔧 工具与服务"
+      },
+      {
+        "domain_suffix": [
+          "brave.com"
+        ],
+        "action": "route",
+        "outbound": "🔧 工具与服务"
+      },
+      {
+        "domain_suffix": [
+          "yandex.com"
+        ],
+        "action": "route",
+        "outbound": "🔧 工具与服务"
+      },
+      {
+        "domain_suffix": [
+          "yandex.ru"
+        ],
+        "action": "route",
+        "outbound": "🔧 工具与服务"
+      },
+      {
+        "domain_suffix": [
+          "ecosia.org"
+        ],
+        "action": "route",
+        "outbound": "🔧 工具与服务"
+      },
+      {
+        "domain_suffix": [
+          "startpage.com"
+        ],
+        "action": "route",
+        "outbound": "🔧 工具与服务"
+      },
+      {
+        "domain_suffix": [
+          "you.com"
+        ],
+        "action": "route",
+        "outbound": "🔧 工具与服务"
+      },
+      {
+        "domain_suffix": [
+          "search.naver.com"
+        ],
+        "action": "route",
+        "outbound": "🔧 工具与服务"
+      },
+      {
+        "rule_set": [
+          "github"
+        ],
+        "action": "route",
+        "outbound": "🔧 工具与服务"
+      },
+      {
+        "rule_set": [
+          "geosite-category-dev"
+        ],
+        "action": "route",
+        "outbound": "🔧 工具与服务"
+      },
+      {
+        "domain_suffix": [
+          "npmjs.com"
+        ],
+        "action": "route",
+        "outbound": "🔧 工具与服务"
+      },
+      {
+        "domain_suffix": [
+          "npmjs.org"
+        ],
+        "action": "route",
+        "outbound": "🔧 工具与服务"
+      },
+      {
+        "domain_suffix": [
+          "yarnpkg.com"
+        ],
+        "action": "route",
+        "outbound": "🔧 工具与服务"
+      },
+      {
+        "domain_suffix": [
+          "pypi.org"
+        ],
+        "action": "route",
+        "outbound": "🔧 工具与服务"
+      },
+      {
+        "domain_suffix": [
+          "pythonhosted.org"
+        ],
+        "action": "route",
+        "outbound": "🔧 工具与服务"
+      },
+      {
+        "domain_suffix": [
+          "crates.io"
+        ],
+        "action": "route",
+        "outbound": "🔧 工具与服务"
+      },
+      {
+        "domain_suffix": [
+          "rubygems.org"
+        ],
+        "action": "route",
+        "outbound": "🔧 工具与服务"
+      },
+      {
+        "domain_suffix": [
+          "packagist.org"
+        ],
+        "action": "route",
+        "outbound": "🔧 工具与服务"
+      },
+      {
+        "domain_suffix": [
+          "maven.org"
+        ],
+        "action": "route",
+        "outbound": "🔧 工具与服务"
+      },
+      {
+        "domain_suffix": [
+          "nuget.org"
+        ],
+        "action": "route",
+        "outbound": "🔧 工具与服务"
+      },
+      {
+        "domain_suffix": [
+          "cocoapods.org"
+        ],
+        "action": "route",
+        "outbound": "🔧 工具与服务"
+      },
+      {
+        "domain_suffix": [
+          "stackoverflow.com"
+        ],
+        "action": "route",
+        "outbound": "🔧 工具与服务"
+      },
+      {
+        "domain_suffix": [
+          "stackexchange.com"
+        ],
+        "action": "route",
+        "outbound": "🔧 工具与服务"
+      },
+      {
+        "domain_suffix": [
+          "sstatic.net"
+        ],
+        "action": "route",
+        "outbound": "🔧 工具与服务"
+      },
+      {
+        "domain_suffix": [
+          "vercel.com"
+        ],
+        "action": "route",
+        "outbound": "🔧 工具与服务"
+      },
+      {
+        "domain_suffix": [
+          "vercel.app"
+        ],
+        "action": "route",
+        "outbound": "🔧 工具与服务"
+      },
+      {
+        "domain_suffix": [
+          "netlify.app"
+        ],
+        "action": "route",
+        "outbound": "🔧 工具与服务"
+      },
+      {
+        "domain_suffix": [
+          "netlify.com"
+        ],
+        "action": "route",
+        "outbound": "🔧 工具与服务"
+      },
+      {
+        "domain_suffix": [
+          "pages.dev"
+        ],
+        "action": "route",
+        "outbound": "🔧 工具与服务"
+      },
+      {
+        "domain_suffix": [
+          "workers.dev"
+        ],
+        "action": "route",
+        "outbound": "🔧 工具与服务"
+      },
+      {
+        "domain": [
+          "dash.cloudflare.com"
+        ],
+        "action": "route",
+        "outbound": "🔧 工具与服务"
+      },
+      {
+        "domain": [
+          "api.cloudflare.com"
+        ],
+        "action": "route",
+        "outbound": "🔧 工具与服务"
+      },
+      {
+        "domain": [
+          "developers.cloudflare.com"
+        ],
+        "action": "route",
+        "outbound": "🔧 工具与服务"
+      },
+      {
+        "domain": [
+          "www.cloudflare.com"
+        ],
+        "action": "route",
+        "outbound": "🔧 工具与服务"
+      },
+      {
+        "domain_suffix": [
+          "heroku.com"
+        ],
+        "action": "route",
+        "outbound": "🔧 工具与服务"
+      },
+      {
+        "domain_suffix": [
+          "herokuapp.com"
+        ],
+        "action": "route",
+        "outbound": "🔧 工具与服务"
+      },
+      {
+        "domain_suffix": [
+          "fly.io"
+        ],
+        "action": "route",
+        "outbound": "🔧 工具与服务"
+      },
+      {
+        "domain_suffix": [
+          "railway.app"
+        ],
+        "action": "route",
+        "outbound": "🔧 工具与服务"
+      },
+      {
+        "domain_suffix": [
+          "render.com"
+        ],
+        "action": "route",
+        "outbound": "🔧 工具与服务"
+      },
+      {
+        "domain_suffix": [
+          "supabase.com"
+        ],
+        "action": "route",
+        "outbound": "🔧 工具与服务"
+      },
+      {
+        "domain_suffix": [
+          "supabase.co"
+        ],
+        "action": "route",
+        "outbound": "🔧 工具与服务"
+      },
+      {
+        "domain_suffix": [
+          "planetscale.com"
+        ],
+        "action": "route",
+        "outbound": "🔧 工具与服务"
+      },
+      {
+        "domain_suffix": [
+          "neon.tech"
+        ],
+        "action": "route",
+        "outbound": "🔧 工具与服务"
+      },
+      {
+        "domain_suffix": [
+          "digitalocean.com"
+        ],
+        "action": "route",
+        "outbound": "🔧 工具与服务"
+      },
+      {
+        "domain_suffix": [
+          "vultr.com"
+        ],
+        "action": "route",
+        "outbound": "🔧 工具与服务"
+      },
+      {
+        "domain_suffix": [
+          "linode.com"
+        ],
+        "action": "route",
+        "outbound": "🔧 工具与服务"
+      },
+      {
+        "domain_suffix": [
+          "sentry.io"
+        ],
+        "action": "route",
+        "outbound": "🔧 工具与服务"
+      },
+      {
+        "domain_suffix": [
+          "datadog.com"
+        ],
+        "action": "route",
+        "outbound": "🔧 工具与服务"
+      },
+      {
+        "domain_suffix": [
+          "grafana.com"
+        ],
+        "action": "route",
+        "outbound": "🔧 工具与服务"
+      },
+      {
+        "domain_suffix": [
+          "postman.com"
+        ],
+        "action": "route",
+        "outbound": "🔧 工具与服务"
+      },
+      {
+        "domain_suffix": [
+          "jetbrains.com"
+        ],
+        "action": "route",
+        "outbound": "🔧 工具与服务"
+      },
+      {
+        "domain_suffix": [
+          "hashicorp.com"
+        ],
+        "action": "route",
+        "outbound": "🔧 工具与服务"
+      },
+      {
+        "domain_suffix": [
+          "terraform.io"
+        ],
+        "action": "route",
+        "outbound": "🔧 工具与服务"
+      },
+      {
+        "domain_suffix": [
+          "vagrantup.com"
+        ],
+        "action": "route",
+        "outbound": "🔧 工具与服务"
+      },
+      {
+        "domain": [
+          "login.live.com"
+        ],
+        "action": "route",
+        "outbound": "Ⓜ️ 微软服务"
+      },
+      {
+        "domain": [
+          "g.live.com"
+        ],
+        "action": "route",
+        "outbound": "Ⓜ️ 微软服务"
+      },
+      {
+        "domain_suffix": [
+          "officeapps.live.com"
+        ],
+        "action": "route",
+        "outbound": "Ⓜ️ 微软服务"
+      },
+      {
+        "rule_set": [
+          "onedrive"
+        ],
+        "action": "route",
+        "outbound": "Ⓜ️ 微软服务"
+      },
+      {
+        "rule_set": [
+          "microsoft"
+        ],
+        "action": "route",
+        "outbound": "Ⓜ️ 微软服务"
+      },
+      {
+        "rule_set": [
+          "icloud"
+        ],
+        "action": "route",
+        "outbound": "🍎 苹果服务"
+      },
+      {
+        "rule_set": [
+          "apple"
+        ],
+        "action": "route",
+        "outbound": "🍎 苹果服务"
+      },
+      {
+        "domain_suffix": [
+          "dl.google.com"
+        ],
+        "action": "route",
+        "outbound": "📥 下载更新"
+      },
+      {
+        "domain_suffix": [
+          "play.googleapis.com"
+        ],
+        "action": "route",
+        "outbound": "📥 下载更新"
+      },
+      {
+        "domain_suffix": [
+          "android.clients.google.com"
+        ],
+        "action": "route",
+        "outbound": "📥 下载更新"
+      },
+      {
+        "domain_suffix": [
+          "do.dsp.mp.microsoft.com"
+        ],
+        "action": "route",
+        "outbound": "📥 下载更新"
+      },
+      {
+        "domain_suffix": [
+          "windowsupdate.com"
+        ],
+        "action": "route",
+        "outbound": "📥 下载更新"
+      },
+      {
+        "domain_suffix": [
+          "update.microsoft.com"
+        ],
+        "action": "route",
+        "outbound": "📥 下载更新"
+      },
+      {
+        "domain_suffix": [
+          "download.microsoft.com"
+        ],
+        "action": "route",
+        "outbound": "📥 下载更新"
+      },
+      {
+        "domain_suffix": [
+          "delivery.mp.microsoft.com"
+        ],
+        "action": "route",
+        "outbound": "📥 下载更新"
+      },
+      {
+        "domain_suffix": [
+          "dl.delivery.mp.microsoft.com"
+        ],
+        "action": "route",
+        "outbound": "📥 下载更新"
+      },
+      {
+        "domain_suffix": [
+          "officecdn.microsoft.com"
+        ],
+        "action": "route",
+        "outbound": "📥 下载更新"
+      },
+      {
+        "domain_suffix": [
+          "officecdn.microsoft.com.edgesuite.net"
+        ],
+        "action": "route",
+        "outbound": "📥 下载更新"
+      },
+      {
+        "domain_suffix": [
+          "download.mozilla.org"
+        ],
+        "action": "route",
+        "outbound": "📥 下载更新"
+      },
+      {
+        "domain_suffix": [
+          "archive.mozilla.org"
+        ],
+        "action": "route",
+        "outbound": "📥 下载更新"
+      },
+      {
+        "domain_suffix": [
+          "releases.ubuntu.com"
+        ],
+        "action": "route",
+        "outbound": "📥 下载更新"
+      },
+      {
+        "domain_suffix": [
+          "archive.ubuntu.com"
+        ],
+        "action": "route",
+        "outbound": "📥 下载更新"
+      },
+      {
+        "domain_suffix": [
+          "security.ubuntu.com"
+        ],
+        "action": "route",
+        "outbound": "📥 下载更新"
+      },
+      {
+        "domain_suffix": [
+          "mirrors.kernel.org"
+        ],
+        "action": "route",
+        "outbound": "📥 下载更新"
+      },
+      {
+        "domain_suffix": [
+          "dl.fedoraproject.org"
+        ],
+        "action": "route",
+        "outbound": "📥 下载更新"
+      },
+      {
+        "domain_suffix": [
+          "repo.anaconda.com"
+        ],
+        "action": "route",
+        "outbound": "📥 下载更新"
+      },
+      {
+        "domain_suffix": [
+          "conda.anaconda.org"
+        ],
+        "action": "route",
+        "outbound": "📥 下载更新"
+      },
+      {
+        "domain_suffix": [
+          "repo.continuum.io"
+        ],
+        "action": "route",
+        "outbound": "📥 下载更新"
+      },
+      {
+        "domain_suffix": [
+          "sourceforge.net"
+        ],
+        "action": "route",
+        "outbound": "📥 下载更新"
+      },
+      {
+        "domain_suffix": [
+          "fosshub.com"
+        ],
+        "action": "route",
+        "outbound": "📥 下载更新"
+      },
+      {
+        "domain_suffix": [
+          "filehippo.com"
+        ],
+        "action": "route",
+        "outbound": "📥 下载更新"
+      },
+      {
+        "domain_suffix": [
+          "softonic.com"
+        ],
+        "action": "route",
+        "outbound": "📥 下载更新"
+      },
+      {
+        "domain_suffix": [
+          "gcr.io"
+        ],
+        "action": "route",
+        "outbound": "📥 下载更新"
+      },
+      {
+        "domain_suffix": [
+          "ghcr.io"
+        ],
+        "action": "route",
+        "outbound": "📥 下载更新"
+      },
+      {
+        "domain_suffix": [
+          "quay.io"
+        ],
+        "action": "route",
+        "outbound": "📥 下载更新"
+      },
+      {
+        "domain_suffix": [
+          "registry.k8s.io"
+        ],
+        "action": "route",
+        "outbound": "📥 下载更新"
+      },
+      {
+        "rule_set": [
+          "geosite-tracker"
+        ],
+        "action": "route",
+        "outbound": "🛰️ BT/PT Tracker"
+      },
+      {
+        "domain_suffix": [
+          "tracker.opentrackr.org"
+        ],
+        "action": "route",
+        "outbound": "🛰️ BT/PT Tracker"
+      },
+      {
+        "domain_suffix": [
+          "open.stealth.si"
+        ],
+        "action": "route",
+        "outbound": "🛰️ BT/PT Tracker"
+      },
+      {
+        "domain_suffix": [
+          "tracker.torrent.eu.org"
+        ],
+        "action": "route",
+        "outbound": "🛰️ BT/PT Tracker"
+      },
+      {
+        "domain_suffix": [
+          "exodus.desync.com"
+        ],
+        "action": "route",
+        "outbound": "🛰️ BT/PT Tracker"
+      },
+      {
+        "domain_suffix": [
+          "tracker.openbittorrent.com"
+        ],
+        "action": "route",
+        "outbound": "🛰️ BT/PT Tracker"
+      },
+      {
+        "domain_suffix": [
+          "tracker.publicbt.com"
+        ],
+        "action": "route",
+        "outbound": "🛰️ BT/PT Tracker"
+      },
+      {
+        "domain_suffix": [
+          "tracker.dler.org"
+        ],
+        "action": "route",
+        "outbound": "🛰️ BT/PT Tracker"
+      },
+      {
         "domain": [
           "dns.google"
         ],
@@ -2134,202 +3268,6 @@
         ],
         "action": "route",
         "outbound": "🚫 受限网站"
-      },
-      {
-        "domain_suffix": [
-          "youtube.com"
-        ],
-        "action": "route",
-        "outbound": "📹 YouTube"
-      },
-      {
-        "domain_suffix": [
-          "youtu.be"
-        ],
-        "action": "route",
-        "outbound": "📹 YouTube"
-      },
-      {
-        "domain_suffix": [
-          "googlevideo.com"
-        ],
-        "action": "route",
-        "outbound": "📹 YouTube"
-      },
-      {
-        "domain_suffix": [
-          "ytimg.com"
-        ],
-        "action": "route",
-        "outbound": "📹 YouTube"
-      },
-      {
-        "domain_suffix": [
-          "ggpht.com"
-        ],
-        "action": "route",
-        "outbound": "📹 YouTube"
-      },
-      {
-        "domain_suffix": [
-          "youtube-nocookie.com"
-        ],
-        "action": "route",
-        "outbound": "📹 YouTube"
-      },
-      {
-        "domain_suffix": [
-          "youtubekids.com"
-        ],
-        "action": "route",
-        "outbound": "📹 YouTube"
-      },
-      {
-        "rule_set": [
-          "openai"
-        ],
-        "action": "route",
-        "outbound": "🤖 AI 服务"
-      },
-      {
-        "domain_suffix": [
-          "perplexity.ai"
-        ],
-        "action": "route",
-        "outbound": "🤖 AI 服务"
-      },
-      {
-        "domain_suffix": [
-          "mistral.ai"
-        ],
-        "action": "route",
-        "outbound": "🤖 AI 服务"
-      },
-      {
-        "domain_suffix": [
-          "x.ai"
-        ],
-        "action": "route",
-        "outbound": "🤖 AI 服务"
-      },
-      {
-        "domain_suffix": [
-          "grok.com"
-        ],
-        "action": "route",
-        "outbound": "🤖 AI 服务"
-      },
-      {
-        "domain_suffix": [
-          "deepseek.com"
-        ],
-        "action": "route",
-        "outbound": "🏠 国内网站"
-      },
-      {
-        "domain_suffix": [
-          "huggingface.co"
-        ],
-        "action": "route",
-        "outbound": "🤖 AI 服务"
-      },
-      {
-        "domain_suffix": [
-          "replicate.com"
-        ],
-        "action": "route",
-        "outbound": "🤖 AI 服务"
-      },
-      {
-        "domain_suffix": [
-          "together.ai"
-        ],
-        "action": "route",
-        "outbound": "🤖 AI 服务"
-      },
-      {
-        "domain_suffix": [
-          "cohere.ai"
-        ],
-        "action": "route",
-        "outbound": "🤖 AI 服务"
-      },
-      {
-        "domain_suffix": [
-          "cohere.com"
-        ],
-        "action": "route",
-        "outbound": "🤖 AI 服务"
-      },
-      {
-        "domain_suffix": [
-          "midjourney.com"
-        ],
-        "action": "route",
-        "outbound": "🤖 AI 服务"
-      },
-      {
-        "domain_suffix": [
-          "stability.ai"
-        ],
-        "action": "route",
-        "outbound": "🤖 AI 服务"
-      },
-      {
-        "domain_suffix": [
-          "anthropic.com"
-        ],
-        "action": "route",
-        "outbound": "🤖 AI 服务"
-      },
-      {
-        "domain_suffix": [
-          "cursor.com"
-        ],
-        "action": "route",
-        "outbound": "🤖 AI 服务"
-      },
-      {
-        "domain_suffix": [
-          "cursor.sh"
-        ],
-        "action": "route",
-        "outbound": "🤖 AI 服务"
-      },
-      {
-        "domain_suffix": [
-          "v0.dev"
-        ],
-        "action": "route",
-        "outbound": "🤖 AI 服务"
-      },
-      {
-        "domain_suffix": [
-          "vercel.ai"
-        ],
-        "action": "route",
-        "outbound": "🤖 AI 服务"
-      },
-      {
-        "domain_suffix": [
-          "notebooklm.google"
-        ],
-        "action": "route",
-        "outbound": "🤖 AI 服务"
-      },
-      {
-        "domain_suffix": [
-          "poe.com"
-        ],
-        "action": "route",
-        "outbound": "🤖 AI 服务"
-      },
-      {
-        "domain_suffix": [
-          "character.ai"
-        ],
-        "action": "route",
-        "outbound": "🤖 AI 服务"
       },
       {
         "domain_suffix": [
@@ -2347,66 +3285,136 @@
       },
       {
         "domain_suffix": [
-          "suno.ai"
+          "jsdelivr.net"
         ],
         "action": "route",
-        "outbound": "🤖 AI 服务"
+        "outbound": "🚫 受限网站"
       },
       {
         "domain_suffix": [
-          "suno.com"
+          "cloudflare-dns.com"
         ],
         "action": "route",
-        "outbound": "🤖 AI 服务"
+        "outbound": "🚫 受限网站"
+      },
+      {
+        "rule_set": [
+          "geosite-gfw"
+        ],
+        "action": "route",
+        "outbound": "🚫 受限网站"
+      },
+      {
+        "rule_set": [
+          "loyalsoldier-gfw"
+        ],
+        "action": "route",
+        "outbound": "🚫 受限网站"
+      },
+      {
+        "rule_set": [
+          "loyalsoldier-greatfire"
+        ],
+        "action": "route",
+        "outbound": "🚫 受限网站"
+      },
+      {
+        "rule_set": [
+          "geosite-category-games"
+        ],
+        "action": "route",
+        "outbound": "🎮 国外游戏"
       },
       {
         "domain_suffix": [
-          "runway.ml"
+          "ubisoft.com"
         ],
         "action": "route",
-        "outbound": "🤖 AI 服务"
+        "outbound": "🎮 国外游戏"
       },
       {
         "domain_suffix": [
-          "runwayml.com"
+          "ubi.com"
         ],
         "action": "route",
-        "outbound": "🤖 AI 服务"
+        "outbound": "🎮 国外游戏"
       },
       {
         "domain_suffix": [
-          "openrouter.ai"
+          "riotgames.com"
         ],
         "action": "route",
-        "outbound": "🤖 AI 服务"
+        "outbound": "🎮 国外游戏"
       },
       {
         "domain_suffix": [
-          "fireworks.ai"
+          "leagueoflegends.com"
         ],
         "action": "route",
-        "outbound": "🤖 AI 服务"
+        "outbound": "🎮 国外游戏"
       },
       {
         "domain_suffix": [
-          "modal.com"
+          "valorant.com"
         ],
         "action": "route",
-        "outbound": "🤖 AI 服务"
+        "outbound": "🎮 国外游戏"
       },
       {
         "domain_suffix": [
-          "modal.run"
+          "rockstargames.com"
         ],
         "action": "route",
-        "outbound": "🤖 AI 服务"
+        "outbound": "🎮 国外游戏"
       },
       {
         "domain_suffix": [
-          "runpod.io"
+          "gog.com"
         ],
         "action": "route",
-        "outbound": "🤖 AI 服务"
+        "outbound": "🎮 国外游戏"
+      },
+      {
+        "domain_suffix": [
+          "gogalaxy.com"
+        ],
+        "action": "route",
+        "outbound": "🎮 国外游戏"
+      },
+      {
+        "domain_suffix": [
+          "bethesda.net"
+        ],
+        "action": "route",
+        "outbound": "🎮 国外游戏"
+      },
+      {
+        "domain_suffix": [
+          "supercell.com"
+        ],
+        "action": "route",
+        "outbound": "🎮 国外游戏"
+      },
+      {
+        "domain_suffix": [
+          "garena.com"
+        ],
+        "action": "route",
+        "outbound": "🎮 国外游戏"
+      },
+      {
+        "domain_suffix": [
+          "hoyoverse.com"
+        ],
+        "action": "route",
+        "outbound": "🎮 国外游戏"
+      },
+      {
+        "domain_suffix": [
+          "hoyolab.com"
+        ],
+        "action": "route",
+        "outbound": "🎮 国外游戏"
       },
       {
         "domain_suffix": [
@@ -2438,108 +3446,717 @@
       },
       {
         "domain_suffix": [
-          "meet.google.com"
+          "outlook.com"
         ],
         "action": "route",
-        "outbound": "🧑‍💼 会议协作"
+        "outbound": "🌐 国外网站"
+      },
+      {
+        "domain_suffix": [
+          "outlook.live.com"
+        ],
+        "action": "route",
+        "outbound": "🌐 国外网站"
+      },
+      {
+        "domain_suffix": [
+          "hotmail.com"
+        ],
+        "action": "route",
+        "outbound": "🌐 国外网站"
       },
       {
         "domain": [
-          "meet.googleapis.com"
+          "mail.live.com"
         ],
         "action": "route",
-        "outbound": "🧑‍💼 会议协作"
+        "outbound": "🌐 国外网站"
+      },
+      {
+        "domain": [
+          "outlook.office365.com"
+        ],
+        "action": "route",
+        "outbound": "🌐 国外网站"
+      },
+      {
+        "domain": [
+          "outlook.office.com"
+        ],
+        "action": "route",
+        "outbound": "🌐 国外网站"
+      },
+      {
+        "domain": [
+          "mail.yahoo.com"
+        ],
+        "action": "route",
+        "outbound": "🌐 国外网站"
       },
       {
         "domain_suffix": [
-          "dl.google.com"
+          "ymail.com"
         ],
         "action": "route",
-        "outbound": "📥 下载更新"
+        "outbound": "🌐 国外网站"
       },
       {
         "domain_suffix": [
-          "play.googleapis.com"
+          "protonmail.com"
         ],
         "action": "route",
-        "outbound": "📥 下载更新"
+        "outbound": "🌐 国外网站"
       },
       {
         "domain_suffix": [
-          "android.clients.google.com"
+          "proton.me"
         ],
         "action": "route",
-        "outbound": "📥 下载更新"
+        "outbound": "🌐 国外网站"
+      },
+      {
+        "domain_suffix": [
+          "pm.me"
+        ],
+        "action": "route",
+        "outbound": "🌐 国外网站"
+      },
+      {
+        "domain_suffix": [
+          "tutanota.com"
+        ],
+        "action": "route",
+        "outbound": "🌐 国外网站"
+      },
+      {
+        "domain_suffix": [
+          "tuta.com"
+        ],
+        "action": "route",
+        "outbound": "🌐 国外网站"
+      },
+      {
+        "domain": [
+          "mail.zoho.com"
+        ],
+        "action": "route",
+        "outbound": "🌐 国外网站"
+      },
+      {
+        "domain": [
+          "mail.zoho.eu"
+        ],
+        "action": "route",
+        "outbound": "🌐 国外网站"
+      },
+      {
+        "domain": [
+          "mail.zoho.in"
+        ],
+        "action": "route",
+        "outbound": "🌐 国外网站"
+      },
+      {
+        "domain": [
+          "mail.zoho.com.au"
+        ],
+        "action": "route",
+        "outbound": "🌐 国外网站"
+      },
+      {
+        "domain": [
+          "mail.zoho.jp"
+        ],
+        "action": "route",
+        "outbound": "🌐 国外网站"
+      },
+      {
+        "domain": [
+          "mail.me.com"
+        ],
+        "action": "route",
+        "outbound": "🌐 国外网站"
+      },
+      {
+        "domain_suffix": [
+          "fastmail.com"
+        ],
+        "action": "route",
+        "outbound": "🌐 国外网站"
+      },
+      {
+        "domain_suffix": [
+          "fastmail.fm"
+        ],
+        "action": "route",
+        "outbound": "🌐 国外网站"
+      },
+      {
+        "domain_suffix": [
+          "amazonaws.com"
+        ],
+        "action": "route",
+        "outbound": "🌐 国外网站"
+      },
+      {
+        "domain_suffix": [
+          "awsstatic.com"
+        ],
+        "action": "route",
+        "outbound": "🌐 国外网站"
       },
       {
         "rule_set": [
-          "google"
+          "cloudflare-ip"
         ],
         "action": "route",
-        "outbound": "🔧 工具与服务"
+        "outbound": "🌐 国外网站"
       },
       {
         "rule_set": [
-          "google-ip"
+          "cloudfront-ip"
         ],
         "action": "route",
-        "outbound": "🔧 工具与服务"
+        "outbound": "🌐 国外网站"
+      },
+      {
+        "rule_set": [
+          "fastly-ip"
+        ],
+        "action": "route",
+        "outbound": "🌐 国外网站"
       },
       {
         "domain_suffix": [
-          "do.dsp.mp.microsoft.com"
+          "akamai.net"
         ],
         "action": "route",
-        "outbound": "📥 下载更新"
+        "outbound": "🌐 国外网站"
       },
       {
         "domain_suffix": [
-          "tradingview.com"
+          "akamaized.net"
         ],
         "action": "route",
-        "outbound": "💰 加密货币"
+        "outbound": "🌐 国外网站"
       },
       {
         "domain_suffix": [
-          "tvcdn.com"
+          "akamaihd.net"
         ],
         "action": "route",
-        "outbound": "💰 加密货币"
+        "outbound": "🌐 国外网站"
       },
       {
         "domain_suffix": [
-          "coinglass.com"
+          "akamaiedge.net"
         ],
         "action": "route",
-        "outbound": "💰 加密货币"
+        "outbound": "🌐 国外网站"
       },
       {
         "domain_suffix": [
-          "hyperliquid.xyz"
+          "akamaitechnologies.com"
         ],
         "action": "route",
-        "outbound": "💰 加密货币"
+        "outbound": "🌐 国外网站"
       },
       {
         "domain_suffix": [
-          "hyperliquid-testnet.xyz"
+          "edgekey.net"
         ],
         "action": "route",
-        "outbound": "💰 加密货币"
+        "outbound": "🌐 国外网站"
       },
       {
         "domain_suffix": [
-          "eth.limo"
+          "edgesuite.net"
         ],
         "action": "route",
-        "outbound": "💰 加密货币"
+        "outbound": "🌐 国外网站"
       },
       {
         "domain_suffix": [
-          "glitternode.ru"
+          "cloudfront.net"
         ],
         "action": "route",
-        "outbound": "💰 加密货币"
+        "outbound": "🌐 国外网站"
+      },
+      {
+        "domain_suffix": [
+          "fastly.net"
+        ],
+        "action": "route",
+        "outbound": "🌐 国外网站"
+      },
+      {
+        "domain_suffix": [
+          "fastlylb.net"
+        ],
+        "action": "route",
+        "outbound": "🌐 国外网站"
+      },
+      {
+        "domain_suffix": [
+          "kxcdn.com"
+        ],
+        "action": "route",
+        "outbound": "🌐 国外网站"
+      },
+      {
+        "domain_suffix": [
+          "stackpathdns.com"
+        ],
+        "action": "route",
+        "outbound": "🌐 国外网站"
+      },
+      {
+        "domain_suffix": [
+          "stackpathcdn.com"
+        ],
+        "action": "route",
+        "outbound": "🌐 国外网站"
+      },
+      {
+        "domain_suffix": [
+          "b-cdn.net"
+        ],
+        "action": "route",
+        "outbound": "🌐 国外网站"
+      },
+      {
+        "domain_suffix": [
+          "bunny.net"
+        ],
+        "action": "route",
+        "outbound": "🌐 国外网站"
+      },
+      {
+        "domain_suffix": [
+          "bunnycdn.com"
+        ],
+        "action": "route",
+        "outbound": "🌐 国外网站"
+      },
+      {
+        "domain_suffix": [
+          "cdn77.org"
+        ],
+        "action": "route",
+        "outbound": "🌐 国外网站"
+      },
+      {
+        "domain_suffix": [
+          "azureedge.net"
+        ],
+        "action": "route",
+        "outbound": "🌐 国外网站"
+      },
+      {
+        "domain_suffix": [
+          "azurefd.net"
+        ],
+        "action": "route",
+        "outbound": "🌐 国外网站"
+      },
+      {
+        "domain_suffix": [
+          "msecnd.net"
+        ],
+        "action": "route",
+        "outbound": "🌐 国外网站"
+      },
+      {
+        "domain_suffix": [
+          "unpkg.com"
+        ],
+        "action": "route",
+        "outbound": "🌐 国外网站"
+      },
+      {
+        "domain_suffix": [
+          "cloudflarestorage.com"
+        ],
+        "action": "route",
+        "outbound": "🌐 国外网站"
+      },
+      {
+        "domain_suffix": [
+          "r2.dev"
+        ],
+        "action": "route",
+        "outbound": "🌐 国外网站"
+      },
+      {
+        "domain_suffix": [
+          "ziffstatic.com"
+        ],
+        "action": "route",
+        "outbound": "🌐 国外网站"
+      },
+      {
+        "domain_suffix": [
+          "ucoz.ru"
+        ],
+        "action": "route",
+        "outbound": "🌐 国外网站"
+      },
+      {
+        "domain_suffix": [
+          "ucoz.net"
+        ],
+        "action": "route",
+        "outbound": "🌐 国外网站"
+      },
+      {
+        "domain_suffix": [
+          "letsencrypt.org"
+        ],
+        "action": "route",
+        "outbound": "🌐 国外网站"
+      },
+      {
+        "domain_suffix": [
+          "lencr.org"
+        ],
+        "action": "route",
+        "outbound": "🌐 国外网站"
+      },
+      {
+        "domain_suffix": [
+          "tokopedia.com"
+        ],
+        "action": "route",
+        "outbound": "🌐 国外网站"
+      },
+      {
+        "domain_suffix": [
+          "tokopedia.net"
+        ],
+        "action": "route",
+        "outbound": "🌐 国外网站"
+      },
+      {
+        "domain_suffix": [
+          "shopee.co.id"
+        ],
+        "action": "route",
+        "outbound": "🌐 国外网站"
+      },
+      {
+        "domain_suffix": [
+          "bukalapak.com"
+        ],
+        "action": "route",
+        "outbound": "🌐 国外网站"
+      },
+      {
+        "domain_suffix": [
+          "blibli.com"
+        ],
+        "action": "route",
+        "outbound": "🌐 国外网站"
+      },
+      {
+        "domain_suffix": [
+          "lazada.co.id"
+        ],
+        "action": "route",
+        "outbound": "🌐 国外网站"
+      },
+      {
+        "domain_suffix": [
+          "grab.com"
+        ],
+        "action": "route",
+        "outbound": "🌐 国外网站"
+      },
+      {
+        "domain_suffix": [
+          "gojek.com"
+        ],
+        "action": "route",
+        "outbound": "🌐 国外网站"
+      },
+      {
+        "domain_suffix": [
+          "gojek.co.id"
+        ],
+        "action": "route",
+        "outbound": "🌐 国外网站"
+      },
+      {
+        "domain_suffix": [
+          "traveloka.com"
+        ],
+        "action": "route",
+        "outbound": "🌐 国外网站"
+      },
+      {
+        "domain_suffix": [
+          "tiket.com"
+        ],
+        "action": "route",
+        "outbound": "🌐 国外网站"
+      },
+      {
+        "domain_suffix": [
+          "telkomsel.com"
+        ],
+        "action": "route",
+        "outbound": "🌐 国外网站"
+      },
+      {
+        "domain_suffix": [
+          "telkom.co.id"
+        ],
+        "action": "route",
+        "outbound": "🌐 国外网站"
+      },
+      {
+        "domain_suffix": [
+          "indosatooredoo.com"
+        ],
+        "action": "route",
+        "outbound": "🌐 国外网站"
+      },
+      {
+        "domain_suffix": [
+          "im3.co.id"
+        ],
+        "action": "route",
+        "outbound": "🌐 国外网站"
+      },
+      {
+        "domain_suffix": [
+          "xl.co.id"
+        ],
+        "action": "route",
+        "outbound": "🌐 国外网站"
+      },
+      {
+        "domain_suffix": [
+          "smartfren.com"
+        ],
+        "action": "route",
+        "outbound": "🌐 国外网站"
+      },
+      {
+        "domain_suffix": [
+          "tri.co.id"
+        ],
+        "action": "route",
+        "outbound": "🌐 国外网站"
+      },
+      {
+        "domain_suffix": [
+          "by.u.id"
+        ],
+        "action": "route",
+        "outbound": "🌐 国外网站"
+      },
+      {
+        "domain_suffix": [
+          "myrepublic.co.id"
+        ],
+        "action": "route",
+        "outbound": "🌐 国外网站"
+      },
+      {
+        "domain_suffix": [
+          "firstmedia.com"
+        ],
+        "action": "route",
+        "outbound": "🌐 国外网站"
+      },
+      {
+        "domain_suffix": [
+          "biznet.id"
+        ],
+        "action": "route",
+        "outbound": "🌐 国外网站"
+      },
+      {
+        "domain_suffix": [
+          "go.id"
+        ],
+        "action": "route",
+        "outbound": "🌐 国外网站"
+      },
+      {
+        "domain_suffix": [
+          "or.id"
+        ],
+        "action": "route",
+        "outbound": "🌐 国外网站"
+      },
+      {
+        "domain_suffix": [
+          "kompas.com"
+        ],
+        "action": "route",
+        "outbound": "🌐 国外网站"
+      },
+      {
+        "domain_suffix": [
+          "detik.com"
+        ],
+        "action": "route",
+        "outbound": "🌐 国外网站"
+      },
+      {
+        "domain_suffix": [
+          "tempo.co"
+        ],
+        "action": "route",
+        "outbound": "🌐 国外网站"
+      },
+      {
+        "domain_suffix": [
+          "cnnindonesia.com"
+        ],
+        "action": "route",
+        "outbound": "🌐 国外网站"
+      },
+      {
+        "domain_suffix": [
+          "cnbcindonesia.com"
+        ],
+        "action": "route",
+        "outbound": "🌐 国外网站"
+      },
+      {
+        "domain_suffix": [
+          "liputan6.com"
+        ],
+        "action": "route",
+        "outbound": "🌐 国外网站"
+      },
+      {
+        "domain_suffix": [
+          "tribunnews.com"
+        ],
+        "action": "route",
+        "outbound": "🌐 国外网站"
+      },
+      {
+        "domain_suffix": [
+          "kumparan.com"
+        ],
+        "action": "route",
+        "outbound": "🌐 国外网站"
+      },
+      {
+        "domain_suffix": [
+          "idntimes.com"
+        ],
+        "action": "route",
+        "outbound": "🌐 国外网站"
+      },
+      {
+        "domain_suffix": [
+          "gofood.co.id"
+        ],
+        "action": "route",
+        "outbound": "🌐 国外网站"
+      },
+      {
+        "domain_suffix": [
+          "grabfood.com"
+        ],
+        "action": "route",
+        "outbound": "🌐 国外网站"
+      },
+      {
+        "domain_suffix": [
+          "66tutup.com"
+        ],
+        "action": "route",
+        "outbound": "🌐 国外网站"
+      },
+      {
+        "rule_set": [
+          "proxy"
+        ],
+        "action": "route",
+        "outbound": "🌐 国外网站"
+      },
+      {
+        "domain_suffix": [
+          "archive.org"
+        ],
+        "action": "route",
+        "outbound": "🌐 国外网站"
+      },
+      {
+        "domain_suffix": [
+          "udemy.com"
+        ],
+        "action": "route",
+        "outbound": "🌐 国外网站"
+      },
+      {
+        "domain_suffix": [
+          "udemycdn.com"
+        ],
+        "action": "route",
+        "outbound": "🌐 国外网站"
+      },
+      {
+        "domain_suffix": [
+          "grammarly.com"
+        ],
+        "action": "route",
+        "outbound": "🌐 国外网站"
+      },
+      {
+        "domain_suffix": [
+          "grammarly.io"
+        ],
+        "action": "route",
+        "outbound": "🌐 国外网站"
+      },
+      {
+        "domain_suffix": [
+          "jetbrains.net"
+        ],
+        "action": "route",
+        "outbound": "🌐 国外网站"
+      },
+      {
+        "domain_suffix": [
+          "theguardian.com"
+        ],
+        "action": "route",
+        "outbound": "🌐 国外网站"
+      },
+      {
+        "domain_suffix": [
+          "guardianapis.com"
+        ],
+        "action": "route",
+        "outbound": "🌐 国外网站"
+      },
+      {
+        "domain_suffix": [
+          "box.com"
+        ],
+        "action": "route",
+        "outbound": "🌐 国外网站"
+      },
+      {
+        "domain_suffix": [
+          "boxcdn.net"
+        ],
+        "action": "route",
+        "outbound": "🌐 国外网站"
+      },
+      {
+        "domain_suffix": [
+          "noip.com"
+        ],
+        "action": "route",
+        "outbound": "🌐 国外网站"
       },
       {
         "domain_suffix": [
@@ -2724,172 +4341,893 @@
         "outbound": "🏦 金融支付"
       },
       {
-        "domain": [
-          "login.live.com"
+        "domain_suffix": [
+          "bca.co.id"
         ],
         "action": "route",
-        "outbound": "Ⓜ️ 微软服务"
-      },
-      {
-        "domain": [
-          "g.live.com"
-        ],
-        "action": "route",
-        "outbound": "Ⓜ️ 微软服务"
+        "outbound": "🏦 金融支付"
       },
       {
         "domain_suffix": [
-          "officeapps.live.com"
+          "klikbca.com"
         ],
         "action": "route",
-        "outbound": "Ⓜ️ 微软服务"
+        "outbound": "🏦 金融支付"
       },
       {
         "domain_suffix": [
-          "outlook.com"
+          "bni.co.id"
         ],
         "action": "route",
-        "outbound": "🌐 国外网站"
+        "outbound": "🏦 金融支付"
       },
       {
         "domain_suffix": [
-          "outlook.live.com"
+          "bri.co.id"
         ],
         "action": "route",
-        "outbound": "🌐 国外网站"
+        "outbound": "🏦 金融支付"
       },
       {
         "domain_suffix": [
-          "hotmail.com"
+          "bankmandiri.co.id"
         ],
         "action": "route",
-        "outbound": "🌐 国外网站"
+        "outbound": "🏦 金融支付"
+      },
+      {
+        "domain_suffix": [
+          "danamon.co.id"
+        ],
+        "action": "route",
+        "outbound": "🏦 金融支付"
+      },
+      {
+        "domain_suffix": [
+          "permatabank.com"
+        ],
+        "action": "route",
+        "outbound": "🏦 金融支付"
+      },
+      {
+        "domain_suffix": [
+          "cimbniaga.co.id"
+        ],
+        "action": "route",
+        "outbound": "🏦 金融支付"
+      },
+      {
+        "domain_suffix": [
+          "btn.co.id"
+        ],
+        "action": "route",
+        "outbound": "🏦 金融支付"
+      },
+      {
+        "domain_suffix": [
+          "ocbcnisp.com"
+        ],
+        "action": "route",
+        "outbound": "🏦 金融支付"
+      },
+      {
+        "domain_suffix": [
+          "banksinarmas.com"
+        ],
+        "action": "route",
+        "outbound": "🏦 金融支付"
+      },
+      {
+        "domain_suffix": [
+          "idx.co.id"
+        ],
+        "action": "route",
+        "outbound": "🏦 金融支付"
+      },
+      {
+        "domain_suffix": [
+          "ksei.co.id"
+        ],
+        "action": "route",
+        "outbound": "🏦 金融支付"
+      },
+      {
+        "domain_suffix": [
+          "mihoyo.com"
+        ],
+        "action": "route",
+        "outbound": "🕹️ 国内游戏"
+      },
+      {
+        "domain_suffix": [
+          "miyoushe.com"
+        ],
+        "action": "route",
+        "outbound": "🕹️ 国内游戏"
+      },
+      {
+        "domain_suffix": [
+          "yuanshen.com"
+        ],
+        "action": "route",
+        "outbound": "🕹️ 国内游戏"
+      },
+      {
+        "domain_suffix": [
+          "bhsr.com"
+        ],
+        "action": "route",
+        "outbound": "🕹️ 国内游戏"
+      },
+      {
+        "domain_suffix": [
+          "zenlesszonezero.com"
+        ],
+        "action": "route",
+        "outbound": "🕹️ 国内游戏"
       },
       {
         "domain": [
-          "mail.live.com"
+          "game.163.com"
         ],
         "action": "route",
-        "outbound": "🌐 国外网站"
-      },
-      {
-        "domain": [
-          "outlook.office365.com"
-        ],
-        "action": "route",
-        "outbound": "🌐 国外网站"
-      },
-      {
-        "domain": [
-          "outlook.office.com"
-        ],
-        "action": "route",
-        "outbound": "🌐 国外网站"
-      },
-      {
-        "domain": [
-          "mail.yahoo.com"
-        ],
-        "action": "route",
-        "outbound": "🌐 国外网站"
+        "outbound": "🕹️ 国内游戏"
       },
       {
         "domain_suffix": [
-          "ymail.com"
+          "gm.163.com"
         ],
         "action": "route",
-        "outbound": "🌐 国外网站"
+        "outbound": "🕹️ 国内游戏"
       },
       {
         "domain_suffix": [
-          "protonmail.com"
+          "ds.163.com"
         ],
         "action": "route",
-        "outbound": "🌐 国外网站"
+        "outbound": "🕹️ 国内游戏"
       },
       {
         "domain_suffix": [
-          "proton.me"
+          "nie.163.com"
         ],
         "action": "route",
-        "outbound": "🌐 国外网站"
+        "outbound": "🕹️ 国内游戏"
       },
       {
         "domain_suffix": [
-          "pm.me"
+          "nie.netease.com"
         ],
         "action": "route",
-        "outbound": "🌐 国外网站"
+        "outbound": "🕹️ 国内游戏"
       },
       {
         "domain_suffix": [
-          "tutanota.com"
+          "update.netease.com"
         ],
         "action": "route",
-        "outbound": "🌐 国外网站"
+        "outbound": "🕹️ 国内游戏"
       },
       {
         "domain_suffix": [
-          "tuta.com"
+          "netease.com"
         ],
         "action": "route",
-        "outbound": "🌐 国外网站"
+        "outbound": "🕹️ 国内游戏"
+      },
+      {
+        "domain_suffix": [
+          "wegame.com"
+        ],
+        "action": "route",
+        "outbound": "🕹️ 国内游戏"
+      },
+      {
+        "domain_suffix": [
+          "wegame.com.cn"
+        ],
+        "action": "route",
+        "outbound": "🕹️ 国内游戏"
+      },
+      {
+        "domain_suffix": [
+          "perfect-world.com"
+        ],
+        "action": "route",
+        "outbound": "🕹️ 国内游戏"
+      },
+      {
+        "domain_suffix": [
+          "wanmei.com"
+        ],
+        "action": "route",
+        "outbound": "🕹️ 国内游戏"
+      },
+      {
+        "domain_suffix": [
+          "xd.com"
+        ],
+        "action": "route",
+        "outbound": "🕹️ 国内游戏"
+      },
+      {
+        "domain_suffix": [
+          "taptap.com"
+        ],
+        "action": "route",
+        "outbound": "🕹️ 国内游戏"
+      },
+      {
+        "domain_suffix": [
+          "taptap.io"
+        ],
+        "action": "route",
+        "outbound": "🕹️ 国内游戏"
+      },
+      {
+        "domain_suffix": [
+          "papegames.com"
+        ],
+        "action": "route",
+        "outbound": "🕹️ 国内游戏"
+      },
+      {
+        "domain_suffix": [
+          "hypergryph.com"
+        ],
+        "action": "route",
+        "outbound": "🕹️ 国内游戏"
+      },
+      {
+        "domain_suffix": [
+          "gryphline.com"
+        ],
+        "action": "route",
+        "outbound": "🕹️ 国内游戏"
+      },
+      {
+        "domain_suffix": [
+          "lilith.com"
+        ],
+        "action": "route",
+        "outbound": "🕹️ 国内游戏"
+      },
+      {
+        "domain_suffix": [
+          "feishu.cn"
+        ],
+        "action": "route",
+        "outbound": "DIRECT"
+      },
+      {
+        "domain_suffix": [
+          "dingtalk.com"
+        ],
+        "action": "route",
+        "outbound": "DIRECT"
+      },
+      {
+        "domain_suffix": [
+          "welink.huaweicloud.com"
+        ],
+        "action": "route",
+        "outbound": "DIRECT"
+      },
+      {
+        "rule_set": [
+          "bilibili"
+        ],
+        "action": "route",
+        "outbound": "📺 国内流媒体"
+      },
+      {
+        "domain_suffix": [
+          "iqiyi.com"
+        ],
+        "action": "route",
+        "outbound": "📺 国内流媒体"
+      },
+      {
+        "domain_suffix": [
+          "iqiyipic.com"
+        ],
+        "action": "route",
+        "outbound": "📺 国内流媒体"
+      },
+      {
+        "domain_suffix": [
+          "71.am"
+        ],
+        "action": "route",
+        "outbound": "📺 国内流媒体"
+      },
+      {
+        "domain_suffix": [
+          "youku.com"
+        ],
+        "action": "route",
+        "outbound": "📺 国内流媒体"
+      },
+      {
+        "domain_suffix": [
+          "ykimg.com"
+        ],
+        "action": "route",
+        "outbound": "📺 国内流媒体"
+      },
+      {
+        "domain_suffix": [
+          "soku.com"
+        ],
+        "action": "route",
+        "outbound": "📺 国内流媒体"
+      },
+      {
+        "domain_suffix": [
+          "v.qq.com"
+        ],
+        "action": "route",
+        "outbound": "📺 国内流媒体"
+      },
+      {
+        "domain_suffix": [
+          "video.qq.com"
+        ],
+        "action": "route",
+        "outbound": "📺 国内流媒体"
+      },
+      {
+        "domain_keyword": [
+          "tencentvideo"
+        ],
+        "action": "route",
+        "outbound": "📺 国内流媒体"
+      },
+      {
+        "domain_suffix": [
+          "mgtv.com"
+        ],
+        "action": "route",
+        "outbound": "📺 国内流媒体"
+      },
+      {
+        "domain_suffix": [
+          "hitv.com"
+        ],
+        "action": "route",
+        "outbound": "📺 国内流媒体"
+      },
+      {
+        "domain_suffix": [
+          "hunantv.com"
+        ],
+        "action": "route",
+        "outbound": "📺 国内流媒体"
+      },
+      {
+        "domain_suffix": [
+          "douyin.com"
+        ],
+        "action": "route",
+        "outbound": "📺 国内流媒体"
+      },
+      {
+        "domain_suffix": [
+          "douyinpic.com"
+        ],
+        "action": "route",
+        "outbound": "📺 国内流媒体"
+      },
+      {
+        "domain_suffix": [
+          "douyinvod.com"
+        ],
+        "action": "route",
+        "outbound": "📺 国内流媒体"
+      },
+      {
+        "domain_suffix": [
+          "ixigua.com"
+        ],
+        "action": "route",
+        "outbound": "📺 国内流媒体"
+      },
+      {
+        "domain_suffix": [
+          "pstatp.com"
+        ],
+        "action": "route",
+        "outbound": "📺 国内流媒体"
+      },
+      {
+        "domain_suffix": [
+          "snssdk.com"
+        ],
+        "action": "route",
+        "outbound": "📺 国内流媒体"
+      },
+      {
+        "domain_suffix": [
+          "sohu.com"
+        ],
+        "action": "route",
+        "outbound": "📺 国内流媒体"
+      },
+      {
+        "domain_suffix": [
+          "music.163.com"
+        ],
+        "action": "route",
+        "outbound": "📺 国内流媒体"
+      },
+      {
+        "domain_suffix": [
+          "ntes53.netease.com"
+        ],
+        "action": "route",
+        "outbound": "📺 国内流媒体"
+      },
+      {
+        "domain_suffix": [
+          "y.qq.com"
+        ],
+        "action": "route",
+        "outbound": "📺 国内流媒体"
+      },
+      {
+        "domain_suffix": [
+          "music.qq.com"
+        ],
+        "action": "route",
+        "outbound": "📺 国内流媒体"
+      },
+      {
+        "domain_suffix": [
+          "kugou.com"
+        ],
+        "action": "route",
+        "outbound": "📺 国内流媒体"
+      },
+      {
+        "domain_suffix": [
+          "kuwo.cn"
+        ],
+        "action": "route",
+        "outbound": "📺 国内流媒体"
+      },
+      {
+        "domain_suffix": [
+          "xiaohongshu.com"
+        ],
+        "action": "route",
+        "outbound": "📺 国内流媒体"
+      },
+      {
+        "domain_suffix": [
+          "xhscdn.com"
+        ],
+        "action": "route",
+        "outbound": "📺 国内流媒体"
+      },
+      {
+        "domain_suffix": [
+          "kuaishou.com"
+        ],
+        "action": "route",
+        "outbound": "📺 国内流媒体"
+      },
+      {
+        "domain_suffix": [
+          "gifshow.com"
+        ],
+        "action": "route",
+        "outbound": "📺 国内流媒体"
+      },
+      {
+        "domain_suffix": [
+          "weibo.com"
+        ],
+        "action": "route",
+        "outbound": "📺 国内流媒体"
+      },
+      {
+        "domain_suffix": [
+          "weibo.cn"
+        ],
+        "action": "route",
+        "outbound": "📺 国内流媒体"
+      },
+      {
+        "domain_suffix": [
+          "sinaimg.cn"
+        ],
+        "action": "route",
+        "outbound": "📺 国内流媒体"
+      },
+      {
+        "domain_suffix": [
+          "deepseek.com"
+        ],
+        "action": "route",
+        "outbound": "🏠 国内网站"
+      },
+      {
+        "domain_suffix": [
+          "163.com"
+        ],
+        "action": "route",
+        "outbound": "🏠 国内网站"
+      },
+      {
+        "domain_suffix": [
+          "126.com"
+        ],
+        "action": "route",
+        "outbound": "🏠 国内网站"
+      },
+      {
+        "domain_suffix": [
+          "126.net"
+        ],
+        "action": "route",
+        "outbound": "🏠 国内网站"
+      },
+      {
+        "domain_suffix": [
+          "jianguoyun.com"
+        ],
+        "action": "route",
+        "outbound": "🏠 国内网站"
+      },
+      {
+        "rule_set": [
+          "cn"
+        ],
+        "action": "route",
+        "outbound": "🏠 国内网站"
+      },
+      {
+        "rule_set": [
+          "cn-ip"
+        ],
+        "action": "route",
+        "outbound": "🏠 国内网站"
+      },
+      {
+        "domain_suffix": [
+          "alimama.com"
+        ],
+        "action": "route",
+        "outbound": "🏠 国内网站"
+      },
+      {
+        "domain_suffix": [
+          "zxtdjy.com"
+        ],
+        "action": "route",
+        "outbound": "🏠 国内网站"
+      },
+      {
+        "domain_suffix": [
+          "bbys.app"
+        ],
+        "action": "route",
+        "outbound": "DIRECT"
+      },
+      {
+        "domain_suffix": [
+          "youtube.com"
+        ],
+        "action": "route",
+        "outbound": "📹 YouTube"
+      },
+      {
+        "domain_suffix": [
+          "youtu.be"
+        ],
+        "action": "route",
+        "outbound": "📹 YouTube"
+      },
+      {
+        "domain_suffix": [
+          "googlevideo.com"
+        ],
+        "action": "route",
+        "outbound": "📹 YouTube"
+      },
+      {
+        "domain_suffix": [
+          "ytimg.com"
+        ],
+        "action": "route",
+        "outbound": "📹 YouTube"
+      },
+      {
+        "domain_suffix": [
+          "ggpht.com"
+        ],
+        "action": "route",
+        "outbound": "📹 YouTube"
+      },
+      {
+        "domain_suffix": [
+          "youtube-nocookie.com"
+        ],
+        "action": "route",
+        "outbound": "📹 YouTube"
+      },
+      {
+        "domain_suffix": [
+          "youtubekids.com"
+        ],
+        "action": "route",
+        "outbound": "📹 YouTube"
+      },
+      {
+        "rule_set": [
+          "openai"
+        ],
+        "action": "route",
+        "outbound": "🤖 AI 服务"
+      },
+      {
+        "domain_suffix": [
+          "perplexity.ai"
+        ],
+        "action": "route",
+        "outbound": "🤖 AI 服务"
+      },
+      {
+        "domain_suffix": [
+          "mistral.ai"
+        ],
+        "action": "route",
+        "outbound": "🤖 AI 服务"
+      },
+      {
+        "domain_suffix": [
+          "x.ai"
+        ],
+        "action": "route",
+        "outbound": "🤖 AI 服务"
+      },
+      {
+        "domain_suffix": [
+          "grok.com"
+        ],
+        "action": "route",
+        "outbound": "🤖 AI 服务"
+      },
+      {
+        "domain_suffix": [
+          "huggingface.co"
+        ],
+        "action": "route",
+        "outbound": "🤖 AI 服务"
+      },
+      {
+        "domain_suffix": [
+          "replicate.com"
+        ],
+        "action": "route",
+        "outbound": "🤖 AI 服务"
+      },
+      {
+        "domain_suffix": [
+          "together.ai"
+        ],
+        "action": "route",
+        "outbound": "🤖 AI 服务"
+      },
+      {
+        "domain_suffix": [
+          "cohere.ai"
+        ],
+        "action": "route",
+        "outbound": "🤖 AI 服务"
+      },
+      {
+        "domain_suffix": [
+          "cohere.com"
+        ],
+        "action": "route",
+        "outbound": "🤖 AI 服务"
+      },
+      {
+        "domain_suffix": [
+          "midjourney.com"
+        ],
+        "action": "route",
+        "outbound": "🤖 AI 服务"
+      },
+      {
+        "domain_suffix": [
+          "stability.ai"
+        ],
+        "action": "route",
+        "outbound": "🤖 AI 服务"
+      },
+      {
+        "domain_suffix": [
+          "anthropic.com"
+        ],
+        "action": "route",
+        "outbound": "🤖 AI 服务"
+      },
+      {
+        "domain_suffix": [
+          "cursor.com"
+        ],
+        "action": "route",
+        "outbound": "🤖 AI 服务"
+      },
+      {
+        "domain_suffix": [
+          "cursor.sh"
+        ],
+        "action": "route",
+        "outbound": "🤖 AI 服务"
+      },
+      {
+        "domain_suffix": [
+          "v0.dev"
+        ],
+        "action": "route",
+        "outbound": "🤖 AI 服务"
+      },
+      {
+        "domain_suffix": [
+          "vercel.ai"
+        ],
+        "action": "route",
+        "outbound": "🤖 AI 服务"
+      },
+      {
+        "domain_suffix": [
+          "notebooklm.google"
+        ],
+        "action": "route",
+        "outbound": "🤖 AI 服务"
+      },
+      {
+        "domain_suffix": [
+          "poe.com"
+        ],
+        "action": "route",
+        "outbound": "🤖 AI 服务"
+      },
+      {
+        "domain_suffix": [
+          "character.ai"
+        ],
+        "action": "route",
+        "outbound": "🤖 AI 服务"
+      },
+      {
+        "domain_suffix": [
+          "suno.ai"
+        ],
+        "action": "route",
+        "outbound": "🤖 AI 服务"
+      },
+      {
+        "domain_suffix": [
+          "suno.com"
+        ],
+        "action": "route",
+        "outbound": "🤖 AI 服务"
+      },
+      {
+        "domain_suffix": [
+          "runway.ml"
+        ],
+        "action": "route",
+        "outbound": "🤖 AI 服务"
+      },
+      {
+        "domain_suffix": [
+          "runwayml.com"
+        ],
+        "action": "route",
+        "outbound": "🤖 AI 服务"
+      },
+      {
+        "domain_suffix": [
+          "openrouter.ai"
+        ],
+        "action": "route",
+        "outbound": "🤖 AI 服务"
+      },
+      {
+        "domain_suffix": [
+          "fireworks.ai"
+        ],
+        "action": "route",
+        "outbound": "🤖 AI 服务"
+      },
+      {
+        "domain_suffix": [
+          "modal.com"
+        ],
+        "action": "route",
+        "outbound": "🤖 AI 服务"
+      },
+      {
+        "domain_suffix": [
+          "modal.run"
+        ],
+        "action": "route",
+        "outbound": "🤖 AI 服务"
+      },
+      {
+        "domain_suffix": [
+          "runpod.io"
+        ],
+        "action": "route",
+        "outbound": "🤖 AI 服务"
+      },
+      {
+        "domain_suffix": [
+          "meet.google.com"
+        ],
+        "action": "route",
+        "outbound": "🧑‍💼 会议协作"
       },
       {
         "domain": [
-          "mail.zoho.com"
+          "meet.googleapis.com"
         ],
         "action": "route",
-        "outbound": "🌐 国外网站"
-      },
-      {
-        "domain": [
-          "mail.zoho.eu"
-        ],
-        "action": "route",
-        "outbound": "🌐 国外网站"
-      },
-      {
-        "domain": [
-          "mail.zoho.in"
-        ],
-        "action": "route",
-        "outbound": "🌐 国外网站"
-      },
-      {
-        "domain": [
-          "mail.zoho.com.au"
-        ],
-        "action": "route",
-        "outbound": "🌐 国外网站"
-      },
-      {
-        "domain": [
-          "mail.zoho.jp"
-        ],
-        "action": "route",
-        "outbound": "🌐 国外网站"
-      },
-      {
-        "domain": [
-          "mail.me.com"
-        ],
-        "action": "route",
-        "outbound": "🌐 国外网站"
+        "outbound": "🧑‍💼 会议协作"
       },
       {
         "domain_suffix": [
-          "fastmail.com"
+          "tradingview.com"
         ],
         "action": "route",
-        "outbound": "🌐 国外网站"
+        "outbound": "💰 加密货币"
       },
       {
         "domain_suffix": [
-          "fastmail.fm"
+          "tvcdn.com"
         ],
         "action": "route",
-        "outbound": "🌐 国外网站"
+        "outbound": "💰 加密货币"
+      },
+      {
+        "domain_suffix": [
+          "coinglass.com"
+        ],
+        "action": "route",
+        "outbound": "💰 加密货币"
+      },
+      {
+        "domain_suffix": [
+          "hyperliquid.xyz"
+        ],
+        "action": "route",
+        "outbound": "💰 加密货币"
+      },
+      {
+        "domain_suffix": [
+          "hyperliquid-testnet.xyz"
+        ],
+        "action": "route",
+        "outbound": "💰 加密货币"
+      },
+      {
+        "domain_suffix": [
+          "eth.limo"
+        ],
+        "action": "route",
+        "outbound": "💰 加密货币"
+      },
+      {
+        "domain_suffix": [
+          "glitternode.ru"
+        ],
+        "action": "route",
+        "outbound": "💰 加密货币"
       },
       {
         "domain_suffix": [
@@ -3347,258 +5685,6 @@
         "outbound": "🧑‍💼 会议协作"
       },
       {
-        "domain_suffix": [
-          "feishu.cn"
-        ],
-        "action": "route",
-        "outbound": "DIRECT"
-      },
-      {
-        "domain_suffix": [
-          "dingtalk.com"
-        ],
-        "action": "route",
-        "outbound": "DIRECT"
-      },
-      {
-        "domain_suffix": [
-          "welink.huaweicloud.com"
-        ],
-        "action": "route",
-        "outbound": "DIRECT"
-      },
-      {
-        "rule_set": [
-          "bilibili"
-        ],
-        "action": "route",
-        "outbound": "📺 国内流媒体"
-      },
-      {
-        "domain_suffix": [
-          "iqiyi.com"
-        ],
-        "action": "route",
-        "outbound": "📺 国内流媒体"
-      },
-      {
-        "domain_suffix": [
-          "iqiyipic.com"
-        ],
-        "action": "route",
-        "outbound": "📺 国内流媒体"
-      },
-      {
-        "domain_suffix": [
-          "71.am"
-        ],
-        "action": "route",
-        "outbound": "📺 国内流媒体"
-      },
-      {
-        "domain_suffix": [
-          "youku.com"
-        ],
-        "action": "route",
-        "outbound": "📺 国内流媒体"
-      },
-      {
-        "domain_suffix": [
-          "ykimg.com"
-        ],
-        "action": "route",
-        "outbound": "📺 国内流媒体"
-      },
-      {
-        "domain_suffix": [
-          "soku.com"
-        ],
-        "action": "route",
-        "outbound": "📺 国内流媒体"
-      },
-      {
-        "domain_suffix": [
-          "v.qq.com"
-        ],
-        "action": "route",
-        "outbound": "📺 国内流媒体"
-      },
-      {
-        "domain_suffix": [
-          "video.qq.com"
-        ],
-        "action": "route",
-        "outbound": "📺 国内流媒体"
-      },
-      {
-        "domain_keyword": [
-          "tencentvideo"
-        ],
-        "action": "route",
-        "outbound": "📺 国内流媒体"
-      },
-      {
-        "domain_suffix": [
-          "mgtv.com"
-        ],
-        "action": "route",
-        "outbound": "📺 国内流媒体"
-      },
-      {
-        "domain_suffix": [
-          "hitv.com"
-        ],
-        "action": "route",
-        "outbound": "📺 国内流媒体"
-      },
-      {
-        "domain_suffix": [
-          "hunantv.com"
-        ],
-        "action": "route",
-        "outbound": "📺 国内流媒体"
-      },
-      {
-        "domain_suffix": [
-          "douyin.com"
-        ],
-        "action": "route",
-        "outbound": "📺 国内流媒体"
-      },
-      {
-        "domain_suffix": [
-          "douyinpic.com"
-        ],
-        "action": "route",
-        "outbound": "📺 国内流媒体"
-      },
-      {
-        "domain_suffix": [
-          "douyinvod.com"
-        ],
-        "action": "route",
-        "outbound": "📺 国内流媒体"
-      },
-      {
-        "domain_suffix": [
-          "ixigua.com"
-        ],
-        "action": "route",
-        "outbound": "📺 国内流媒体"
-      },
-      {
-        "domain_suffix": [
-          "pstatp.com"
-        ],
-        "action": "route",
-        "outbound": "📺 国内流媒体"
-      },
-      {
-        "domain_suffix": [
-          "snssdk.com"
-        ],
-        "action": "route",
-        "outbound": "📺 国内流媒体"
-      },
-      {
-        "domain_suffix": [
-          "sohu.com"
-        ],
-        "action": "route",
-        "outbound": "📺 国内流媒体"
-      },
-      {
-        "domain_suffix": [
-          "music.163.com"
-        ],
-        "action": "route",
-        "outbound": "📺 国内流媒体"
-      },
-      {
-        "domain_suffix": [
-          "ntes53.netease.com"
-        ],
-        "action": "route",
-        "outbound": "📺 国内流媒体"
-      },
-      {
-        "domain_suffix": [
-          "y.qq.com"
-        ],
-        "action": "route",
-        "outbound": "📺 国内流媒体"
-      },
-      {
-        "domain_suffix": [
-          "music.qq.com"
-        ],
-        "action": "route",
-        "outbound": "📺 国内流媒体"
-      },
-      {
-        "domain_suffix": [
-          "kugou.com"
-        ],
-        "action": "route",
-        "outbound": "📺 国内流媒体"
-      },
-      {
-        "domain_suffix": [
-          "kuwo.cn"
-        ],
-        "action": "route",
-        "outbound": "📺 国内流媒体"
-      },
-      {
-        "domain_suffix": [
-          "xiaohongshu.com"
-        ],
-        "action": "route",
-        "outbound": "📺 国内流媒体"
-      },
-      {
-        "domain_suffix": [
-          "xhscdn.com"
-        ],
-        "action": "route",
-        "outbound": "📺 国内流媒体"
-      },
-      {
-        "domain_suffix": [
-          "kuaishou.com"
-        ],
-        "action": "route",
-        "outbound": "📺 国内流媒体"
-      },
-      {
-        "domain_suffix": [
-          "gifshow.com"
-        ],
-        "action": "route",
-        "outbound": "📺 国内流媒体"
-      },
-      {
-        "domain_suffix": [
-          "weibo.com"
-        ],
-        "action": "route",
-        "outbound": "📺 国内流媒体"
-      },
-      {
-        "domain_suffix": [
-          "weibo.cn"
-        ],
-        "action": "route",
-        "outbound": "📺 国内流媒体"
-      },
-      {
-        "domain_suffix": [
-          "sinaimg.cn"
-        ],
-        "action": "route",
-        "outbound": "📺 国内流媒体"
-      },
-      {
         "domain": [
           "p-bstarstatic.akamaized.net",
           "p.bstarstatic.com",
@@ -3630,132 +5716,6 @@
         "outbound": "🇭🇰 香港流媒体"
       },
       {
-        "domain_suffix": [
-          "wetv.vip"
-        ],
-        "action": "route",
-        "outbound": "🌐 其他国外流媒体"
-      },
-      {
-        "domain_suffix": [
-          "wetvinfo.com"
-        ],
-        "action": "route",
-        "outbound": "🌐 其他国外流媒体"
-      },
-      {
-        "domain_suffix": [
-          "iq.com"
-        ],
-        "action": "route",
-        "outbound": "🌐 其他国外流媒体"
-      },
-      {
-        "domain_suffix": [
-          "vidio.com"
-        ],
-        "action": "route",
-        "outbound": "🌐 其他国外流媒体"
-      },
-      {
-        "domain_suffix": [
-          "vidio.static6.com"
-        ],
-        "action": "route",
-        "outbound": "🌐 其他国外流媒体"
-      },
-      {
-        "domain_suffix": [
-          "rctiplus.com"
-        ],
-        "action": "route",
-        "outbound": "🌐 其他国外流媒体"
-      },
-      {
-        "domain_suffix": [
-          "visionplus.id"
-        ],
-        "action": "route",
-        "outbound": "🌐 其他国外流媒体"
-      },
-      {
-        "domain_suffix": [
-          "genflix.co.id"
-        ],
-        "action": "route",
-        "outbound": "🌐 其他国外流媒体"
-      },
-      {
-        "domain_suffix": [
-          "goplay.co.id"
-        ],
-        "action": "route",
-        "outbound": "🌐 其他国外流媒体"
-      },
-      {
-        "domain_suffix": [
-          "maxstream.tv"
-        ],
-        "action": "route",
-        "outbound": "🌐 其他国外流媒体"
-      },
-      {
-        "rule_set": [
-          "biliintl"
-        ],
-        "action": "route",
-        "outbound": "🌐 其他国外流媒体"
-      },
-      {
-        "domain_suffix": [
-          "viki.com"
-        ],
-        "action": "route",
-        "outbound": "🌐 其他国外流媒体"
-      },
-      {
-        "domain_suffix": [
-          "viki.io"
-        ],
-        "action": "route",
-        "outbound": "🌐 其他国外流媒体"
-      },
-      {
-        "domain_suffix": [
-          "iflix.com"
-        ],
-        "action": "route",
-        "outbound": "🌐 其他国外流媒体"
-      },
-      {
-        "domain_suffix": [
-          "catchplay.com"
-        ],
-        "action": "route",
-        "outbound": "🌐 其他国外流媒体"
-      },
-      {
-        "domain_suffix": [
-          "mewatch.sg"
-        ],
-        "action": "route",
-        "outbound": "🌐 其他国外流媒体"
-      },
-      {
-        "domain_suffix": [
-          "trueid.net"
-        ],
-        "action": "route",
-        "outbound": "🌐 其他国外流媒体"
-      },
-      {
-        "domain_suffix": [
-          "dimsum.my"
-        ],
-        "action": "route",
-        "outbound": "🌐 其他国外流媒体"
-      },
-      {
         "rule_set": [
           "youtube"
         ],
@@ -3785,48 +5745,6 @@
       },
       {
         "domain_suffix": [
-          "amazonaws.com"
-        ],
-        "action": "route",
-        "outbound": "🌐 国外网站"
-      },
-      {
-        "domain_suffix": [
-          "awsstatic.com"
-        ],
-        "action": "route",
-        "outbound": "🌐 国外网站"
-      },
-      {
-        "domain_suffix": [
-          "aws.amazon.com"
-        ],
-        "action": "route",
-        "outbound": "🔧 工具与服务"
-      },
-      {
-        "domain_suffix": [
-          "elasticbeanstalk.com"
-        ],
-        "action": "route",
-        "outbound": "🔧 工具与服务"
-      },
-      {
-        "domain_suffix": [
-          "crunchyroll.com"
-        ],
-        "action": "route",
-        "outbound": "🌐 其他国外流媒体"
-      },
-      {
-        "domain_suffix": [
-          "vrv.co"
-        ],
-        "action": "route",
-        "outbound": "🌐 其他国外流媒体"
-      },
-      {
-        "domain_suffix": [
           "soundcloud.com"
         ],
         "action": "route",
@@ -3848,45 +5766,10 @@
       },
       {
         "domain_suffix": [
-          "pluto.tv"
-        ],
-        "action": "route",
-        "outbound": "🌐 其他国外流媒体"
-      },
-      {
-        "domain_suffix": [
-          "tubi.tv"
-        ],
-        "action": "route",
-        "outbound": "🌐 其他国外流媒体"
-      },
-      {
-        "domain_suffix": [
-          "fubo.tv"
-        ],
-        "action": "route",
-        "outbound": "🌐 其他国外流媒体"
-      },
-      {
-        "domain_suffix": [
-          "discoveryplus.com"
-        ],
-        "action": "route",
-        "outbound": "🌐 其他国外流媒体"
-      },
-      {
-        "domain_suffix": [
           "max.com"
         ],
         "action": "route",
         "outbound": "📡 HBO/Max"
-      },
-      {
-        "domain_suffix": [
-          "appletv.com"
-        ],
-        "action": "route",
-        "outbound": "🌐 其他国外流媒体"
       },
       {
         "domain_suffix": [
@@ -3901,20 +5784,6 @@
         ],
         "action": "route",
         "outbound": "🎵 音乐流媒体"
-      },
-      {
-        "domain_suffix": [
-          "vimeo.com"
-        ],
-        "action": "route",
-        "outbound": "🌐 其他国外流媒体"
-      },
-      {
-        "domain_suffix": [
-          "dailymotion.com"
-        ],
-        "action": "route",
-        "outbound": "🌐 其他国外流媒体"
       },
       {
         "domain_suffix": [
@@ -4344,1877 +6213,8 @@
         "outbound": "🇯🇵 日韩流媒体"
       },
       {
-        "rule_set": [
-          "bbc"
-        ],
-        "action": "route",
-        "outbound": "🇪🇺 欧洲流媒体"
-      },
-      {
-        "domain_suffix": [
-          "itv.com"
-        ],
-        "action": "route",
-        "outbound": "🇪🇺 欧洲流媒体"
-      },
-      {
-        "domain_suffix": [
-          "itvstatic.com"
-        ],
-        "action": "route",
-        "outbound": "🇪🇺 欧洲流媒体"
-      },
-      {
-        "domain_suffix": [
-          "channel4.com"
-        ],
-        "action": "route",
-        "outbound": "🇪🇺 欧洲流媒体"
-      },
-      {
-        "domain_suffix": [
-          "channel5.com"
-        ],
-        "action": "route",
-        "outbound": "🇪🇺 欧洲流媒体"
-      },
-      {
-        "domain_suffix": [
-          "sky.com"
-        ],
-        "action": "route",
-        "outbound": "🇪🇺 欧洲流媒体"
-      },
-      {
-        "domain_suffix": [
-          "nowtv.co.uk"
-        ],
-        "action": "route",
-        "outbound": "🇪🇺 欧洲流媒体"
-      },
-      {
-        "domain_suffix": [
-          "britbox.com"
-        ],
-        "action": "route",
-        "outbound": "🇪🇺 欧洲流媒体"
-      },
-      {
-        "domain_suffix": [
-          "canalplus.com"
-        ],
-        "action": "route",
-        "outbound": "🇪🇺 欧洲流媒体"
-      },
-      {
-        "domain_suffix": [
-          "mycanal.fr"
-        ],
-        "action": "route",
-        "outbound": "🇪🇺 欧洲流媒体"
-      },
-      {
-        "domain_suffix": [
-          "france.tv"
-        ],
-        "action": "route",
-        "outbound": "🇪🇺 欧洲流媒体"
-      },
-      {
-        "domain_suffix": [
-          "tf1.fr"
-        ],
-        "action": "route",
-        "outbound": "🇪🇺 欧洲流媒体"
-      },
-      {
-        "domain_suffix": [
-          "molotov.tv"
-        ],
-        "action": "route",
-        "outbound": "🇪🇺 欧洲流媒体"
-      },
-      {
-        "domain_suffix": [
-          "arte.tv"
-        ],
-        "action": "route",
-        "outbound": "🇪🇺 欧洲流媒体"
-      },
-      {
-        "domain_suffix": [
-          "joyn.de"
-        ],
-        "action": "route",
-        "outbound": "🇪🇺 欧洲流媒体"
-      },
-      {
-        "domain_suffix": [
-          "zdf.de"
-        ],
-        "action": "route",
-        "outbound": "🇪🇺 欧洲流媒体"
-      },
-      {
-        "domain_suffix": [
-          "ard.de"
-        ],
-        "action": "route",
-        "outbound": "🇪🇺 欧洲流媒体"
-      },
-      {
-        "domain_suffix": [
-          "ardmediathek.de"
-        ],
-        "action": "route",
-        "outbound": "🇪🇺 欧洲流媒体"
-      },
-      {
-        "domain_suffix": [
-          "rtlplus.com"
-        ],
-        "action": "route",
-        "outbound": "🇪🇺 欧洲流媒体"
-      },
-      {
-        "domain_suffix": [
-          "raiplay.it"
-        ],
-        "action": "route",
-        "outbound": "🇪🇺 欧洲流媒体"
-      },
-      {
-        "domain_suffix": [
-          "rtve.es"
-        ],
-        "action": "route",
-        "outbound": "🇪🇺 欧洲流媒体"
-      },
-      {
-        "domain_suffix": [
-          "videoland.com"
-        ],
-        "action": "route",
-        "outbound": "🇪🇺 欧洲流媒体"
-      },
-      {
-        "domain_suffix": [
-          "ruutu.fi"
-        ],
-        "action": "route",
-        "outbound": "🇪🇺 欧洲流媒体"
-      },
-      {
-        "domain_suffix": [
-          "tv2.dk"
-        ],
-        "action": "route",
-        "outbound": "🇪🇺 欧洲流媒体"
-      },
-      {
-        "domain_suffix": [
-          "svtplay.se"
-        ],
-        "action": "route",
-        "outbound": "🇪🇺 欧洲流媒体"
-      },
-      {
-        "domain_suffix": [
-          "nrk.no"
-        ],
-        "action": "route",
-        "outbound": "🇪🇺 欧洲流媒体"
-      },
-      {
-        "domain_suffix": [
-          "ivi.ru"
-        ],
-        "action": "route",
-        "outbound": "🇪🇺 欧洲流媒体"
-      },
-      {
-        "domain_suffix": [
-          "kinopoisk.ru"
-        ],
-        "action": "route",
-        "outbound": "🇪🇺 欧洲流媒体"
-      },
-      {
-        "domain_suffix": [
-          "okko.tv"
-        ],
-        "action": "route",
-        "outbound": "🇪🇺 欧洲流媒体"
-      },
-      {
-        "domain_suffix": [
-          "more.tv"
-        ],
-        "action": "route",
-        "outbound": "🇪🇺 欧洲流媒体"
-      },
-      {
-        "domain_suffix": [
-          "mihoyo.com"
-        ],
-        "action": "route",
-        "outbound": "🕹️ 国内游戏"
-      },
-      {
-        "domain_suffix": [
-          "miyoushe.com"
-        ],
-        "action": "route",
-        "outbound": "🕹️ 国内游戏"
-      },
-      {
-        "domain_suffix": [
-          "yuanshen.com"
-        ],
-        "action": "route",
-        "outbound": "🕹️ 国内游戏"
-      },
-      {
-        "domain_suffix": [
-          "bhsr.com"
-        ],
-        "action": "route",
-        "outbound": "🕹️ 国内游戏"
-      },
-      {
-        "domain_suffix": [
-          "zenlesszonezero.com"
-        ],
-        "action": "route",
-        "outbound": "🕹️ 国内游戏"
-      },
-      {
-        "domain": [
-          "game.163.com"
-        ],
-        "action": "route",
-        "outbound": "🕹️ 国内游戏"
-      },
-      {
-        "domain_suffix": [
-          "gm.163.com"
-        ],
-        "action": "route",
-        "outbound": "🕹️ 国内游戏"
-      },
-      {
-        "domain_suffix": [
-          "ds.163.com"
-        ],
-        "action": "route",
-        "outbound": "🕹️ 国内游戏"
-      },
-      {
-        "domain_suffix": [
-          "nie.163.com"
-        ],
-        "action": "route",
-        "outbound": "🕹️ 国内游戏"
-      },
-      {
-        "domain_suffix": [
-          "nie.netease.com"
-        ],
-        "action": "route",
-        "outbound": "🕹️ 国内游戏"
-      },
-      {
-        "domain_suffix": [
-          "update.netease.com"
-        ],
-        "action": "route",
-        "outbound": "🕹️ 国内游戏"
-      },
-      {
-        "domain_suffix": [
-          "netease.com"
-        ],
-        "action": "route",
-        "outbound": "🕹️ 国内游戏"
-      },
-      {
-        "domain_suffix": [
-          "wegame.com"
-        ],
-        "action": "route",
-        "outbound": "🕹️ 国内游戏"
-      },
-      {
-        "domain_suffix": [
-          "wegame.com.cn"
-        ],
-        "action": "route",
-        "outbound": "🕹️ 国内游戏"
-      },
-      {
-        "domain_suffix": [
-          "perfect-world.com"
-        ],
-        "action": "route",
-        "outbound": "🕹️ 国内游戏"
-      },
-      {
-        "domain_suffix": [
-          "wanmei.com"
-        ],
-        "action": "route",
-        "outbound": "🕹️ 国内游戏"
-      },
-      {
-        "domain_suffix": [
-          "xd.com"
-        ],
-        "action": "route",
-        "outbound": "🕹️ 国内游戏"
-      },
-      {
-        "domain_suffix": [
-          "taptap.com"
-        ],
-        "action": "route",
-        "outbound": "🕹️ 国内游戏"
-      },
-      {
-        "domain_suffix": [
-          "taptap.io"
-        ],
-        "action": "route",
-        "outbound": "🕹️ 国内游戏"
-      },
-      {
-        "domain_suffix": [
-          "papegames.com"
-        ],
-        "action": "route",
-        "outbound": "🕹️ 国内游戏"
-      },
-      {
-        "domain_suffix": [
-          "hypergryph.com"
-        ],
-        "action": "route",
-        "outbound": "🕹️ 国内游戏"
-      },
-      {
-        "domain_suffix": [
-          "gryphline.com"
-        ],
-        "action": "route",
-        "outbound": "🕹️ 国内游戏"
-      },
-      {
-        "domain_suffix": [
-          "lilith.com"
-        ],
-        "action": "route",
-        "outbound": "🕹️ 国内游戏"
-      },
-      {
-        "rule_set": [
-          "geosite-category-games"
-        ],
-        "action": "route",
-        "outbound": "🎮 国外游戏"
-      },
-      {
-        "domain_suffix": [
-          "ubisoft.com"
-        ],
-        "action": "route",
-        "outbound": "🎮 国外游戏"
-      },
-      {
-        "domain_suffix": [
-          "ubi.com"
-        ],
-        "action": "route",
-        "outbound": "🎮 国外游戏"
-      },
-      {
-        "domain_suffix": [
-          "riotgames.com"
-        ],
-        "action": "route",
-        "outbound": "🎮 国外游戏"
-      },
-      {
-        "domain_suffix": [
-          "leagueoflegends.com"
-        ],
-        "action": "route",
-        "outbound": "🎮 国外游戏"
-      },
-      {
-        "domain_suffix": [
-          "valorant.com"
-        ],
-        "action": "route",
-        "outbound": "🎮 国外游戏"
-      },
-      {
-        "domain_suffix": [
-          "rockstargames.com"
-        ],
-        "action": "route",
-        "outbound": "🎮 国外游戏"
-      },
-      {
-        "domain_suffix": [
-          "gog.com"
-        ],
-        "action": "route",
-        "outbound": "🎮 国外游戏"
-      },
-      {
-        "domain_suffix": [
-          "gogalaxy.com"
-        ],
-        "action": "route",
-        "outbound": "🎮 国外游戏"
-      },
-      {
-        "domain_suffix": [
-          "bethesda.net"
-        ],
-        "action": "route",
-        "outbound": "🎮 国外游戏"
-      },
-      {
-        "domain_suffix": [
-          "supercell.com"
-        ],
-        "action": "route",
-        "outbound": "🎮 国外游戏"
-      },
-      {
-        "domain_suffix": [
-          "garena.com"
-        ],
-        "action": "route",
-        "outbound": "🎮 国外游戏"
-      },
-      {
-        "domain_suffix": [
-          "hoyoverse.com"
-        ],
-        "action": "route",
-        "outbound": "🎮 国外游戏"
-      },
-      {
-        "domain_suffix": [
-          "hoyolab.com"
-        ],
-        "action": "route",
-        "outbound": "🎮 国外游戏"
-      },
-      {
-        "domain_suffix": [
-          "yahoo.com"
-        ],
-        "action": "route",
-        "outbound": "🔧 工具与服务"
-      },
-      {
-        "domain_suffix": [
-          "yahoo.co.jp"
-        ],
-        "action": "route",
-        "outbound": "🔧 工具与服务"
-      },
-      {
-        "domain_suffix": [
-          "duckduckgo.com"
-        ],
-        "action": "route",
-        "outbound": "🔧 工具与服务"
-      },
-      {
-        "domain_suffix": [
-          "ddg.co"
-        ],
-        "action": "route",
-        "outbound": "🔧 工具与服务"
-      },
-      {
-        "domain_suffix": [
-          "brave.com"
-        ],
-        "action": "route",
-        "outbound": "🔧 工具与服务"
-      },
-      {
-        "domain_suffix": [
-          "yandex.com"
-        ],
-        "action": "route",
-        "outbound": "🔧 工具与服务"
-      },
-      {
-        "domain_suffix": [
-          "yandex.ru"
-        ],
-        "action": "route",
-        "outbound": "🔧 工具与服务"
-      },
-      {
-        "domain_suffix": [
-          "ecosia.org"
-        ],
-        "action": "route",
-        "outbound": "🔧 工具与服务"
-      },
-      {
-        "domain_suffix": [
-          "startpage.com"
-        ],
-        "action": "route",
-        "outbound": "🔧 工具与服务"
-      },
-      {
-        "domain_suffix": [
-          "you.com"
-        ],
-        "action": "route",
-        "outbound": "🔧 工具与服务"
-      },
-      {
-        "domain_suffix": [
-          "search.naver.com"
-        ],
-        "action": "route",
-        "outbound": "🔧 工具与服务"
-      },
-      {
-        "rule_set": [
-          "github"
-        ],
-        "action": "route",
-        "outbound": "🔧 工具与服务"
-      },
-      {
-        "rule_set": [
-          "onedrive"
-        ],
-        "action": "route",
-        "outbound": "Ⓜ️ 微软服务"
-      },
-      {
-        "rule_set": [
-          "microsoft"
-        ],
-        "action": "route",
-        "outbound": "Ⓜ️ 微软服务"
-      },
-      {
-        "rule_set": [
-          "icloud"
-        ],
-        "action": "route",
-        "outbound": "🍎 苹果服务"
-      },
-      {
-        "rule_set": [
-          "apple"
-        ],
-        "action": "route",
-        "outbound": "🍎 苹果服务"
-      },
-      {
-        "rule_set": [
-          "geosite-category-dev"
-        ],
-        "action": "route",
-        "outbound": "🔧 工具与服务"
-      },
-      {
-        "domain_suffix": [
-          "npmjs.com"
-        ],
-        "action": "route",
-        "outbound": "🔧 工具与服务"
-      },
-      {
-        "domain_suffix": [
-          "npmjs.org"
-        ],
-        "action": "route",
-        "outbound": "🔧 工具与服务"
-      },
-      {
-        "domain_suffix": [
-          "yarnpkg.com"
-        ],
-        "action": "route",
-        "outbound": "🔧 工具与服务"
-      },
-      {
-        "domain_suffix": [
-          "pypi.org"
-        ],
-        "action": "route",
-        "outbound": "🔧 工具与服务"
-      },
-      {
-        "domain_suffix": [
-          "pythonhosted.org"
-        ],
-        "action": "route",
-        "outbound": "🔧 工具与服务"
-      },
-      {
-        "domain_suffix": [
-          "crates.io"
-        ],
-        "action": "route",
-        "outbound": "🔧 工具与服务"
-      },
-      {
-        "domain_suffix": [
-          "rubygems.org"
-        ],
-        "action": "route",
-        "outbound": "🔧 工具与服务"
-      },
-      {
-        "domain_suffix": [
-          "packagist.org"
-        ],
-        "action": "route",
-        "outbound": "🔧 工具与服务"
-      },
-      {
-        "domain_suffix": [
-          "maven.org"
-        ],
-        "action": "route",
-        "outbound": "🔧 工具与服务"
-      },
-      {
-        "domain_suffix": [
-          "nuget.org"
-        ],
-        "action": "route",
-        "outbound": "🔧 工具与服务"
-      },
-      {
-        "domain_suffix": [
-          "cocoapods.org"
-        ],
-        "action": "route",
-        "outbound": "🔧 工具与服务"
-      },
-      {
-        "domain_suffix": [
-          "stackoverflow.com"
-        ],
-        "action": "route",
-        "outbound": "🔧 工具与服务"
-      },
-      {
-        "domain_suffix": [
-          "stackexchange.com"
-        ],
-        "action": "route",
-        "outbound": "🔧 工具与服务"
-      },
-      {
-        "domain_suffix": [
-          "sstatic.net"
-        ],
-        "action": "route",
-        "outbound": "🔧 工具与服务"
-      },
-      {
-        "domain_suffix": [
-          "vercel.com"
-        ],
-        "action": "route",
-        "outbound": "🔧 工具与服务"
-      },
-      {
-        "domain_suffix": [
-          "vercel.app"
-        ],
-        "action": "route",
-        "outbound": "🔧 工具与服务"
-      },
-      {
-        "domain_suffix": [
-          "netlify.app"
-        ],
-        "action": "route",
-        "outbound": "🔧 工具与服务"
-      },
-      {
-        "domain_suffix": [
-          "netlify.com"
-        ],
-        "action": "route",
-        "outbound": "🔧 工具与服务"
-      },
-      {
-        "domain_suffix": [
-          "pages.dev"
-        ],
-        "action": "route",
-        "outbound": "🔧 工具与服务"
-      },
-      {
-        "domain_suffix": [
-          "workers.dev"
-        ],
-        "action": "route",
-        "outbound": "🔧 工具与服务"
-      },
-      {
-        "domain": [
-          "dash.cloudflare.com"
-        ],
-        "action": "route",
-        "outbound": "🔧 工具与服务"
-      },
-      {
-        "domain": [
-          "api.cloudflare.com"
-        ],
-        "action": "route",
-        "outbound": "🔧 工具与服务"
-      },
-      {
-        "domain": [
-          "developers.cloudflare.com"
-        ],
-        "action": "route",
-        "outbound": "🔧 工具与服务"
-      },
-      {
-        "domain": [
-          "www.cloudflare.com"
-        ],
-        "action": "route",
-        "outbound": "🔧 工具与服务"
-      },
-      {
-        "domain_suffix": [
-          "heroku.com"
-        ],
-        "action": "route",
-        "outbound": "🔧 工具与服务"
-      },
-      {
-        "domain_suffix": [
-          "herokuapp.com"
-        ],
-        "action": "route",
-        "outbound": "🔧 工具与服务"
-      },
-      {
-        "domain_suffix": [
-          "fly.io"
-        ],
-        "action": "route",
-        "outbound": "🔧 工具与服务"
-      },
-      {
-        "domain_suffix": [
-          "railway.app"
-        ],
-        "action": "route",
-        "outbound": "🔧 工具与服务"
-      },
-      {
-        "domain_suffix": [
-          "render.com"
-        ],
-        "action": "route",
-        "outbound": "🔧 工具与服务"
-      },
-      {
-        "domain_suffix": [
-          "supabase.com"
-        ],
-        "action": "route",
-        "outbound": "🔧 工具与服务"
-      },
-      {
-        "domain_suffix": [
-          "supabase.co"
-        ],
-        "action": "route",
-        "outbound": "🔧 工具与服务"
-      },
-      {
-        "domain_suffix": [
-          "planetscale.com"
-        ],
-        "action": "route",
-        "outbound": "🔧 工具与服务"
-      },
-      {
-        "domain_suffix": [
-          "neon.tech"
-        ],
-        "action": "route",
-        "outbound": "🔧 工具与服务"
-      },
-      {
-        "domain_suffix": [
-          "digitalocean.com"
-        ],
-        "action": "route",
-        "outbound": "🔧 工具与服务"
-      },
-      {
-        "domain_suffix": [
-          "vultr.com"
-        ],
-        "action": "route",
-        "outbound": "🔧 工具与服务"
-      },
-      {
-        "domain_suffix": [
-          "linode.com"
-        ],
-        "action": "route",
-        "outbound": "🔧 工具与服务"
-      },
-      {
-        "domain_suffix": [
-          "sentry.io"
-        ],
-        "action": "route",
-        "outbound": "🔧 工具与服务"
-      },
-      {
-        "domain_suffix": [
-          "datadog.com"
-        ],
-        "action": "route",
-        "outbound": "🔧 工具与服务"
-      },
-      {
-        "domain_suffix": [
-          "grafana.com"
-        ],
-        "action": "route",
-        "outbound": "🔧 工具与服务"
-      },
-      {
-        "domain_suffix": [
-          "postman.com"
-        ],
-        "action": "route",
-        "outbound": "🔧 工具与服务"
-      },
-      {
-        "domain_suffix": [
-          "jetbrains.com"
-        ],
-        "action": "route",
-        "outbound": "🔧 工具与服务"
-      },
-      {
-        "domain_suffix": [
-          "hashicorp.com"
-        ],
-        "action": "route",
-        "outbound": "🔧 工具与服务"
-      },
-      {
-        "domain_suffix": [
-          "terraform.io"
-        ],
-        "action": "route",
-        "outbound": "🔧 工具与服务"
-      },
-      {
-        "domain_suffix": [
-          "vagrantup.com"
-        ],
-        "action": "route",
-        "outbound": "🔧 工具与服务"
-      },
-      {
-        "domain_suffix": [
-          "windowsupdate.com"
-        ],
-        "action": "route",
-        "outbound": "📥 下载更新"
-      },
-      {
-        "domain_suffix": [
-          "update.microsoft.com"
-        ],
-        "action": "route",
-        "outbound": "📥 下载更新"
-      },
-      {
-        "domain_suffix": [
-          "download.microsoft.com"
-        ],
-        "action": "route",
-        "outbound": "📥 下载更新"
-      },
-      {
-        "domain_suffix": [
-          "delivery.mp.microsoft.com"
-        ],
-        "action": "route",
-        "outbound": "📥 下载更新"
-      },
-      {
-        "domain_suffix": [
-          "dl.delivery.mp.microsoft.com"
-        ],
-        "action": "route",
-        "outbound": "📥 下载更新"
-      },
-      {
-        "domain_suffix": [
-          "officecdn.microsoft.com"
-        ],
-        "action": "route",
-        "outbound": "📥 下载更新"
-      },
-      {
-        "domain_suffix": [
-          "officecdn.microsoft.com.edgesuite.net"
-        ],
-        "action": "route",
-        "outbound": "📥 下载更新"
-      },
-      {
-        "domain_suffix": [
-          "download.mozilla.org"
-        ],
-        "action": "route",
-        "outbound": "📥 下载更新"
-      },
-      {
-        "domain_suffix": [
-          "archive.mozilla.org"
-        ],
-        "action": "route",
-        "outbound": "📥 下载更新"
-      },
-      {
-        "domain_suffix": [
-          "releases.ubuntu.com"
-        ],
-        "action": "route",
-        "outbound": "📥 下载更新"
-      },
-      {
-        "domain_suffix": [
-          "archive.ubuntu.com"
-        ],
-        "action": "route",
-        "outbound": "📥 下载更新"
-      },
-      {
-        "domain_suffix": [
-          "security.ubuntu.com"
-        ],
-        "action": "route",
-        "outbound": "📥 下载更新"
-      },
-      {
-        "domain_suffix": [
-          "mirrors.kernel.org"
-        ],
-        "action": "route",
-        "outbound": "📥 下载更新"
-      },
-      {
-        "domain_suffix": [
-          "dl.fedoraproject.org"
-        ],
-        "action": "route",
-        "outbound": "📥 下载更新"
-      },
-      {
-        "domain_suffix": [
-          "repo.anaconda.com"
-        ],
-        "action": "route",
-        "outbound": "📥 下载更新"
-      },
-      {
-        "domain_suffix": [
-          "conda.anaconda.org"
-        ],
-        "action": "route",
-        "outbound": "📥 下载更新"
-      },
-      {
-        "domain_suffix": [
-          "repo.continuum.io"
-        ],
-        "action": "route",
-        "outbound": "📥 下载更新"
-      },
-      {
-        "domain_suffix": [
-          "sourceforge.net"
-        ],
-        "action": "route",
-        "outbound": "📥 下载更新"
-      },
-      {
-        "domain_suffix": [
-          "fosshub.com"
-        ],
-        "action": "route",
-        "outbound": "📥 下载更新"
-      },
-      {
-        "domain_suffix": [
-          "filehippo.com"
-        ],
-        "action": "route",
-        "outbound": "📥 下载更新"
-      },
-      {
-        "domain_suffix": [
-          "softonic.com"
-        ],
-        "action": "route",
-        "outbound": "📥 下载更新"
-      },
-      {
-        "domain_suffix": [
-          "gcr.io"
-        ],
-        "action": "route",
-        "outbound": "📥 下载更新"
-      },
-      {
-        "domain_suffix": [
-          "ghcr.io"
-        ],
-        "action": "route",
-        "outbound": "📥 下载更新"
-      },
-      {
-        "domain_suffix": [
-          "quay.io"
-        ],
-        "action": "route",
-        "outbound": "📥 下载更新"
-      },
-      {
-        "domain_suffix": [
-          "registry.k8s.io"
-        ],
-        "action": "route",
-        "outbound": "📥 下载更新"
-      },
-      {
-        "rule_set": [
-          "cloudflare-ip"
-        ],
-        "action": "route",
-        "outbound": "🌐 国外网站"
-      },
-      {
-        "rule_set": [
-          "cloudfront-ip"
-        ],
-        "action": "route",
-        "outbound": "🌐 国外网站"
-      },
-      {
-        "rule_set": [
-          "fastly-ip"
-        ],
-        "action": "route",
-        "outbound": "🌐 国外网站"
-      },
-      {
-        "domain_suffix": [
-          "akamai.net"
-        ],
-        "action": "route",
-        "outbound": "🌐 国外网站"
-      },
-      {
-        "domain_suffix": [
-          "akamaized.net"
-        ],
-        "action": "route",
-        "outbound": "🌐 国外网站"
-      },
-      {
-        "domain_suffix": [
-          "akamaihd.net"
-        ],
-        "action": "route",
-        "outbound": "🌐 国外网站"
-      },
-      {
-        "domain_suffix": [
-          "akamaiedge.net"
-        ],
-        "action": "route",
-        "outbound": "🌐 国外网站"
-      },
-      {
-        "domain_suffix": [
-          "akamaitechnologies.com"
-        ],
-        "action": "route",
-        "outbound": "🌐 国外网站"
-      },
-      {
-        "domain_suffix": [
-          "edgekey.net"
-        ],
-        "action": "route",
-        "outbound": "🌐 国外网站"
-      },
-      {
-        "domain_suffix": [
-          "edgesuite.net"
-        ],
-        "action": "route",
-        "outbound": "🌐 国外网站"
-      },
-      {
-        "domain_suffix": [
-          "cloudfront.net"
-        ],
-        "action": "route",
-        "outbound": "🌐 国外网站"
-      },
-      {
-        "domain_suffix": [
-          "fastly.net"
-        ],
-        "action": "route",
-        "outbound": "🌐 国外网站"
-      },
-      {
-        "domain_suffix": [
-          "fastlylb.net"
-        ],
-        "action": "route",
-        "outbound": "🌐 国外网站"
-      },
-      {
-        "domain_suffix": [
-          "kxcdn.com"
-        ],
-        "action": "route",
-        "outbound": "🌐 国外网站"
-      },
-      {
-        "domain_suffix": [
-          "stackpathdns.com"
-        ],
-        "action": "route",
-        "outbound": "🌐 国外网站"
-      },
-      {
-        "domain_suffix": [
-          "stackpathcdn.com"
-        ],
-        "action": "route",
-        "outbound": "🌐 国外网站"
-      },
-      {
-        "domain_suffix": [
-          "b-cdn.net"
-        ],
-        "action": "route",
-        "outbound": "🌐 国外网站"
-      },
-      {
-        "domain_suffix": [
-          "bunny.net"
-        ],
-        "action": "route",
-        "outbound": "🌐 国外网站"
-      },
-      {
-        "domain_suffix": [
-          "bunnycdn.com"
-        ],
-        "action": "route",
-        "outbound": "🌐 国外网站"
-      },
-      {
-        "domain_suffix": [
-          "cdn77.org"
-        ],
-        "action": "route",
-        "outbound": "🌐 国外网站"
-      },
-      {
-        "domain_suffix": [
-          "azureedge.net"
-        ],
-        "action": "route",
-        "outbound": "🌐 国外网站"
-      },
-      {
-        "domain_suffix": [
-          "azurefd.net"
-        ],
-        "action": "route",
-        "outbound": "🌐 国外网站"
-      },
-      {
-        "domain_suffix": [
-          "msecnd.net"
-        ],
-        "action": "route",
-        "outbound": "🌐 国外网站"
-      },
-      {
-        "domain_suffix": [
-          "jsdelivr.net"
-        ],
-        "action": "route",
-        "outbound": "🚫 受限网站"
-      },
-      {
-        "domain_suffix": [
-          "unpkg.com"
-        ],
-        "action": "route",
-        "outbound": "🌐 国外网站"
-      },
-      {
-        "domain_suffix": [
-          "cloudflare-dns.com"
-        ],
-        "action": "route",
-        "outbound": "🚫 受限网站"
-      },
-      {
-        "domain_suffix": [
-          "cloudflarestorage.com"
-        ],
-        "action": "route",
-        "outbound": "🌐 国外网站"
-      },
-      {
-        "domain_suffix": [
-          "r2.dev"
-        ],
-        "action": "route",
-        "outbound": "🌐 国外网站"
-      },
-      {
-        "domain_suffix": [
-          "ziffstatic.com"
-        ],
-        "action": "route",
-        "outbound": "🌐 国外网站"
-      },
-      {
-        "domain_suffix": [
-          "ucoz.ru"
-        ],
-        "action": "route",
-        "outbound": "🌐 国外网站"
-      },
-      {
-        "domain_suffix": [
-          "ucoz.net"
-        ],
-        "action": "route",
-        "outbound": "🌐 国外网站"
-      },
-      {
-        "domain_suffix": [
-          "letsencrypt.org"
-        ],
-        "action": "route",
-        "outbound": "🌐 国外网站"
-      },
-      {
-        "domain_suffix": [
-          "lencr.org"
-        ],
-        "action": "route",
-        "outbound": "🌐 国外网站"
-      },
-      {
-        "rule_set": [
-          "geosite-tracker"
-        ],
-        "action": "route",
-        "outbound": "🛰️ BT/PT Tracker"
-      },
-      {
-        "domain_suffix": [
-          "tracker.opentrackr.org"
-        ],
-        "action": "route",
-        "outbound": "🛰️ BT/PT Tracker"
-      },
-      {
-        "domain_suffix": [
-          "open.stealth.si"
-        ],
-        "action": "route",
-        "outbound": "🛰️ BT/PT Tracker"
-      },
-      {
-        "domain_suffix": [
-          "tracker.torrent.eu.org"
-        ],
-        "action": "route",
-        "outbound": "🛰️ BT/PT Tracker"
-      },
-      {
-        "domain_suffix": [
-          "exodus.desync.com"
-        ],
-        "action": "route",
-        "outbound": "🛰️ BT/PT Tracker"
-      },
-      {
-        "domain_suffix": [
-          "tracker.openbittorrent.com"
-        ],
-        "action": "route",
-        "outbound": "🛰️ BT/PT Tracker"
-      },
-      {
-        "domain_suffix": [
-          "tracker.publicbt.com"
-        ],
-        "action": "route",
-        "outbound": "🛰️ BT/PT Tracker"
-      },
-      {
-        "domain_suffix": [
-          "tracker.dler.org"
-        ],
-        "action": "route",
-        "outbound": "🛰️ BT/PT Tracker"
-      },
-      {
-        "domain_suffix": [
-          "bca.co.id"
-        ],
-        "action": "route",
-        "outbound": "🏦 金融支付"
-      },
-      {
-        "domain_suffix": [
-          "klikbca.com"
-        ],
-        "action": "route",
-        "outbound": "🏦 金融支付"
-      },
-      {
-        "domain_suffix": [
-          "bni.co.id"
-        ],
-        "action": "route",
-        "outbound": "🏦 金融支付"
-      },
-      {
-        "domain_suffix": [
-          "bri.co.id"
-        ],
-        "action": "route",
-        "outbound": "🏦 金融支付"
-      },
-      {
-        "domain_suffix": [
-          "bankmandiri.co.id"
-        ],
-        "action": "route",
-        "outbound": "🏦 金融支付"
-      },
-      {
-        "domain_suffix": [
-          "danamon.co.id"
-        ],
-        "action": "route",
-        "outbound": "🏦 金融支付"
-      },
-      {
-        "domain_suffix": [
-          "permatabank.com"
-        ],
-        "action": "route",
-        "outbound": "🏦 金融支付"
-      },
-      {
-        "domain_suffix": [
-          "cimbniaga.co.id"
-        ],
-        "action": "route",
-        "outbound": "🏦 金融支付"
-      },
-      {
-        "domain_suffix": [
-          "btn.co.id"
-        ],
-        "action": "route",
-        "outbound": "🏦 金融支付"
-      },
-      {
-        "domain_suffix": [
-          "ocbcnisp.com"
-        ],
-        "action": "route",
-        "outbound": "🏦 金融支付"
-      },
-      {
-        "domain_suffix": [
-          "banksinarmas.com"
-        ],
-        "action": "route",
-        "outbound": "🏦 金融支付"
-      },
-      {
-        "domain_suffix": [
-          "idx.co.id"
-        ],
-        "action": "route",
-        "outbound": "🏦 金融支付"
-      },
-      {
-        "domain_suffix": [
-          "ksei.co.id"
-        ],
-        "action": "route",
-        "outbound": "🏦 金融支付"
-      },
-      {
-        "domain_suffix": [
-          "tokopedia.com"
-        ],
-        "action": "route",
-        "outbound": "🌐 国外网站"
-      },
-      {
-        "domain_suffix": [
-          "tokopedia.net"
-        ],
-        "action": "route",
-        "outbound": "🌐 国外网站"
-      },
-      {
-        "domain_suffix": [
-          "shopee.co.id"
-        ],
-        "action": "route",
-        "outbound": "🌐 国外网站"
-      },
-      {
-        "domain_suffix": [
-          "bukalapak.com"
-        ],
-        "action": "route",
-        "outbound": "🌐 国外网站"
-      },
-      {
-        "domain_suffix": [
-          "blibli.com"
-        ],
-        "action": "route",
-        "outbound": "🌐 国外网站"
-      },
-      {
-        "domain_suffix": [
-          "lazada.co.id"
-        ],
-        "action": "route",
-        "outbound": "🌐 国外网站"
-      },
-      {
-        "domain_suffix": [
-          "grab.com"
-        ],
-        "action": "route",
-        "outbound": "🌐 国外网站"
-      },
-      {
-        "domain_suffix": [
-          "gojek.com"
-        ],
-        "action": "route",
-        "outbound": "🌐 国外网站"
-      },
-      {
-        "domain_suffix": [
-          "gojek.co.id"
-        ],
-        "action": "route",
-        "outbound": "🌐 国外网站"
-      },
-      {
-        "domain_suffix": [
-          "traveloka.com"
-        ],
-        "action": "route",
-        "outbound": "🌐 国外网站"
-      },
-      {
-        "domain_suffix": [
-          "tiket.com"
-        ],
-        "action": "route",
-        "outbound": "🌐 国外网站"
-      },
-      {
-        "domain_suffix": [
-          "telkomsel.com"
-        ],
-        "action": "route",
-        "outbound": "🌐 国外网站"
-      },
-      {
-        "domain_suffix": [
-          "telkom.co.id"
-        ],
-        "action": "route",
-        "outbound": "🌐 国外网站"
-      },
-      {
-        "domain_suffix": [
-          "indosatooredoo.com"
-        ],
-        "action": "route",
-        "outbound": "🌐 国外网站"
-      },
-      {
-        "domain_suffix": [
-          "im3.co.id"
-        ],
-        "action": "route",
-        "outbound": "🌐 国外网站"
-      },
-      {
-        "domain_suffix": [
-          "xl.co.id"
-        ],
-        "action": "route",
-        "outbound": "🌐 国外网站"
-      },
-      {
-        "domain_suffix": [
-          "smartfren.com"
-        ],
-        "action": "route",
-        "outbound": "🌐 国外网站"
-      },
-      {
-        "domain_suffix": [
-          "tri.co.id"
-        ],
-        "action": "route",
-        "outbound": "🌐 国外网站"
-      },
-      {
-        "domain_suffix": [
-          "by.u.id"
-        ],
-        "action": "route",
-        "outbound": "🌐 国外网站"
-      },
-      {
-        "domain_suffix": [
-          "myrepublic.co.id"
-        ],
-        "action": "route",
-        "outbound": "🌐 国外网站"
-      },
-      {
-        "domain_suffix": [
-          "firstmedia.com"
-        ],
-        "action": "route",
-        "outbound": "🌐 国外网站"
-      },
-      {
-        "domain_suffix": [
-          "biznet.id"
-        ],
-        "action": "route",
-        "outbound": "🌐 国外网站"
-      },
-      {
-        "domain_suffix": [
-          "go.id"
-        ],
-        "action": "route",
-        "outbound": "🌐 国外网站"
-      },
-      {
-        "domain_suffix": [
-          "or.id"
-        ],
-        "action": "route",
-        "outbound": "🌐 国外网站"
-      },
-      {
-        "domain_suffix": [
-          "kompas.com"
-        ],
-        "action": "route",
-        "outbound": "🌐 国外网站"
-      },
-      {
-        "domain_suffix": [
-          "detik.com"
-        ],
-        "action": "route",
-        "outbound": "🌐 国外网站"
-      },
-      {
-        "domain_suffix": [
-          "tempo.co"
-        ],
-        "action": "route",
-        "outbound": "🌐 国外网站"
-      },
-      {
-        "domain_suffix": [
-          "cnnindonesia.com"
-        ],
-        "action": "route",
-        "outbound": "🌐 国外网站"
-      },
-      {
-        "domain_suffix": [
-          "cnbcindonesia.com"
-        ],
-        "action": "route",
-        "outbound": "🌐 国外网站"
-      },
-      {
-        "domain_suffix": [
-          "liputan6.com"
-        ],
-        "action": "route",
-        "outbound": "🌐 国外网站"
-      },
-      {
-        "domain_suffix": [
-          "tribunnews.com"
-        ],
-        "action": "route",
-        "outbound": "🌐 国外网站"
-      },
-      {
-        "domain_suffix": [
-          "kumparan.com"
-        ],
-        "action": "route",
-        "outbound": "🌐 国外网站"
-      },
-      {
-        "domain_suffix": [
-          "idntimes.com"
-        ],
-        "action": "route",
-        "outbound": "🌐 国外网站"
-      },
-      {
-        "domain_suffix": [
-          "gofood.co.id"
-        ],
-        "action": "route",
-        "outbound": "🌐 国外网站"
-      },
-      {
-        "domain_suffix": [
-          "grabfood.com"
-        ],
-        "action": "route",
-        "outbound": "🌐 国外网站"
-      },
-      {
-        "domain_suffix": [
-          "66tutup.com"
-        ],
-        "action": "route",
-        "outbound": "🌐 国外网站"
-      },
-      {
         "geoip": [
           "ID"
-        ],
-        "action": "route",
-        "outbound": "🌐 国外网站"
-      },
-      {
-        "domain_suffix": [
-          "163.com"
-        ],
-        "action": "route",
-        "outbound": "🏠 国内网站"
-      },
-      {
-        "domain_suffix": [
-          "126.com"
-        ],
-        "action": "route",
-        "outbound": "🏠 国内网站"
-      },
-      {
-        "domain_suffix": [
-          "126.net"
-        ],
-        "action": "route",
-        "outbound": "🏠 国内网站"
-      },
-      {
-        "domain_suffix": [
-          "jianguoyun.com"
-        ],
-        "action": "route",
-        "outbound": "🏠 国内网站"
-      },
-      {
-        "rule_set": [
-          "cn"
-        ],
-        "action": "route",
-        "outbound": "🏠 国内网站"
-      },
-      {
-        "rule_set": [
-          "cn-ip"
-        ],
-        "action": "route",
-        "outbound": "🏠 国内网站"
-      },
-      {
-        "domain_suffix": [
-          "alimama.com"
-        ],
-        "action": "route",
-        "outbound": "🏠 国内网站"
-      },
-      {
-        "domain_suffix": [
-          "zxtdjy.com"
-        ],
-        "action": "route",
-        "outbound": "🏠 国内网站"
-      },
-      {
-        "domain_suffix": [
-          "bbys.app"
-        ],
-        "action": "route",
-        "outbound": "DIRECT"
-      },
-      {
-        "rule_set": [
-          "geosite-gfw"
-        ],
-        "action": "route",
-        "outbound": "🚫 受限网站"
-      },
-      {
-        "rule_set": [
-          "loyalsoldier-gfw"
-        ],
-        "action": "route",
-        "outbound": "🚫 受限网站"
-      },
-      {
-        "rule_set": [
-          "loyalsoldier-greatfire"
-        ],
-        "action": "route",
-        "outbound": "🚫 受限网站"
-      },
-      {
-        "rule_set": [
-          "proxy"
-        ],
-        "action": "route",
-        "outbound": "🌐 国外网站"
-      },
-      {
-        "domain_suffix": [
-          "archive.org"
-        ],
-        "action": "route",
-        "outbound": "🌐 国外网站"
-      },
-      {
-        "domain_suffix": [
-          "udemy.com"
-        ],
-        "action": "route",
-        "outbound": "🌐 国外网站"
-      },
-      {
-        "domain_suffix": [
-          "udemycdn.com"
-        ],
-        "action": "route",
-        "outbound": "🌐 国外网站"
-      },
-      {
-        "domain_suffix": [
-          "grammarly.com"
-        ],
-        "action": "route",
-        "outbound": "🌐 国外网站"
-      },
-      {
-        "domain_suffix": [
-          "grammarly.io"
-        ],
-        "action": "route",
-        "outbound": "🌐 国外网站"
-      },
-      {
-        "domain_suffix": [
-          "jetbrains.net"
-        ],
-        "action": "route",
-        "outbound": "🌐 国外网站"
-      },
-      {
-        "domain_suffix": [
-          "theguardian.com"
-        ],
-        "action": "route",
-        "outbound": "🌐 国外网站"
-      },
-      {
-        "domain_suffix": [
-          "guardianapis.com"
-        ],
-        "action": "route",
-        "outbound": "🌐 国外网站"
-      },
-      {
-        "domain_suffix": [
-          "box.com"
-        ],
-        "action": "route",
-        "outbound": "🌐 国外网站"
-      },
-      {
-        "domain_suffix": [
-          "boxcdn.net"
-        ],
-        "action": "route",
-        "outbound": "🌐 国外网站"
-      },
-      {
-        "domain_suffix": [
-          "noip.com"
         ],
         "action": "route",
         "outbound": "🌐 国外网站"

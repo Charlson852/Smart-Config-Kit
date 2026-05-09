@@ -7,6 +7,11 @@
 ---
 
 
+## v5.4.8-pw2.1 (2026-05-09)
+
+- ★ ORDER#RULE-TAIL：同步 Clash Party v5.4.8 shunt rule 创建顺序
+  - LuCI 分流规则顺序按新的中后段业务顺序排列
+
 ## v5.4.7-pw2.1 (2026-05-09)
 
 - ★ FEAT#TikTok：`geosite:tiktok` 从 `06-social.list` 移除，新建 `06b-tiktok.list` 独立分流
