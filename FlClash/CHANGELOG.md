@@ -5,6 +5,10 @@
 
 ---
 
+## v5.4.8-flclash.1 (2026-05-09)
+
+- ★ ORDER#RULE-TAIL：跟随 Clash Party Normal v5.4.8-normal.1 重排规则尾段匹配顺序
+
 ## v5.4.7-flclash.1 (2026-05-09)
 
 - ★ FEAT#TikTok：新增独立 `🎵 TikTok` 业务组（32 业务组），置于 `📺 国内流媒体` 与 `🎥 Netflix` 之间
