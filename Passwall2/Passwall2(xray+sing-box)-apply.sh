@@ -133,13 +133,19 @@ uci set ${CONFIG_NAME}.${SEC}.remarks='📱 社交媒体'
 uci add_list ${CONFIG_NAME}.${SEC}.domain_list='geosite:twitter'
 uci add_list ${CONFIG_NAME}.${SEC}.domain_list='geosite:facebook'
 uci add_list ${CONFIG_NAME}.${SEC}.domain_list='geosite:instagram'
-uci add_list ${CONFIG_NAME}.${SEC}.domain_list='geosite:tiktok'
 uci add_list ${CONFIG_NAME}.${SEC}.domain_list='geosite:reddit'
 uci add_list ${CONFIG_NAME}.${SEC}.domain_list='geosite:pinterest'
 uci add_list ${CONFIG_NAME}.${SEC}.domain_list='geosite:linkedin'
 uci add_list ${CONFIG_NAME}.${SEC}.domain_list='geosite:snap'
 uci add_list ${CONFIG_NAME}.${SEC}.ip_list='geoip:twitter'
 uci add_list ${CONFIG_NAME}.${SEC}.ip_list='geoip:facebook'
+uci set ${CONFIG_NAME}.${SEC}.network='tcp,udp'
+# uci set ${CONFIG_NAME}.${SEC}.node='NEED_CONFIG_IN_LUCI'
+
+# [06b] 🎵 TikTok
+SEC="$(uci add ${CONFIG_NAME} shunt_rules)"
+uci set ${CONFIG_NAME}.${SEC}.remarks='🎵 TikTok'
+uci add_list ${CONFIG_NAME}.${SEC}.domain_list='geosite:tiktok'
 uci set ${CONFIG_NAME}.${SEC}.network='tcp,udp'
 # uci set ${CONFIG_NAME}.${SEC}.node='NEED_CONFIG_IN_LUCI'
 
