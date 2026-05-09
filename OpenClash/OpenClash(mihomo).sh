@@ -4203,6 +4203,8 @@ rules:
 - "DOMAIN-SUFFIX,alimama.com,\U0001F3E0 国内网站"
 - "DOMAIN-SUFFIX,zxtdjy.com,\U0001F3E0 国内网站"
 - "RULE-SET,acc-chinamax,\U0001F3E0 国内网站"
+# v5.4.4 FIX#144: bbys.app 视频播放走直连
+- DOMAIN-SUFFIX,bbys.app,DIRECT
 - "RULE-SET,acc-aqara-cn,\U0001F3E0 国内网站"
 - "RULE-SET,acc-geo-d-asia-china,\U0001F3E0 国内网站"
 - "RULE-SET,acc-geo-ip-asia-china,\U0001F3E0 国内网站,no-resolve"
