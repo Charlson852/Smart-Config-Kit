@@ -2173,6 +2173,8 @@ function injectRules(config) {
     `DOMAIN-SUFFIX,alimama.com,${BIZ.CN_SITE}`,
     `DOMAIN-SUFFIX,zxtdjy.com,${BIZ.CN_SITE}`,
     `RULE-SET,acc-chinamax,${BIZ.CN_SITE}`,
+    // v5.4.4 FIX#144: bbys.app 视频播放走直连
+    `DOMAIN-SUFFIX,bbys.app,DIRECT`,
     `RULE-SET,acc-aqara-cn,${BIZ.CN_SITE}`,
     `RULE-SET,acc-geo-d-asia-china,${BIZ.CN_SITE}`,
     `RULE-SET,acc-geo-ip-asia-china,${BIZ.CN_SITE},no-resolve`,
