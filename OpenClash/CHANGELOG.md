@@ -7,6 +7,12 @@
 
 ---
 
+## v5.4.8-oc-normal.1 / v5.4.8-oc-smart.1 (2026-05-09)
+
+- ★ ORDER#RULE-TAIL：同步 Clash Party v5.4.8 规则尾段匹配顺序
+  - Normal 与 Smart heredoc YAML 同步
+  - 仅调整 `rules:` 顺序，不调整 proxy-groups / Ruby 区域分类
+
 ## v5.4.7-oc-normal.1 / v5.4.7-oc-smart.1 (2026-05-09)
 
 - ★ FEAT#TikTok：新增独立 `🎵 TikTok` 业务组（32 业务组），置于 `📺 国内流媒体` 与 `🎥 Netflix` 之间
