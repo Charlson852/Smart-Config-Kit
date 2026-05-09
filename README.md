@@ -45,9 +45,9 @@ flowchart TB
 
 ---
 
-## 🧩 Smart 分流规则：31 代理组速览（含 13 流媒体平台组）
+## 🧩 Smart 分流规则：32 代理组速览（含 14 流媒体平台组）
 
-为了让结构更清晰，下面用”**分层卡片 + 关系图**”展示 31 个代理组，而不是单一大表。
+为了让结构更清晰，下面用”**分层卡片 + 关系图**”展示 32 个代理组，而不是单一大表。
 
 ```mermaid
 flowchart LR
@@ -63,7 +63,7 @@ flowchart LR
     style E fill:#FFEFF0,stroke:#E74C3C,stroke-width:1px
 ```
 
-### 🗂️ 代理组与主要 Rule-Providers 对照（Clash Party 实际 31 业务组）
+### 🗂️ 代理组与主要 Rule-Providers 对照（Clash Party 实际 32 业务组）
 
 > 只列“主要/高频命中”项，并标明规则来源仓库；不再混入节点组（HK/US/全球节点等）。
 
@@ -76,6 +76,7 @@ flowchart LR
 | 📱 社交媒体 | `twitter` `twitter-ip` `tiktok` `facebook` `instagram` `snapchat` `reddit` | MetaCubeX / blackmatrix7 |
 | 🧑‍💼 会议协作 | `zoom` `slack` `teams` `atlassian` `notion` `remotedesktop` `acc-rustdesk` | ACL4SSR / blackmatrix7 / Accademia |
 | 📺 国内流媒体 | `bilibili` `iqiyi` `youku` `tencentvideo` `douyin` `neteasemusic` | blackmatrix7 |
+| 🎵 TikTok | `tiktok` | MetaCubeX |
 | 🎥 Netflix | `netflix` `netflix-ip` `szkane-netflixip` | MetaCubeX / szkane |
 | 🎬 Disney+ | `disney` | blackmatrix7 |
 | 📡 HBO/Max | `hbo` | blackmatrix7 |
