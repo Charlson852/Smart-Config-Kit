@@ -339,6 +339,7 @@ done
 ```
 🤖 AI 服务 · 💰 加密货币 · 🏦 金融支付 · 💬 即时通讯 · 📱 社交媒体
 🧑‍💼 会议协作 · 📺 国内流媒体
+🎵 TikTok
 🎥 Netflix · 🎬 Disney+ · 📡 HBO/Max · 📺 Hulu · 🎬 Prime Video
 📹 YouTube · 🎵 音乐流媒体
 🇭🇰 香港流媒体 · 🇹🇼 台湾流媒体 · 🇯🇵 日韩流媒体 · 🇪🇺 欧洲流媒体
@@ -348,7 +349,7 @@ done
 🏠 国内网站 · 🚫 受限网站 · 🌐 国外网站 · 🐟 漏网之鱼 · 🛑 广告拦截
 ```
 
-**禁止**新增/删除/改名这 51 个组；若业务确有需要，必须先在 PR 描述里说明并先改 Clash Party 基线。
+**禁止**新增/删除/改名这 52 个组；若业务确有需要，必须先在 PR 描述里说明并先改 Clash Party 基线。
 
 ### 3.2 Rule-provider 下载代理（`RP_PROXY`）
 
@@ -458,17 +459,17 @@ done
 ## 5. 自检脚本（提交前必须本地跑一遍）
 
 ```bash
-# 1) 数代理组数（必须为 31 业务组 + 20 区域组；sing-box 另加 1 个顶层节点选择）
+# 1) 数代理组数（必须为 32 业务组 + 20 区域组；sing-box 另加 1 个顶层节点选择）
 #    CMFA：业务组用 "- name:"、区域组用 "- type: url-test" + 缩进 "  name:"，需两种模式
-grep -cE "^- name: |^  name: " "Clash Meta For Android/CMFA(mihomo).yaml"  # 期望 51
-#    OpenClash：31 业务组是静态 "- name:"；20 区域组由 Ruby make_smart_group() 动态生成，静态 grep 只能数到 31
-grep -cE "^- name: " "OpenClash/OpenClash(mihomo).sh"                  # 期望 31（静态业务组）
-grep -cE "^- name: " "OpenClash/OpenClash(mihomo-smart).sh"             # 期望 31（静态业务组）
-grep -cE " = select,|= url-test," "Shadowrocket/Shadowrocket.conf"        # 期望 51
-grep -cE " = select,|= url-test," "Surge/Surge.conf"                      # 期望 51
-grep -cE " = select,|= url-test," "Loon/Loon.conf"                        # 期望 51
-grep -cE "^(url-latency-benchmark|static)=" "Quantumult X/QuantumultX.conf"        # 期望 51
-node -e "const d=JSON.parse(require('fs').readFileSync('SingBox/SingBox(sing-box)-full.json','utf8'));const n=d.outbounds.filter(o=>o.type==='selector'||o.type==='urltest').length;console.log(n);process.exit(n===52?0:1)"  # 期望 52
+grep -cE "^- name: |^  name: " "Clash Meta For Android/CMFA(mihomo).yaml"  # 期望 52
+#    OpenClash：32 业务组是静态 "- name:"；20 区域组由 Ruby make_smart_group() 动态生成，静态 grep 只能数到 32
+grep -cE "^- name: " "OpenClash/OpenClash(mihomo).sh"                  # 期望 32（静态业务组）
+grep -cE "^- name: " "OpenClash/OpenClash(mihomo-smart).sh"             # 期望 32（静态业务组）
+grep -cE " = select,|= url-test," "Shadowrocket/Shadowrocket.conf"        # 期望 52
+grep -cE " = select,|= url-test," "Surge/Surge.conf"                      # 期望 52
+grep -cE " = select,|= url-test," "Loon/Loon.conf"                        # 期望 52
+grep -cE "^(url-latency-benchmark|static)=" "Quantumult X/QuantumultX.conf"        # 期望 52
+node -e "const d=JSON.parse(require('fs').readFileSync('SingBox/SingBox(sing-box)-full.json','utf8'));const n=d.outbounds.filter(o=>o.type==='selector'||o.type==='urltest').length;console.log(n);process.exit(n===53?0:1)"  # 期望 53
 
 # 2) RP 代理字段
 grep -c "proxy: DIRECT" "OpenClash/OpenClash(mihomo).sh"                    # 期望 0
@@ -479,7 +480,7 @@ grep -c "proxy: \"\\\\U0001F6AB 受限网站\"" "OpenClash/OpenClash(mihomo-smar
 
 # 3) 禁止死引用（旗帜 emoji 与组名 emoji 必须匹配；忽略注释行）
 grep -nE "^[^#].*🇸🇬 亚太节点" "Shadowrocket/Shadowrocket.conf"                  # 必须无输出
-grep -nE "^[^#].*🎵 TikTok"   "Shadowrocket/Shadowrocket.conf"                  # 必须无输出
+grep -cE "^🎵 TikTok = " "Shadowrocket/Shadowrocket.conf"                   # 期望 1（v5.4.7 新增独立组）
 
 # 4) JSON 合法性（sing-box + v2rayN 路由；优先 node，备选 python3）
 node -e "JSON.parse(require('fs').readFileSync('SingBox/SingBox(sing-box)-full.json','utf8'));console.log('SingBox JSON: VALID')"

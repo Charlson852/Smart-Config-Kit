@@ -6,6 +6,12 @@
 ---
 
 
+## v5.4.7-sing.1 (2026-05-09)
+
+- ★ FEAT#TikTok：新增独立 `🎵 TikTok` 业务组（32 业务组），置于 `📺 国内流媒体` 与 `🎥 Netflix` 之间
+  - BIZ 加 `TOK: '🎵 TikTok'`，businessOutbounds 加对应 selector；运行 generator 重新生成 full JSON
+- ★ FIX#HK：SingBox 使用静态 outbound 列表（无运行时节点分类），豁免（§1.4）
+
 ## v5.4.6-sing.1 (2026-05-08)
 
 - ★ FEAT#145：WeChat CDN 直连 — 新增 `domain_suffix: cdn.weixin.qq.com` → `outbound: DIRECT`

@@ -7,6 +7,12 @@
 
 ---
 
+## v5.4.7-oc-normal.1 / v5.4.7-oc-smart.1 (2026-05-09)
+
+- ★ FEAT#TikTok：新增独立 `🎵 TikTok` 业务组（32 业务组），置于 `📺 国内流媒体` 与 `🎥 Netflix` 之间
+  - heredoc YAML proxy-groups / rules 同步；Smart 版 Ruby `REGIONS` 同步
+- ★ FIX#HK：Ruby `REGIONS["HK"]` 正则加 `|港`，补全广港/深港等 IEPL/IPLC 跨境专线节点分类
+
 ## v5.4.6-oc-normal.1 / v5.4.6-oc-smart.1 (2026-05-08)
 
 - ★ FEAT#145：WeChat CDN 直连

@@ -6,6 +6,12 @@
 ---
 
 
+## v5.4.7-cmfa.1 (2026-05-09)
+
+- ★ FEAT#TikTok：新增独立 `🎵 TikTok` 业务组（32 业务组），置于 `📺 国内流媒体` 与 `🎥 Netflix` 之间
+  - proxy-groups 插入 `🎵 TikTok` select 组（引用 `*id002`）；rules 从 `📱 社交媒体` 独立并前置
+- ★ FIX#HK：香港节点/家宽 `filter:` 追加 `|港`，补全广港/深港等 IEPL/IPLC 跨境专线节点分类
+
 ## v5.4.6-cmfa.1 (2026-05-08)
 
 - ★ FEAT#145：WeChat CDN 直连

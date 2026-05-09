@@ -1,14 +1,14 @@
 // Clash Smart 内核覆写脚本 - SUB-STORE 多机场精细分流版
-// 版本：v5.4.6 (2026-05-08)
-// 架构：SUB-STORE 多机场融合 + 22 Smart 区域组（11 全部 + 11 家宽）+ 31 业务策略组（含 13 流媒体平台组）+ 371+ rule-providers 100%+ 服务覆盖
-// v5.4.6: WeChat CDN 直连 · v5.4.5: 🌍 全球节点置顶 · v5.4.4: FIX#142 DNS · FIX#144 bbys.app · FEAT#143 IEPL/IPLC
+// 版本：v5.4.7 (2026-05-09)
+// 架构：SUB-STORE 多机场融合 + 22 Smart 区域组（11 全部 + 11 家宽）+ 32 业务策略组（含 14 流媒体平台组）+ 371+ rule-providers 100%+ 服务覆盖
+// v5.4.7: 🎵 TikTok 独立组 · FIX#HK 广港/深港分类 · v5.4.6: WeChat CDN 直连
 // 变更历史：见 `Clash Party/CHANGELOG.md`
 
 // ================================================================
 //  版本常量
 // ================================================================
 
-const VERSION = 'v5.4.6'
+const VERSION = 'v5.4.7'
 
 // ================================================================
 //  模块 A：节点过滤 / 家宽识别
@@ -48,7 +48,7 @@ const REGION_DB = [
   // v5.2.6 FIX#24-P0: 补齐 ISO alpha-3 代码（TWN/JPN/KOR/SGP/USA/CHN/HKG），
   //   避免 "TWN 01"、"JPN 01"、"KOR 01"、"SGP 01" 命名的节点被归为 UNCLASSIFIED
   //   进而触发 apacNodes / c.ALL fallback，把 HK 等节点塞入 🇹🇼 台湾节点 / 🇯🇵 日韩节点
-  { id: 'HK', kw: ['香港', 'hong kong', 'hongkong', 'hkg'], iso: ['HK'] },
+  { id: 'HK', kw: ['香港', 'hong kong', 'hongkong', 'hkg', '港'], iso: ['HK'] },
   { id: 'TW', kw: ['台湾', '台北', '台中', '高雄', '新北', '桃园', 'taiwan', 'taipei', 'taichung', 'kaohsiung', 'tpe', 'twn'], iso: ['TW'] },
   { id: 'CN', kw: ['中国', '大陆', '国内', '中国大陆', 'china', 'mainland', '回国节点', '回国专线', '回国线路', '回国加速', '回国服务', '直连国内', '国内直连', '中转国内', '落地国内', '北京', '上海', '广州', '深圳', 'beijing', 'shanghai', 'guangzhou', 'shenzhen', '成都', '重庆', '杭州', '南京', '武汉', '天津', '苏州', '西安', '长沙', 'chengdu', 'chongqing', 'hangzhou', 'nanjing', 'wuhan', 'tianjin', 'suzhou', 'xian', 'changsha', '沈阳', '青岛', '郑州', '大连', '东莞', '宁波', '厦门', '济南', '无锡', '合肥', '昆明', '福州', '哈尔滨', '佛山', '长春', '石家庄', '太原', '南宁', '贵阳', '乌鲁木齐', '兰州', '海口', '银川', '西宁', '拉萨', '呼和浩特', '电信', '联通', '移动', '铁通', 'chinatelecom', 'chinaunicom', 'chinamobile', 'chn', 'pek', 'pkx', 'pvg', 'szx', 'ctu', 'ckg', 'hgh', 'nkg', 'wuh', 'tsn', 'syx', 'xiy', 'csx', 'kmg', 'hak', 'dlc', 'tao', 'she', 'hrb', 'cgo'], iso: ['CN'] },
   { id: 'JP', kw: ['日本', '东京', '大阪', '横滨', '名古屋', '福冈', '札幌', '京都', '神户', '千叶', '埼玉', '仙台', '广岛', '冲绳', '那霸', 'japan', 'tokyo', 'osaka', 'yokohama', 'nagoya', 'fukuoka', 'sapporo', 'kyoto', 'kobe', 'chiba', 'sendai', 'hiroshima', 'okinawa', 'naha', 'jpn', 'nrt', 'hnd', 'kix', 'ngo', 'fuk', 'cts', 'oka'], iso: ['JP'] },
@@ -150,6 +150,7 @@ const BIZ = {
   AI: '🤖 AI 服务', CRYPTO: '💰 加密货币', PAYMENTS: '🏦 金融支付',
   IM: '💬 即时通讯', SOCIAL: '📱 社交媒体',
   WORK: '🧑‍💼 会议协作', CNMEDIA: '📺 国内流媒体',
+  TOK: '🎵 TikTok',
   NFLX: '🎥 Netflix', DSNP: '🎬 Disney+', HBO: '📡 HBO/Max',
   HULU: '📺 Hulu', PRIME: '🎬 Prime Video',
   YT: '📹 YouTube', MUSIC: '🎵 音乐流媒体',
@@ -243,7 +244,7 @@ function upsertSmartGroup(config, name, proxies) {
 }
 
 // ================================================================
-//  模块 F：业务策略组注入（28组）
+//  模块 F：业务策略组注入（32组）
 // ================================================================
 
 function injectBusinessGroups(config, activeSmartNames) {
@@ -269,6 +270,7 @@ function injectBusinessGroups(config, activeSmartNames) {
     { name: BIZ.SOCIAL, type: 'select', proxies: standardProxies.slice() },
     { name: BIZ.WORK, type: 'select', proxies: standardProxies.slice() },
     { name: BIZ.CNMEDIA, type: 'select', proxies: directFirstProxies.slice() },
+    { name: BIZ.TOK, type: 'select', proxies: standardProxies.slice() },
     { name: BIZ.NFLX, type: 'select', proxies: standardProxies.slice() },
     { name: BIZ.DSNP, type: 'select', proxies: standardProxies.slice() },
     { name: BIZ.HBO, type: 'select', proxies: standardProxies.slice() },
@@ -1432,7 +1434,6 @@ function injectRules(config) {
     `DOMAIN-SUFFIX,icq.com,${BIZ.IM}`,
     `RULE-SET,twitter,${BIZ.SOCIAL}`,
     `RULE-SET,twitter-ip,${BIZ.SOCIAL},no-resolve`,
-    `RULE-SET,tiktok,${BIZ.SOCIAL}`,
     `RULE-SET,reddit,${BIZ.SOCIAL}`,
     `RULE-SET,facebook,${BIZ.SOCIAL}`,
     `RULE-SET,facebook-ip,${BIZ.SOCIAL},no-resolve`,
@@ -1589,6 +1590,8 @@ function injectRules(config) {
     ...['bilibili','douyin','kuaishou','xiaohongshu','xigua',
         'weibo','zhihu','tieba','douban','xianyu'].map(app => `RULE-SET,acc-fl-${app},${BIZ.CNMEDIA}`),
     // v5.1.2 FIX#2: 港澳台哔哩哔哩需港区代理解锁（v5.1.1 误归入 CNMEDIA/DIRECT 导致 412）
+    // ============ 🎵 TikTok ============
+    `RULE-SET,tiktok,${BIZ.TOK}`,
     `RULE-SET,szkane-bilihmt,${BIZ.STREAM_HK}`,
     `RULE-SET,viu,${BIZ.STREAM_OTHER}`,
     `DOMAIN-SUFFIX,wetv.vip,${BIZ.STREAM_OTHER}`,
@@ -2322,9 +2325,9 @@ function injectSmartFingerprint(config) {
     if (p['client-fingerprint']) return
     let chosenFP = null
     const name = String(p.name)
-    if (/netflix|youtube|hulu|primevideo|disney|twitch/i.test(name)) { chosenFP = fpByPurpose.STREAM }
+    if (/netflix|youtube|hulu|primevideo|disney|twitch|tiktok/i.test(name)) { chosenFP = fpByPurpose.STREAM }
     else if (/game|steam|playstation|nintendo|epic|valorant/i.test(name)) { chosenFP = fpByPurpose.GAME }
-    else if (/twitter|facebook|instagram|tiktok|snapchat|linkedin/i.test(name)) { chosenFP = fpByPurpose.SOCIAL }
+    else if (/twitter|facebook|instagram|snapchat|linkedin/i.test(name)) { chosenFP = fpByPurpose.SOCIAL }
     else if (/api|dev|github|gitlab|npm|pypi|docker/i.test(name)) { chosenFP = fpByPurpose.DEV }
     if (!chosenFP) { const idx = _simpleHash(name) % fpFallbackCandidates.length; chosenFP = fpFallbackCandidates[idx] }
     p['client-fingerprint'] = chosenFP

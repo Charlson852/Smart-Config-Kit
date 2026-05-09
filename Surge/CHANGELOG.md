@@ -5,6 +5,11 @@
 ---
 
 
+## v5.4.7-Surge.1 (2026-05-09)
+
+- ★ FEAT#TikTok：新增独立 `🎵 TikTok` 业务组（32 业务组），置于 `📺 国内流媒体` 与 `🎥 Netflix` 之间
+- ★ FIX#HK：香港节点 `policy-regex-filter` 追加 `|广港`
+
 ## v5.4.6-Surge.1 (2026-05-08)
 
 - ★ FEAT#145：WeChat CDN 直连 — 新增 `DOMAIN-SUFFIX,cdn.weixin.qq.com,DIRECT`

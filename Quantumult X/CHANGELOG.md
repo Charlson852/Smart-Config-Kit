@@ -7,6 +7,12 @@
 ---
 
 
+## v5.4.7-QX.1 (2026-05-09)
+
+- ★ FEAT#TikTok：新增独立 `🎵 TikTok` 业务组（32 业务组），置于 `📺 国内流媒体` 与 `🎥 Netflix` 之间
+  - `[policy]` 加 `static=🎵 TikTok,...`；`[filter_remote]` TikTok filter `force-policy` 改为 `🎵 TikTok`
+- ★ FIX#HK：香港节点 `server-tag-regex` 追加 `|广港`
+
 ## v5.4.6-QX.1 (2026-05-08)
 
 - ★ FEAT#145：WeChat CDN 直连 — 新增 `host-suffix, cdn.weixin.qq.com, DIRECT`

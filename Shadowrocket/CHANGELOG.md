@@ -6,6 +6,13 @@
 ---
 
 
+## v5.4.7-SR.1 (2026-05-09)
+
+- ★ FEAT#TikTok：新增独立 `🎵 TikTok` 业务组（32 业务组），置于 `📺 国内流媒体` 与 `🎥 Netflix` 之间
+  - TikTok 从 `📱 社交媒体` 独立为专属 select 组，使用标准全球代理链路
+  - `RULE-SET,TikTok.list` 规则目标从 `📱 社交媒体` 改为 `🎵 TikTok`，前置于 Netflix 规则块
+- ★ FIX#HK：香港节点 `policy-regex-filter` 追加 `|广港`，补全 IEPL/IPLC 跨境专线节点分类
+
 ## v5.4.6-SR.1 (2026-05-08)
 
 - ★ FEAT#145：WeChat CDN 直连 — 新增 `DOMAIN-SUFFIX,cdn.weixin.qq.com,DIRECT`

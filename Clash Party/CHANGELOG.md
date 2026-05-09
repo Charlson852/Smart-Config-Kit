@@ -7,6 +7,17 @@
 
 ---
 
+## v5.4.7 / v5.4.7-normal.1 (2026-05-09)
+
+- ★ FEAT#TikTok：新增独立 `🎵 TikTok` 业务组（32 业务组），置于 `📺 国内流媒体` 与 `🎥 Netflix` 之间
+  - TikTok 从 `📱 社交媒体` 独立为专属 select 组，使用标准全球代理链路
+  - 客户端 TLS 指纹从 SOCIAL (firefox) 提升至 STREAM (chrome)
+  - `RULE-SET,tiktok` 规则目标从 `📱 社交媒体` 改为 `🎵 TikTok`，前置于 Netflix 区块
+- ★ FIX#HK：香港节点分类补全——`REGION_DB` kw 追加 `'港'`
+  - 修复"广港"、"深港"等 IEPL/IPLC 跨境专线节点名无法匹配 HK 分类的问题
+  - JS `indexOf` 子串匹配一次性覆盖：广港/深港/沪港/京港/中港/穗港等所有 X港 变体
+  - 全线产物同步（CMFA/OpenClash Ruby regex 加 `|港`；SR/Surge/Loon/QX 字面量罗列加 `|广港`）
+
 ## v5.4.6 / v5.4.6-normal.1 (2026-05-08)
 
 - ★ FEAT#145：WeChat CDN `cdn.weixin.qq.com` 直连

@@ -5,9 +5,9 @@
   },
   "_meta": {
     "name": "SingBox Smart Full",
-    "version": "v5.4.4-sing.1",
-    "build": "2026-05-07",
-    "baseline": "Clash Party v5.4.4",
+    "version": "v5.4.7-sing.1",
+    "build": "2026-05-09",
+    "baseline": "Clash Party v5.4.7",
     "changelog": "见 SingBox/CHANGELOG.md"
   },
   "experimental": {
@@ -292,6 +292,34 @@
         "🏡 非洲家宽"
       ],
       "default": "DIRECT"
+    },
+    {
+      "type": "selector",
+      "tag": "🎵 TikTok",
+      "outbounds": [
+        "🌍 全球节点",
+        "🏡 全球家宽",
+        "🇭🇰 香港节点",
+        "🏡 香港家宽",
+        "🇹🇼 台湾节点",
+        "🏡 台湾家宽",
+        "🇯🇵 日韩节点",
+        "🏡 日韩家宽",
+        "🇸🇬 狮城节点",
+        "🏡 狮城家宽",
+        "🌏 亚太节点",
+        "🏡 亚太家宽",
+        "🇺🇸 美国节点",
+        "🏡 美国家宽",
+        "🇪🇺 欧洲节点",
+        "🏡 欧洲家宽",
+        "🌎 美洲节点",
+        "🏡 美洲家宽",
+        "🌍 非洲节点",
+        "🏡 非洲家宽",
+        "DIRECT"
+      ],
+      "default": "🌍 全球节点"
     },
     {
       "type": "selector",

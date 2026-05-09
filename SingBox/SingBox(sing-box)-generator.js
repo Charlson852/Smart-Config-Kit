@@ -1,9 +1,9 @@
 const fs = require('fs');
 const vm = require('vm');
 
-const VERSION = 'v5.4.6-sing.1';
-const BUILD = '2026-05-08';
-const BASELINE = 'Clash Party v5.4.6';
+const VERSION = 'v5.4.7-sing.1';
+const BUILD = '2026-05-09';
+const BASELINE = 'Clash Party v5.4.7';
 
 const SMART = {
   GLOBAL: '🌍 全球节点',
@@ -36,6 +36,7 @@ const BIZ = {
   SOCIAL: '📱 社交媒体',
   WORK: '🧑‍💼 会议协作',
   CNMEDIA: '📺 国内流媒体',
+  TOK: '🎵 TikTok',
   NFLX: '🎥 Netflix',
   DSNP: '🎬 Disney+',
   HBO: '📡 HBO/Max',
@@ -244,6 +245,7 @@ function buildOutbounds() {
     selector(BIZ.SOCIAL, buildStandardProxies()),
     selector(BIZ.WORK, buildStandardProxies()),
     selector(BIZ.CNMEDIA, buildDirectFirstProxies()),
+    selector(BIZ.TOK, buildStandardProxies()),
     selector(BIZ.NFLX, buildStandardProxies()),
     selector(BIZ.DSNP, buildStandardProxies()),
     selector(BIZ.HBO, buildStandardProxies()),

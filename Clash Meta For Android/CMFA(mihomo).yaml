@@ -1,8 +1,8 @@
 # ================================================================
-# Clash Smart v5.4.6-cmfa.1 - CMFA (Clash Meta for Android) 配置
-# Build: 2026-05-08
-# 架构：proxy-providers 订阅 + 22 url-test 区域组（11 全部 + 11 家宽，家宽 filter 新增 IEPL/IPLC/专线识别）+ 31 业务策略组（含 13 流媒体平台组）+ 384+ rule-providers
-# 基线：Clash Party v5.4.6（唯一主线）
+# Clash Smart v5.4.7-cmfa.1 - CMFA (Clash Meta for Android) 配置
+# Build: 2026-05-09
+# 架构：proxy-providers 订阅 + 22 url-test 区域组（11 全部 + 11 家宽，家宽 filter 新增 IEPL/IPLC/专线识别）+ 32 业务策略组（含 14 流媒体平台组）+ 384+ rule-providers
+# 基线：Clash Party v5.4.7（唯一主线）
 # 变更历史：见 `Clash Meta For Android/CHANGELOG.md`
 # ================================================================
 # ★ 快速上手：
@@ -257,6 +257,9 @@ proxy-groups:
   - '🏡 美洲家宽'
   - '🌍 非洲节点'
   - '🏡 非洲家宽'
+- name: '🎵 TikTok'
+  type: select
+  proxies: *id002
 - name: '🎥 Netflix'
   type: select
   proxies:
@@ -592,7 +595,7 @@ proxy-groups:
   name: '🇭🇰 香港节点'
   use:
   - Subscribe
-  filter: '(?i)(香港|Hong\s*Kong|HongKong|HKG|🇭🇰|(^|[^a-zA-Z])HK([^a-zA-Z]|$))'
+  filter: '(?i)(香港|港|Hong\s*Kong|HongKong|HKG|🇭🇰|(^|[^a-zA-Z])HK([^a-zA-Z]|$))'
 - type: url-test
   url: 'https://www.gstatic.com/generate_204'
   interval: 120
@@ -601,7 +604,7 @@ proxy-groups:
   name: '🏡 香港家宽'
   use:
   - Subscribe
-  filter: '(?i)((香港|Hong\s*Kong|HongKong|HKG|🇭🇰|(^|[^a-zA-Z])HK([^a-zA-Z]|$)).*(iplc|iepl|专线|resi(dential)?|home[-_ ]?ip|home[-_ ]?broadband|home|broadband|isp|家宽|家庭宽带|家庭住宅|住宅宽带|住宅|宽带)|(iplc|iepl|专线|resi(dential)?|home[-_ ]?ip|home[-_ ]?broadband|home|broadband|isp|家宽|家庭宽带|家庭住宅|住宅宽带|住宅|宽带).*(香港|Hong\s*Kong|HongKong|HKG|🇭🇰|(^|[^a-zA-Z])HK([^a-zA-Z]|$)))'
+  filter: '(?i)((香港|港|Hong\s*Kong|HongKong|HKG|🇭🇰|(^|[^a-zA-Z])HK([^a-zA-Z]|$)).*(iplc|iepl|专线|resi(dential)?|home[-_ ]?ip|home[-_ ]?broadband|home|broadband|isp|家宽|家庭宽带|家庭住宅|住宅宽带|住宅|宽带)|(iplc|iepl|专线|resi(dential)?|home[-_ ]?ip|home[-_ ]?broadband|home|broadband|isp|家宽|家庭宽带|家庭住宅|住宅宽带|住宅|宽带).*(香港|港|Hong\s*Kong|HongKong|HKG|🇭🇰|(^|[^a-zA-Z])HK([^a-zA-Z]|$)))'
 - type: url-test
   url: 'https://www.gstatic.com/generate_204'
   interval: 120
@@ -3765,7 +3768,6 @@ rules:
 - 'DOMAIN-SUFFIX,icq.com,💬 即时通讯'
 - 'RULE-SET,twitter,📱 社交媒体'
 - 'RULE-SET,twitter-ip,📱 社交媒体,no-resolve'
-- 'RULE-SET,tiktok,📱 社交媒体'
 - 'RULE-SET,reddit,📱 社交媒体'
 - 'RULE-SET,facebook,📱 社交媒体'
 - 'RULE-SET,facebook-ip,📱 社交媒体,no-resolve'
@@ -3923,6 +3925,8 @@ rules:
 - 'RULE-SET,acc-fl-tieba,📺 国内流媒体'
 - 'RULE-SET,acc-fl-douban,📺 国内流媒体'
 - 'RULE-SET,acc-fl-xianyu,📺 国内流媒体'
+# 🎵 TikTok
+- 'RULE-SET,tiktok,🎵 TikTok'
 - 'RULE-SET,szkane-bilihmt,🇭🇰 香港流媒体'
 - 'RULE-SET,viu,🌐 其他国外流媒体'
 - 'DOMAIN-SUFFIX,wetv.vip,🌐 其他国外流媒体'

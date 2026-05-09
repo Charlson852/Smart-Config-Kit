@@ -2,19 +2,19 @@
 . /usr/share/openclash/log.sh
 
 # ============================================================================
-# Clash Smart v5.4.6-oc-normal.1 — OpenClash 覆写脚本（非 Smart 内核 / url-test 区域组）
-# Build: 2026-05-08
+# Clash Smart v5.4.7-oc-normal.1 — OpenClash 覆写脚本（非 Smart 内核 / url-test 区域组）
+# Build: 2026-05-09
 # ============================================================================
 # 定位：与同目录 OpenClash(mihomo-smart).sh 规则 100% 等价的「非 Smart 内核」版本。
 #       两者唯一区别：22 个区域组（11 全部 + 11 家宽）从 type: smart（uselightgbm）换成 type: url-test。
-#       对齐 Clash Party v5.4.3 JS 基线。
+#       对齐 Clash Party v5.4.7 JS 基线。
 #       适用场景：
 #         - OpenClash 内核选的是 Meta(mihomo 稳定版) 而非 Meta Alpha，不支持 smart + LightGBM
 #         - 或者明确想关闭 LightGBM ML 评估、只靠经典 url-test 延迟选路
 #       需要 LightGBM 智能评估请改用 OpenClash(mihomo-smart).sh（Smart 版）。
 # 架构：
 #   • 22 url-test 区域组（11 全部 + 11 家宽；interval 600s / tolerance 150ms / lazy：与 Smart 版同步延迟参数）
-#   • 31 业务策略组（流媒体按平台拆分：Netflix / Disney+ / HBO/Max / Hulu / Prime Video / YouTube / 音乐流媒体 / 其他国外流媒体）
+#   • 32 业务策略组（流媒体按平台拆分：TikTok / Netflix / Disney+ / HBO/Max / Hulu / Prime Video / YouTube / 音乐流媒体 / 其他国外流媒体）
 #   • 384 rule-providers（全部 proxy: "🚫 受限网站"，对齐 Clash Party FIX#17-P0）
 #   • ~990 条 rules
 #   • DNS fake-ip + 嗅探（HTTP/TLS/QUIC）+ nameserver-policy 救援
@@ -26,7 +26,7 @@
 
 
 
-VERSION_TAG="v5.4.6-oc-normal.1"
+VERSION_TAG="v5.4.7-oc-normal.1"
 CONFIG_FILE="$1"
 LOG_FILE="/tmp/openclash.log"
 
@@ -264,6 +264,9 @@ proxy-groups:
   - 🏡 美洲家宽
   - 🌍 非洲节点
   - 🏡 非洲家宽
+- name: 🎵 TikTok
+  type: select
+  proxies: *id002
 - name: 🎥 Netflix
   type: select
   proxies: *id002
@@ -3436,7 +3439,6 @@ rules:
 - "DOMAIN-SUFFIX,icq.com,\U0001F4AC 即时通讯"
 - "RULE-SET,twitter,\U0001F4F1 社交媒体"
 - "RULE-SET,twitter-ip,\U0001F4F1 社交媒体,no-resolve"
-- "RULE-SET,tiktok,\U0001F4F1 社交媒体"
 - "RULE-SET,reddit,\U0001F4F1 社交媒体"
 - "RULE-SET,facebook,\U0001F4F1 社交媒体"
 - "RULE-SET,facebook-ip,\U0001F4F1 社交媒体,no-resolve"
@@ -3593,6 +3595,7 @@ rules:
 - "RULE-SET,acc-fl-zhihu,\U0001F4FA 国内流媒体"
 - "RULE-SET,acc-fl-tieba,\U0001F4FA 国内流媒体"
 - "RULE-SET,acc-fl-douban,\U0001F4FA 国内流媒体"
+- "RULE-SET,tiktok,\U0001F3B5 TikTok"
 - "RULE-SET,acc-fl-xianyu,\U0001F4FA 国内流媒体"
 - "RULE-SET,szkane-bilihmt,\U0001F1ED\U0001F1F0 香港流媒体"
 - "RULE-SET,viu,\U0001F310 其他国外流媒体"

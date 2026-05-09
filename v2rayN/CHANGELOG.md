@@ -8,6 +8,11 @@
 ---
 
 
+## v5.4.7-v2n.1 (2026-05-09)
+
+- ★ FEAT#TikTok：Xray 路由仅 proxy/direct/block 三出站，`geosite:tiktok` 已在 proxy，功能无变化；仅 `_meta.version` bump
+- ★ FIX#HK：Xray 路由无运行时节点分类，豁免
+
 ## v5.4.6-v2n.1 (2026-05-08)
 
 - ★ FEAT#145：WeChat CDN 直连 — 新增 `scki-052-cdn-weixin` 规则，`domain:cdn.weixin.qq.com` → `direct`

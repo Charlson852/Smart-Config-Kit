@@ -7,6 +7,11 @@
 ---
 
 
+## v5.4.7-pw2.1 (2026-05-09)
+
+- ★ FEAT#TikTok：`geosite:tiktok` 从 `06-social.list` 移除，新建 `06b-tiktok.list` 独立分流
+- ★ FIX#HK：Passwall2 无运行时节点分类，豁免（§1.4）
+
 ## v5.4.6-pw2.1 (2026-05-08)
 
 - ★ FEAT#145：WeChat CDN 直连

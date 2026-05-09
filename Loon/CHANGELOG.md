@@ -5,6 +5,11 @@
 ---
 
 
+## v5.4.7-Loon.1 (2026-05-09)
+
+- ★ FEAT#TikTok：新增独立 `🎵 TikTok` 业务组（32 业务组），置于 `📺 国内流媒体` 与 `🎥 Netflix` 之间
+- ★ FIX#HK：`HK_Filter` / `HK_HOME_Filter` 追加 `|广港`，补全 IEPL/IPLC 跨境专线节点分类
+
 ## v5.4.6-Loon.1 (2026-05-08)
 
 - ★ FEAT#145：WeChat CDN 直连 — 新增 `DOMAIN-SUFFIX,cdn.weixin.qq.com,DIRECT`

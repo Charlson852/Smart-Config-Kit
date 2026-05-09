@@ -2,28 +2,28 @@
 . /usr/share/openclash/log.sh
 
 # ============================================================================
-# Clash Smart v5.4.6-oc-smart.1 — OpenClash 覆写脚本（与 Clash Party 主线同等规则量）
-# Build: 2026-05-08
+# Clash Smart v5.4.7-oc-smart.1 — OpenClash 覆写脚本（与 Clash Party 主线同等规则量）
+# Build: 2026-05-09
 # ============================================================================
-# 定位：对齐 Clash Party v5.4.3 JS 主线的 OpenClash 全量版本。v5.4.2: P0-FIX#41 小米白名单。
+# 定位：对齐 Clash Party v5.4.7 JS 主线的 OpenClash 全量版本。v5.4.2: P0-FIX#41 小米白名单。
 #       与同目录 OpenClash(mihomo).sh（Normal）互补：
 #         - Normal 面向稳定版 mihomo / 经典 url-test
 #         - full  面向 4GB+ 路由器 / 需要与 Clash Party 桌面端一致的细粒度分流
 # 架构：
 #   • 22 Smart 区域组（11 全部 + 11 家宽；全部 uselightgbm: true）
-#   • 31 业务策略组（流媒体按平台拆分：Netflix / Disney+ / HBO/Max / Hulu / Prime Video / YouTube / 音乐流媒体 / 其他国外流媒体）
+#   • 32 业务策略组（流媒体按平台拆分：TikTok / Netflix / Disney+ / HBO/Max / Hulu / Prime Video / YouTube / 音乐流媒体 / 其他国外流媒体）
 #   • 384 rule-providers（全部 proxy: "🚫 受限网站"，对齐 Clash Party FIX#17-P0）
 #   • ~990 条 rules
 #   • DNS fake-ip + 嗅探（HTTP/TLS/QUIC）+ nameserver-policy 救援
 #   • Ruby 阶段做：节点过滤 / 区域分类 / Smart 组生成 / TLS 指纹注入
-# 基线：Clash Party v5.4.1（唯一主线；v5.3.1/v5.3.2 为桌面端 PROCESS-NAME 改动，路由器端不适用）── 任何规则/组/DNS 改动必须先改 Clash Party JS，
+# 基线：Clash Party v5.4.7（唯一主线；v5.3.1/v5.3.2 为桌面端 PROCESS-NAME 改动，路由器端不适用）── 任何规则/组/DNS 改动必须先改 Clash Party JS，
 #       再同步到此文件。参见仓库根目录 CLAUDE.md / AGENTS.md。
 # 变更历史：见 `OpenClash/CHANGELOG.md`（Full 部分）。
 # ============================================================================
 
 
 
-VERSION_TAG="v5.4.6-oc-smart.1"
+VERSION_TAG="v5.4.7-oc-smart.1"
 CONFIG_FILE="$1"
 LOG_FILE="/tmp/openclash.log"
 
@@ -261,6 +261,9 @@ proxy-groups:
   - 🏡 美洲家宽
   - 🌍 非洲节点
   - 🏡 非洲家宽
+- name: 🎵 TikTok
+  type: select
+  proxies: *id002
 - name: 🎥 Netflix
   type: select
   proxies: *id002
@@ -3433,7 +3436,6 @@ rules:
 - "DOMAIN-SUFFIX,icq.com,\U0001F4AC 即时通讯"
 - "RULE-SET,twitter,\U0001F4F1 社交媒体"
 - "RULE-SET,twitter-ip,\U0001F4F1 社交媒体,no-resolve"
-- "RULE-SET,tiktok,\U0001F4F1 社交媒体"
 - "RULE-SET,reddit,\U0001F4F1 社交媒体"
 - "RULE-SET,facebook,\U0001F4F1 社交媒体"
 - "RULE-SET,facebook-ip,\U0001F4F1 社交媒体,no-resolve"
@@ -3591,6 +3593,7 @@ rules:
 - "RULE-SET,acc-fl-tieba,\U0001F4FA 国内流媒体"
 - "RULE-SET,acc-fl-douban,\U0001F4FA 国内流媒体"
 - "RULE-SET,acc-fl-xianyu,\U0001F4FA 国内流媒体"
+- "RULE-SET,tiktok,\U0001F3B5 TikTok"
 - "RULE-SET,szkane-bilihmt,\U0001F1ED\U0001F1F0 香港流媒体"
 - "RULE-SET,viu,\U0001F310 其他国外流媒体"
 - "DOMAIN-SUFFIX,wetv.vip,\U0001F310 其他国外流媒体"
@@ -4232,7 +4235,7 @@ status "[filter] raw=#{raw_proxies.size} filtered=#{filtered_proxies.size} remov
 # Phase 1b: 区域分类
 # ---------------------------------------------------------------
 REGIONS = {
-  "HK"  => /香港|\bHK\b|HKG|Hong\s?Kong|🇭🇰/i,
+  "HK"  => /香港|港|\bHK\b|HKG|Hong\s?Kong|🇭🇰/i,
   "TW"  => /台湾|台灣|\bTW\b|TWN|Taiwan|🇹🇼/i,
   "JP"  => /日本|\bJP\b|JPN|Japan|🇯🇵|Tokyo|Osaka/i,
   # v5.2.6-oc-full FIX#24-P0: 补 KOR（KOR 不是 KR 的子串，原始 /KR/ 无法匹配 "KOR 01"）
