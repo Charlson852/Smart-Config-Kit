@@ -5,6 +5,11 @@
 ---
 
 
+## v5.4.8-Loon.2 (2026-05-11)
+
+- ★ META#GROUP-COUNT：同步文件头与 README 的区域组数量说明为 22 组（11 全部 + 11 家宽）
+  - 不改变 `[Proxy Group]` / `[Remote Rule]` / `[Rule]` 语义
+
 ## v5.4.8-Loon.1 (2026-05-09)
 
 - ★ ORDER#RULE-TAIL：同步 Clash Party v5.4.8 规则尾段匹配顺序

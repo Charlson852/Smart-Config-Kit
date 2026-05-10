@@ -1,16 +1,16 @@
-# Loon 使用教程（对齐 Clash Party v5.3.0）
+# Loon 使用教程（对齐 Clash Party v5.4.8）
 
 > 配置文件：`Loon/Loon.conf`
-> 版本：**v5.3.0-Loon.1**（Build 2026-04-26，流媒体按平台重构 7→13 组，详见 `Loon/CHANGELOG.md`）
+> 版本：**v5.4.8-Loon.2**（Build 2026-05-11，详见 `Loon/CHANGELOG.md`）
 > 目标：**Loon iOS（App Store 付费正版）**
-> 架构：18 区域 url-test 组（9 全部 + 9 家宽，[Remote Filter] NameRegex）+ 31 业务策略组 + 288 [Remote Rule] 订阅规则集
+> 架构：22 区域 url-test 组（11 全部 + 11 家宽，[Remote Filter] NameRegex）+ 32 业务策略组 + 288 [Remote Rule] 订阅规则集
 
 ---
 
 ## 🚀 零基础快速开始
 
 ### 这是什么？
-**Loon 是 iOS 上的付费代理客户端**，价位比 Surge 低一半（¥198 vs ¥648）。本仓库提供 Loon 专用 `.conf`，9 区域 + 31 业务组全保留。
+**Loon 是 iOS 上的付费代理客户端**，价位比 Surge 低一半（¥198 vs ¥648）。本仓库提供 Loon 专用 `.conf`，11 区域 + 32 业务组全保留。
 
 ### 我要准备什么？
 1. **iPhone / iPad（仅 iOS，无 macOS 版）**
@@ -41,7 +41,7 @@
 
 ### 跑起来验证？
 - 浏览器打开 `https://www.google.com` 能打开
-- Loon「策略组」面板应看到 49 组（18 区域 + 31 业务）
+- Loon「策略组」面板应看到 54 组（22 区域 + 32 业务）
 - Loon「过滤器」面板应看到 9 个 Filter（GLOBAL / HK / TW / JPKR / APAC / US / EU / AM / AF）
 - Loon「设置 → 运行日志」看规则集 + MMDB 下载状态
 
@@ -112,7 +112,7 @@ Loon 必须从 URL 安装配置（和 Surge 一样）：
 3. 右上角 **⊕** → 粘贴 URL → **下载**。
 4. 点击新下载的配置 → **启用**。
 
-首次启用时 Loon 会拉取 **250+ 个 RULE-SET**（blackmatrix7 Loon 版 `.list` 格式），根据网络情况约 **2–5 分钟**。**务必先开代理再下载**，否则 GitHub 访问不稳定会导致部分 RULE-SET 404。
+首次启用时 Loon 会拉取 **约 288 个 RULE-SET**（blackmatrix7 Loon 版 `.list` 格式），根据网络情况约 **2–5 分钟**。**务必先开代理再下载**，否则 GitHub 访问不稳定会导致部分 RULE-SET 404。
 
 ---
 
@@ -137,12 +137,12 @@ Loon 的节点来源：
 
 ---
 
-## 四、9 区域 × 31 业务组说明
+## 四、11 区域 × 32 业务组说明
 
-- **9 区域组**：`url-test,<区域Filter>,url=...,interval=600,tolerance=50`
+- **11 区域组**：`url-test,<区域Filter>,url=...,interval=600,tolerance=50`
   - 区域 Filter 在 `[Remote Filter]` 段用 `NameRegex + FilterKey="..."` 定义
   - 测速间隔 **600s**，tolerance **50ms**（Loon 不支持 `timeout=` / `select=` 参数）
-- **31 业务组**：select 手动选择，候选列表默认为所有区域组 + DIRECT
+- **32 业务组**：select 手动选择，候选列表默认为所有区域组 + DIRECT
 
 业务组语义映射与 Surge 版完全一致，参考 `Surge/README.md` 第五章。
 
@@ -246,7 +246,7 @@ Parsec / Zoom / Pornhub / Wayback）：
 ## 九、验证
 
 1. Loon → **首页** → 应显示 `Loon Smart v5.2.4-Loon.4`，协议已启用。
-2. **策略组** 面板应出现 49 组（18 区域 + 31 业务）。
+2. **策略组** 面板应出现 54 组（22 区域 + 32 业务）。
 3. **过滤器** 面板应出现 9 个 Filter（GLOBAL_Filter / HK_Filter / TW_Filter / JPKR_Filter / APAC_Filter / US_Filter / EU_Filter / AM_Filter / AF_Filter）。
 4. 测试分流：
    - `chat.openai.com` → 🤖 AI 服务

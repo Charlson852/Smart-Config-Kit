@@ -6,6 +6,11 @@
 ---
 
 
+## v5.4.8-cmfa.2 (2026-05-11)
+
+- ★ META#BASELINE：同步文件头基线为 Clash Party v5.4.8
+  - 不改变 proxy-groups / rule-providers / rules 语义
+
 ## v5.4.8-cmfa.1 (2026-05-09)
 
 - ★ ORDER#RULE-TAIL：同步 Clash Party v5.4.8 规则尾段匹配顺序

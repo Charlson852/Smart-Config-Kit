@@ -7,6 +7,12 @@
 
 ---
 
+## v5.4.8-oc-normal.2 / v5.4.8-oc-smart.2 (2026-05-11)
+
+- ★ META#VERSION：同步脚本头部、`VERSION_TAG` 与内嵌 Ruby `VERSION`
+  - Normal / Smart 均明确对齐 Clash Party v5.4.8
+  - 不改变 proxy-groups / rule-providers / rules 语义
+
 ## v5.4.8-oc-normal.1 / v5.4.8-oc-smart.1 (2026-05-09)
 
 - ★ ORDER#RULE-TAIL：同步 Clash Party v5.4.8 规则尾段匹配顺序

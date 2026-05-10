@@ -1,16 +1,16 @@
-# Surge 使用教程（对齐 Clash Party v5.3.0）
+# Surge 使用教程（对齐 Clash Party v5.4.8）
 
 > 配置文件：`Surge/Surge.conf`
-> 版本：**v5.3.0-Surge.2**（Build 2026-04-26，流媒体按平台重构 7→13 组，详见 `Surge/CHANGELOG.md`）
+> 版本：**v5.4.8-Surge.2**（Build 2026-05-11，详见 `Surge/CHANGELOG.md`）
 > 目标：**Surge 5 / Surge Mac**（付费正版；iOS + macOS 通用）
-> 架构：18 区域 url-test 组（9 全部 + 9 家宽，include-all-proxies + policy-regex-filter 自动按地区聚合）+ 31 业务策略组 + ~290 RULE-SET
+> 架构：22 区域 url-test 组（11 全部 + 11 家宽，include-all-proxies + policy-regex-filter 自动按地区聚合）+ 32 业务策略组 + ~290 RULE-SET
 
 ---
 
 ## 🚀 零基础快速开始
 
 ### 这是什么？
-**Surge 是 iOS / macOS 上最专业、最贵的付费代理客户端**。它的强项是稳定 + 脚本化 + MITM。本仓库提供一份 Surge `.conf`，让你无需手配 900+ 条规则就能享用 9 区域 + 31 业务分流。
+**Surge 是 iOS / macOS 上最专业、最贵的付费代理客户端**。它的强项是稳定 + 脚本化 + MITM。本仓库提供一份 Surge `.conf`，让你无需手配 900+ 条规则就能享用 11 区域 + 32 业务分流。
 
 ### 我要准备什么？
 1. **iPhone/iPad（iOS 15+）或 Mac**
@@ -36,7 +36,7 @@
 
 ### 跑起来验证？
 - 浏览器打开 `https://www.google.com` 能打开
-- Surge「策略组」面板应看到 **49 组**（18 区域 + 31 业务）
+- Surge「策略组」面板应看到 **54 组**（22 区域 + 32 业务）
 - Surge「活动」面板可看每条请求命中的规则和节点
 
 ### 最常见踩坑
@@ -142,7 +142,7 @@ Surge 的节点来源有两种方式，任选其一：
 
 ---
 
-## 五、9 区域组 × 31 业务组说明
+## 五、11 区域组 × 32 业务组说明
 
 ### 区域组（url-test 自动择优）
 9 个组先用 `include-all-proxies=true` 引入候选节点，再按 `policy-regex-filter` 自动按节点名聚合：
@@ -239,8 +239,8 @@ Surge 的节点来源有两种方式，任选其一：
 
 ## 九、验证
 
-1. Surge → **首页** → **已启用的配置**：应显示 `Surge Smart v5.3.0-Surge.2`。
-2. **策略组** 面板应出现 18 区域 + 31 业务共 49 组（不得少于 40 组）。
+1. Surge → **首页** → **已启用的配置**：应显示 `Surge Smart v5.4.8-Surge.2`。
+2. **策略组** 面板应出现 22 区域 + 32 业务共 54 组（不得少于 50 组）。
 3. 访问以下网站做功能验证：
    - `https://chat.openai.com` → 命中「🤖 AI 服务」
    - `https://www.netflix.com` → 命中「🎥 Netflix」
