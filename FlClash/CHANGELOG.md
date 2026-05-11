@@ -5,6 +5,12 @@
 
 ---
 
+## v5.4.9-flclash.1 (2026-05-11)
+
+- ✅ FEAT#LOCAL-TOOLS：跟随 Clash Party v5.4.9 新增桌面本地工具 `PROCESS-NAME -> DIRECT` 白名单
+  - Windows/macOS/Linux 可命中；Android 端不依赖该清单
+  - 清单由 `tools/fixtures/process-name-direct-tools.json` 与 `tools/validate-process-name-direct.js` 校验
+
 ## v5.4.8-flclash.1 (2026-05-09)
 
 - ★ ORDER#RULE-TAIL：跟随 Clash Party Normal v5.4.8-normal.1 重排规则尾段匹配顺序

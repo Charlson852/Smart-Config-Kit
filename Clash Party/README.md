@@ -1,8 +1,8 @@
 # Clash Party / Clash Verge / Mihomo Party 使用教程
 
 > 覆写脚本：**两份二选一**，规则 100% 等价，仅 22 区域组（11 全部 + 11 家宽）的内核选路算法不同
-> - `ClashParty(mihomo-smart).js`（**v5.4.8**，2026-05-09）— Smart 内核 + LightGBM ML 评估
-> - `ClashParty(mihomo).js`（**v5.4.8-normal.1**，2026-05-09）— 普通内核 url-test 延迟选路
+> - `ClashParty(mihomo-smart).js`（**v5.4.9**，2026-05-11）— Smart 内核 + LightGBM ML 评估
+> - `ClashParty(mihomo).js`（**v5.4.9-normal.1**，2026-05-11）— 普通内核 url-test 延迟选路
 >
 > UI 补充配置：已整合到本文「四、粘贴 UI 补充配置」章节
 > 架构：**SUB-STORE 多机场融合** + 22 区域组（11 全部 + 11 家宽）+ 32 业务策略组 + **371+ rule-providers**
@@ -165,7 +165,7 @@ Clash Party 系列（Mihomo Party / Clash Verge Rev / Clash Nyanpasu）底层都
 
 1. 左侧菜单 → **覆写（Override）** → 右上角 ➕。
 2. 类型选择 **JavaScript（.js）**。
-3. 名称：`Clash Smart v5.4.8` 或 `Clash Normal v5.4.8`（根据你粘贴的那份）。
+3. 名称：`Clash Smart v5.4.9` 或 `Clash Normal v5.4.9`（根据你粘贴的那份）。
 4. 内容：复制 `Clash Party/ClashParty(mihomo-smart).js` **或** `Clash Party/ClashParty(mihomo).js` 的**全文**粘贴进去（两份脚本都在 2200+ 行左右）。
 5. 保存。
 6. 返回「订阅」页面，右键你的订阅 → **编辑** → **启用覆写** → 勾选刚才的脚本 → 保存（**只勾一份**，不要同时启用）。

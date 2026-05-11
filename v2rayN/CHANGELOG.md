@@ -8,6 +8,11 @@
 ---
 
 
+## v5.4.9-v2n.1 (2026-05-11)
+
+- ★ META#LOCAL-TOOLS：跟随 Clash Party v5.4.9 基线；Xray routing JSON 没有与 mihomo PROCESS-NAME 等价的通用进程规则字段，本轮仅更新 `_meta.remarks`。
+- v2rayN 用户如需本地工具直连白名单，优先使用 mihomo 核（CMFA 产物）或 sing-box 核（SingBox Full 产物）。
+
 ## v5.4.8-v2n.1 (2026-05-09)
 
 - ★ ORDER#RULE-TAIL：同步 Clash Party v5.4.8 路由规则顺序语义

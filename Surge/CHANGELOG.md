@@ -4,6 +4,12 @@
 
 ---
 
+## v5.4.9-Surge.1 (2026-05-11)
+
+- ✅ FEAT#LOCAL-TOOLS：新增 Surge Mac 本地工具 `PROCESS-NAME -> DIRECT` 白名单
+  - 覆盖 Oray / Sunlogin / AweSun / AnyDesk / ToDesk / RustDesk / TeamViewer / ZeroTier / Tailscale / frpc / frps / ngrok / natapp / cloudflared / Navicat 等常见桌面工具
+  - Surge 官方说明 `PROCESS-NAME` 仅 Surge Mac 可用，Surge iOS 会忽略该规则，因此同一配置不会导致 iOS 导入失败
+
 
 ## v5.4.8-Surge.2 (2026-05-11)
 

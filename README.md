@@ -409,7 +409,7 @@ tcpdump -n -i any port 443       # 应看到持续流量 → DoH 正常
 
 **📦 业务规则集**：[blackmatrix7/ios_rule_script](https://github.com/blackmatrix7/ios_rule_script)（主力） / [Accademia/Additional_Rule_For_Clash](https://github.com/Accademia/Additional_Rule_For_Clash) / [DustinWin/ruleset_geodata](https://github.com/DustinWin/ruleset_geodata) / [ACL4SSR](https://github.com/ACL4SSR/ACL4SSR) / [SukkaW/Surge](https://github.com/SukkaW/Surge) / [hagezi/dns-blocklists](https://github.com/hagezi/dns-blocklists) / [MiHomoer/MiHomo-Hagezi](https://github.com/MiHomoer/MiHomo-Hagezi) / [szkane/Rules](https://github.com/szkane/Rules) / [privacy-protection-tools/anti-AD](https://github.com/privacy-protection-tools/anti-AD)
 
-**🛠️ 辅助工具**：[Sub-Store](https://github.com/sub-store-org/Sub-Store) / [KOP-XIAO/QuantumultX](https://github.com/KOP-XIAO/QuantumultX) / [Koolson/Qure](https://github.com/Koolson/Qure) / [v2fly/domain-list-community](https://github.com/v2fly/domain-list-community)
+**🛠️ 辅助工具**：[Sub-Store](https://github.com/sub-store-org/Sub-Store) / [PROCESS-NAME 兼容清单](./docs/process-name-compatibility.md) / [KOP-XIAO/QuantumultX](https://github.com/KOP-XIAO/QuantumultX) / [Koolson/Qure](https://github.com/Koolson/Qure) / [v2fly/domain-list-community](https://github.com/v2fly/domain-list-community)
 
 **💳 商业闭源客户端**：[Shadowrocket](https://apps.apple.com/app/shadowrocket/id932747118) / [Surge](https://nssurge.com/) / [Loon](https://apps.apple.com/app/loon/id1373567447) / [Quantumult X](https://apps.apple.com/app/quantumult-x/id1443988620)
 

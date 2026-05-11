@@ -1,14 +1,76 @@
 ﻿// Clash Smart 内核覆写脚本 - SUB-STORE 多机场精细分流版
-// 版本：v5.4.8 (2026-05-09)
+// 版本：v5.4.9 (2026-05-11)
 // 架构：SUB-STORE 多机场融合 + 22 Smart 区域组（11 全部 + 11 家宽）+ 32 业务策略组（含 14 流媒体平台组）+ 371+ rule-providers 100%+ 服务覆盖
-// v5.4.8: 规则尾段匹配顺序重排 · v5.4.7: 🎵 TikTok 独立组 + FIX#HK 广港/深港分类
+// v5.4.9: 本地工具 PROCESS-NAME 直连白名单 · v5.4.8: 规则尾段匹配顺序重排
 // 变更历史：见 `Clash Party/CHANGELOG.md`
 
 // ================================================================
 //  版本常量
 // ================================================================
 
-const VERSION = 'v5.4.8'
+const VERSION = 'v5.4.9'
+
+// v5.4.9 FEAT#LOCAL-TOOLS:
+// Desktop-capable local tools that should not be routed through proxy nodes.
+// Keep exact PROCESS-NAME entries for sing-box / Surge parity; avoid broad
+// regex such as .*vpn.* or .*vnc.*.
+const LOCAL_TOOL_DIRECT_PROCESS_NAMES = [
+  'Oray.exe',
+  'OrayService.exe',
+  'SunloginClient.exe',
+  'SunloginClient_Desktop.exe',
+  'SunloginClient_Service.exe',
+  'AweSun.exe',
+  'AweSunService.exe',
+  'NodeBaby.exe',
+  'Node Baby.exe',
+  'nblink.exe',
+  'nblink',
+  'owjdxb.exe',
+  'tvnserver.exe',
+  'tvnserver',
+  'AnyDesk.exe',
+  'AnyDesk',
+  'ToDesk.exe',
+  'ToDesk_Service.exe',
+  'ToDesk',
+  'RustDesk.exe',
+  'rustdesk.exe',
+  'RustDesk',
+  'rustdesk',
+  'TeamViewer.exe',
+  'TeamViewer_Service.exe',
+  'TeamViewer',
+  'ZeroTier One.exe',
+  'zerotier-one.exe',
+  'zerotier-one_x64.exe',
+  'zerotier-one',
+  'Tailscale.exe',
+  'tailscale.exe',
+  'tailscaled.exe',
+  'Tailscale',
+  'tailscale',
+  'tailscaled',
+  'phddns.exe',
+  'phddns',
+  'ngrok.exe',
+  'ngrok',
+  'frpc.exe',
+  'frpc',
+  'frps.exe',
+  'frps',
+  'natapp.exe',
+  'natapp',
+  'cloudflared.exe',
+  'cloudflared',
+  'xmqtunnel.exe',
+  'xmqtunnel',
+  'Navicat.exe',
+  'navicat.exe',
+  'Navicat Premium.exe',
+  'Navicat',
+  'Navicat Premium',
+]
 
 // ================================================================
 //  模块 A：节点过滤 / 家宽识别
@@ -1212,6 +1274,7 @@ function injectRules(config) {
     'PROCESS-NAME,WeChatAppEx.exe,DIRECT',
     'PROCESS-NAME,QQ.exe,DIRECT',
     'PROCESS-NAME,WeChat.exe,DIRECT',
+    ...LOCAL_TOOL_DIRECT_PROCESS_NAMES.map(name => `PROCESS-NAME,${name},DIRECT`),
     'DST-PORT,26880,DIRECT',
     'DST-PORT,6540,DIRECT',
     'DST-PORT,33068,DIRECT',

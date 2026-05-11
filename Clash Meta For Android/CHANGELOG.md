@@ -5,6 +5,12 @@
 
 ---
 
+## v5.4.9-cmfa.1 (2026-05-11)
+
+- ✅ FEAT#LOCAL-TOOLS：同步 Clash Party v5.4.9 的桌面本地工具 `PROCESS-NAME -> DIRECT` 白名单
+  - 面向 ClashMi Windows/macOS/Linux 与其他桌面 Mihomo YAML 消费端；Android 导入不报错但不以桌面进程名为主要命中路径
+  - 仅使用精确进程名，不使用宽泛 `PROCESS-NAME-REGEX`
+
 
 ## v5.4.8-cmfa.2 (2026-05-11)
 

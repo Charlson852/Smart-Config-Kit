@@ -2,10 +2,10 @@
 . /usr/share/openclash/log.sh
 
 # ============================================================================
-# Clash Smart v5.4.8-oc-smart.2 — OpenClash 覆写脚本（与 Clash Party 主线同等规则量）
+# Clash Smart v5.4.9-oc-smart.1 — OpenClash 覆写脚本（与 Clash Party 主线同等规则量）
 # Build: 2026-05-11
 # ============================================================================
-# 定位：对齐 Clash Party v5.4.8 JS 主线的 OpenClash 全量版本。v5.4.2: P0-FIX#41 小米白名单。
+# 定位：对齐 Clash Party v5.4.9 JS 主线的 OpenClash 全量版本。v5.4.2: P0-FIX#41 小米白名单。
 #       与同目录 OpenClash(mihomo).sh（Normal）互补：
 #         - Normal 面向稳定版 mihomo / 经典 url-test
 #         - full  面向 4GB+ 路由器 / 需要与 Clash Party 桌面端一致的细粒度分流
@@ -16,14 +16,14 @@
 #   • ~990 条 rules
 #   • DNS fake-ip + 嗅探（HTTP/TLS/QUIC）+ nameserver-policy 救援
 #   • Ruby 阶段做：节点过滤 / 区域分类 / Smart 组生成 / TLS 指纹注入
-# 基线：Clash Party v5.4.8（唯一主线；v5.3.1/v5.3.2 为桌面端 PROCESS-NAME 改动，路由器端不适用）── 任何规则/组/DNS 改动必须先改 Clash Party JS，
+# 基线：Clash Party v5.4.9（唯一主线；v5.3.1/v5.3.2 为桌面端 PROCESS-NAME 改动，路由器端不适用）── 任何规则/组/DNS 改动必须先改 Clash Party JS，
 #       再同步到此文件。参见仓库根目录 CLAUDE.md / AGENTS.md。
 # 变更历史：见 `OpenClash/CHANGELOG.md`（Full 部分）。
 # ============================================================================
 
 
 
-VERSION_TAG="v5.4.8-oc-smart.2"
+VERSION_TAG="v5.4.9-oc-smart.1"
 CONFIG_FILE="$1"
 LOG_FILE="/tmp/openclash.log"
 
@@ -3240,6 +3240,61 @@ rules:
 - "PROCESS-NAME,QQ.exe,\U0001F3E0 国内网站"
 - "PROCESS-NAME,Weixin.exe,\U0001F3E0 国内网站"
 - "PROCESS-NAME,WeChat.exe,\U0001F3E0 国内网站"
+- PROCESS-NAME,Oray.exe,DIRECT
+- PROCESS-NAME,OrayService.exe,DIRECT
+- PROCESS-NAME,SunloginClient.exe,DIRECT
+- PROCESS-NAME,SunloginClient_Desktop.exe,DIRECT
+- PROCESS-NAME,SunloginClient_Service.exe,DIRECT
+- PROCESS-NAME,AweSun.exe,DIRECT
+- PROCESS-NAME,AweSunService.exe,DIRECT
+- PROCESS-NAME,NodeBaby.exe,DIRECT
+- PROCESS-NAME,Node Baby.exe,DIRECT
+- PROCESS-NAME,nblink.exe,DIRECT
+- PROCESS-NAME,nblink,DIRECT
+- PROCESS-NAME,owjdxb.exe,DIRECT
+- PROCESS-NAME,tvnserver.exe,DIRECT
+- PROCESS-NAME,tvnserver,DIRECT
+- PROCESS-NAME,AnyDesk.exe,DIRECT
+- PROCESS-NAME,AnyDesk,DIRECT
+- PROCESS-NAME,ToDesk.exe,DIRECT
+- PROCESS-NAME,ToDesk_Service.exe,DIRECT
+- PROCESS-NAME,ToDesk,DIRECT
+- PROCESS-NAME,RustDesk.exe,DIRECT
+- PROCESS-NAME,rustdesk.exe,DIRECT
+- PROCESS-NAME,RustDesk,DIRECT
+- PROCESS-NAME,rustdesk,DIRECT
+- PROCESS-NAME,TeamViewer.exe,DIRECT
+- PROCESS-NAME,TeamViewer_Service.exe,DIRECT
+- PROCESS-NAME,TeamViewer,DIRECT
+- PROCESS-NAME,ZeroTier One.exe,DIRECT
+- PROCESS-NAME,zerotier-one.exe,DIRECT
+- PROCESS-NAME,zerotier-one_x64.exe,DIRECT
+- PROCESS-NAME,zerotier-one,DIRECT
+- PROCESS-NAME,Tailscale.exe,DIRECT
+- PROCESS-NAME,tailscale.exe,DIRECT
+- PROCESS-NAME,tailscaled.exe,DIRECT
+- PROCESS-NAME,Tailscale,DIRECT
+- PROCESS-NAME,tailscale,DIRECT
+- PROCESS-NAME,tailscaled,DIRECT
+- PROCESS-NAME,phddns.exe,DIRECT
+- PROCESS-NAME,phddns,DIRECT
+- PROCESS-NAME,ngrok.exe,DIRECT
+- PROCESS-NAME,ngrok,DIRECT
+- PROCESS-NAME,frpc.exe,DIRECT
+- PROCESS-NAME,frpc,DIRECT
+- PROCESS-NAME,frps.exe,DIRECT
+- PROCESS-NAME,frps,DIRECT
+- PROCESS-NAME,natapp.exe,DIRECT
+- PROCESS-NAME,natapp,DIRECT
+- PROCESS-NAME,cloudflared.exe,DIRECT
+- PROCESS-NAME,cloudflared,DIRECT
+- PROCESS-NAME,xmqtunnel.exe,DIRECT
+- PROCESS-NAME,xmqtunnel,DIRECT
+- PROCESS-NAME,Navicat.exe,DIRECT
+- PROCESS-NAME,navicat.exe,DIRECT
+- PROCESS-NAME,Navicat Premium.exe,DIRECT
+- PROCESS-NAME,Navicat,DIRECT
+- PROCESS-NAME,Navicat Premium,DIRECT
 - DOMAIN-SUFFIX,chiphell.com,DIRECT
 - DOMAIN-SUFFIX,iwipwedabay.com,DIRECT
 - DOMAIN-SUFFIX,cdn.weixin.qq.com,DIRECT
@@ -4229,7 +4284,7 @@ cat > "$RUBY_SCRIPT" << 'RUBY_EOF'
 require 'yaml'
 require 'digest'
 
-VERSION = "v5.4.8-oc-smart.2"
+VERSION = "v5.4.9-oc-smart.1"
 
 STATUS_LOG = "/tmp/clash_smart_status.log"
 File.open(STATUS_LOG, 'w') { |f| f.puts "[#{VERSION}] start" }

@@ -1,7 +1,7 @@
-# Surge 使用教程（对齐 Clash Party v5.4.8）
+# Surge 使用教程（对齐 Clash Party v5.4.9）
 
 > 配置文件：`Surge/Surge.conf`
-> 版本：**v5.4.8-Surge.2**（Build 2026-05-11，详见 `Surge/CHANGELOG.md`）
+> 版本：**v5.4.9-Surge.1**（Build 2026-05-11，详见 `Surge/CHANGELOG.md`）
 > 目标：**Surge 5 / Surge Mac**（付费正版；iOS + macOS 通用）
 > 架构：22 区域 url-test 组（11 全部 + 11 家宽，include-all-proxies + policy-regex-filter 自动按地区聚合）+ 32 业务策略组 + ~290 RULE-SET
 
@@ -230,7 +230,7 @@ Surge 的节点来源有两种方式，任选其一：
 |------|------|
 | ❌ 无 Mihomo Smart 组 / LightGBM 自动择优 | Surge 不是 Mihomo 核；退化为 url-test |
 | ❌ 无 TLS 指纹注入（`client-fingerprint`） | Surge 不暴露 uTLS 控制 |
-| ❌ PROCESS-NAME 规则（本文件默认不用） | iOS 无进程 API；Mac 版单独支持但为了跨平台统一略过 |
+| ⚙️ PROCESS-NAME 规则 | Surge Mac 命中本地工具直连白名单；Surge iOS 会忽略进程规则 |
 | ⚙️ GEOSITE 全部替换为 RULE-SET | Surge 不支持 GEOSITE（依赖 MMDB + RULE-SET）|
 | ⚙️ Meta `.mrs` 二进制 → blackmatrix7 Surge `.list` | 格式兼容性 |
 | ⚙️ rule-provider 独立刷新 → Surge 订阅统一更新 | Surge 引擎设计 |
@@ -239,7 +239,7 @@ Surge 的节点来源有两种方式，任选其一：
 
 ## 九、验证
 
-1. Surge → **首页** → **已启用的配置**：应显示 `Surge Smart v5.4.8-Surge.2`。
+1. Surge → **首页** → **已启用的配置**：应显示 `Surge Smart v5.4.9-Surge.1`。
 2. **策略组** 面板应出现 22 区域 + 32 业务共 54 组（不得少于 50 组）。
 3. 访问以下网站做功能验证：
    - `https://chat.openai.com` → 命中「🤖 AI 服务」

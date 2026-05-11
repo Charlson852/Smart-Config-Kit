@@ -65,3 +65,19 @@ node tools/validate-artifact-contracts.js --json
 node tools/validate-artifact-contracts.js --strict-ruby
 node tools/validate-artifact-contracts.js --write-manifest docs/runtime/artifact-manifest.json
 ```
+
+## PROCESS-NAME direct whitelist
+
+Run:
+
+```bash
+node tools/validate-process-name-direct.js
+```
+
+Scope:
+
+- validates the desktop local-tool direct whitelist from
+  `tools/fixtures/process-name-direct-tools.json`;
+- checks Clash Party, FlClash, CMFA, OpenClash Normal/Smart, Surge Mac, and
+  generated SingBox Full output;
+- rejects accidental active process rules in unsupported mobile/router artifacts.

@@ -5,9 +5,9 @@
   },
   "_meta": {
     "name": "SingBox Smart Full",
-    "version": "v5.4.8-sing.1",
-    "build": "2026-05-09",
-    "baseline": "Clash Party v5.4.8",
+    "version": "v5.4.9-sing.1",
+    "build": "2026-05-11",
+    "baseline": "Clash Party v5.4.9",
     "changelog": "见 SingBox/CHANGELOG.md"
   },
   "experimental": {
@@ -2005,6 +2005,391 @@
       {
         "process_name": [
           "WeChat.exe"
+        ],
+        "action": "route",
+        "outbound": "DIRECT"
+      },
+      {
+        "process_name": [
+          "Oray.exe"
+        ],
+        "action": "route",
+        "outbound": "DIRECT"
+      },
+      {
+        "process_name": [
+          "OrayService.exe"
+        ],
+        "action": "route",
+        "outbound": "DIRECT"
+      },
+      {
+        "process_name": [
+          "SunloginClient.exe"
+        ],
+        "action": "route",
+        "outbound": "DIRECT"
+      },
+      {
+        "process_name": [
+          "SunloginClient_Desktop.exe"
+        ],
+        "action": "route",
+        "outbound": "DIRECT"
+      },
+      {
+        "process_name": [
+          "SunloginClient_Service.exe"
+        ],
+        "action": "route",
+        "outbound": "DIRECT"
+      },
+      {
+        "process_name": [
+          "AweSun.exe"
+        ],
+        "action": "route",
+        "outbound": "DIRECT"
+      },
+      {
+        "process_name": [
+          "AweSunService.exe"
+        ],
+        "action": "route",
+        "outbound": "DIRECT"
+      },
+      {
+        "process_name": [
+          "NodeBaby.exe"
+        ],
+        "action": "route",
+        "outbound": "DIRECT"
+      },
+      {
+        "process_name": [
+          "Node Baby.exe"
+        ],
+        "action": "route",
+        "outbound": "DIRECT"
+      },
+      {
+        "process_name": [
+          "nblink.exe"
+        ],
+        "action": "route",
+        "outbound": "DIRECT"
+      },
+      {
+        "process_name": [
+          "nblink"
+        ],
+        "action": "route",
+        "outbound": "DIRECT"
+      },
+      {
+        "process_name": [
+          "owjdxb.exe"
+        ],
+        "action": "route",
+        "outbound": "DIRECT"
+      },
+      {
+        "process_name": [
+          "tvnserver.exe"
+        ],
+        "action": "route",
+        "outbound": "DIRECT"
+      },
+      {
+        "process_name": [
+          "tvnserver"
+        ],
+        "action": "route",
+        "outbound": "DIRECT"
+      },
+      {
+        "process_name": [
+          "AnyDesk.exe"
+        ],
+        "action": "route",
+        "outbound": "DIRECT"
+      },
+      {
+        "process_name": [
+          "AnyDesk"
+        ],
+        "action": "route",
+        "outbound": "DIRECT"
+      },
+      {
+        "process_name": [
+          "ToDesk.exe"
+        ],
+        "action": "route",
+        "outbound": "DIRECT"
+      },
+      {
+        "process_name": [
+          "ToDesk_Service.exe"
+        ],
+        "action": "route",
+        "outbound": "DIRECT"
+      },
+      {
+        "process_name": [
+          "ToDesk"
+        ],
+        "action": "route",
+        "outbound": "DIRECT"
+      },
+      {
+        "process_name": [
+          "RustDesk.exe"
+        ],
+        "action": "route",
+        "outbound": "DIRECT"
+      },
+      {
+        "process_name": [
+          "rustdesk.exe"
+        ],
+        "action": "route",
+        "outbound": "DIRECT"
+      },
+      {
+        "process_name": [
+          "RustDesk"
+        ],
+        "action": "route",
+        "outbound": "DIRECT"
+      },
+      {
+        "process_name": [
+          "rustdesk"
+        ],
+        "action": "route",
+        "outbound": "DIRECT"
+      },
+      {
+        "process_name": [
+          "TeamViewer.exe"
+        ],
+        "action": "route",
+        "outbound": "DIRECT"
+      },
+      {
+        "process_name": [
+          "TeamViewer_Service.exe"
+        ],
+        "action": "route",
+        "outbound": "DIRECT"
+      },
+      {
+        "process_name": [
+          "TeamViewer"
+        ],
+        "action": "route",
+        "outbound": "DIRECT"
+      },
+      {
+        "process_name": [
+          "ZeroTier One.exe"
+        ],
+        "action": "route",
+        "outbound": "DIRECT"
+      },
+      {
+        "process_name": [
+          "zerotier-one.exe"
+        ],
+        "action": "route",
+        "outbound": "DIRECT"
+      },
+      {
+        "process_name": [
+          "zerotier-one_x64.exe"
+        ],
+        "action": "route",
+        "outbound": "DIRECT"
+      },
+      {
+        "process_name": [
+          "zerotier-one"
+        ],
+        "action": "route",
+        "outbound": "DIRECT"
+      },
+      {
+        "process_name": [
+          "Tailscale.exe"
+        ],
+        "action": "route",
+        "outbound": "DIRECT"
+      },
+      {
+        "process_name": [
+          "tailscale.exe"
+        ],
+        "action": "route",
+        "outbound": "DIRECT"
+      },
+      {
+        "process_name": [
+          "tailscaled.exe"
+        ],
+        "action": "route",
+        "outbound": "DIRECT"
+      },
+      {
+        "process_name": [
+          "Tailscale"
+        ],
+        "action": "route",
+        "outbound": "DIRECT"
+      },
+      {
+        "process_name": [
+          "tailscale"
+        ],
+        "action": "route",
+        "outbound": "DIRECT"
+      },
+      {
+        "process_name": [
+          "tailscaled"
+        ],
+        "action": "route",
+        "outbound": "DIRECT"
+      },
+      {
+        "process_name": [
+          "phddns.exe"
+        ],
+        "action": "route",
+        "outbound": "DIRECT"
+      },
+      {
+        "process_name": [
+          "phddns"
+        ],
+        "action": "route",
+        "outbound": "DIRECT"
+      },
+      {
+        "process_name": [
+          "ngrok.exe"
+        ],
+        "action": "route",
+        "outbound": "DIRECT"
+      },
+      {
+        "process_name": [
+          "ngrok"
+        ],
+        "action": "route",
+        "outbound": "DIRECT"
+      },
+      {
+        "process_name": [
+          "frpc.exe"
+        ],
+        "action": "route",
+        "outbound": "DIRECT"
+      },
+      {
+        "process_name": [
+          "frpc"
+        ],
+        "action": "route",
+        "outbound": "DIRECT"
+      },
+      {
+        "process_name": [
+          "frps.exe"
+        ],
+        "action": "route",
+        "outbound": "DIRECT"
+      },
+      {
+        "process_name": [
+          "frps"
+        ],
+        "action": "route",
+        "outbound": "DIRECT"
+      },
+      {
+        "process_name": [
+          "natapp.exe"
+        ],
+        "action": "route",
+        "outbound": "DIRECT"
+      },
+      {
+        "process_name": [
+          "natapp"
+        ],
+        "action": "route",
+        "outbound": "DIRECT"
+      },
+      {
+        "process_name": [
+          "cloudflared.exe"
+        ],
+        "action": "route",
+        "outbound": "DIRECT"
+      },
+      {
+        "process_name": [
+          "cloudflared"
+        ],
+        "action": "route",
+        "outbound": "DIRECT"
+      },
+      {
+        "process_name": [
+          "xmqtunnel.exe"
+        ],
+        "action": "route",
+        "outbound": "DIRECT"
+      },
+      {
+        "process_name": [
+          "xmqtunnel"
+        ],
+        "action": "route",
+        "outbound": "DIRECT"
+      },
+      {
+        "process_name": [
+          "Navicat.exe"
+        ],
+        "action": "route",
+        "outbound": "DIRECT"
+      },
+      {
+        "process_name": [
+          "navicat.exe"
+        ],
+        "action": "route",
+        "outbound": "DIRECT"
+      },
+      {
+        "process_name": [
+          "Navicat Premium.exe"
+        ],
+        "action": "route",
+        "outbound": "DIRECT"
+      },
+      {
+        "process_name": [
+          "Navicat"
+        ],
+        "action": "route",
+        "outbound": "DIRECT"
+      },
+      {
+        "process_name": [
+          "Navicat Premium"
         ],
         "action": "route",
         "outbound": "DIRECT"

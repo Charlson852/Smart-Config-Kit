@@ -1,7 +1,7 @@
-# Loon 使用教程（对齐 Clash Party v5.4.8）
+# Loon 使用教程（对齐 Clash Party v5.4.9）
 
 > 配置文件：`Loon/Loon.conf`
-> 版本：**v5.4.8-Loon.2**（Build 2026-05-11，详见 `Loon/CHANGELOG.md`）
+> 版本：**v5.4.9-Loon.1**（Build 2026-05-11，详见 `Loon/CHANGELOG.md`）
 > 目标：**Loon iOS（App Store 付费正版）**
 > 架构：22 区域 url-test 组（11 全部 + 11 家宽，[Remote Filter] NameRegex）+ 32 业务策略组 + 288 [Remote Rule] 订阅规则集
 

@@ -7,6 +7,13 @@
 
 ---
 
+## v5.4.9 / v5.4.9-normal.1 (2026-05-11)
+
+- ✅ FEAT#LOCAL-TOOLS：新增桌面本地工具 `PROCESS-NAME -> DIRECT` 白名单
+  - 覆盖 Oray / Sunlogin / AweSun / AnyDesk / ToDesk / RustDesk / TeamViewer / ZeroTier / Tailscale / frpc / frps / ngrok / natapp / cloudflared / Navicat 等常见远控、DDNS、内网穿透与数据库客户端
+  - 采用精确进程名，避免照搬 `.*vpn.*` / `.*vnc.*` 这类宽泛正则造成误直连
+  - 新增 `docs/process-name-compatibility.md` 与 `tools/validate-process-name-direct.js` 作为兼容清单和测试集
+
 ## v5.4.8 (2026-05-09)
 
 - ★ ORDER#RULE-TAIL：重排中后段业务规则匹配顺序（UI 代理组顺序不变）

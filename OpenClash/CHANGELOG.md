@@ -7,6 +7,12 @@
 
 ---
 
+## v5.4.9-oc-normal.1 / v5.4.9-oc-smart.1 (2026-05-11)
+
+- ✅ FEAT#LOCAL-TOOLS：语法同步 Clash Party v5.4.9 的桌面本地工具 `PROCESS-NAME -> DIRECT` 白名单
+  - OpenClash 路由器端通常无法看到局域网客户端进程名，因此该清单主要用于保持 mihomo 规则形态一致
+  - 不改变 proxy-groups / rule-providers / DNS 语义
+
 ## v5.4.8-oc-normal.2 / v5.4.8-oc-smart.2 (2026-05-11)
 
 - ★ META#VERSION：同步脚本头部、`VERSION_TAG` 与内嵌 Ruby `VERSION`

@@ -1,7 +1,7 @@
-# Quantumult X 使用教程（对齐 Clash Party v5.4.8）
+# Quantumult X 使用教程（对齐 Clash Party v5.4.9）
 
 > 配置文件：`Quantumult X/QuantumultX.conf`
-> 版本：**v5.4.8-QX.2**（Build 2026-05-11，详见 `Quantumult X/CHANGELOG.md`）
+> 版本：**v5.4.9-QX.1**（Build 2026-05-11，详见 `Quantumult X/CHANGELOG.md`）
 > 目标：**Quantumult X iOS（App Store 付费正版）**
 > 架构：22 区域 `url-latency-benchmark` 组（11 全部 + 11 家宽）+ 32 业务 `static` 组 + ~290 filter_remote + 567 filter_local 规则
 

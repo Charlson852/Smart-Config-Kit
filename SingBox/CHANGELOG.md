@@ -5,6 +5,12 @@
 
 ---
 
+## v5.4.9-sing.1 (2026-05-11)
+
+- ✅ FEAT#LOCAL-TOOLS：由生成器同步 Clash Party v5.4.9 的桌面本地工具直连白名单
+  - `PROCESS-NAME` 自动转换为 sing-box `route.rules[].process_name -> DIRECT`
+  - 按 sing-box 官方能力，仅 Linux / Windows / macOS 支持 `process_name` 命中；移动端不依赖该清单
+
 
 ## v5.4.8-sing.1 (2026-05-09)
 

@@ -1,8 +1,8 @@
 ﻿# ================================================================
-# Clash Smart v5.4.8-cmfa.2 - CMFA (Clash Meta for Android) 配置
+# Clash Smart v5.4.9-cmfa.1 - CMFA (Clash Meta for Android) 配置
 # Build: 2026-05-11
 # 架构：proxy-providers 订阅 + 22 url-test 区域组（11 全部 + 11 家宽，家宽 filter 新增 IEPL/IPLC/专线识别）+ 32 业务策略组（含 14 流媒体平台组）+ 384+ rule-providers
-# 基线：Clash Party v5.4.8（唯一主线）
+# 基线：Clash Party v5.4.9（唯一主线）
 # 变更历史：见 `Clash Meta For Android/CHANGELOG.md`
 # ================================================================
 # ★ 快速上手：
@@ -3569,6 +3569,61 @@ rules:
 - 'IP-CIDR6,fc00::/7,DIRECT,no-resolve'
 - 'IP-CIDR6,fe80::/10,DIRECT,no-resolve'
 - DST-PORT,7680,REJECT
+- 'PROCESS-NAME,Oray.exe,DIRECT'
+- 'PROCESS-NAME,OrayService.exe,DIRECT'
+- 'PROCESS-NAME,SunloginClient.exe,DIRECT'
+- 'PROCESS-NAME,SunloginClient_Desktop.exe,DIRECT'
+- 'PROCESS-NAME,SunloginClient_Service.exe,DIRECT'
+- 'PROCESS-NAME,AweSun.exe,DIRECT'
+- 'PROCESS-NAME,AweSunService.exe,DIRECT'
+- 'PROCESS-NAME,NodeBaby.exe,DIRECT'
+- 'PROCESS-NAME,Node Baby.exe,DIRECT'
+- 'PROCESS-NAME,nblink.exe,DIRECT'
+- 'PROCESS-NAME,nblink,DIRECT'
+- 'PROCESS-NAME,owjdxb.exe,DIRECT'
+- 'PROCESS-NAME,tvnserver.exe,DIRECT'
+- 'PROCESS-NAME,tvnserver,DIRECT'
+- 'PROCESS-NAME,AnyDesk.exe,DIRECT'
+- 'PROCESS-NAME,AnyDesk,DIRECT'
+- 'PROCESS-NAME,ToDesk.exe,DIRECT'
+- 'PROCESS-NAME,ToDesk_Service.exe,DIRECT'
+- 'PROCESS-NAME,ToDesk,DIRECT'
+- 'PROCESS-NAME,RustDesk.exe,DIRECT'
+- 'PROCESS-NAME,rustdesk.exe,DIRECT'
+- 'PROCESS-NAME,RustDesk,DIRECT'
+- 'PROCESS-NAME,rustdesk,DIRECT'
+- 'PROCESS-NAME,TeamViewer.exe,DIRECT'
+- 'PROCESS-NAME,TeamViewer_Service.exe,DIRECT'
+- 'PROCESS-NAME,TeamViewer,DIRECT'
+- 'PROCESS-NAME,ZeroTier One.exe,DIRECT'
+- 'PROCESS-NAME,zerotier-one.exe,DIRECT'
+- 'PROCESS-NAME,zerotier-one_x64.exe,DIRECT'
+- 'PROCESS-NAME,zerotier-one,DIRECT'
+- 'PROCESS-NAME,Tailscale.exe,DIRECT'
+- 'PROCESS-NAME,tailscale.exe,DIRECT'
+- 'PROCESS-NAME,tailscaled.exe,DIRECT'
+- 'PROCESS-NAME,Tailscale,DIRECT'
+- 'PROCESS-NAME,tailscale,DIRECT'
+- 'PROCESS-NAME,tailscaled,DIRECT'
+- 'PROCESS-NAME,phddns.exe,DIRECT'
+- 'PROCESS-NAME,phddns,DIRECT'
+- 'PROCESS-NAME,ngrok.exe,DIRECT'
+- 'PROCESS-NAME,ngrok,DIRECT'
+- 'PROCESS-NAME,frpc.exe,DIRECT'
+- 'PROCESS-NAME,frpc,DIRECT'
+- 'PROCESS-NAME,frps.exe,DIRECT'
+- 'PROCESS-NAME,frps,DIRECT'
+- 'PROCESS-NAME,natapp.exe,DIRECT'
+- 'PROCESS-NAME,natapp,DIRECT'
+- 'PROCESS-NAME,cloudflared.exe,DIRECT'
+- 'PROCESS-NAME,cloudflared,DIRECT'
+- 'PROCESS-NAME,xmqtunnel.exe,DIRECT'
+- 'PROCESS-NAME,xmqtunnel,DIRECT'
+- 'PROCESS-NAME,Navicat.exe,DIRECT'
+- 'PROCESS-NAME,navicat.exe,DIRECT'
+- 'PROCESS-NAME,Navicat Premium.exe,DIRECT'
+- 'PROCESS-NAME,Navicat,DIRECT'
+- 'PROCESS-NAME,Navicat Premium,DIRECT'
 - DST-PORT,123,DIRECT
 - DST-PORT,3478,DIRECT
 - DST-PORT,3479,DIRECT

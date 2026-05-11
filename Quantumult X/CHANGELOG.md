@@ -7,6 +7,11 @@
 ---
 
 
+## v5.4.9-QX.1 (2026-05-11)
+
+- ★ META#LOCAL-TOOLS：跟随 Clash Party v5.4.9 基线；Quantumult X 为 iOS 端产物，本轮不写入 PROCESS-NAME 规则，避免引入不被其配置结构消费的桌面进程名。
+- 直连工具清单已进入 `docs/process-name-compatibility.md` 与测试夹具，桌面端由 mihomo / sing-box / Surge Mac 承接。
+
 ## v5.4.8-QX.2 (2026-05-11)
 
 - ★ META#GROUP-COUNT：同步文件头与 README 的区域组数量说明为 22 组（11 全部 + 11 家宽）

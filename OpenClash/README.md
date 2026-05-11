@@ -5,6 +5,7 @@
 > - Smart 版：`OpenClash(mihomo-smart).sh`（`type: smart` + `uselightgbm`）
 > - Normal 版：`OpenClash(mihomo).sh`（`type: url-test`，非 Smart 内核）
 > - UI 配置快照：`OpenClash(mihomo).conf`（一次性导入推荐 UCI 选项）
+> - `PROCESS-NAME` 本地工具直连清单已语法同步；路由器端通常看不到局域网客户端进程名，主要用于保持 mihomo 规则形态一致。
 
 ---
 

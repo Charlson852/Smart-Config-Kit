@@ -2,12 +2,12 @@
 . /usr/share/openclash/log.sh
 
 # ============================================================================
-# Clash Smart v5.4.8-oc-normal.2 — OpenClash 覆写脚本（非 Smart 内核 / url-test 区域组）
+# Clash Smart v5.4.9-oc-normal.1 — OpenClash 覆写脚本（非 Smart 内核 / url-test 区域组）
 # Build: 2026-05-11
 # ============================================================================
 # 定位：与同目录 OpenClash(mihomo-smart).sh 规则 100% 等价的「非 Smart 内核」版本。
 #       两者唯一区别：22 个区域组（11 全部 + 11 家宽）从 type: smart（uselightgbm）换成 type: url-test。
-#       对齐 Clash Party v5.4.8 JS 基线。
+#       对齐 Clash Party v5.4.9 JS 基线。
 #       适用场景：
 #         - OpenClash 内核选的是 Meta(mihomo 稳定版) 而非 Meta Alpha，不支持 smart + LightGBM
 #         - 或者明确想关闭 LightGBM ML 评估、只靠经典 url-test 延迟选路
@@ -19,20 +19,20 @@
 #   • ~990 条 rules
 #   • DNS fake-ip + 嗅探（HTTP/TLS/QUIC）+ nameserver-policy 救援
 #   • Ruby 阶段做：节点过滤 / 区域分类 / url-test 组生成 / TLS 指纹注入
-# 基线：Clash Party v5.4.8（唯一主线；v5.3.1/v5.3.2 为桌面端 PROCESS-NAME 改动，路由器端不适用）── 任何规则/组/DNS 改动必须先改 Clash Party JS，
+# 基线：Clash Party v5.4.9（唯一主线；v5.3.1/v5.3.2 为桌面端 PROCESS-NAME 改动，路由器端不适用）── 任何规则/组/DNS 改动必须先改 Clash Party JS，
 #       再同步到此文件。参见仓库根目录 CLAUDE.md / AGENTS.md。
 # 变更历史：见 `OpenClash/CHANGELOG.md`（Normal 部分）。
 # ============================================================================
 
 
 
-VERSION_TAG="v5.4.8-oc-normal.2"
+VERSION_TAG="v5.4.9-oc-normal.1"
 CONFIG_FILE="$1"
 LOG_FILE="/tmp/openclash.log"
 
 LOG_OUT "Info" "[Clash-Normal] $VERSION_TAG overwrite starting..."
 LOG_OUT "Info" "[Clash-Normal] Processing: $CONFIG_FILE"
-LOG_OUT "Info" "[Clash-Normal] Full-rule build (v5.4.8, 32 business groups, non-Smart kernel)"
+LOG_OUT "Info" "[Clash-Normal] Full-rule build (v5.4.9, 32 business groups, non-Smart kernel)"
 
 # ============================================================================
 # OVERRIDE YAML
@@ -3243,6 +3243,61 @@ rules:
 - "PROCESS-NAME,QQ.exe,\U0001F3E0 国内网站"
 - "PROCESS-NAME,Weixin.exe,\U0001F3E0 国内网站"
 - "PROCESS-NAME,WeChat.exe,\U0001F3E0 国内网站"
+- PROCESS-NAME,Oray.exe,DIRECT
+- PROCESS-NAME,OrayService.exe,DIRECT
+- PROCESS-NAME,SunloginClient.exe,DIRECT
+- PROCESS-NAME,SunloginClient_Desktop.exe,DIRECT
+- PROCESS-NAME,SunloginClient_Service.exe,DIRECT
+- PROCESS-NAME,AweSun.exe,DIRECT
+- PROCESS-NAME,AweSunService.exe,DIRECT
+- PROCESS-NAME,NodeBaby.exe,DIRECT
+- PROCESS-NAME,Node Baby.exe,DIRECT
+- PROCESS-NAME,nblink.exe,DIRECT
+- PROCESS-NAME,nblink,DIRECT
+- PROCESS-NAME,owjdxb.exe,DIRECT
+- PROCESS-NAME,tvnserver.exe,DIRECT
+- PROCESS-NAME,tvnserver,DIRECT
+- PROCESS-NAME,AnyDesk.exe,DIRECT
+- PROCESS-NAME,AnyDesk,DIRECT
+- PROCESS-NAME,ToDesk.exe,DIRECT
+- PROCESS-NAME,ToDesk_Service.exe,DIRECT
+- PROCESS-NAME,ToDesk,DIRECT
+- PROCESS-NAME,RustDesk.exe,DIRECT
+- PROCESS-NAME,rustdesk.exe,DIRECT
+- PROCESS-NAME,RustDesk,DIRECT
+- PROCESS-NAME,rustdesk,DIRECT
+- PROCESS-NAME,TeamViewer.exe,DIRECT
+- PROCESS-NAME,TeamViewer_Service.exe,DIRECT
+- PROCESS-NAME,TeamViewer,DIRECT
+- PROCESS-NAME,ZeroTier One.exe,DIRECT
+- PROCESS-NAME,zerotier-one.exe,DIRECT
+- PROCESS-NAME,zerotier-one_x64.exe,DIRECT
+- PROCESS-NAME,zerotier-one,DIRECT
+- PROCESS-NAME,Tailscale.exe,DIRECT
+- PROCESS-NAME,tailscale.exe,DIRECT
+- PROCESS-NAME,tailscaled.exe,DIRECT
+- PROCESS-NAME,Tailscale,DIRECT
+- PROCESS-NAME,tailscale,DIRECT
+- PROCESS-NAME,tailscaled,DIRECT
+- PROCESS-NAME,phddns.exe,DIRECT
+- PROCESS-NAME,phddns,DIRECT
+- PROCESS-NAME,ngrok.exe,DIRECT
+- PROCESS-NAME,ngrok,DIRECT
+- PROCESS-NAME,frpc.exe,DIRECT
+- PROCESS-NAME,frpc,DIRECT
+- PROCESS-NAME,frps.exe,DIRECT
+- PROCESS-NAME,frps,DIRECT
+- PROCESS-NAME,natapp.exe,DIRECT
+- PROCESS-NAME,natapp,DIRECT
+- PROCESS-NAME,cloudflared.exe,DIRECT
+- PROCESS-NAME,cloudflared,DIRECT
+- PROCESS-NAME,xmqtunnel.exe,DIRECT
+- PROCESS-NAME,xmqtunnel,DIRECT
+- PROCESS-NAME,Navicat.exe,DIRECT
+- PROCESS-NAME,navicat.exe,DIRECT
+- PROCESS-NAME,Navicat Premium.exe,DIRECT
+- PROCESS-NAME,Navicat,DIRECT
+- PROCESS-NAME,Navicat Premium,DIRECT
 - DOMAIN-SUFFIX,chiphell.com,DIRECT
 - DOMAIN-SUFFIX,iwipwedabay.com,DIRECT
 - DOMAIN-SUFFIX,cdn.weixin.qq.com,DIRECT
@@ -4232,7 +4287,7 @@ cat > "$RUBY_SCRIPT" << 'RUBY_EOF'
 require 'yaml'
 require 'digest'
 
-VERSION = "v5.4.8-oc-normal.2"
+VERSION = "v5.4.9-oc-normal.1"
 
 STATUS_LOG = "/tmp/clash_normal_status.log"
 File.open(STATUS_LOG, 'w') { |f| f.puts "[#{VERSION}] start" }

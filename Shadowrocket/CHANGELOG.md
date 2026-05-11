@@ -6,6 +6,11 @@
 ---
 
 
+## v5.4.9-SR.1 (2026-05-11)
+
+- ★ META#LOCAL-TOOLS：跟随 Clash Party v5.4.9 基线；本端不启用新增 PROCESS-NAME 直连清单，避免 Shadowrocket iOS / macOS 通用配置里出现不等价或被忽略的进程匹配。
+- 直连工具清单已进入 `docs/process-name-compatibility.md` 与测试夹具，桌面端由 mihomo / sing-box / Surge Mac 承接。
+
 ## v5.4.8-SR.2 (2026-05-11)
 
 - ★ FIX#SR-AF-P1：补回被业务组引用但未定义的 `🌍 非洲节点` url-test 组

@@ -8,6 +8,11 @@
 ---
 
 
+## v5.4.9-pw.1 (2026-05-11)
+
+- ★ META#LOCAL-TOOLS：跟随 Clash Party v5.4.9 基线；Passwall 运行在路由器侧，无法观察 LAN 客户端进程名，本轮不把 PROCESS-NAME 清单展平进 shunt rules。
+- `shunt-rules/*.list` 无业务语义变化；直连工具清单仅作为 PC 客户端兼容测试集维护。
+
 ## v5.4.8-pw.1 (2026-05-09)
 
 - ★ ORDER#RULE-TAIL：同步 Clash Party v5.4.8 shunt rule 创建顺序
