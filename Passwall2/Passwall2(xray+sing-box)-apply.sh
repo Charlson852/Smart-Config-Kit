@@ -1,7 +1,7 @@
 #!/bin/sh
 # ═══════════════════════════════════════════════════════════════════════════
 # Smart-Config-Kit for Passwall / Passwall2 — UCI batch helper
-# Version: v5.4.9-pw2.1 | Build 2026-05-11
+# Version: v5.4.11-pw2.1 | Build 2026-05-12
 #
 # 用途：一次性在 Passwall2 中创建 32 条 shunt rule（含域名列表 + IP 列表），
 #       每条目标节点留空（NEED_CONFIG），用户之后到 LuCI 里手工选节点。
@@ -157,6 +157,7 @@ uci add_list ${CONFIG_NAME}.${SEC}.domain_list='geosite:teams'
 uci add_list ${CONFIG_NAME}.${SEC}.domain_list='geosite:slack'
 uci add_list ${CONFIG_NAME}.${SEC}.domain_list='geosite:notion'
 uci add_list ${CONFIG_NAME}.${SEC}.domain_list='geosite:atlassian'
+uci add_list ${CONFIG_NAME}.${SEC}.domain_list='domain:rustdesk.com'
 uci add_list ${CONFIG_NAME}.${SEC}.domain_list='domain:meet.google.com'
 uci set ${CONFIG_NAME}.${SEC}.network='tcp,udp'
 # uci set ${CONFIG_NAME}.${SEC}.node='NEED_CONFIG_IN_LUCI'

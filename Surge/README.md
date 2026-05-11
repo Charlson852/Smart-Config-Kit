@@ -1,7 +1,7 @@
-# Surge 使用教程（对齐 Clash Party v5.4.9）
+# Surge 使用教程（对齐 Clash Party v5.4.11）
 
 > 配置文件：`Surge/Surge.conf`
-> 版本：**v5.4.9-Surge.1**（Build 2026-05-11，详见 `Surge/CHANGELOG.md`）
+> 版本：**v5.4.11-Surge.1**（Build 2026-05-12，详见 `Surge/CHANGELOG.md`；RustDesk Mac 进程走会议协作，域名兜底前置于 Copilot）
 > 目标：**Surge 5 / Surge Mac**（付费正版；iOS + macOS 通用）
 > 架构：22 区域 url-test 组（11 全部 + 11 家宽，include-all-proxies + policy-regex-filter 自动按地区聚合）+ 32 业务策略组 + ~290 RULE-SET
 
@@ -198,7 +198,7 @@ Surge 的节点来源有两种方式，任选其一：
 | Surge 字段 | 对应 Clash 字段 | 值 |
 |------------|-----------------|------|
 | `dns-server` | `default-nameserver` | `223.5.5.5, 119.29.29.29, system` |
-| `encrypted-dns-server` | `nameserver` + `direct-nameserver` + `fallback` | 国内 DoH（doh.pub / alidns）+ 国外 DoH（1.1.1.1 / 8.8.8.8） |
+| `encrypted-dns-server` | `nameserver` + `direct-nameserver` + `fallback` | 国内 DoH（AliDNS 优先）+ 国外 DoH（1.1.1.1 / 8.8.8.8） |
 | `hijack-dns` | `hijack-dns` | `8.8.8.8:53, 8.8.4.4:53` |
 | `geoip-maxmind-url` | `geox-url.mmdb` | Loyalsoldier Country.mmdb（Surge 专属优势：无需 UI 手动导入）|
 
@@ -239,7 +239,7 @@ Surge 的节点来源有两种方式，任选其一：
 
 ## 九、验证
 
-1. Surge → **首页** → **已启用的配置**：应显示 `Surge Smart v5.4.9-Surge.1`。
+1. Surge → **首页** → **已启用的配置**：应显示 `Surge Smart v5.4.11-Surge.1`。
 2. **策略组** 面板应出现 22 区域 + 32 业务共 54 组（不得少于 50 组）。
 3. 访问以下网站做功能验证：
    - `https://chat.openai.com` → 命中「🤖 AI 服务」

@@ -1,9 +1,9 @@
 const fs = require('fs');
 const vm = require('vm');
 
-const VERSION = 'v5.4.9-sing.1';
-const BUILD = '2026-05-11';
-const BASELINE = 'Clash Party v5.4.9';
+const VERSION = 'v5.4.11-sing.1';
+const BUILD = '2026-05-12';
+const BASELINE = 'Clash Party v5.4.11';
 
 const SMART = {
   GLOBAL: '🌍 全球节点',
@@ -494,7 +494,7 @@ if (baseConfig.dns && Array.isArray(baseConfig.dns.servers)) {
       return { ...server, detour: '🚀 节点选择', address_resolver: 'dns_bootstrap' };
     }
     if (server && server.tag === 'dns_direct') {
-      return { ...server, address_resolver: 'dns_bootstrap' };
+      return { ...server, address: 'udp://223.5.5.5:53', address_resolver: 'dns_bootstrap' };
     }
     return server;
   });

@@ -104,6 +104,7 @@ const COST_AND_LINE_QUALITY_CASES = [
   'HK IPLC 03 x3',
 ];
 const DIRECT_PROCESS_RULES = ['WorkPro.exe', 'GCUService.exe', 'GSCService.exe', 'Weixin.exe', 'WeChat.exe', 'QQ.exe'];
+const RUSTDESK_WORK_PROCESS_RULES = ['RustDesk.exe', 'rustdesk.exe', 'RustDesk', 'rustdesk'];
 const WORK_PROVIDER_RULES = ['remotedesktop', 'acc-rustdesk', 'acc-parsec'];
 
 const CLASSIFICATION_CASES = [
@@ -432,12 +433,26 @@ function validateRulesAndProviders(output, record, target) {
       `local client process stays on DIRECT: ${processName}`,
     );
   }
+  const workGroupTarget = extractRuleTarget(rules.find((rule) => rule.startsWith('RULE-SET,remotedesktop,')));
+  for (const processName of RUSTDESK_WORK_PROCESS_RULES) {
+    record.expect(
+      rules.includes(`PROCESS-NAME,${processName},${workGroupTarget}`),
+      `RustDesk process uses work group instead of broad DIRECT: ${processName}`,
+    );
+  }
   for (const providerName of WORK_PROVIDER_RULES) {
     record.expect(
       rules.includes(`RULE-SET,${providerName},🧑‍💼 会议协作`),
       `remote-work provider stays in the work collaboration group: ${providerName}`,
     );
   }
+  const rustDeskGuardIndex = rules.indexOf('DOMAIN-SUFFIX,rustdesk.com,🧑‍💼 会议协作');
+  const copilotIndex = rules.indexOf('RULE-SET,copilot,🤖 AI 服务');
+  record.expect(rustDeskGuardIndex !== -1, 'RustDesk domain guard exists before broad Copilot ASN rules');
+  record.expect(
+    rustDeskGuardIndex !== -1 && copilotIndex !== -1 && rustDeskGuardIndex < copilotIndex,
+    'RustDesk domain guard is evaluated before RuleSet/copilot',
+  );
 
   if (target.requireTunExcludes) {
     const excludes = output.tun && output.tun['exclude-process'];
@@ -454,6 +469,9 @@ function validateGeneral(output, record) {
   record.expect(output.dns && typeof output.dns === 'object', 'DNS object exists after overwrite');
   record.expectEqual(output.dns['enhanced-mode'], 'fake-ip', 'DNS enhanced-mode defaults to fake-ip');
   record.expect(Array.isArray(output.dns.nameserver) && output.dns.nameserver.length > 0, 'DNS nameserver fallback is nonempty');
+  record.expectArrayEqual(output.dns.nameserver.slice(0, 2), ['223.5.5.5', '119.29.29.29'], 'plain IP DNS is first for bootstrap');
+  record.expectArrayEqual(output.dns['direct-nameserver'], ['223.5.5.5', '119.29.29.29'], 'direct DNS avoids DoH bootstrap dependency');
+  record.expectArrayEqual(output.dns['proxy-server-nameserver'], ['223.5.5.5', '119.29.29.29', '1.1.1.1', '8.8.8.8'], 'proxy server DNS uses IP bootstrap');
   record.expect(output.profile && output.profile['store-selected'] === true, 'profile.store-selected is enabled');
 
   const proxies = proxyByName(output);

@@ -5,6 +5,11 @@
 
 ---
 
+## v5.4.11-cmfa.1 (2026-05-12)
+
+- ✅ FIX#RD-PROC：RustDesk 进程规则从 `DIRECT` 改为 `🧑‍💼 会议协作`，并保留 `DOMAIN-SUFFIX,rustdesk.com` 前置保护
+- ✅ FIX#DNS-BOOTSTRAP：DNS `nameserver` / `direct-nameserver` / `proxy-server-nameserver` 改为 IP-first，避免 DoH 自举死锁
+
 ## v5.4.9-cmfa.1 (2026-05-11)
 
 - ✅ FEAT#LOCAL-TOOLS：同步 Clash Party v5.4.9 的桌面本地工具 `PROCESS-NAME -> DIRECT` 白名单

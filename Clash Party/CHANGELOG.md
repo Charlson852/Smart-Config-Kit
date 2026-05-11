@@ -7,6 +7,14 @@
 
 ---
 
+## v5.4.11 / v5.4.11-normal.1 (2026-05-12)
+
+- ✅ FIX#RD-PROC：RustDesk 不再归入本地工具直连白名单，桌面进程 `RustDesk.exe` / `rustdesk` 统一命中 `🧑‍💼 会议协作`
+  - 修复 `rs-ny.rustdesk.com` 先因 Vultr AS20473 被 `copilot` 规则误吞、后又因本地工具白名单被强制 DIRECT 的双重误路由
+  - `DOMAIN-SUFFIX,rustdesk.com` 保持在 `copilot` 规则前，避免 RustDesk relay/API 域名被 AI 规则抢先命中
+- ✅ FIX#DNS-BOOTSTRAP：DNS 自举改为 IP-first，`nameserver` / `direct-nameserver` / `proxy-server-nameserver` 先用 `223.5.5.5` / `119.29.29.29`
+  - 避免 TUN/fake-ip 场景下 DoH 域名本身无法解析，导致 `doh.pub` / `dns.alidns.com` 全部请求死锁
+
 ## v5.4.9 / v5.4.9-normal.1 (2026-05-11)
 
 - ✅ FEAT#LOCAL-TOOLS：新增桌面本地工具 `PROCESS-NAME -> DIRECT` 白名单

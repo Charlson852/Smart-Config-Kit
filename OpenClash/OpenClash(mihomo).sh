@@ -2,12 +2,12 @@
 . /usr/share/openclash/log.sh
 
 # ============================================================================
-# Clash Smart v5.4.9-oc-normal.1 — OpenClash 覆写脚本（非 Smart 内核 / url-test 区域组）
-# Build: 2026-05-11
+# Clash Smart v5.4.11-oc-normal.1 — OpenClash 覆写脚本（非 Smart 内核 / url-test 区域组）
+# Build: 2026-05-12
 # ============================================================================
 # 定位：与同目录 OpenClash(mihomo-smart).sh 规则 100% 等价的「非 Smart 内核」版本。
 #       两者唯一区别：22 个区域组（11 全部 + 11 家宽）从 type: smart（uselightgbm）换成 type: url-test。
-#       对齐 Clash Party v5.4.9 JS 基线。
+#       对齐 Clash Party v5.4.11 JS 基线。
 #       适用场景：
 #         - OpenClash 内核选的是 Meta(mihomo 稳定版) 而非 Meta Alpha，不支持 smart + LightGBM
 #         - 或者明确想关闭 LightGBM ML 评估、只靠经典 url-test 延迟选路
@@ -19,20 +19,20 @@
 #   • ~990 条 rules
 #   • DNS fake-ip + 嗅探（HTTP/TLS/QUIC）+ nameserver-policy 救援
 #   • Ruby 阶段做：节点过滤 / 区域分类 / url-test 组生成 / TLS 指纹注入
-# 基线：Clash Party v5.4.9（唯一主线；v5.3.1/v5.3.2 为桌面端 PROCESS-NAME 改动，路由器端不适用）── 任何规则/组/DNS 改动必须先改 Clash Party JS，
+# 基线：Clash Party v5.4.11（唯一主线；v5.3.1/v5.3.2 为桌面端 PROCESS-NAME 改动，路由器端不适用）── 任何规则/组/DNS 改动必须先改 Clash Party JS，
 #       再同步到此文件。参见仓库根目录 CLAUDE.md / AGENTS.md。
 # 变更历史：见 `OpenClash/CHANGELOG.md`（Normal 部分）。
 # ============================================================================
 
 
 
-VERSION_TAG="v5.4.9-oc-normal.1"
+VERSION_TAG="v5.4.11-oc-normal.1"
 CONFIG_FILE="$1"
 LOG_FILE="/tmp/openclash.log"
 
 LOG_OUT "Info" "[Clash-Normal] $VERSION_TAG overwrite starting..."
 LOG_OUT "Info" "[Clash-Normal] Processing: $CONFIG_FILE"
-LOG_OUT "Info" "[Clash-Normal] Full-rule build (v5.4.9, 32 business groups, non-Smart kernel)"
+LOG_OUT "Info" "[Clash-Normal] Full-rule build (v5.4.11, 32 business groups, non-Smart kernel)"
 
 # ============================================================================
 # OVERRIDE YAML
@@ -100,16 +100,18 @@ dns:
     - https://cloudflare-dns.com/dns-query
     - https://dns.google/dns-query
   nameserver:
+  - 223.5.5.5
+  - 119.29.29.29
   - https://dns.alidns.com/dns-query
   - https://doh.pub/dns-query
   proxy-server-nameserver:
-  - https://cloudflare-dns.com/dns-query
-  - https://dns.google/dns-query
-  - https://dns.alidns.com/dns-query
-  - https://doh.pub/dns-query
+  - 223.5.5.5
+  - 119.29.29.29
+  - 1.1.1.1
+  - 8.8.8.8
   direct-nameserver:
-  - https://dns.alidns.com/dns-query
-  - https://doh.pub/dns-query
+  - 223.5.5.5
+  - 119.29.29.29
   fallback:
   - https://cloudflare-dns.com/dns-query
   - https://dns.google/dns-query
@@ -3262,10 +3264,11 @@ rules:
 - PROCESS-NAME,ToDesk.exe,DIRECT
 - PROCESS-NAME,ToDesk_Service.exe,DIRECT
 - PROCESS-NAME,ToDesk,DIRECT
-- PROCESS-NAME,RustDesk.exe,DIRECT
-- PROCESS-NAME,rustdesk.exe,DIRECT
-- PROCESS-NAME,RustDesk,DIRECT
-- PROCESS-NAME,rustdesk,DIRECT
+# v5.4.11 FIX#RD-PROC: RustDesk public relay/API 走会议协作；私网地址已由 private 规则直连
+- "PROCESS-NAME,RustDesk.exe,\U0001F9D1‍\U0001F4BC 会议协作"
+- "PROCESS-NAME,rustdesk.exe,\U0001F9D1‍\U0001F4BC 会议协作"
+- "PROCESS-NAME,RustDesk,\U0001F9D1‍\U0001F4BC 会议协作"
+- "PROCESS-NAME,rustdesk,\U0001F9D1‍\U0001F4BC 会议协作"
 - PROCESS-NAME,TeamViewer.exe,DIRECT
 - PROCESS-NAME,TeamViewer_Service.exe,DIRECT
 - PROCESS-NAME,TeamViewer,DIRECT
@@ -3320,6 +3323,8 @@ rules:
 - "RULE-SET,openai,\U0001F916 AI 服务"
 - "RULE-SET,claude,\U0001F916 AI 服务"
 - "RULE-SET,gemini,\U0001F916 AI 服务"
+# v5.4.10 FIX#RD-COPILOT: RustDesk relay 可落到 Copilot.list 的 AS20473，需前置防吞
+- "DOMAIN-SUFFIX,rustdesk.com,\U0001F9D1‍\U0001F4BC 会议协作"
 - "RULE-SET,copilot,\U0001F916 AI 服务"
 - "DOMAIN-SUFFIX,perplexity.ai,\U0001F916 AI 服务"
 - "DOMAIN-SUFFIX,mistral.ai,\U0001F916 AI 服务"
@@ -4287,7 +4292,7 @@ cat > "$RUBY_SCRIPT" << 'RUBY_EOF'
 require 'yaml'
 require 'digest'
 
-VERSION = "v5.4.9-oc-normal.1"
+VERSION = "v5.4.11-oc-normal.1"
 
 STATUS_LOG = "/tmp/clash_normal_status.log"
 File.open(STATUS_LOG, 'w') { |f| f.puts "[#{VERSION}] start" }

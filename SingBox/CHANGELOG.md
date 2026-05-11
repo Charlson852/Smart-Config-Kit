@@ -5,6 +5,12 @@
 
 ---
 
+## v5.4.11-sing.1 (2026-05-12)
+
+- ✅ FIX#RD-PROC：生成器将 RustDesk `process_name` 输出到 `🧑‍💼 会议协作`，不再输出到 `DIRECT`
+- ✅ FIX#RD-DOMAIN：`domain_suffix: rustdesk.com` 保持会议协作兜底
+- ✅ FIX#DNS-BOOTSTRAP：`dns_direct` 改为 `udp://223.5.5.5:53`，Full JSON 已由生成器重新生成（39 rule_set / 697 route rules）
+
 ## v5.4.9-sing.1 (2026-05-11)
 
 - ✅ FEAT#LOCAL-TOOLS：由生成器同步 Clash Party v5.4.9 的桌面本地工具直连白名单

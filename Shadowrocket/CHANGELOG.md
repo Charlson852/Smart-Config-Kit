@@ -6,6 +6,11 @@
 ---
 
 
+## v5.4.11-SR.1 (2026-05-12)
+
+- ✅ FIX#RD-DOMAIN：`rustdesk.com` 继续归入 `🧑‍💼 会议协作`，用于补齐 iOS 无进程匹配能力时的 RustDesk 域名兜底
+- ✅ FIX#DNS-BOOTSTRAP：`dns-server` / `proxy-dns-server` 调整为 IP-first + DoH 兜底，降低首次解析失败概率
+
 ## v5.4.9-SR.1 (2026-05-11)
 
 - ★ META#LOCAL-TOOLS：跟随 Clash Party v5.4.9 基线；本端不启用新增 PROCESS-NAME 直连清单，避免 Shadowrocket iOS / macOS 通用配置里出现不等价或被忽略的进程匹配。

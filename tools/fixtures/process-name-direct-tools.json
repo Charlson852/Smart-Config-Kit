@@ -1,6 +1,9 @@
 {
   "source": "https://github.com/dahaha-365/YaNet/blob/main/Mihomo/global_script.js#L162-L186",
   "policy": "DIRECT",
+  "workPolicyExceptions": [
+    "RustDesk public relay/API endpoints can require proxy routing; private/LAN destinations still hit private-address DIRECT rules before process rules."
+  ],
   "notes": [
     "Use exact process names instead of broad PROCESS-NAME-REGEX patterns.",
     "The list is intended for desktop-capable clients first.",
@@ -26,10 +29,6 @@
     "ToDesk.exe",
     "ToDesk_Service.exe",
     "ToDesk",
-    "RustDesk.exe",
-    "rustdesk.exe",
-    "RustDesk",
-    "rustdesk",
     "TeamViewer.exe",
     "TeamViewer_Service.exe",
     "TeamViewer",
@@ -63,6 +62,12 @@
     "Navicat",
     "Navicat Premium"
   ],
+  "mihomoWorkProcessNames": [
+    "RustDesk.exe",
+    "rustdesk.exe",
+    "RustDesk",
+    "rustdesk"
+  ],
   "surgeMacProcessNames": [
     "Oray",
     "SunloginClient",
@@ -74,8 +79,6 @@
     "tvnserver",
     "AnyDesk",
     "ToDesk",
-    "RustDesk",
-    "rustdesk",
     "TeamViewer",
     "ZeroTier One",
     "zerotier-one",
@@ -92,6 +95,10 @@
     "Navicat",
     "Navicat Premium"
   ],
+  "surgeWorkProcessNames": [
+    "RustDesk",
+    "rustdesk"
+  ],
   "unsupportedOrSkippedArtifacts": {
     "Shadowrocket": "iOS app; no PROCESS-NAME support in this repo path.",
     "Loon": "iOS app in this repo; no desktop artifact to receive process rules.",
@@ -101,4 +108,3 @@
     "v2rayN(xray)": "This exported Xray routing JSON has no process-name field in its maintained schema."
   }
 }
-

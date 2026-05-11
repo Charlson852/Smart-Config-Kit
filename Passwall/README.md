@@ -1,7 +1,7 @@
-# Passwall 使用教程（对齐 Clash Party v5.4.9 简化版）
+# Passwall 使用教程（对齐 Clash Party v5.4.11 简化版）
 
 > 配置参考：`Passwall/` 目录  
-> 版本：**v5.4.9-pw.1**（Build 2026-05-11）
+> 版本：**v5.4.11-pw.1**（Build 2026-05-12）
 > 目标：**[Passwall](https://github.com/Openwrt-Passwall/openwrt-passwall)**（全功能版）—— [`Openwrt-Passwall`](https://github.com/Openwrt-Passwall) 组织（原 `xiaorouji` 个人仓库已迁入）维护。与 [Passwall2](https://github.com/Openwrt-Passwall/openwrt-passwall2)（精简分流版）**并行维护**（非新旧关系），规则语法同源（共用 [shunt_rules.lua](https://github.com/Openwrt-Passwall/openwrt-passwall2/blob/main/luci-app-passwall2/luasrc/model/cbi/passwall2/client/shunt_rules.lua) 解析器），同一份 `.list` 两者通用。  
 > 架构：32 条 shunt rule（展平版，每条对应一个业务类别）+ xray/sing-box 原生域名匹配语法（纯字符串 / `regexp:` / `domain:` / `full:` / `geosite:` / `rule-set:remote|local:` / `geoip:` / CIDR）
 
@@ -11,7 +11,7 @@
 
 | 能力 | Passwall（全功能版，本文档目标） | Passwall2（精简分流版） |
 |---|:-:|:-:|
-| shunt rule 分流 | ✅ 25 条 | ✅ 25 条 |
+| shunt rule 分流 | ✅ 32 条 | ✅ 32 条 |
 | 四列表（直连/屏蔽/GFW/代理） | ✅ 内置 | ❌ 无 |
 | TCP/UDP 节点分开选 | ✅ `tcp_node` + `udp_node` | ❌ 统一 `node` |
 | ACL（按客户端/MAC） | ✅ `acl_rule` | ❌ 无 |
@@ -58,7 +58,7 @@
 
 | 文件 | 适合谁 | 用法 |
 |---|---|---|
-| **`shunt-rules/*.list`**（25 个 `.list` 文件）| 不熟 SSH 的用户 | Passwall LuCI → 分流控制 → 新增 → 把对应 `.list` 里的域名/IP 列表粘贴进字段 |
+| **`shunt-rules/*.list`**（32 个 `.list` 文件）| 不熟 SSH 的用户 | Passwall LuCI → 分流控制 → 新增 → 把对应 `.list` 里的域名/IP 列表粘贴进字段 |
 | **`Passwall(xray+sing-box).conf`**（单文件合并版）| 想一眼看完 32 条规则全貌 | 同上，但全部规则在一个文件里，方便参考对比 |
 | **`Passwall(xray+sing-box)-apply.sh`**（UCI 批量脚本）| 会 SSH 登录路由器的用户 | `scp` 到路由器 → `sh 'Passwall(xray+sing-box)-apply.sh'` → 一次性创建 32 条空节点规则 → 再到 LuCI 逐条指定 `tcp_node` |
 
@@ -92,7 +92,7 @@
 - ❌ **规则多了顺序错乱**：Passwall 按列表顺序匹配，**把"国内网站"/"广告拦截"放最前或最后**，业务规则放中间
 - ❌ **geosite 关键字不识别**：确认 Passwall 的 xray/sing-box 核已下载 `geosite.dat`（LuCI → 全局设置 → 规则资源设置里有个"更新 geosite.dat / geoip.dat"按钮）
 - ❌ **节点换了规则都白写**：这是 Passwall 的固有限制，没办法。想避开就换 OpenClash
-- ❌ **混淆 Passwall 和 Passwall2**：这两款是 [`Openwrt-Passwall`](https://github.com/Openwrt-Passwall) 组织**并行维护**的两款插件（**不是**新旧关系；最新发版仅差 4 天）。Passwall = 全功能（有直连/屏蔽/GFW/代理 4 列表 + 分流 + ACL），Passwall2 = 精简分流（只有 keyword/domain/geosite/geoip 匹配）。**规则语法两者完全相同**（共用 `shunt_rules.lua` 解析器），本目录的 25 个 `.list` 同时适用。
+- ❌ **混淆 Passwall 和 Passwall2**：这两款是 [`Openwrt-Passwall`](https://github.com/Openwrt-Passwall) 组织**并行维护**的两款插件（**不是**新旧关系；最新发版仅差 4 天）。Passwall = 全功能（有直连/屏蔽/GFW/代理 4 列表 + 分流 + ACL），Passwall2 = 精简分流（只有 keyword/domain/geosite/geoip 匹配）。**规则语法两者完全相同**（共用 `shunt_rules.lua` 解析器），本目录的 32 个 `.list` 同时适用。
 - ❌ **tcp_node / udp_node 混用**：Passwall 的 TCP 和 UDP 节点是分开选的。如果你的机场不支持 UDP（如某些 VMess 节点），`udp_node` 要指 direct 或专门的 UDP 节点。
 
 ---
@@ -554,7 +554,7 @@ Passwall 在「代理」标签页提供四列表开关：
 
 **推荐使用方式**：
 - 四列表放"粗粒度"规则（如 `geosite:cn` 直连、`geosite:gfw` 代理）
-- shunt rule 放"细粒度"业务规则（25 条业务分类）
+- shunt rule 放"细粒度"业务规则（32 条业务分类）
 - 两者互补，减少手工维护量
 
 ### TCP/UDP 节点分选

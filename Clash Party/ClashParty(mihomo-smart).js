@@ -1,14 +1,14 @@
 ﻿// Clash Smart 内核覆写脚本 - SUB-STORE 多机场精细分流版
-// 版本：v5.4.9 (2026-05-11)
-// 架构：SUB-STORE 多机场融合 + 22 Smart 区域组（11 全部 + 11 家宽）+ 32 业务策略组（含 14 流媒体平台组）+ 371+ rule-providers 100%+ 服务覆盖
-// v5.4.9: 本地工具 PROCESS-NAME 直连白名单 · v5.4.8: 规则尾段匹配顺序重排
+// 版本：v5.4.11 (2026-05-12)
+// 架构：SUB-STORE 多机场融合 + 22 Smart 区域组（11 全部 + 11 家宽）+ 32 业务策略组（含 14 流媒体平台组）+ 385 rule-providers 100%+ 服务覆盖
+// v5.4.11: RustDesk 进程走会议协作 + DNS 自举抗 DoH 死锁 · v5.4.10: RustDesk relay 防 Copilot AS20473 误吞
 // 变更历史：见 `Clash Party/CHANGELOG.md`
 
 // ================================================================
 //  版本常量
 // ================================================================
 
-const VERSION = 'v5.4.9'
+const VERSION = 'v5.4.11'
 
 // v5.4.9 FEAT#LOCAL-TOOLS:
 // Desktop-capable local tools that should not be routed through proxy nodes.
@@ -34,10 +34,6 @@ const LOCAL_TOOL_DIRECT_PROCESS_NAMES = [
   'ToDesk.exe',
   'ToDesk_Service.exe',
   'ToDesk',
-  'RustDesk.exe',
-  'rustdesk.exe',
-  'RustDesk',
-  'rustdesk',
   'TeamViewer.exe',
   'TeamViewer_Service.exe',
   'TeamViewer',
@@ -70,6 +66,13 @@ const LOCAL_TOOL_DIRECT_PROCESS_NAMES = [
   'Navicat Premium.exe',
   'Navicat',
   'Navicat Premium',
+]
+
+const RUSTDESK_WORK_PROCESS_NAMES = [
+  'RustDesk.exe',
+  'rustdesk.exe',
+  'RustDesk',
+  'rustdesk',
 ]
 
 // ================================================================
@@ -1274,6 +1277,9 @@ function injectRules(config) {
     'PROCESS-NAME,WeChatAppEx.exe,DIRECT',
     'PROCESS-NAME,QQ.exe,DIRECT',
     'PROCESS-NAME,WeChat.exe,DIRECT',
+    // v5.4.11 FIX#RD-PROC: RustDesk public relay/API must not be forced DIRECT;
+    // private/LAN destinations already hit GEOSITE/GEOIP private above.
+    ...RUSTDESK_WORK_PROCESS_NAMES.map(name => `PROCESS-NAME,${name},${BIZ.WORK}`),
     ...LOCAL_TOOL_DIRECT_PROCESS_NAMES.map(name => `PROCESS-NAME,${name},DIRECT`),
     'DST-PORT,26880,DIRECT',
     'DST-PORT,6540,DIRECT',
@@ -1312,6 +1318,9 @@ function injectRules(config) {
     `RULE-SET,openai,${BIZ.AI}`,
     `RULE-SET,claude,${BIZ.AI}`,
     `RULE-SET,gemini,${BIZ.AI}`,
+    // v5.4.10 FIX#RD-COPILOT: Copilot.list contains IP-ASN 20473 (Vultr);
+    // RustDesk public relay nodes such as rs-ny.rustdesk.com can resolve there.
+    `DOMAIN-SUFFIX,rustdesk.com,${BIZ.WORK}`,
     `RULE-SET,copilot,${BIZ.AI}`,
     `DOMAIN-SUFFIX,perplexity.ai,${BIZ.AI}`,
     `DOMAIN-SUFFIX,mistral.ai,${BIZ.AI}`,
@@ -2280,18 +2289,29 @@ function overwriteGeneral(config) {
   // v5.4.1 P2: Hosts DNS 预解析——消除 fake-ip 冷启动循环依赖
   if (!config.hosts) config.hosts = {}
   var dnsHosts = {
-    'dns.alidns.com': ['223.5.5.5', '223.6.6.6', '2400:3200::1', '2400:3200:baba::1'],
-    'doh.pub': ['119.29.29.29', '2402:4e00::', '2402:4e00:1::'],
-    'dns.google': ['8.8.8.8', '8.8.4.4', '2001:4860:4860::8888', '2001:4860:4860::8844'],
-    'cloudflare-dns.com': ['1.1.1.1', '1.0.0.1', '2606:4700:4700::1111', '2606:4700:4700::1001']
+    'dns.alidns.com': ['223.5.5.5', '223.6.6.6'],
+    'doh.pub': ['119.29.29.29'],
+    'dns.google': ['8.8.8.8', '8.8.4.4'],
+    'cloudflare-dns.com': ['1.1.1.1', '1.0.0.1']
   }
   Object.keys(dnsHosts).forEach(function(k) { if (!config.hosts[k]) config.hosts[k] = dnsHosts[k] })
   // v5.4.4 FIX#142: 修复 v5.4.1+ 引入的 DNS 空壳 bug——创建 config.dns 时未提供 nameserver
   //   导致内核跳过默认 DNS，国内网站 DIRECT 连接因 DNS 解析失败而超时
   if (!config.dns) config.dns = {}
   if (!config.dns['enhanced-mode']) config.dns['enhanced-mode'] = 'fake-ip'
-  if (!config.dns.nameserver || !Array.isArray(config.dns.nameserver) || config.dns.nameserver.length === 0) {
-    config.dns.nameserver = ['223.5.5.5', '119.29.29.29']
+  config.dns.ipv6 = false
+  // v5.4.11 FIX#DNS-BOOTSTRAP: DoH-only configs can deadlock in TUN when the DoH
+  // endpoint itself is unreachable. Put plain IP DNS first and keep DoH as optional.
+  var bootstrapDns = ['223.5.5.5', '119.29.29.29', '1.1.1.1', '8.8.8.8']
+  var directDns = ['223.5.5.5', '119.29.29.29']
+  var defaultDoH = ['https://dns.alidns.com/dns-query', 'https://doh.pub/dns-query']
+  var currentNameserver = Array.isArray(config.dns.nameserver) ? config.dns.nameserver : []
+  config.dns.nameserver = uniqList(directDns.concat(currentNameserver.length ? currentNameserver : defaultDoH))
+  config.dns['default-nameserver'] = bootstrapDns.slice()
+  config.dns['direct-nameserver'] = directDns.slice()
+  config.dns['proxy-server-nameserver'] = bootstrapDns.slice()
+  if (!Array.isArray(config.dns.fallback) || config.dns.fallback.length === 0) {
+    config.dns.fallback = ['https://cloudflare-dns.com/dns-query', 'https://dns.google/dns-query']
   }
   // v5.4.1 P0: fake-ip-filter 扩展（Smart 内核不支持 fake-ip-filter-mode: rule，使用传统域名列表）
   config.dns['fake-ip-filter'] = [
@@ -2339,6 +2359,15 @@ function overwriteGeneral(config) {
   var gcuExcludes = ['GCUService.exe', 'GCUBridge.exe', 'WorkPro.exe', 'GSCService.exe', 'gsupservice.exe', 'gchsvc.exe']
   gcuExcludes.forEach(function(proc) {
     if (config.tun['exclude-process'].indexOf(proc) === -1) { config.tun['exclude-process'].push(proc) }
+  })
+}
+
+function uniqList(list) {
+  var seen = {}
+  return list.filter(function(item) {
+    if (!item || seen[item]) return false
+    seen[item] = true
+    return true
   })
 }
 

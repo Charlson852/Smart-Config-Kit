@@ -5,9 +5,9 @@
   },
   "_meta": {
     "name": "SingBox Smart Full",
-    "version": "v5.4.9-sing.1",
-    "build": "2026-05-11",
-    "baseline": "Clash Party v5.4.9",
+    "version": "v5.4.11-sing.1",
+    "build": "2026-05-12",
+    "baseline": "Clash Party v5.4.11",
     "changelog": "见 SingBox/CHANGELOG.md"
   },
   "experimental": {
@@ -25,7 +25,7 @@
       },
       {
         "tag": "dns_direct",
-        "address": "https://dns.alidns.com/dns-query",
+        "address": "udp://223.5.5.5:53",
         "address_resolver": "dns_bootstrap",
         "detour": "DIRECT"
       },
@@ -2011,6 +2011,34 @@
       },
       {
         "process_name": [
+          "RustDesk.exe"
+        ],
+        "action": "route",
+        "outbound": "🧑‍💼 会议协作"
+      },
+      {
+        "process_name": [
+          "rustdesk.exe"
+        ],
+        "action": "route",
+        "outbound": "🧑‍💼 会议协作"
+      },
+      {
+        "process_name": [
+          "RustDesk"
+        ],
+        "action": "route",
+        "outbound": "🧑‍💼 会议协作"
+      },
+      {
+        "process_name": [
+          "rustdesk"
+        ],
+        "action": "route",
+        "outbound": "🧑‍💼 会议协作"
+      },
+      {
+        "process_name": [
           "Oray.exe"
         ],
         "action": "route",
@@ -2138,34 +2166,6 @@
       {
         "process_name": [
           "ToDesk"
-        ],
-        "action": "route",
-        "outbound": "DIRECT"
-      },
-      {
-        "process_name": [
-          "RustDesk.exe"
-        ],
-        "action": "route",
-        "outbound": "DIRECT"
-      },
-      {
-        "process_name": [
-          "rustdesk.exe"
-        ],
-        "action": "route",
-        "outbound": "DIRECT"
-      },
-      {
-        "process_name": [
-          "RustDesk"
-        ],
-        "action": "route",
-        "outbound": "DIRECT"
-      },
-      {
-        "process_name": [
-          "rustdesk"
         ],
         "action": "route",
         "outbound": "DIRECT"
@@ -2575,6 +2575,13 @@
         ],
         "action": "route",
         "outbound": "🤖 AI 服务"
+      },
+      {
+        "domain_suffix": [
+          "rustdesk.com"
+        ],
+        "action": "route",
+        "outbound": "🧑‍💼 会议协作"
       },
       {
         "domain_suffix": [

@@ -1,8 +1,8 @@
 ﻿# ================================================================
-# Clash Smart v5.4.9-cmfa.1 - CMFA (Clash Meta for Android) 配置
-# Build: 2026-05-11
+# Clash Smart v5.4.11-cmfa.1 - CMFA (Clash Meta for Android) 配置
+# Build: 2026-05-12
 # 架构：proxy-providers 订阅 + 22 url-test 区域组（11 全部 + 11 家宽，家宽 filter 新增 IEPL/IPLC/专线识别）+ 32 业务策略组（含 14 流媒体平台组）+ 384+ rule-providers
-# 基线：Clash Party v5.4.9（唯一主线）
+# 基线：Clash Party v5.4.11（唯一主线）
 # 变更历史：见 `Clash Meta For Android/CHANGELOG.md`
 # ================================================================
 # ★ 快速上手：
@@ -86,16 +86,18 @@ dns:
   - 1.1.1.1
   - 8.8.8.8
   nameserver:
+  - 223.5.5.5
+  - 119.29.29.29
   - 'https://dns.alidns.com/dns-query'
   - 'https://doh.pub/dns-query'
   proxy-server-nameserver:
-  - 'https://dns.cloudflare.com/dns-query'
-  - 'https://dns.google/dns-query'
-  - 'https://dns.alidns.com/dns-query'
-  - 'https://doh.pub/dns-query'
+  - 223.5.5.5
+  - 119.29.29.29
+  - 1.1.1.1
+  - 8.8.8.8
   direct-nameserver:
-  - 'https://dns.alidns.com/dns-query'
-  - 'https://doh.pub/dns-query'
+  - 223.5.5.5
+  - 119.29.29.29
   nameserver-policy:
     '+.jsdelivr.net':
     - 'https://cloudflare-dns.com/dns-query'
@@ -3588,10 +3590,11 @@ rules:
 - 'PROCESS-NAME,ToDesk.exe,DIRECT'
 - 'PROCESS-NAME,ToDesk_Service.exe,DIRECT'
 - 'PROCESS-NAME,ToDesk,DIRECT'
-- 'PROCESS-NAME,RustDesk.exe,DIRECT'
-- 'PROCESS-NAME,rustdesk.exe,DIRECT'
-- 'PROCESS-NAME,RustDesk,DIRECT'
-- 'PROCESS-NAME,rustdesk,DIRECT'
+# v5.4.11 FIX#RD-PROC: RustDesk public relay/API 走会议协作；私网地址已由 private 规则直连
+- 'PROCESS-NAME,RustDesk.exe,🧑‍💼 会议协作'
+- 'PROCESS-NAME,rustdesk.exe,🧑‍💼 会议协作'
+- 'PROCESS-NAME,RustDesk,🧑‍💼 会议协作'
+- 'PROCESS-NAME,rustdesk,🧑‍💼 会议协作'
 - 'PROCESS-NAME,TeamViewer.exe,DIRECT'
 - 'PROCESS-NAME,TeamViewer_Service.exe,DIRECT'
 - 'PROCESS-NAME,TeamViewer,DIRECT'
@@ -3649,6 +3652,8 @@ rules:
 - 'RULE-SET,openai,🤖 AI 服务'
 - 'RULE-SET,claude,🤖 AI 服务'
 - 'RULE-SET,gemini,🤖 AI 服务'
+# v5.4.10 FIX#RD-COPILOT: RustDesk relay 可落到 Copilot.list 的 AS20473，需前置防吞
+- 'DOMAIN-SUFFIX,rustdesk.com,🧑‍💼 会议协作'
 - 'RULE-SET,copilot,🤖 AI 服务'
 - 'DOMAIN-SUFFIX,perplexity.ai,🤖 AI 服务'
 - 'DOMAIN-SUFFIX,mistral.ai,🤖 AI 服务'

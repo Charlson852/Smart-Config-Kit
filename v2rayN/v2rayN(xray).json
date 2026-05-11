@@ -2,7 +2,7 @@
     {
       "id": "scki-000-meta",
       "enabled": false,
-      "remarks": "Smart-Config-Kit v5.4.9-v2n.1 | Build 2026-05-11 | Baseline Clash Party v5.4.9 | changelog: v2rayN/CHANGELOG.md",
+      "remarks": "Smart-Config-Kit v5.4.11-v2n.1 | Build 2026-05-12 | Baseline Clash Party v5.4.11 | changelog: v2rayN/CHANGELOG.md",
       "outboundTag": "direct",
       "domain": [
         "domain:smart-config-kit.invalid"
@@ -223,7 +223,7 @@
     {
       "id": "scki-017-work",
       "enabled": true,
-      "remarks": "会议协作 (Zoom / Teams / Slack / Notion / Atlassian) → 代理",
+      "remarks": "会议协作 (Zoom / Teams / Slack / Notion / Atlassian / RustDesk) → 代理",
       "outboundTag": "proxy",
       "domain": [
         "geosite:zoom",
@@ -231,6 +231,7 @@
         "geosite:slack",
         "geosite:notion",
         "geosite:atlassian",
+        "domain:rustdesk.com",
         "domain:meet.google.com"
       ],
       "ip": [],

@@ -5,7 +5,8 @@
 > - Smart 版：`OpenClash(mihomo-smart).sh`（`type: smart` + `uselightgbm`）
 > - Normal 版：`OpenClash(mihomo).sh`（`type: url-test`，非 Smart 内核）
 > - UI 配置快照：`OpenClash(mihomo).conf`（一次性导入推荐 UCI 选项）
-> - `PROCESS-NAME` 本地工具直连清单已语法同步；路由器端通常看不到局域网客户端进程名，主要用于保持 mihomo 规则形态一致。
+> - `PROCESS-NAME` 清单已语法同步；RustDesk 进程改走 `🧑‍💼 会议协作`，路由器端通常看不到局域网客户端进程名，主要用于保持 mihomo 规则形态一致。
+> - v5.4.11 起 DNS 改为 IP-first 自举，避免路由器冷启动时 DoH 域名解析死锁。
 
 ---
 
@@ -28,7 +29,7 @@
 | 适用内核 | Mihomo Smart / Meta Alpha | Mihomo Meta 稳定内核（非 Smart） |
 | 区域组类型 | `type: smart` | `type: url-test` |
 | LightGBM | 支持（`uselightgbm: true`） | 不支持 |
-| 规则覆盖 | 385 providers / 993 rules | 385 providers / 993 rules |
+| 规则覆盖 | 385 providers / 1049 rules | 385 providers / 1049 rules |
 | 业务组数量 | 31 | 31 |
 | 区域组数量 | 18 | 18 |
 | DNS / Sniffer / Rule-Providers | 完全一致 | 完全一致 |
@@ -228,7 +229,7 @@ LuCI → **配置订阅** → 添加订阅链接 → 下载 → **全局设置**
 
 ### Q1：我现在不是 Smart 内核，还能用这套规则吗？
 
-可以。直接用 `OpenClash(mihomo).sh` 即可，规则覆盖（385 providers / 993 rules）与 Smart 版完全一致。
+可以。直接用 `OpenClash(mihomo).sh` 即可，规则覆盖（385 providers / 1049 rules）与 Smart 版完全一致。
 
 ### Q2：我后面升级到 Smart 内核，要重做配置吗？
 

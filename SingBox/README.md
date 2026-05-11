@@ -1,6 +1,6 @@
-# SingBox 使用教程（对齐 Clash Party v5.4.9 Full 语义）
+# SingBox 使用教程（对齐 Clash Party v5.4.11 Full 语义）
 
-> 配置文件：`SingBox/SingBox(sing-box)-full.json`（v5.4.9-sing.1）
+> 配置文件：`SingBox/SingBox(sing-box)-full.json`（v5.4.11-sing.1）
 > 生成脚本：`SingBox/SingBox(sing-box)-generator.js`
 > 目标：在 **sing-box** 上复刻 Clash Party 的「20 区域组（10 全部 + 10 家宽）+ 32 业务组」静态策略结构，并只使用 sing-box 官方可消费的 SRS 规则集，保持 sing-box 1.12/1.13/1.14 官方配置兼容。
 > 本目录只提供 Full 配置。
@@ -125,7 +125,7 @@ sing-box 由 SagerNet 团队开发，是目前**新协议实现最前沿**的代
 2. 将 `SingBox/SingBox(sing-box)-full.json` 导入客户端。
 3. 将文件内 `proxy-xxx` 示例节点替换成你自己的真实节点（trojan/vless/vmess/hysteria2 都可以）。
 
-> 说明：`SingBox(sing-box)-full.json` 已内置 39 个 sing-box SRS remote rule_set 与 641 条路由规则；你只需要替换节点出站即可。
+> 说明：`SingBox(sing-box)-full.json` 已内置 39 个 sing-box SRS remote rule_set 与 697 条路由规则；你只需要替换节点出站即可。
 
 ### 多机场订阅合并
 
@@ -175,7 +175,7 @@ node 'SingBox/SingBox(sing-box)-generator.js'
 
 - 调用 Clash Party 的 `main(config)` 构建完整规则；
 - 同步导出 sing-box `route.rule_set`（39 项，全部为官方 SRS 兼容 remote rule_set）；
-- 同步导出 sing-box `route.rules`（641 条）。
+- 同步导出 sing-box `route.rules`（697 条）。
 > 说明：Clash YAML/list 规则源不能直接作为 sing-box `source` rule-set 使用；生成器只保留可验证的 SRS 来源，避免用户导入后才遇到远程规则下载失败。
 
 ---
@@ -209,7 +209,7 @@ node 'SingBox/SingBox(sing-box)-generator.js'
 | **路由模型** | 53 组嵌套 selector/urltest（业务组 → 区域组 → 节点） | 平面规则匹配（几个 GUI 开关：中国域名 / 中国 IP / 屏蔽广告 / 屏蔽跟踪器 / 屏蔽 QUIC） |
 | **出站 tag** | 中文 emoji 名称（`🐟 漏网之鱼` / `🚫 受限网站` / `🤖 AI 服务` …） | 内置 tag 常量（`proxy` / `bypass` / `block` / `direct`），导入完整配置后 GUI 路由失效 |
 | **rule_set** | 39 个 remote rule_set（SRS 二进制） | **不支持** rule_set；规则只能写内联的 domain/ip/geosite |
-| **DNS** | 手动多层 DNS（`dns_direct` DoH + `dns_proxy` DoH + `dns_final` 兜底） | 自动 split-DNS（"直连 DNS / 远程 DNS"自动切换，由 NB4A 封装而非 sing-box 原生） |
+| **DNS** | 手动多层 DNS（`dns_direct` IP bootstrap + `dns_proxy` DoH + `dns_final` 兜底） | 自动 split-DNS（"直连 DNS / 远程 DNS"自动切换，由 NB4A 封装而非 sing-box 原生） |
 | **配置入口** | 外部 JSON 文件，用户编辑后导入 | GUI 为主，配置存储在 App 内部；自定义 JSON 仅作补丁合并，不作为主配置 |
 
 ### 结论
@@ -240,7 +240,7 @@ node 'SingBox/SingBox(sing-box)-generator.js'
 为贴近 Clash Party 使用教程中的「DNS + Sniffer + GeoX URL」补充项，`SingBox(sing-box)-full.json` 已对应实现：
 
 - **DNS 增强**：
-  - `dns_direct`（dns.alidns.com DoH）用于国内规则集；
+  - `dns_direct`（`udp://223.5.5.5:53`）用于国内规则集与自举，避免 DoH 域名解析死锁；
   - `dns_proxy`（cloudflare-dns.com DoH）用于代理解析；
   - 广告 DNS 规则使用 `action: "reject"` 返回拒绝响应。
 - **嗅探增强**：

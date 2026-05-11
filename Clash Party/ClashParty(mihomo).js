@@ -1,7 +1,7 @@
 ﻿// Clash 覆写脚本 - SUB-STORE 多机场精细分流版
-// 版本：v5.4.9-normal.1 (2026-05-11)
-// 架构：22 url-test 区域组（11 全部 + 11 家宽）+ 32 业务策略组 + 371+ rule-providers
-// 基线：Clash Party v5.4.9（与同目录 ClashParty(mihomo-smart).js 规则 100% 等价，仅区域组从 smart 改为 url-test）
+// 版本：v5.4.11-normal.1 (2026-05-12)
+// 架构：22 url-test 区域组（11 全部 + 11 家宽）+ 32 业务策略组 + 385 rule-providers
+// 基线：Clash Party v5.4.11（与同目录 ClashParty(mihomo-smart).js 规则 100% 等价，仅区域组从 smart 改为 url-test）
 // 适用：Mihomo / Clash.Meta 稳定版内核、不支持 smart + LightGBM 的分支；也适用于想完全关闭 ML 评估的用户
 // 变更历史：见 `Clash Party/CHANGELOG.md`
 
@@ -9,7 +9,7 @@
 //  版本常量
 // ================================================================
 
-const VERSION = 'v5.4.9-normal.1'
+const VERSION = 'v5.4.11-normal.1'
 
 // v5.4.9 FEAT#LOCAL-TOOLS: desktop local-tool direct whitelist.
 const LOCAL_TOOL_DIRECT_PROCESS_NAMES = [
@@ -32,10 +32,6 @@ const LOCAL_TOOL_DIRECT_PROCESS_NAMES = [
   'ToDesk.exe',
   'ToDesk_Service.exe',
   'ToDesk',
-  'RustDesk.exe',
-  'rustdesk.exe',
-  'RustDesk',
-  'rustdesk',
   'TeamViewer.exe',
   'TeamViewer_Service.exe',
   'TeamViewer',
@@ -68,6 +64,13 @@ const LOCAL_TOOL_DIRECT_PROCESS_NAMES = [
   'Navicat Premium.exe',
   'Navicat',
   'Navicat Premium',
+]
+
+const RUSTDESK_WORK_PROCESS_NAMES = [
+  'RustDesk.exe',
+  'rustdesk.exe',
+  'RustDesk',
+  'rustdesk',
 ]
 
 // ================================================================
@@ -1273,6 +1276,9 @@ function injectRules(config) {
     'PROCESS-NAME,WeChatAppEx.exe,DIRECT',
     'PROCESS-NAME,QQ.exe,DIRECT',
     'PROCESS-NAME,WeChat.exe,DIRECT',
+    // v5.4.11 FIX#RD-PROC: RustDesk public relay/API must not be forced DIRECT;
+    // private/LAN destinations already hit GEOSITE/GEOIP private above.
+    ...RUSTDESK_WORK_PROCESS_NAMES.map(name => `PROCESS-NAME,${name},${BIZ.WORK}`),
     ...LOCAL_TOOL_DIRECT_PROCESS_NAMES.map(name => `PROCESS-NAME,${name},DIRECT`),
     'DST-PORT,26880,DIRECT',
     'DST-PORT,6540,DIRECT',
@@ -1311,6 +1317,9 @@ function injectRules(config) {
     `RULE-SET,openai,${BIZ.AI}`,
     `RULE-SET,claude,${BIZ.AI}`,
     `RULE-SET,gemini,${BIZ.AI}`,
+    // v5.4.10 FIX#RD-COPILOT: Copilot.list contains IP-ASN 20473 (Vultr);
+    // RustDesk public relay nodes such as rs-ny.rustdesk.com can resolve there.
+    `DOMAIN-SUFFIX,rustdesk.com,${BIZ.WORK}`,
     `RULE-SET,copilot,${BIZ.AI}`,
     `DOMAIN-SUFFIX,perplexity.ai,${BIZ.AI}`,
     `DOMAIN-SUFFIX,mistral.ai,${BIZ.AI}`,
@@ -2260,8 +2269,18 @@ function overwriteGeneral(config) {
   //   导致内核跳过默认 DNS，国内网站 DIRECT 连接因 DNS 解析失败而超时
   if (!config.dns) config.dns = {}
   if (!config.dns['enhanced-mode']) config.dns['enhanced-mode'] = 'fake-ip'
-  if (!config.dns.nameserver || !Array.isArray(config.dns.nameserver) || config.dns.nameserver.length === 0) {
-    config.dns.nameserver = ['223.5.5.5', '119.29.29.29']
+  config.dns.ipv6 = false
+  // v5.4.11 FIX#DNS-BOOTSTRAP: put plain IP DNS first to avoid DoH self-dependency.
+  var bootstrapDns = ['223.5.5.5', '119.29.29.29', '1.1.1.1', '8.8.8.8']
+  var directDns = ['223.5.5.5', '119.29.29.29']
+  var defaultDoH = ['https://dns.alidns.com/dns-query', 'https://doh.pub/dns-query']
+  var currentNameserver = Array.isArray(config.dns.nameserver) ? config.dns.nameserver : []
+  config.dns.nameserver = uniqList(directDns.concat(currentNameserver.length ? currentNameserver : defaultDoH))
+  config.dns['default-nameserver'] = bootstrapDns.slice()
+  config.dns['direct-nameserver'] = directDns.slice()
+  config.dns['proxy-server-nameserver'] = bootstrapDns.slice()
+  if (!Array.isArray(config.dns.fallback) || config.dns.fallback.length === 0) {
+    config.dns.fallback = ['https://cloudflare-dns.com/dns-query', 'https://dns.google/dns-query']
   }
   // v5.4.1 P0+P2: fake-ip-filter 扩展 + Hosts DNS 预解析
   config.dns['fake-ip-filter'] = ['+.lan','+.local','time.*.com','ntp.*.com','+.market.xiaomi.com','+.localdomain','+.home.arpa','+.stun.*.*','+.ntp.org','+.pool.ntp.org','+.n.n.srv.nintendo.net','+.stun.playstation.net','+.xboxlive.com','stun.l.google.com','auth.docker.io','registry-1.docker.io','index.docker.io','hub.docker.com','production.cloudflare.docker.com','+.push.apple.com','+.pub.3gppnetwork.org','+.bing.com','+.miwifi.com']
@@ -2295,6 +2314,15 @@ function overwriteGeneral(config) {
   var gcuExcludes = ['GCUService.exe', 'GCUBridge.exe', 'WorkPro.exe', 'GSCService.exe', 'gsupservice.exe', 'gchsvc.exe']
   gcuExcludes.forEach(function(proc) {
     if (config.tun['exclude-process'].indexOf(proc) === -1) { config.tun['exclude-process'].push(proc) }
+  })
+}
+
+function uniqList(list) {
+  var seen = {}
+  return list.filter(function(item) {
+    if (!item || seen[item]) return false
+    seen[item] = true
+    return true
   })
 }
 

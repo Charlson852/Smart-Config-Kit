@@ -10,6 +10,7 @@
 - PC / 桌面端优先：Windows 使用 `.exe`，macOS / Linux 使用无扩展名进程名。
 - 移动端包名暂不进入主规则，除非对应客户端路径已验证不会导入报错且确实能匹配。
 - 路由器端 Passwall / Passwall2 不承载本清单，因为它们看不到局域网客户端进程名。
+- RustDesk 是例外：公网 relay/API 需要走 `🧑‍💼 会议协作`，不再进入 `DIRECT` 白名单；局域网/私有 IP 连接仍由私有地址规则直连。
 
 ## 官方兼容依据
 
@@ -21,12 +22,12 @@
 
 | 产物 | 同步方式 | 说明 |
 | --- | --- | --- |
-| Clash Party / Mihomo Party / Clash Verge Rev | `PROCESS-NAME,<name>,DIRECT` | 桌面端主承载 |
-| FlClash | `PROCESS-NAME,<name>,DIRECT` | Windows/macOS/Linux 可命中；Android 不依赖本清单 |
-| CMFA YAML / ClashMi | `PROCESS-NAME,<name>,DIRECT` | Android 导入不报错；桌面 ClashMi 可命中 |
+| Clash Party / Mihomo Party / Clash Verge Rev | `PROCESS-NAME,<name>,DIRECT` + RustDesk → `🧑‍💼 会议协作` | 桌面端主承载 |
+| FlClash | `PROCESS-NAME,<name>,DIRECT` + RustDesk → `🧑‍💼 会议协作` | Windows/macOS/Linux 可命中；Android 不依赖本清单 |
+| CMFA YAML / ClashMi | `PROCESS-NAME,<name>,DIRECT` + RustDesk → `🧑‍💼 会议协作` | Android 导入不报错；桌面 ClashMi 可命中 |
 | OpenClash Normal / Smart | 语法同步 | 路由器端通常无实际命中，仅保持规则形态一致 |
-| sing-box Full | 生成器转换为 `process_name` | 仅 Linux / Windows / macOS 支持进程名匹配 |
-| Surge | `PROCESS-NAME,<name>,DIRECT` | Surge Mac 可命中；Surge iOS 会忽略进程规则 |
+| sing-box Full | 生成器转换为 `process_name` | 本地工具输出 `DIRECT`；RustDesk 输出 `🧑‍💼 会议协作` |
+| Surge | `PROCESS-NAME,<name>,DIRECT` + RustDesk → `🧑‍💼 会议协作` | Surge Mac 可命中；Surge iOS 会忽略进程规则 |
 
 ## 未同步为主规则的产物
 
@@ -46,6 +47,7 @@
 验证脚本会检查：
 
 - Mihomo 系桌面清单是否进入 Clash Party / FlClash / CMFA / OpenClash；
+- RustDesk 进程是否进入 `🧑‍💼 会议协作` 而非 `DIRECT`；
 - Surge Mac 清单是否进入 Surge；
-- SingBox Full 是否由生成器输出 `process_name -> DIRECT`；
+- SingBox Full 是否由生成器输出本地工具 `process_name -> DIRECT` 与 RustDesk `process_name -> 🧑‍💼 会议协作`；
 - Shadowrocket / Loon / QX / v2rayN 是否没有误加入主动进程规则。

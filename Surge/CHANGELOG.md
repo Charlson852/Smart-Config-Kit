@@ -4,6 +4,12 @@
 
 ---
 
+## v5.4.11-Surge.1 (2026-05-12)
+
+- ✅ FIX#RD-PROC：Surge Mac 的 RustDesk `PROCESS-NAME` 规则改走 `🧑‍💼 会议协作`，不再强制 DIRECT
+- ✅ FIX#RD-DOMAIN：`rustdesk.com` 域名规则保持在 Copilot 前，避免宽 ASN 规则误吞 RustDesk relay
+- ✅ FIX#DNS-BOOTSTRAP：国内 DoH 顺序调整为 AliDNS 优先，与 IP-first 平台的自举语义保持一致
+
 ## v5.4.9-Surge.1 (2026-05-11)
 
 - ✅ FEAT#LOCAL-TOOLS：新增 Surge Mac 本地工具 `PROCESS-NAME -> DIRECT` 白名单

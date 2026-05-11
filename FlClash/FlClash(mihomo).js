@@ -1,7 +1,7 @@
 ﻿// FlClash 覆写脚本 — 标准 Mihomo 内核动态分流版
-// 版本：v5.4.9-flclash.1 (2026-05-11)
-// 架构：22 url-test 区域组（11 全部 + 11 家宽）+ 32 业务策略组（含 14 流媒体平台组）+ 371+ rule-providers 100%+ 服务覆盖
-// 基线：Clash Party Normal v5.4.9-normal.1（规则 100% 等价；区域组为 url-test — FlClash 内核为标准 Mihomo，不支持 smart + LightGBM）
+// 版本：v5.4.11-flclash.1 (2026-05-12)
+// 架构：22 url-test 区域组（11 全部 + 11 家宽）+ 32 业务策略组（含 14 流媒体平台组）+ 385 rule-providers 100%+ 服务覆盖
+// 基线：Clash Party Normal v5.4.11-normal.1（规则 100% 等价；区域组为 url-test — FlClash 内核为标准 Mihomo，不支持 smart + LightGBM）
 // 适用：FlClash >= v0.8.85（覆盖脚本功能自该版本引入）；其他使用标准 Mihomo 内核的客户端
 // 变更历史：见 `FlClash/CHANGELOG.md`
 //
@@ -35,7 +35,7 @@
 //  版本常量
 // ================================================================
 
-const VERSION = 'v5.4.9-flclash.1'
+const VERSION = 'v5.4.11-flclash.1'
 
 // v5.4.9 FEAT#LOCAL-TOOLS: desktop local-tool direct whitelist.
 const LOCAL_TOOL_DIRECT_PROCESS_NAMES = [
@@ -58,10 +58,6 @@ const LOCAL_TOOL_DIRECT_PROCESS_NAMES = [
   'ToDesk.exe',
   'ToDesk_Service.exe',
   'ToDesk',
-  'RustDesk.exe',
-  'rustdesk.exe',
-  'RustDesk',
-  'rustdesk',
   'TeamViewer.exe',
   'TeamViewer_Service.exe',
   'TeamViewer',
@@ -94,6 +90,13 @@ const LOCAL_TOOL_DIRECT_PROCESS_NAMES = [
   'Navicat Premium.exe',
   'Navicat',
   'Navicat Premium',
+]
+
+const RUSTDESK_WORK_PROCESS_NAMES = [
+  'RustDesk.exe',
+  'rustdesk.exe',
+  'RustDesk',
+  'rustdesk',
 ]
 
 // FlClash JS 引擎环境兼容：QuickJS 可能不提供 console，安全包装
@@ -1297,6 +1300,9 @@ function injectRules(config) {
     'PROCESS-NAME,WeChatAppEx.exe,DIRECT',
     'PROCESS-NAME,QQ.exe,DIRECT',
     'PROCESS-NAME,WeChat.exe,DIRECT',
+    // v5.4.11 FIX#RD-PROC: RustDesk public relay/API must not be forced DIRECT;
+    // private/LAN destinations already hit GEOSITE/GEOIP private above.
+    ...RUSTDESK_WORK_PROCESS_NAMES.map(name => `PROCESS-NAME,${name},${BIZ.WORK}`),
     ...LOCAL_TOOL_DIRECT_PROCESS_NAMES.map(name => `PROCESS-NAME,${name},DIRECT`),
     'DST-PORT,26880,DIRECT',
     'DST-PORT,6540,DIRECT',
@@ -1335,6 +1341,9 @@ function injectRules(config) {
     `RULE-SET,openai,${BIZ.AI}`,
     `RULE-SET,claude,${BIZ.AI}`,
     `RULE-SET,gemini,${BIZ.AI}`,
+    // v5.4.10 FIX#RD-COPILOT: Copilot.list contains IP-ASN 20473 (Vultr);
+    // RustDesk public relay nodes such as rs-ny.rustdesk.com can resolve there.
+    `DOMAIN-SUFFIX,rustdesk.com,${BIZ.WORK}`,
     `RULE-SET,copilot,${BIZ.AI}`,
     `DOMAIN-SUFFIX,perplexity.ai,${BIZ.AI}`,
     `DOMAIN-SUFFIX,mistral.ai,${BIZ.AI}`,
@@ -2290,16 +2299,34 @@ function overwriteGeneral(config) {
   config['keep-alive-interval'] = 15
   // FlClash: 端口/TUN/GeoX 由 App UI 管理，脚本不覆写。
   //   - 外部资源（GeoX URL）：见 FlClash/README.md §必改配置
-  //   - DNS：注入安全兜底 nameserver（仅当 App UI 未配置时），避免空 DNS 超时
+  //   - DNS：IP DNS 前置，避免 App UI / 订阅给 DoH-only 配置时自举超时
   if (!config.dns) config.dns = {}
   if (!config.dns['enhanced-mode']) config.dns['enhanced-mode'] = 'fake-ip'
-  if (!config.dns.nameserver || !Array.isArray(config.dns.nameserver) || config.dns.nameserver.length === 0) {
-    config.dns.nameserver = ['223.5.5.5', '119.29.29.29']
+  config.dns.ipv6 = false
+  var directDns = ['223.5.5.5', '119.29.29.29']
+  var bootstrapDns = ['223.5.5.5', '119.29.29.29', '1.1.1.1', '8.8.8.8']
+  var defaultDoH = ['https://dns.alidns.com/dns-query', 'https://doh.pub/dns-query']
+  var currentNameserver = Array.isArray(config.dns.nameserver) ? config.dns.nameserver : []
+  config.dns.nameserver = uniqList(directDns.concat(currentNameserver.length ? currentNameserver : defaultDoH))
+  config.dns['default-nameserver'] = bootstrapDns.slice()
+  config.dns['direct-nameserver'] = directDns.slice()
+  config.dns['proxy-server-nameserver'] = bootstrapDns.slice()
+  if (!Array.isArray(config.dns.fallback) || config.dns.fallback.length === 0) {
+    config.dns.fallback = ['https://cloudflare-dns.com/dns-query', 'https://dns.google/dns-query']
   }
   if (!config.profile) config.profile = {}
   config.profile['store-selected'] = true
   config.profile['store-fake-ip'] = true
   config.profile['tracing'] = true
+}
+
+function uniqList(list) {
+  var seen = {}
+  return list.filter(function(item) {
+    if (!item || seen[item]) return false
+    seen[item] = true
+    return true
+  })
 }
 // ================================================================
 //  模块 J：清理订阅自带的旧组和旧规则

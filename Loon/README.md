@@ -1,7 +1,7 @@
-# Loon 使用教程（对齐 Clash Party v5.4.9）
+# Loon 使用教程（对齐 Clash Party v5.4.11）
 
 > 配置文件：`Loon/Loon.conf`
-> 版本：**v5.4.9-Loon.1**（Build 2026-05-11，详见 `Loon/CHANGELOG.md`）
+> 版本：**v5.4.11-Loon.1**（Build 2026-05-12，详见 `Loon/CHANGELOG.md`；RustDesk 域名兜底走会议协作，DoH 顺序 AliDNS 优先）
 > 目标：**Loon iOS（App Store 付费正版）**
 > 架构：22 区域 url-test 组（11 全部 + 11 家宽，[Remote Filter] NameRegex）+ 32 业务策略组 + 288 [Remote Rule] 订阅规则集
 
@@ -157,7 +157,7 @@ Loon 的节点来源：
 | Loon 字段 | 值 | 说明 |
 |-----------|------|------|
 | `dns-server` | `system, 223.5.5.5, 119.29.29.29` | ⚠️ Loon 的 `dns-server` **仅接受** `system` 与纯 IP，**不接受** DoH URL |
-| `doh-server` | `doh.pub / alidns / 1.1.1.1 / 8.8.8.8` | DoH URL **必须**放这里，不能塞进 dns-server |
+| `doh-server` | `alidns / doh.pub / 1.1.1.1 / 8.8.8.8` | DoH URL **必须**放这里，不能塞进 dns-server |
 | `ipv6` | `true` | Loon 字段名是 `ipv6`，不是 `ipv6-enabled` |
 | `udp-fallback-mode` | `REJECT` | Loon 对应 Surge 的 `udp-policy-not-supported-behaviour` |
 | `disable-udp-ports` | `443` | 对应 Surge 的 `block-quic`（封 HTTP/3） |

@@ -7,6 +7,11 @@
 
 ---
 
+## v5.4.11-oc-normal.1 / v5.4.11-oc-smart.1 (2026-05-12)
+
+- ✅ FIX#RD-PROC：RustDesk 进程规则从 `DIRECT` 改为 `🧑‍💼 会议协作`，`rustdesk.com` 域名保护继续前置于 Copilot 规则
+- ✅ FIX#DNS-BOOTSTRAP：heredoc YAML 的 DNS 服务器改为 IP-first，避免路由器冷启动时 DoH 自举失败
+
 ## v5.4.9-oc-normal.1 / v5.4.9-oc-smart.1 (2026-05-11)
 
 - ✅ FEAT#LOCAL-TOOLS：语法同步 Clash Party v5.4.9 的桌面本地工具 `PROCESS-NAME -> DIRECT` 白名单

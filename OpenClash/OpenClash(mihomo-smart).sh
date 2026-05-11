@@ -2,10 +2,10 @@
 . /usr/share/openclash/log.sh
 
 # ============================================================================
-# Clash Smart v5.4.9-oc-smart.1 — OpenClash 覆写脚本（与 Clash Party 主线同等规则量）
-# Build: 2026-05-11
+# Clash Smart v5.4.11-oc-smart.1 — OpenClash 覆写脚本（与 Clash Party 主线同等规则量）
+# Build: 2026-05-12
 # ============================================================================
-# 定位：对齐 Clash Party v5.4.9 JS 主线的 OpenClash 全量版本。v5.4.2: P0-FIX#41 小米白名单。
+# 定位：对齐 Clash Party v5.4.11 JS 主线的 OpenClash 全量版本。v5.4.2: P0-FIX#41 小米白名单。
 #       与同目录 OpenClash(mihomo).sh（Normal）互补：
 #         - Normal 面向稳定版 mihomo / 经典 url-test
 #         - full  面向 4GB+ 路由器 / 需要与 Clash Party 桌面端一致的细粒度分流
@@ -16,14 +16,14 @@
 #   • ~990 条 rules
 #   • DNS fake-ip + 嗅探（HTTP/TLS/QUIC）+ nameserver-policy 救援
 #   • Ruby 阶段做：节点过滤 / 区域分类 / Smart 组生成 / TLS 指纹注入
-# 基线：Clash Party v5.4.9（唯一主线；v5.3.1/v5.3.2 为桌面端 PROCESS-NAME 改动，路由器端不适用）── 任何规则/组/DNS 改动必须先改 Clash Party JS，
+# 基线：Clash Party v5.4.11（唯一主线；v5.3.1/v5.3.2 为桌面端 PROCESS-NAME 改动，路由器端不适用）── 任何规则/组/DNS 改动必须先改 Clash Party JS，
 #       再同步到此文件。参见仓库根目录 CLAUDE.md / AGENTS.md。
 # 变更历史：见 `OpenClash/CHANGELOG.md`（Full 部分）。
 # ============================================================================
 
 
 
-VERSION_TAG="v5.4.9-oc-smart.1"
+VERSION_TAG="v5.4.11-oc-smart.1"
 CONFIG_FILE="$1"
 LOG_FILE="/tmp/openclash.log"
 
@@ -97,16 +97,18 @@ dns:
     - https://cloudflare-dns.com/dns-query
     - https://dns.google/dns-query
   nameserver:
+  - 223.5.5.5
+  - 119.29.29.29
   - https://dns.alidns.com/dns-query
   - https://doh.pub/dns-query
   proxy-server-nameserver:
-  - https://cloudflare-dns.com/dns-query
-  - https://dns.google/dns-query
-  - https://dns.alidns.com/dns-query
-  - https://doh.pub/dns-query
+  - 223.5.5.5
+  - 119.29.29.29
+  - 1.1.1.1
+  - 8.8.8.8
   direct-nameserver:
-  - https://dns.alidns.com/dns-query
-  - https://doh.pub/dns-query
+  - 223.5.5.5
+  - 119.29.29.29
   fallback:
   - https://cloudflare-dns.com/dns-query
   - https://dns.google/dns-query
@@ -3259,10 +3261,11 @@ rules:
 - PROCESS-NAME,ToDesk.exe,DIRECT
 - PROCESS-NAME,ToDesk_Service.exe,DIRECT
 - PROCESS-NAME,ToDesk,DIRECT
-- PROCESS-NAME,RustDesk.exe,DIRECT
-- PROCESS-NAME,rustdesk.exe,DIRECT
-- PROCESS-NAME,RustDesk,DIRECT
-- PROCESS-NAME,rustdesk,DIRECT
+# v5.4.11 FIX#RD-PROC: RustDesk public relay/API 走会议协作；私网地址已由 private 规则直连
+- "PROCESS-NAME,RustDesk.exe,\U0001F9D1‍\U0001F4BC 会议协作"
+- "PROCESS-NAME,rustdesk.exe,\U0001F9D1‍\U0001F4BC 会议协作"
+- "PROCESS-NAME,RustDesk,\U0001F9D1‍\U0001F4BC 会议协作"
+- "PROCESS-NAME,rustdesk,\U0001F9D1‍\U0001F4BC 会议协作"
 - PROCESS-NAME,TeamViewer.exe,DIRECT
 - PROCESS-NAME,TeamViewer_Service.exe,DIRECT
 - PROCESS-NAME,TeamViewer,DIRECT
@@ -3317,6 +3320,8 @@ rules:
 - "RULE-SET,openai,\U0001F916 AI 服务"
 - "RULE-SET,claude,\U0001F916 AI 服务"
 - "RULE-SET,gemini,\U0001F916 AI 服务"
+# v5.4.10 FIX#RD-COPILOT: RustDesk relay 可落到 Copilot.list 的 AS20473，需前置防吞
+- "DOMAIN-SUFFIX,rustdesk.com,\U0001F9D1‍\U0001F4BC 会议协作"
 - "RULE-SET,copilot,\U0001F916 AI 服务"
 - "DOMAIN-SUFFIX,perplexity.ai,\U0001F916 AI 服务"
 - "DOMAIN-SUFFIX,mistral.ai,\U0001F916 AI 服务"
@@ -4284,7 +4289,7 @@ cat > "$RUBY_SCRIPT" << 'RUBY_EOF'
 require 'yaml'
 require 'digest'
 
-VERSION = "v5.4.9-oc-smart.1"
+VERSION = "v5.4.11-oc-smart.1"
 
 STATUS_LOG = "/tmp/clash_smart_status.log"
 File.open(STATUS_LOG, 'w') { |f| f.puts "[#{VERSION}] start" }

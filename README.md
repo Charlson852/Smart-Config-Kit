@@ -74,7 +74,7 @@ flowchart LR
 | 🏦 金融支付 | `paypal` `stripe` `visa` `tigerfintech` `acc-bank-*` `acc-vf-*` | blackmatrix7 / Accademia |
 | 💬 即时通讯 | `telegram` `telegram-ip` `discord` `whatsapp` `line` `kakaotalk` `acc-signal` | MetaCubeX / blackmatrix7 / Accademia |
 | 📱 社交媒体 | `twitter` `twitter-ip` `tiktok` `facebook` `instagram` `snapchat` `reddit` | MetaCubeX / blackmatrix7 |
-| 🧑‍💼 会议协作 | `zoom` `slack` `teams` `atlassian` `notion` `remotedesktop` `acc-rustdesk` | ACL4SSR / blackmatrix7 / Accademia |
+| 🧑‍💼 会议协作 | `zoom` `slack` `teams` `atlassian` `notion` `remotedesktop` `acc-rustdesk` `domain-suffix:rustdesk.com` | ACL4SSR / blackmatrix7 / Accademia |
 | 📺 国内流媒体 | `bilibili` `iqiyi` `youku` `tencentvideo` `douyin` `neteasemusic` | blackmatrix7 |
 | 🎵 TikTok | `tiktok` | MetaCubeX |
 | 🎥 Netflix | `netflix` `netflix-ip` `szkane-netflixip` | MetaCubeX / szkane |
@@ -101,6 +101,8 @@ flowchart LR
 | 🌐 国外网站 | `proxy` `cnn` `nytimes` `bloomberg` `ebay` `wikipedia` `acc-waybackmachine` `mail` `protonmail` `cloudflare` `fastly` `akamai` | blackmatrix7 / Accademia / szkane / MetaCubeX |
 | 🐟 漏网之鱼 | 以 GEOSITE/GEOIP/FINAL 兜底为主（非单一固定 provider） | MetaCubeX（geo 规则） |
 | 🛑 广告拦截 | `anti-ad` `sukka-phishing` `hagezi-tif` `advertising` `privacy` `acc-unsupportvpn` | DustinWin / SukkaW / Hagezi / blackmatrix7 / Accademia |
+
+> v5.4.11 起，RustDesk 从本地工具直连白名单中移出：公网 relay/API 统一按 `🧑‍💼 会议协作` 走代理链路，避免 `rs-*.rustdesk.com` 因 Vultr AS20473 被 Copilot 规则误吞，或被强制 DIRECT 后连接超时。
 
 ---
 
@@ -381,7 +383,7 @@ tcpdump -n -i any port 443       # 应看到持续流量 → DoH 正常
 
 - **ShellClash**（`juewuy/ShellCrash`，mihomo 核）→ 用 **CMFA 列** 的 `CMFA(mihomo).yaml`
 - **HomeProxy**（sing-box 官方 LuCI 插件，sing-box 核）→ 用 **sing-box 列** 的 `SingBox(sing-box)-full.json`
-- **Passwall / Passwall2**（[`Openwrt-Passwall`](https://github.com/Openwrt-Passwall) 组织并行维护的两款插件——原 `xiaorouji` 个人仓库已迁入该组织，xray + sing-box 双栈，都**不打包** mihomo，都**没有 proxy-groups 嵌套**）→ 首选**迁移到 OpenClash** 拿完整能力；或保留插件用本仓库 `Passwall2/` 目录的 **25 条 shunt rule 展平参考**（同一份 `.list` Passwall 与 Passwall2 通用，规则语法共用 `shunt_rules.lua`）
+- **Passwall / Passwall2**（[`Openwrt-Passwall`](https://github.com/Openwrt-Passwall) 组织并行维护的两款插件——原 `xiaorouji` 个人仓库已迁入该组织，xray + sing-box 双栈，都**不打包** mihomo，都**没有 proxy-groups 嵌套**）→ 首选**迁移到 OpenClash** 拿完整能力；或保留插件用本仓库 `Passwall2/` 目录的 **32 条 shunt rule 展平参考**（同一份 `.list` Passwall 与 Passwall2 通用，规则语法共用 `shunt_rules.lua`）
 - **SSR Plus+**（已停更 + 无 geosite / rule_set 层）→ 直接换 **OpenClash**
 - **Happ**（[Flyfrog LLC](https://www.happ.su)，Xray-core 内核，跨平台）→ Happ 支持导入标准 Xray JSON（原始模式直通内核），可直接加载 `v2rayN/v2rayN(xray).json` 获得 Direct/Proxy/Block 三级分流；或使用 Happ 自带路由生成器 <https://routing.happ.su> 创建等价路由 Profile。Happ 的路由只有三出站，**不能**表达最多 53 组嵌套策略体系，想要完整体验请换 mihomo 系客户端。详见 `v2rayN/README.md`。
 

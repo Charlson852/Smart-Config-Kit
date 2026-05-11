@@ -7,6 +7,11 @@
 ---
 
 
+## v5.4.11-QX.1 (2026-05-12)
+
+- ✅ FIX#RD-DOMAIN：保留 `rustdesk.com` 会议协作域名兜底，移动端无进程匹配时仍避免 Copilot 宽规则误吞
+- ✅ FIX#DNS-BOOTSTRAP：普通 DNS 继续使用 IP 字段，DoH 顺序调整为 AliDNS 优先；内联规则数更新为 568
+
 ## v5.4.9-QX.1 (2026-05-11)
 
 - ★ META#LOCAL-TOOLS：跟随 Clash Party v5.4.9 基线；Quantumult X 为 iOS 端产物，本轮不写入 PROCESS-NAME 规则，避免引入不被其配置结构消费的桌面进程名。

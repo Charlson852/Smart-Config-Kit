@@ -8,6 +8,11 @@
 ---
 
 
+## v5.4.11-v2n.1 (2026-05-12)
+
+- ✅ FIX#RD-DOMAIN：Xray 路由 JSON 的会议协作规则补充 `domain:rustdesk.com`，避免 RustDesk relay/API 落入 AI/Copilot 或 FINAL
+- ℹ️ PROCESS-NAME 不适用：v2rayN Xray 路由导入文件仍只维护域名/IP/端口规则
+
 ## v5.4.9-v2n.1 (2026-05-11)
 
 - ★ META#LOCAL-TOOLS：跟随 Clash Party v5.4.9 基线；Xray routing JSON 没有与 mihomo PROCESS-NAME 等价的通用进程规则字段，本轮仅更新 `_meta.remarks`。

@@ -5,6 +5,11 @@
 
 ---
 
+## v5.4.11-flclash.1 (2026-05-12)
+
+- ✅ FIX#RD-PROC：RustDesk 进程规则从本地工具 `DIRECT` 白名单移出，改走 `🧑‍💼 会议协作`
+- ✅ FIX#DNS-BOOTSTRAP：内置 DNS 示例与脚本输出均改为 IP-first，降低 DoH 域名解析死锁概率
+
 ## v5.4.9-flclash.1 (2026-05-11)
 
 - ✅ FEAT#LOCAL-TOOLS：跟随 Clash Party v5.4.9 新增桌面本地工具 `PROCESS-NAME -> DIRECT` 白名单
