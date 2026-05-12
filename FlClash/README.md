@@ -3,7 +3,7 @@
 > 覆写脚本：`FlClash(mihomo).js`
 > 适用客户端：**FlClash**（Android / Windows / macOS / Linux）
 > 内核要求：FlClash >= **v0.8.85**
-> 当前版本：**v5.4.12-flclash.1**（22 url-test 区域组 + 32 业务策略组；RustDesk 走会议协作并在 fake-ip-filter 中真实 IP 回应，DNS IP-first 自举）
+> 当前版本：**v5.4.12-flclash.2**（22 url-test 区域组 + 32 业务策略组；RustDesk 走会议协作并在 fake-ip-filter 中真实 IP 回应，DNS IP-first 自举）
 
 <table><tr>
 <td><img width="160" alt="FlClash 截图1" src="https://github.com/user-attachments/assets/e88e0724-2bc0-4111-851e-e8aa0a9141d3"></td>
@@ -29,10 +29,12 @@
 1. FlClash → 底部「配置」→ 顶部 **「覆写脚本」**
 2. 点右上角 **+**
 3. 输入名称（如 `Smart分流`），选择加载方式：
-   - **URL**：填入 `https://raw.githubusercontent.com/IvanSolis1989/Smart-Config-Kit/main/FlClash/FlClash(mihomo).js`
-   - **jsdelivr CDN**（国内更快）：`https://cdn.jsdelivr.net/gh/IvanSolis1989/Smart-Config-Kit@main/FlClash/FlClash(mihomo).js`
-   - **粘贴**：浏览器打开 GitHub 链接，全选复制粘贴
+   - **URL**：填入 `https://raw.githubusercontent.com/IvanSolis1989/Smart-Config-Kit/main/FlClash/FlClash%28mihomo%29.js`
+   - **jsdelivr CDN**（国内更快）：`https://cdn.jsdelivr.net/gh/IvanSolis1989/Smart-Config-Kit@main/FlClash/FlClash%28mihomo%29.js`
+   - **粘贴**：浏览器打开 Raw 链接，全选复制粘贴；第一行必须是 `// FlClash 覆写脚本`
 4. 保存
+
+> 如果 FlClash 弹出 `SyntaxError: unexpected token '<'`，说明当前导入内容是 HTML 页面，不是 JS 脚本。删除这个覆写脚本，改用上面的 Raw / jsdelivr 链接重新创建。
 
 ### 第 2 步：关联到订阅
 

@@ -5,6 +5,11 @@
 
 ---
 
+## v5.4.12-flclash.2 (2026-05-12)
+
+- 📝 DOC#IMPORT-HTML：FlClash 导入 URL 改为 `%28mihomo%29` 编码写法，并补充 `unexpected token '<'` 排障说明
+  - 该错误表示客户端拿到 GitHub/错误页 HTML，而不是 JS 脚本；规则与 DNS 逻辑不变
+
 ## v5.4.12-flclash.1 (2026-05-12)
 
 - ✅ FIX#RD-REALIP：覆写脚本在 DNS `fake-ip-filter` 中保留 `+.rustdesk.com`

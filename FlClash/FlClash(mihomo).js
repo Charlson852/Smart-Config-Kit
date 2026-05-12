@@ -1,5 +1,5 @@
 ﻿// FlClash 覆写脚本 — 标准 Mihomo 内核动态分流版
-// 版本：v5.4.12-flclash.1 (2026-05-12)
+// 版本：v5.4.12-flclash.2 (2026-05-12)
 // 架构：22 url-test 区域组（11 全部 + 11 家宽）+ 32 业务策略组（含 14 流媒体平台组）+ 385 rule-providers 100%+ 服务覆盖
 // 基线：Clash Party Normal v5.4.12-normal.1（规则 100% 等价；区域组为 url-test — FlClash 内核为标准 Mihomo，不支持 smart + LightGBM）
 // 适用：FlClash >= v0.8.85（覆盖脚本功能自该版本引入）；其他使用标准 Mihomo 内核的客户端
@@ -11,9 +11,9 @@
 //
 // 【第 1 步：创建覆写脚本】
 //   FlClash → 配置 →「覆写脚本」→ 右上角 + → 输入名称
-//   方式 A（URL）：填入 https://raw.githubusercontent.com/IvanSolis1989/Smart-Config-Kit/main/FlClash/FlClash(mihomo).js
-//   方式 B（粘贴）：打开上方 GitHub 链接，全选复制粘贴
-//   方式 C（jsdelivr）：https://cdn.jsdelivr.net/gh/IvanSolis1989/Smart-Config-Kit@main/FlClash/FlClash(mihomo).js
+//   方式 A（URL）：填入 https://raw.githubusercontent.com/IvanSolis1989/Smart-Config-Kit/main/FlClash/FlClash%28mihomo%29.js
+//   方式 B（粘贴）：打开上方 Raw 链接，全选复制粘贴；第一行必须是 `// FlClash 覆写脚本`
+//   方式 C（jsdelivr）：https://cdn.jsdelivr.net/gh/IvanSolis1989/Smart-Config-Kit@main/FlClash/FlClash%28mihomo%29.js
 //   保存。
 //
 // 【第 2 步：关联到订阅】
@@ -35,7 +35,7 @@
 //  版本常量
 // ================================================================
 
-const VERSION = 'v5.4.12-flclash.1'
+const VERSION = 'v5.4.12-flclash.2'
 
 // v5.4.9 FEAT#LOCAL-TOOLS: desktop local-tool direct whitelist.
 const LOCAL_TOOL_DIRECT_PROCESS_NAMES = [
