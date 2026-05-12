@@ -183,7 +183,7 @@ Clash Party 系列（Mihomo Party / Clash Verge Rev / Clash Nyanpasu）底层都
 
 ## 四、粘贴 UI 补充配置
 
-脚本主要处理 **proxies / proxy-groups / rules** 三大块，但不覆盖 **DNS / Sniffer / GeoX URL**（这些字段若写入 JS 会被机场订阅覆盖）。因此需要把下方内容粘贴到客户端的 **外部数据、DNS、嗅探覆写中**：
+脚本主要处理 **proxies / proxy-groups / rules** 三大块，但不覆盖 **DNS / Sniffer / GeoX URL**（这些字段若写入 JS 会被UI配置覆盖）。因此需要把下方内容粘贴到客户端的 **外部数据、DNS、嗅探覆写中**：
 
 GeoX URL：
 
