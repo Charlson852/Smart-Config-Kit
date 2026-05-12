@@ -4,7 +4,7 @@
 > 适用客户端：**Clash Meta For Android（CMFA）** / **FlClash** / **mihomo-party-android**（Android 原生）· **[ClashMi](https://github.com/KaringX/clashmi)**（跨平台 Flutter GUI，iOS/macOS/Android/Windows/Linux，复用同一 YAML；详见 §九）
 > 内核要求：**Mihomo**（原生 YAML 导入；区域组用 `url-test`，**不含 Smart + LightGBM**——CMFA 的静态 YAML 不支持 JS 覆写）
 > **FlClash 用户**：推荐使用 [FlClash 覆写脚本](../FlClash/FlClash(mihomo).js)（动态节点分类 + 家宽识别 + 订阅清理）。详见 [`FlClash/README.md`](../FlClash/README.md)。
-> 当前版本：**v5.4.11-cmfa.1**（跟随 Clash Party v5.4.11 主线；RustDesk 进程走会议协作，DNS IP-first 自举）
+> 当前版本：**v5.4.12-cmfa.1**（跟随 Clash Party v5.4.12 主线；RustDesk 走会议协作并在 fake-ip-filter 中真实 IP 回应，DNS IP-first 自举）
 
 ---
 

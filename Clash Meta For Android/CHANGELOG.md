@@ -5,6 +5,11 @@
 
 ---
 
+## v5.4.12-cmfa.1 (2026-05-12)
+
+- ✅ FIX#RD-REALIP：`DOMAIN-SUFFIX,rustdesk.com,real-ip` 加入 `fake-ip-filter-mode: rule`
+  - RustDesk 域名仍由会议协作规则走代理，但 DNS 返回真实 IP，避免 rendezvous/relay 拿到 198.18.x fake-ip
+
 ## v5.4.11-cmfa.1 (2026-05-12)
 
 - ✅ FIX#RD-PROC：RustDesk 进程规则从 `DIRECT` 改为 `🧑‍💼 会议协作`，并保留 `DOMAIN-SUFFIX,rustdesk.com` 前置保护

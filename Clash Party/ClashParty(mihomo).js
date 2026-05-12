@@ -1,7 +1,7 @@
 ﻿// Clash 覆写脚本 - SUB-STORE 多机场精细分流版
-// 版本：v5.4.11-normal.1 (2026-05-12)
+// 版本：v5.4.12-normal.1 (2026-05-12)
 // 架构：22 url-test 区域组（11 全部 + 11 家宽）+ 32 业务策略组 + 385 rule-providers
-// 基线：Clash Party v5.4.11（与同目录 ClashParty(mihomo-smart).js 规则 100% 等价，仅区域组从 smart 改为 url-test）
+// 基线：Clash Party v5.4.12（与同目录 ClashParty(mihomo-smart).js 规则 100% 等价，仅区域组从 smart 改为 url-test）
 // 适用：Mihomo / Clash.Meta 稳定版内核、不支持 smart + LightGBM 的分支；也适用于想完全关闭 ML 评估的用户
 // 变更历史：见 `Clash Party/CHANGELOG.md`
 
@@ -9,7 +9,7 @@
 //  版本常量
 // ================================================================
 
-const VERSION = 'v5.4.11-normal.1'
+const VERSION = 'v5.4.12-normal.1'
 
 // v5.4.9 FEAT#LOCAL-TOOLS: desktop local-tool direct whitelist.
 const LOCAL_TOOL_DIRECT_PROCESS_NAMES = [
@@ -2283,7 +2283,7 @@ function overwriteGeneral(config) {
     config.dns.fallback = ['https://cloudflare-dns.com/dns-query', 'https://dns.google/dns-query']
   }
   // v5.4.1 P0+P2: fake-ip-filter 扩展 + Hosts DNS 预解析
-  config.dns['fake-ip-filter'] = ['+.lan','+.local','time.*.com','ntp.*.com','+.market.xiaomi.com','+.localdomain','+.home.arpa','+.stun.*.*','+.ntp.org','+.pool.ntp.org','+.n.n.srv.nintendo.net','+.stun.playstation.net','+.xboxlive.com','stun.l.google.com','auth.docker.io','registry-1.docker.io','index.docker.io','hub.docker.com','production.cloudflare.docker.com','+.push.apple.com','+.pub.3gppnetwork.org','+.bing.com','+.miwifi.com']
+  config.dns['fake-ip-filter'] = ['+.lan','+.local','time.*.com','ntp.*.com','+.market.xiaomi.com','+.localdomain','+.home.arpa','+.stun.*.*','+.ntp.org','+.pool.ntp.org','+.n.n.srv.nintendo.net','+.stun.playstation.net','+.xboxlive.com','stun.l.google.com','auth.docker.io','registry-1.docker.io','index.docker.io','hub.docker.com','production.cloudflare.docker.com','+.push.apple.com','+.pub.3gppnetwork.org','+.bing.com','+.rustdesk.com','+.miwifi.com']
   if (!config.hosts) config.hosts = {}
   var dnsH = {'dns.alidns.com':['223.5.5.5','223.6.6.6'],'doh.pub':['119.29.29.29'],'dns.google':['8.8.8.8','8.8.4.4'],'cloudflare-dns.com':['1.1.1.1','1.0.0.1']}
   Object.keys(dnsH).forEach(function(k){if(!config.hosts[k])config.hosts[k]=dnsH[k]})

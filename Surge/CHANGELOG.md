@@ -4,6 +4,11 @@
 
 ---
 
+## v5.4.12-Surge.1 (2026-05-12)
+
+- META#RD-REALIP: Follows Clash Party v5.4.12 documentation for the RustDesk real-IP DNS fix.
+- N/A#FAKE-IP: Surge has no Mihomo fake-ip-filter field; no new RustDesk DIRECT bypass was added.
+
 ## v5.4.11-Surge.1 (2026-05-12)
 
 - ✅ FIX#RD-PROC：Surge Mac 的 RustDesk `PROCESS-NAME` 规则改走 `🧑‍💼 会议协作`，不再强制 DIRECT

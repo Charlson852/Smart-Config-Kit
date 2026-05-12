@@ -1,7 +1,7 @@
 ﻿// FlClash 覆写脚本 — 标准 Mihomo 内核动态分流版
-// 版本：v5.4.11-flclash.1 (2026-05-12)
+// 版本：v5.4.12-flclash.1 (2026-05-12)
 // 架构：22 url-test 区域组（11 全部 + 11 家宽）+ 32 业务策略组（含 14 流媒体平台组）+ 385 rule-providers 100%+ 服务覆盖
-// 基线：Clash Party Normal v5.4.11-normal.1（规则 100% 等价；区域组为 url-test — FlClash 内核为标准 Mihomo，不支持 smart + LightGBM）
+// 基线：Clash Party Normal v5.4.12-normal.1（规则 100% 等价；区域组为 url-test — FlClash 内核为标准 Mihomo，不支持 smart + LightGBM）
 // 适用：FlClash >= v0.8.85（覆盖脚本功能自该版本引入）；其他使用标准 Mihomo 内核的客户端
 // 变更历史：见 `FlClash/CHANGELOG.md`
 //
@@ -35,7 +35,7 @@
 //  版本常量
 // ================================================================
 
-const VERSION = 'v5.4.11-flclash.1'
+const VERSION = 'v5.4.12-flclash.1'
 
 // v5.4.9 FEAT#LOCAL-TOOLS: desktop local-tool direct whitelist.
 const LOCAL_TOOL_DIRECT_PROCESS_NAMES = [
@@ -2314,6 +2314,8 @@ function overwriteGeneral(config) {
   if (!Array.isArray(config.dns.fallback) || config.dns.fallback.length === 0) {
     config.dns.fallback = ['https://cloudflare-dns.com/dns-query', 'https://dns.google/dns-query']
   }
+  var currentFakeIpFilter = Array.isArray(config.dns['fake-ip-filter']) ? config.dns['fake-ip-filter'] : []
+  config.dns['fake-ip-filter'] = uniqList(currentFakeIpFilter.concat(['+.rustdesk.com']))
   if (!config.profile) config.profile = {}
   config.profile['store-selected'] = true
   config.profile['store-fake-ip'] = true

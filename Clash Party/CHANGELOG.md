@@ -7,6 +7,12 @@
 
 ---
 
+## v5.4.12 / v5.4.12-normal.1 (2026-05-12)
+
+- ✅ FIX#RD-REALIP：RustDesk 域名加入 `fake-ip-filter` 真实 IP 回应
+  - `+.rustdesk.com` 继续按规则命中 `🧑‍💼 会议协作`，但 DNS 不再返回 198.18.x fake-ip
+  - 避免 RustDesk rendezvous/relay 在 TUN/fake-ip 下拿到保留地址后打洞失败
+
 ## v5.4.11 / v5.4.11-normal.1 (2026-05-12)
 
 - ✅ FIX#RD-PROC：RustDesk 不再归入本地工具直连白名单，桌面进程 `RustDesk.exe` / `rustdesk` 统一命中 `🧑‍💼 会议协作`

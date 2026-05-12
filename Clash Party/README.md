@@ -1,8 +1,8 @@
 # Clash Party / Clash Verge / Mihomo Party 使用教程
 
 > 覆写脚本：**两份二选一**，规则 100% 等价，仅 22 区域组（11 全部 + 11 家宽）的内核选路算法不同
-> - `ClashParty(mihomo-smart).js`（**v5.4.11**，2026-05-12）— Smart 内核 + LightGBM ML 评估
-> - `ClashParty(mihomo).js`（**v5.4.11-normal.1**，2026-05-12）— 普通内核 url-test 延迟选路
+> - `ClashParty(mihomo-smart).js`（**v5.4.12**，2026-05-12）— Smart 内核 + LightGBM ML 评估
+> - `ClashParty(mihomo).js`（**v5.4.12-normal.1**，2026-05-12）— 普通内核 url-test 延迟选路
 >
 > UI 补充配置：已整合到本文「四、粘贴 UI 补充配置」章节
 > 架构：**SUB-STORE 多机场融合** + 22 区域组（11 全部 + 11 家宽）+ 32 业务策略组 + **385 rule-providers**
@@ -77,7 +77,7 @@
 - ❌ **LightGBM 模型没下载**（仅 Smart 版）：启动后若日志有 `Model.bin not found`，手动下 https://github.com/vernesong/mihomo/releases/download/LightGBM-Model/Model.bin 放到客户端的 mihomo 工作目录；或直接换成**普通版**脚本，不依赖 `Model.bin`。
 - ❌ **Smart 版提示内核不支持 `type: smart`**：你用的不是 mihomo Alpha。要么换内核（Clash Verge Rev → 设置 → Clash 内核 → Mihomo Alpha），要么直接改用**普通版**脚本。
 - ❌ **找不到业务组 / 区域组**：确认订阅返回的是 Mihomo / Clash.Meta 格式（不是 Surge / Quantumult）。
-- ❌ **RustDesk 仍然超时**：v5.4.11 后 RustDesk 应命中 `🧑‍💼 会议协作`，不要让该组停在 `DIRECT`；DNS 段也应是 IP-first（`223.5.5.5` / `119.29.29.29` 在 DoH 前）。
+- ❌ **RustDesk 仍然超时**：v5.4.12 后 RustDesk 应命中 `🧑‍💼 会议协作`，不要让该组停在 `DIRECT`；DNS 段应是 IP-first，并且 `fake-ip-filter` 应包含 `+.rustdesk.com` 真实 IP 回应。
 
 ---
 
@@ -166,7 +166,7 @@ Clash Party 系列（Mihomo Party / Clash Verge Rev / Clash Nyanpasu）底层都
 
 1. 左侧菜单 → **覆写（Override）** → 右上角 ➕。
 2. 类型选择 **JavaScript（.js）**。
-3. 名称：`Clash Smart v5.4.11` 或 `Clash Normal v5.4.11`（根据你粘贴的那份）。
+3. 名称：`Clash Smart v5.4.12` 或 `Clash Normal v5.4.12`（根据你粘贴的那份）。
 4. 内容：复制 `Clash Party/ClashParty(mihomo-smart).js` **或** `Clash Party/ClashParty(mihomo).js` 的**全文**粘贴进去（两份脚本都在 2200+ 行左右）。
 5. 保存。
 6. 返回「订阅」页面，右键你的订阅 → **编辑** → **启用覆写** → 勾选刚才的脚本 → 保存（**只勾一份**，不要同时启用）。

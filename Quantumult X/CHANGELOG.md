@@ -6,6 +6,10 @@
 
 ---
 
+## v5.4.12-QX.1 (2026-05-12)
+
+- META#RD-REALIP: Follows Clash Party v5.4.12 documentation for the RustDesk real-IP DNS fix.
+- N/A#FAKE-IP: Quantumult X has no Mihomo fake-ip-filter field; existing rustdesk.com meeting-collaboration routing is unchanged.
 
 ## v5.4.11-QX.1 (2026-05-12)
 

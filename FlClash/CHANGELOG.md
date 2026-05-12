@@ -5,6 +5,11 @@
 
 ---
 
+## v5.4.12-flclash.1 (2026-05-12)
+
+- ✅ FIX#RD-REALIP：覆写脚本在 DNS `fake-ip-filter` 中保留 `+.rustdesk.com`
+  - 与 Clash Party Normal v5.4.12 对齐，RustDesk 仍走会议协作代理链路但 DNS 使用真实 IP
+
 ## v5.4.11-flclash.1 (2026-05-12)
 
 - ✅ FIX#RD-PROC：RustDesk 进程规则从本地工具 `DIRECT` 白名单移出，改走 `🧑‍💼 会议协作`

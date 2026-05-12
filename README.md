@@ -102,7 +102,7 @@ flowchart LR
 | 🐟 漏网之鱼 | 以 GEOSITE/GEOIP/FINAL 兜底为主（非单一固定 provider） | MetaCubeX（geo 规则） |
 | 🛑 广告拦截 | `anti-ad` `sukka-phishing` `hagezi-tif` `advertising` `privacy` `acc-unsupportvpn` | DustinWin / SukkaW / Hagezi / blackmatrix7 / Accademia |
 
-> v5.4.11 起，RustDesk 从本地工具直连白名单中移出：公网 relay/API 统一按 `🧑‍💼 会议协作` 走代理链路，避免 `rs-*.rustdesk.com` 因 Vultr AS20473 被 Copilot 规则误吞，或被强制 DIRECT 后连接超时。
+> v5.4.12 起，RustDesk 公网 relay/API 统一按 `🧑‍💼 会议协作` 走代理链路，同时 `rustdesk.com` 在 Mihomo fake-ip DNS 中返回真实 IP，避免 `rs-*.rustdesk.com` 因 Vultr AS20473 被 Copilot 规则误吞、被强制 DIRECT 后连接超时，或会合阶段拿到 198.18.x fake-ip。
 
 ---
 

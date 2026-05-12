@@ -7,6 +7,11 @@
 
 ---
 
+## v5.4.12-oc-normal.1 / v5.4.12-oc-smart.1 (2026-05-12)
+
+- ✅ FIX#RD-REALIP：OpenClash Normal / Smart heredoc DNS `fake-ip-filter` 补充 `+.rustdesk.com`
+  - RustDesk relay/API 仍走 `🧑‍💼 会议协作`，但域名解析返回真实 IP，避免 fake-ip 影响会合与中继阶段
+
 ## v5.4.11-oc-normal.1 / v5.4.11-oc-smart.1 (2026-05-12)
 
 - ✅ FIX#RD-PROC：RustDesk 进程规则从 `DIRECT` 改为 `🧑‍💼 会议协作`，`rustdesk.com` 域名保护继续前置于 Copilot 规则

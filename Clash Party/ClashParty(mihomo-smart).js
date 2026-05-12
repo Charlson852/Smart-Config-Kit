@@ -1,14 +1,14 @@
 ﻿// Clash Smart 内核覆写脚本 - SUB-STORE 多机场精细分流版
-// 版本：v5.4.11 (2026-05-12)
+// 版本：v5.4.12 (2026-05-12)
 // 架构：SUB-STORE 多机场融合 + 22 Smart 区域组（11 全部 + 11 家宽）+ 32 业务策略组（含 14 流媒体平台组）+ 385 rule-providers 100%+ 服务覆盖
-// v5.4.11: RustDesk 进程走会议协作 + DNS 自举抗 DoH 死锁 · v5.4.10: RustDesk relay 防 Copilot AS20473 误吞
+// v5.4.12: RustDesk 真实 IP 回应 · v5.4.11: RustDesk 进程走会议协作 + DNS 自举抗 DoH 死锁
 // 变更历史：见 `Clash Party/CHANGELOG.md`
 
 // ================================================================
 //  版本常量
 // ================================================================
 
-const VERSION = 'v5.4.11'
+const VERSION = 'v5.4.12'
 
 // v5.4.9 FEAT#LOCAL-TOOLS:
 // Desktop-capable local tools that should not be routed through proxy nodes.
@@ -2337,6 +2337,8 @@ function overwriteGeneral(config) {
     '+.push.apple.com',
     '+.pub.3gppnetwork.org',
     '+.bing.com',
+    // v5.4.12 FIX#RD-REALIP: RustDesk rendezvous/relay needs real IPs while still routing via work proxy.
+    '+.rustdesk.com',
     '+.miwifi.com'
   ]
   // v5.4.1 P3: Mixed Listeners——按地区分配端口，SwitchyOmega 一键切地区

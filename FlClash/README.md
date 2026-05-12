@@ -3,7 +3,7 @@
 > 覆写脚本：`FlClash(mihomo).js`
 > 适用客户端：**FlClash**（Android / Windows / macOS / Linux）
 > 内核要求：FlClash >= **v0.8.85**
-> 当前版本：**v5.4.11-flclash.1**（22 url-test 区域组 + 32 业务策略组；RustDesk 进程走会议协作，DNS IP-first 自举）
+> 当前版本：**v5.4.12-flclash.1**（22 url-test 区域组 + 32 业务策略组；RustDesk 走会议协作并在 fake-ip-filter 中真实 IP 回应，DNS IP-first 自举）
 
 <table><tr>
 <td><img width="160" alt="FlClash 截图1" src="https://github.com/user-attachments/assets/e88e0724-2bc0-4111-851e-e8aa0a9141d3"></td>
@@ -106,6 +106,8 @@ dns:
   fallback:
     - https://cloudflare-dns.com/dns-query
     - https://dns.google/dns-query
+  fake-ip-filter:
+    - +.rustdesk.com
   fallback-filter:
     geoip: true
     geoip-code: CN

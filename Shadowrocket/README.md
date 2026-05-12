@@ -1,7 +1,7 @@
 # Shadowrocket（小火箭）使用教程
 
 > 配置文件：`Shadowrocket.conf`
-> 版本：**v5.4.11-SR.1**（Build 2026-05-12，跟随 Clash Party v5.4.11 基线；RustDesk 域名走会议协作，DNS 调整为 IP-first）
+> 版本：**v5.4.12-SR.1**（Build 2026-05-12，跟随 Clash Party v5.4.12 基线；RustDesk 域名走会议协作，DNS 调整为 IP-first）
 > 目标：**Shadowrocket iOS（App Store 正版）** / macOS 通用
 > 架构：22 区域组（11 全部 + 11 家宽，`url-test` + `policy-regex-filter` 按节点名自动分类）+ 32 业务策略组 + ~290 rule-set
 

@@ -6,6 +6,10 @@
 
 ---
 
+## v5.4.12-pw2.1 (2026-05-12)
+
+- META#RD-REALIP: Follows Clash Party v5.4.12 baseline metadata after the Mihomo RustDesk real-IP DNS fix.
+- N/A#FAKE-IP: Passwall2 uses router-side shunt rules and LuCI DNS; no Mihomo fake-ip-filter rule is applicable.
 
 ## v5.4.11-pw2.1 (2026-05-12)
 

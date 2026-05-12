@@ -5,6 +5,11 @@
 
 ---
 
+## v5.4.12-sing.1 (2026-05-12)
+
+- META#RD-REALIP: Regenerated Full JSON against Clash Party v5.4.12 after the Mihomo RustDesk real-IP DNS fix.
+- N/A#FAKE-IP: sing-box has no Mihomo fake-ip-filter equivalent in this static artifact; RustDesk route semantics are unchanged.
+
 ## v5.4.11-sing.1 (2026-05-12)
 
 - ✅ FIX#RD-PROC：生成器将 RustDesk `process_name` 输出到 `🧑‍💼 会议协作`，不再输出到 `DIRECT`

@@ -469,6 +469,7 @@ function validateGeneral(output, record) {
   record.expect(output.dns && typeof output.dns === 'object', 'DNS object exists after overwrite');
   record.expectEqual(output.dns['enhanced-mode'], 'fake-ip', 'DNS enhanced-mode defaults to fake-ip');
   record.expect(Array.isArray(output.dns.nameserver) && output.dns.nameserver.length > 0, 'DNS nameserver fallback is nonempty');
+  record.expect(Array.isArray(output.dns['fake-ip-filter']) && output.dns['fake-ip-filter'].includes('+.rustdesk.com'), 'RustDesk domains receive real IP in fake-ip-filter');
   record.expectArrayEqual(output.dns.nameserver.slice(0, 2), ['223.5.5.5', '119.29.29.29'], 'plain IP DNS is first for bootstrap');
   record.expectArrayEqual(output.dns['direct-nameserver'], ['223.5.5.5', '119.29.29.29'], 'direct DNS avoids DoH bootstrap dependency');
   record.expectArrayEqual(output.dns['proxy-server-nameserver'], ['223.5.5.5', '119.29.29.29', '1.1.1.1', '8.8.8.8'], 'proxy server DNS uses IP bootstrap');
