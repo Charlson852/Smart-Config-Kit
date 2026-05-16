@@ -1,7 +1,7 @@
 # Loon 使用教程（对齐 Clash Party v5.4.12）
 
 > 配置文件：`Loon/Loon.conf`
-> 版本：**v5.4.12-Loon.1**（Build 2026-05-12，详见 `Loon/CHANGELOG.md`；RustDesk 域名兜底走会议协作，DoH 顺序 AliDNS 优先）
+> 版本：**v5.4.12-Loon.2**（Build 2026-05-16，详见 `Loon/CHANGELOG.md`；修正 `[Remote Rule]` / `[Rule]` 分段，避免远程规则 URL 导入语法错误）
 > 目标：**Loon iOS（App Store 付费正版）**
 > 架构：22 区域 url-test 组（11 全部 + 11 家宽，[Remote Filter] NameRegex）+ 32 业务策略组 + 288 [Remote Rule] 订阅规则集
 
@@ -46,6 +46,7 @@
 - Loon「设置 → 运行日志」看规则集 + MMDB 下载状态
 
 ### 最常见踩坑
+- ❌ **导入提示 `https://...` 语法错误**：通常是拿到旧版或手工把远程规则 URL 放进了 `[Rule]`。Loon 远程规则集必须在 `[Remote Rule]`；请使用 v5.4.12-Loon.2 或更新版本。
 - ❌ **规则集下载失败**：首次安装**必须先开代理**（没代理则 GitHub/jsDelivr 访问不稳定）；Loon → 设置 → 自动更新配置 调频率。
 - ❌ **区域组里没有节点**：检查 Loon 是否识别了 `[Remote Filter]` 段；如果机场节点命名奇葩（例如纯英文代号），可能没匹配到 FilterKey，打开 Loon → 过滤器 → 手动 Edit 调 regex。
 - ❌ **我把 Surge 的 `Surge.conf` 直接给 Loon 行不行**：**不行**。`bypass-system` / `tun-excluded-routes` / `ipv6-enabled` / `udp-policy-not-supported-behaviour` / `hijack-dns` / `encrypted-dns-server` / url-test 的 `policy-regex-filter=` 这些 Loon 全都不识别，配置会大面积沉默失效。**用本目录的 `Loon.conf`**（v5.2.4-Loon.2 已完整对齐 Loon 官方语法）。

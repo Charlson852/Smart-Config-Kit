@@ -363,7 +363,7 @@ tcpdump -n -i any port 443       # 应看到持续流量 → DoH 正常
 - OpenClash → `OpenClash(mihomo-smart).sh`（Smart） / `OpenClash(mihomo).sh`（Normal） + `OpenClash(mihomo).conf`
 - Shadowrocket → `Shadowrocket.conf`
 - Surge → `Surge.conf`
-- Loon → `Loon.conf`
+- Loon → `Loon.conf`（Loon 原生 `[Remote Rule]` / `[Rule]` 分段，不能把远程 URL 混进本地规则段）
 - Quantumult X → `QuantumultX.conf`
 - SingBox → `SingBox(sing-box)-full.json`
 - v2rayN Xray → `v2rayN(xray).json`

@@ -4,6 +4,11 @@
 
 ---
 
+## v5.4.12-Loon.2 (2026-05-16)
+
+- ✅ FIX#LOON-REMOTE-RULE：将 288 条远程规则集 URL 统一恢复到 `[Remote Rule]` 段，避免 Loon 在 `[Rule]` 段把 `https://...` 判为语法错误。
+- ✅ FIX#LOON-LOCAL-RULE：小米 DIRECT 白名单与 `DOMAIN` / `GEOIP` / `FINAL` 本地规则保留在 `[Rule]` 段；策略组、规则源与业务语义不变。
+
 ## v5.4.12-Loon.1 (2026-05-12)
 
 - META#RD-REALIP: Follows Clash Party v5.4.12 documentation for the RustDesk real-IP DNS fix.
