@@ -18,6 +18,19 @@ const MIN_FULL_RULES = 900;
 const RESTRICTED_SITE = '\u{1F6AB} \u53D7\u9650\u7F51\u7AD9';
 const RESTRICTED_SITE_RUBY = '\\U0001F6AB \u53D7\u9650\u7F51\u7AD9';
 const CLOUD_CDN = '\u2601\uFE0F \u4E91\u4E0ECDN';
+const STUN_DIRECT_PORTS = [3478, 3479, 5349, 19302, 19305, 19307];
+const STUN_FAKE_IP_FILTER_ENTRIES = [
+  '+.stun.*.*',
+  '+.stun.*.*.*',
+  '+.turn.*.*',
+  '+.turn.*.*.*',
+  'stun.l.google.com',
+  'stun1.l.google.com',
+  'stun2.l.google.com',
+  'stun3.l.google.com',
+  'stun4.l.google.com',
+  'global.turn.twilio.com',
+];
 
 const ARTIFACT_FILES = [
   'Clash Party/ClashParty(mihomo-smart).js',
@@ -158,6 +171,22 @@ function extractOpenClashOverride(relativePath) {
   return `${output.join('\n')}\n`;
 }
 
+function extractIndentedListBlock(source, key) {
+  const lines = source.split(/\r?\n/);
+  const output = [];
+  let inBlock = false;
+  const keyPattern = new RegExp(`^\\s*${key}:\\s*$`);
+  for (const line of lines) {
+    if (keyPattern.test(line)) {
+      inBlock = true;
+      continue;
+    }
+    if (inBlock && /^\s*[A-Za-z0-9_.-]+:/.test(line)) break;
+    if (inBlock) output.push(line.trim());
+  }
+  return output.join('\n');
+}
+
 function listFiles(relativeDir) {
   return fs.readdirSync(relPath(relativeDir), { withFileTypes: true })
     .filter((entry) => entry.isFile())
@@ -229,6 +258,10 @@ function makeRecorder() {
   };
 }
 
+function failureMessage(condition, message) {
+  return condition ? {} : { message };
+}
+
 function validateJsProducts(record) {
   const smart = compileJs('Clash Party/ClashParty(mihomo-smart).js');
   const normal = compileJs('Clash Party/ClashParty(mihomo).js');
@@ -256,7 +289,8 @@ function validateClashYaml(record, baselineVersion) {
   record.check('cmfa.group-count', groupCount === EXPECTED_GROUPS, { value: groupCount });
   record.check('cmfa.provider-count', providerCount >= MIN_FULL_PROVIDERS, { value: providerCount });
   record.check('cmfa.rule-count', ruleCount >= MIN_FULL_RULES, { value: ruleCount });
-  record.check('cmfa.baseline-header', source.includes(`Clash Party ${baselineVersion}`), { message: `missing Clash Party ${baselineVersion}` });
+  const hasBaselineHeader = source.includes(`Clash Party ${baselineVersion}`);
+  record.check('cmfa.baseline-header', hasBaselineHeader, failureMessage(hasBaselineHeader, `missing Clash Party ${baselineVersion}`));
   record.check('cmfa.rule-provider-singleton', countMatches(source, /^rule-providers:$/gm) === 1, { value: countMatches(source, /^rule-providers:$/gm) });
   record.check('cmfa.rules-singleton', countMatches(source, /^rules:$/gm) === 1, { value: countMatches(source, /^rules:$/gm) });
   record.check('cmfa.no-direct-provider-downloads', !/proxy:\s*['"]?DIRECT['"]?/.test(source));
@@ -264,6 +298,22 @@ function validateClashYaml(record, baselineVersion) {
   record.check('cmfa.restricted-provider-downloads', countLiteral(source, RESTRICTED_SITE) >= MIN_FULL_PROVIDERS, {
     value: countLiteral(source, RESTRICTED_SITE),
   });
+  const fakeIpFilterBlock = extractIndentedListBlock(source, 'fake-ip-filter');
+  record.check('cmfa.fake-ip-filter-blacklist-mode', /fake-ip-filter-mode:\s*blacklist/.test(source));
+  const hasNoFakeIpRuleSetRefs = !/RULE-SET,/.test(fakeIpFilterBlock);
+  record.check(
+    'cmfa.fake-ip-filter-no-ruleset-references',
+    hasNoFakeIpRuleSetRefs,
+    failureMessage(hasNoFakeIpRuleSetRefs, 'fake-ip blacklist mode must not contain rule-mode RULE-SET entries'),
+  );
+  for (const entry of STUN_FAKE_IP_FILTER_ENTRIES) {
+    const hasEntry = fakeIpFilterBlock.includes(entry);
+    record.check(`cmfa.fake-ip-filter.${entry}`, hasEntry, failureMessage(hasEntry, `missing ${entry}`));
+  }
+  for (const port of STUN_DIRECT_PORTS) {
+    const hasPortRule = source.includes(`DST-PORT,${port},DIRECT`);
+    record.check(`cmfa.stun-port.${port}`, hasPortRule, failureMessage(hasPortRule, `missing DST-PORT,${port},DIRECT`));
+  }
 }
 
 function validateOpenClash(record, baselineVersion, options) {
@@ -293,11 +343,20 @@ function validateOpenClash(record, baselineVersion, options) {
     const restrictedCount = countLiteral(source, RESTRICTED_SITE_RUBY);
 
     record.check(`openclash.${spec.id}.static-business-groups`, staticBizGroups === EXPECTED_BUSINESS_GROUPS, { value: staticBizGroups });
-    record.check(`openclash.${spec.id}.baseline-header`, source.includes(`Clash Party ${baselineVersion}`), { message: `missing Clash Party ${baselineVersion}` });
+    const hasBaselineHeader = source.includes(`Clash Party ${baselineVersion}`);
+    record.check(`openclash.${spec.id}.baseline-header`, hasBaselineHeader, failureMessage(hasBaselineHeader, `missing Clash Party ${baselineVersion}`));
     record.check(`openclash.${spec.id}.rule-provider-singleton`, topProviders === 1, { value: topProviders });
     record.check(`openclash.${spec.id}.rules-singleton`, topRules === 1, { value: topRules });
     record.check(`openclash.${spec.id}.no-direct-provider-downloads`, !/proxy:\s*['"]?DIRECT['"]?/.test(source));
     record.check(`openclash.${spec.id}.restricted-provider-downloads`, restrictedCount >= spec.minProviders, { value: restrictedCount });
+    for (const entry of STUN_FAKE_IP_FILTER_ENTRIES) {
+      const hasEntry = yaml.includes(entry);
+      record.check(`openclash.${spec.id}.fake-ip-filter.${entry}`, hasEntry, failureMessage(hasEntry, `missing ${entry}`));
+    }
+    for (const port of STUN_DIRECT_PORTS) {
+      const hasPortRule = yaml.includes(`DST-PORT,${port},DIRECT`);
+      record.check(`openclash.${spec.id}.stun-port.${port}`, hasPortRule, failureMessage(hasPortRule, `missing DST-PORT,${port},DIRECT`));
+    }
 
     if (rubyPath) {
       try {
@@ -325,22 +384,45 @@ function validateConfProducts(record, baselineVersion) {
     const source = readText(spec.file);
     const groupCount = countMatches(source, spec.regex);
     record.check(`${spec.id}.group-count`, groupCount === EXPECTED_GROUPS, { value: groupCount });
-    record.check(`${spec.id}.baseline-header`, source.includes(`Clash Party ${baselineVersion}`), { message: `missing Clash Party ${baselineVersion}` });
+    const hasBaselineHeader = source.includes(`Clash Party ${baselineVersion}`);
+    record.check(`${spec.id}.baseline-header`, hasBaselineHeader, failureMessage(hasBaselineHeader, `missing Clash Party ${baselineVersion}`));
     record.check(`${spec.id}.changelog-reference`, source.includes('CHANGELOG.md'));
   }
 
+  const shadowrocket = readText('Shadowrocket/Shadowrocket.conf');
+  const surge = readText('Surge/Surge.conf');
   const loon = readText('Loon/Loon.conf');
-  record.check('loon.no-dst-port-prefix', !loon.split(/\r?\n/).some((line) => /^DST-PORT,/.test(line)), {
-    message: 'Loon must use DEST-PORT, not DST-PORT',
-  });
-
   const qx = readText('Quantumult X/QuantumultX.conf');
-  record.check('qx.no-doh-url-in-server-field', !qx.split(/\r?\n/).some((line) => /^server=https:\/\//.test(line)), {
-    message: 'QX DoH URLs must use doh-server=',
-  });
-  record.check('qx.running-mode-trigger-values', !/^running_mode_trigger=.*\bfilter\b/m.test(qx), {
-    message: 'QX running_mode_trigger cannot use filter',
-  });
+  for (const port of STUN_DIRECT_PORTS) {
+    const srHasPortRule = shadowrocket.includes(`DST-PORT,${port},DIRECT`);
+    const surgeHasPortRule = surge.includes(`DST-PORT,${port},DIRECT`);
+    const loonHasPortRule = loon.includes(`DEST-PORT,${port},DIRECT`);
+    const qxHasPortRule = qx.includes(`dst-port, ${port}, DIRECT`);
+    record.check(`shadowrocket.stun-port.${port}`, srHasPortRule, failureMessage(srHasPortRule, `missing DST-PORT,${port},DIRECT`));
+    record.check(`surge.stun-port.${port}`, surgeHasPortRule, failureMessage(surgeHasPortRule, `missing DST-PORT,${port},DIRECT`));
+    record.check(`loon.stun-port.${port}`, loonHasPortRule, failureMessage(loonHasPortRule, `missing DEST-PORT,${port},DIRECT`));
+    record.check(`qx.stun-port.${port}`, qxHasPortRule, failureMessage(qxHasPortRule, `missing dst-port, ${port}, DIRECT`));
+  }
+
+  const loonHasNoDstPortPrefix = !loon.split(/\r?\n/).some((line) => /^DST-PORT,/.test(line));
+  record.check(
+    'loon.no-dst-port-prefix',
+    loonHasNoDstPortPrefix,
+    failureMessage(loonHasNoDstPortPrefix, 'Loon must use DEST-PORT, not DST-PORT'),
+  );
+
+  const qxHasNoDohUrlInServerField = !qx.split(/\r?\n/).some((line) => /^server=https:\/\//.test(line));
+  record.check(
+    'qx.no-doh-url-in-server-field',
+    qxHasNoDohUrlInServerField,
+    failureMessage(qxHasNoDohUrlInServerField, 'QX DoH URLs must use doh-server='),
+  );
+  const qxHasValidRunningModeTrigger = !/^running_mode_trigger=.*\bfilter\b/m.test(qx);
+  record.check(
+    'qx.running-mode-trigger-values',
+    qxHasValidRunningModeTrigger,
+    failureMessage(qxHasValidRunningModeTrigger, 'QX running_mode_trigger cannot use filter'),
+  );
 }
 
 function validateJsonProducts(record, baselineVersion) {
@@ -352,6 +434,12 @@ function validateJsonProducts(record, baselineVersion) {
   record.check('singbox.selector-urltest-count', selectorCount === EXPECTED_SINGBOX_GROUPS, { value: selectorCount });
   record.check('singbox.rule-set-count', ruleSetCount >= 30, { value: ruleSetCount });
   record.check('singbox.route-rule-count', routeRuleCount >= 600, { value: routeRuleCount });
+  for (const port of STUN_DIRECT_PORTS) {
+    const hasPortRule = ((singbox.route || {}).rules || []).some((rule) => (
+      Array.isArray(rule.port) && rule.port.includes(port) && rule.outbound === 'DIRECT'
+    ));
+    record.check(`singbox.stun-port.${port}`, hasPortRule, failureMessage(hasPortRule, `missing route rule for port ${port} -> DIRECT`));
+  }
 
   const v2rayn = readJson('v2rayN/v2rayN(xray).json');
   const allowedTags = new Set(['proxy', 'direct', 'block']);
@@ -361,6 +449,12 @@ function validateJsonProducts(record, baselineVersion) {
   record.check('v2rayn.outbound-tags', Array.isArray(v2rayn) && v2rayn.every((rule) => allowedTags.has(rule.outboundTag)), {
     value: Array.isArray(v2rayn) ? Array.from(new Set(v2rayn.map((rule) => rule.outboundTag))).sort() : null,
   });
+  for (const port of STUN_DIRECT_PORTS) {
+    const hasPortRule = Array.isArray(v2rayn) && v2rayn.some((rule) => (
+      rule.outboundTag === 'direct' && String(rule.port || '').split(',').map((item) => item.trim()).includes(String(port))
+    ));
+    record.check(`v2rayn.stun-port.${port}`, hasPortRule, failureMessage(hasPortRule, `missing port ${port} -> direct`));
+  }
 }
 
 function validatePasswall(record, baselineVersion) {
@@ -372,7 +466,8 @@ function validatePasswall(record, baselineVersion) {
     const reference = readText(spec.reference);
     const shuntFiles = listFiles(spec.dir).filter((file) => file.endsWith('.list'));
     const ruleAdds = countMatches(source, /uci add \$\{CONFIG_NAME\} shunt_rules/g);
-    record.check(`${spec.id}.baseline-header`, source.includes(baselineVersion), { message: `missing ${baselineVersion}` });
+    const hasBaselineHeader = source.includes(baselineVersion);
+    record.check(`${spec.id}.baseline-header`, hasBaselineHeader, failureMessage(hasBaselineHeader, `missing ${baselineVersion}`));
     record.check(`${spec.id}.script-rule-count`, ruleAdds === EXPECTED_PASSWALL_RULES, { value: ruleAdds });
     record.check(`${spec.id}.list-file-count`, shuntFiles.length === EXPECTED_PASSWALL_RULES, { value: shuntFiles.length });
     if (!reference.includes(baselineVersion)) {

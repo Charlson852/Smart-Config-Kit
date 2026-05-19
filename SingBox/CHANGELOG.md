@@ -5,6 +5,12 @@
 
 ---
 
+## v5.4.13-sing.1 (2026-05-19)
+
+- ✅ FIX#STUN-PORTS：由生成器重建 Full JSON，补齐 STUN/TURN 标准端口直连规则
+  - route rules 新增 `5349 / 19302 / 19305 / 19307 -> DIRECT`，并保留 `3478 / 3479`
+- N/A#FAKE-IP：sing-box 静态产物无 Mihomo `fake-ip-filter` 等价字段
+
 ## v5.4.12-sing.1 (2026-05-12)
 
 - META#RD-REALIP: Regenerated Full JSON against Clash Party v5.4.12 after the Mihomo RustDesk real-IP DNS fix.

@@ -5,9 +5,9 @@
   },
   "_meta": {
     "name": "SingBox Smart Full",
-    "version": "v5.4.12-sing.1",
-    "build": "2026-05-12",
-    "baseline": "Clash Party v5.4.12",
+    "version": "v5.4.13-sing.1",
+    "build": "2026-05-19",
+    "baseline": "Clash Party v5.4.13",
     "changelog": "见 SingBox/CHANGELOG.md"
   },
   "experimental": {
@@ -2432,6 +2432,34 @@
       {
         "port": [
           3479
+        ],
+        "action": "route",
+        "outbound": "DIRECT"
+      },
+      {
+        "port": [
+          5349
+        ],
+        "action": "route",
+        "outbound": "DIRECT"
+      },
+      {
+        "port": [
+          19302
+        ],
+        "action": "route",
+        "outbound": "DIRECT"
+      },
+      {
+        "port": [
+          19305
+        ],
+        "action": "route",
+        "outbound": "DIRECT"
+      },
+      {
+        "port": [
+          19307
         ],
         "action": "route",
         "outbound": "DIRECT"

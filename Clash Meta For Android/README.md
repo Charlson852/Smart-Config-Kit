@@ -4,7 +4,7 @@
 > 适用客户端：**Clash Meta For Android（CMFA）** / **FlClash** / **mihomo-party-android**（Android 原生）· **[ClashMi](https://github.com/KaringX/clashmi)**（跨平台 Flutter GUI，iOS/macOS/Android/Windows/Linux，复用同一 YAML；详见 §九）
 > 内核要求：**Mihomo**（原生 YAML 导入；区域组用 `url-test`，**不含 Smart + LightGBM**——CMFA 的静态 YAML 不支持 JS 覆写）
 > **FlClash 用户**：推荐使用 [FlClash 覆写脚本](../FlClash/FlClash(mihomo).js)（动态节点分类 + 家宽识别 + 订阅清理）。详见 [`FlClash/README.md`](../FlClash/README.md)。
-> 当前版本：**v5.4.12-cmfa.1**（跟随 Clash Party v5.4.12 主线；RustDesk 走会议协作并在 fake-ip-filter 中真实 IP 回应，DNS IP-first 自举）
+> 当前版本：**v5.4.13-cmfa.1**（跟随 Clash Party v5.4.13 主线；STUN/TURN 真实 IP + 标准端口直连，DNS IP-first 自举）
 
 ---
 
@@ -354,6 +354,9 @@ A：确认：
 
 ### Q4：fake-ip 模式下银行/支付 App 异常？
 A：已通过 `sniffer.skip-domain` 排除主要支付域名（支付宝/微信/币安等）。若你使用的银行域名未在名单中，可在 `fake-ip-filter` 追加对应域名。
+
+### Q5：fake-ip 会不会让 STUN/WebRTC 测试失真？
+A：v5.4.13 后 STUN/TURN 域名已进入 `fake-ip-filter`，标准端口 `3478 / 3479 / 5349 / 19302 / 19305 / 19307` 走 `DIRECT`。若测试服务强制使用 UDP/443 TURN，仍会受 QUIC 屏蔽策略影响。
 
 ---
 

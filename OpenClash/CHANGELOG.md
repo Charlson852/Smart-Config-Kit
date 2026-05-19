@@ -7,6 +7,13 @@
 
 ---
 
+## v5.4.13-oc-normal.1 / v5.4.13-oc-smart.1 (2026-05-19)
+
+- ✅ FIX#STUN-REALIP：OpenClash Normal / Smart 同步 STUN/TURN 真实 IP 与端口直连
+  - heredoc DNS `fake-ip-filter` 补充 STUN/TURN 通配、`stun1-4.l.google.com` 与 `global.turn.twilio.com`
+  - 规则尾段补齐 `DST-PORT 5349 / 19302 / 19305 / 19307 -> DIRECT`
+  - UDP/443 仍保持 QUIC 屏蔽策略，不作为默认 STUN/TURN 例外
+
 ## v5.4.12-oc-normal.1 / v5.4.12-oc-smart.1 (2026-05-12)
 
 - ✅ FIX#RD-REALIP：OpenClash Normal / Smart heredoc DNS `fake-ip-filter` 补充 `+.rustdesk.com`

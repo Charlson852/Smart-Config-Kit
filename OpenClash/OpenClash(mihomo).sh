@@ -2,12 +2,12 @@
 . /usr/share/openclash/log.sh
 
 # ============================================================================
-# Clash Smart v5.4.12-oc-normal.1 — OpenClash 覆写脚本（非 Smart 内核 / url-test 区域组）
-# Build: 2026-05-12
+# Clash Smart v5.4.13-oc-normal.1 — OpenClash 覆写脚本（非 Smart 内核 / url-test 区域组）
+# Build: 2026-05-19
 # ============================================================================
 # 定位：与同目录 OpenClash(mihomo-smart).sh 规则 100% 等价的「非 Smart 内核」版本。
 #       两者唯一区别：22 个区域组（11 全部 + 11 家宽）从 type: smart（uselightgbm）换成 type: url-test。
-#       对齐 Clash Party v5.4.12 JS 基线。
+#       对齐 Clash Party v5.4.13 JS 基线。
 #       适用场景：
 #         - OpenClash 内核选的是 Meta(mihomo 稳定版) 而非 Meta Alpha，不支持 smart + LightGBM
 #         - 或者明确想关闭 LightGBM ML 评估、只靠经典 url-test 延迟选路
@@ -19,20 +19,20 @@
 #   • ~990 条 rules
 #   • DNS fake-ip + 嗅探（HTTP/TLS/QUIC）+ nameserver-policy 救援
 #   • Ruby 阶段做：节点过滤 / 区域分类 / url-test 组生成 / TLS 指纹注入
-# 基线：Clash Party v5.4.12（唯一主线；v5.3.1/v5.3.2 为桌面端 PROCESS-NAME 改动，路由器端不适用）── 任何规则/组/DNS 改动必须先改 Clash Party JS，
+# 基线：Clash Party v5.4.13（唯一主线；v5.3.1/v5.3.2 为桌面端 PROCESS-NAME 改动，路由器端不适用）── 任何规则/组/DNS 改动必须先改 Clash Party JS，
 #       再同步到此文件。参见仓库根目录 CLAUDE.md / AGENTS.md。
 # 变更历史：见 `OpenClash/CHANGELOG.md`（Normal 部分）。
 # ============================================================================
 
 
 
-VERSION_TAG="v5.4.12-oc-normal.1"
+VERSION_TAG="v5.4.13-oc-normal.1"
 CONFIG_FILE="$1"
 LOG_FILE="/tmp/openclash.log"
 
 LOG_OUT "Info" "[Clash-Normal] $VERSION_TAG overwrite starting..."
 LOG_OUT "Info" "[Clash-Normal] Processing: $CONFIG_FILE"
-LOG_OUT "Info" "[Clash-Normal] Full-rule build (v5.4.12, 32 business groups, non-Smart kernel)"
+LOG_OUT "Info" "[Clash-Normal] Full-rule build (v5.4.13, 32 business groups, non-Smart kernel)"
 
 # ============================================================================
 # OVERRIDE YAML
@@ -66,12 +66,19 @@ dns:
   - +.home.arpa
   - +.stun.*.*
   - +.stun.*.*.*
+  - +.turn.*.*
+  - +.turn.*.*.*
   - +.ntp.org
   - +.pool.ntp.org
   - +.n.n.srv.nintendo.net
   - +.stun.playstation.net
   - +.xboxlive.com
   - stun.l.google.com
+  - stun1.l.google.com
+  - stun2.l.google.com
+  - stun3.l.google.com
+  - stun4.l.google.com
+  - global.turn.twilio.com
   - +.rustdesk.com
   cache-algorithm: arc
   # 对齐 Clash Party 基线（使用方法.md 第 99-132 行）
@@ -3243,6 +3250,10 @@ rules:
 - DST-PORT,123,DIRECT
 - DST-PORT,3478,DIRECT
 - DST-PORT,3479,DIRECT
+- DST-PORT,5349,DIRECT
+- DST-PORT,19302,DIRECT
+- DST-PORT,19305,DIRECT
+- DST-PORT,19307,DIRECT
 - "PROCESS-NAME,QQ.exe,\U0001F3E0 国内网站"
 - "PROCESS-NAME,Weixin.exe,\U0001F3E0 国内网站"
 - "PROCESS-NAME,WeChat.exe,\U0001F3E0 国内网站"
@@ -4293,7 +4304,7 @@ cat > "$RUBY_SCRIPT" << 'RUBY_EOF'
 require 'yaml'
 require 'digest'
 
-VERSION = "v5.4.12-oc-normal.1"
+VERSION = "v5.4.13-oc-normal.1"
 
 STATUS_LOG = "/tmp/clash_normal_status.log"
 File.open(STATUS_LOG, 'w') { |f| f.puts "[#{VERSION}] start" }

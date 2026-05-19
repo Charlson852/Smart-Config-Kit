@@ -5,6 +5,12 @@
 
 ---
 
+## v5.4.13-flclash.1 (2026-05-19)
+
+- ✅ FIX#STUN-REALIP：同步 Clash Party Normal v5.4.13，补齐 STUN/TURN fake-ip 排除与标准端口直连
+  - 覆写脚本会把 STUN/TURN 通配、`stun1-4.l.google.com`、`global.turn.twilio.com` 合并进 `fake-ip-filter`
+  - `DST-PORT 5349 / 19302 / 19305 / 19307` 走 `DIRECT`
+
 ## v5.4.12-flclash.2 (2026-05-12)
 
 - 📝 DOC#IMPORT-HTML：FlClash 导入 URL 改为 `%28mihomo%29` 编码写法，并补充 `unexpected token '<'` 排障说明

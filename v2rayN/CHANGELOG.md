@@ -7,6 +7,12 @@
 
 ---
 
+## v5.4.13-v2n.1 (2026-05-19)
+
+- ✅ FIX#STUN-PORTS：Xray 路由 JSON 新增 `STUN/TURN NAT 探测端口 -> direct`
+  - 覆盖 `3478 / 3479 / 5349 / 19302 / 19305 / 19307`
+- N/A#FAKE-IP：Xray 路由 JSON 无 Mihomo `fake-ip-filter`
+
 ## v5.4.12-v2n.1 (2026-05-12)
 
 - META#RD-REALIP: Follows Clash Party v5.4.12 baseline metadata after the Mihomo RustDesk real-IP DNS fix.

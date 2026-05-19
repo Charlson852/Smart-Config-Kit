@@ -1,14 +1,14 @@
 ﻿// Clash Smart 内核覆写脚本 - SUB-STORE 多机场精细分流版
-// 版本：v5.4.12 (2026-05-12)
+// 版本：v5.4.13 (2026-05-19)
 // 架构：SUB-STORE 多机场融合 + 22 Smart 区域组（11 全部 + 11 家宽）+ 32 业务策略组（含 14 流媒体平台组）+ 385 rule-providers 100%+ 服务覆盖
-// v5.4.12: RustDesk 真实 IP 回应 · v5.4.11: RustDesk 进程走会议协作 + DNS 自举抗 DoH 死锁
+// v5.4.13: STUN/TURN 真实 IP + 标准端口直连 · v5.4.12: RustDesk 真实 IP 回应
 // 变更历史：见 `Clash Party/CHANGELOG.md`
 
 // ================================================================
 //  版本常量
 // ================================================================
 
-const VERSION = 'v5.4.12'
+const VERSION = 'v5.4.13'
 
 // v5.4.9 FEAT#LOCAL-TOOLS:
 // Desktop-capable local tools that should not be routed through proxy nodes.
@@ -1285,8 +1285,14 @@ function injectRules(config) {
     'DST-PORT,6540,DIRECT',
     'DST-PORT,33068,DIRECT',
     'DST-PORT,123,DIRECT',
+    // v5.4.13 FIX#STUN-REALIP: keep standard STUN/TURN discovery on DIRECT.
+    // UDP/443 TURN remains governed by the QUIC policy above.
     'DST-PORT,3478,DIRECT',
     'DST-PORT,3479,DIRECT',
+    'DST-PORT,5349,DIRECT',
+    'DST-PORT,19302,DIRECT',
+    'DST-PORT,19305,DIRECT',
+    'DST-PORT,19307,DIRECT',
     'DOMAIN-SUFFIX,chiphell.com,DIRECT',
     'DOMAIN-SUFFIX,iwipwedabay.com,DIRECT',
     'DOMAIN-SUFFIX,cdn.weixin.qq.com,DIRECT',
@@ -2323,12 +2329,20 @@ function overwriteGeneral(config) {
     '+.localdomain',
     '+.home.arpa',
     '+.stun.*.*',
+    '+.stun.*.*.*',
+    '+.turn.*.*',
+    '+.turn.*.*.*',
     '+.ntp.org',
     '+.pool.ntp.org',
     '+.n.n.srv.nintendo.net',
     '+.stun.playstation.net',
     '+.xboxlive.com',
     'stun.l.google.com',
+    'stun1.l.google.com',
+    'stun2.l.google.com',
+    'stun3.l.google.com',
+    'stun4.l.google.com',
+    'global.turn.twilio.com',
     'auth.docker.io',
     'registry-1.docker.io',
     'index.docker.io',

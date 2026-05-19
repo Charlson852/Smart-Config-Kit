@@ -6,6 +6,11 @@
 
 ---
 
+## v5.4.13-QX.1 (2026-05-19)
+
+- ✅ FIX#STUN-PORTS：用 QX 原生 `dst-port` 补齐 STUN/TURN 标准端口 `5349 / 19302 / 19305 / 19307 -> DIRECT`
+- N/A#FAKE-IP：Quantumult X 无 Mihomo `fake-ip-filter`；UDP fallback 策略保持不变
+
 ## v5.4.12-QX.1 (2026-05-12)
 
 - META#RD-REALIP: Follows Clash Party v5.4.12 documentation for the RustDesk real-IP DNS fix.

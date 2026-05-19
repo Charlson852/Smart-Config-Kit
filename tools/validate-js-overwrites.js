@@ -106,6 +106,19 @@ const COST_AND_LINE_QUALITY_CASES = [
 const DIRECT_PROCESS_RULES = ['WorkPro.exe', 'GCUService.exe', 'GSCService.exe', 'Weixin.exe', 'WeChat.exe', 'QQ.exe'];
 const RUSTDESK_WORK_PROCESS_RULES = ['RustDesk.exe', 'rustdesk.exe', 'RustDesk', 'rustdesk'];
 const WORK_PROVIDER_RULES = ['remotedesktop', 'acc-rustdesk', 'acc-parsec'];
+const STUN_DIRECT_PORTS = [3478, 3479, 5349, 19302, 19305, 19307];
+const STUN_FAKE_IP_FILTER_ENTRIES = [
+  '+.stun.*.*',
+  '+.stun.*.*.*',
+  '+.turn.*.*',
+  '+.turn.*.*.*',
+  'stun.l.google.com',
+  'stun1.l.google.com',
+  'stun2.l.google.com',
+  'stun3.l.google.com',
+  'stun4.l.google.com',
+  'global.turn.twilio.com',
+];
 
 const CLASSIFICATION_CASES = [
   ['HKG 01 IEPL x1', 'HK'],
@@ -446,6 +459,10 @@ function validateRulesAndProviders(output, record, target) {
       `remote-work provider stays in the work collaboration group: ${providerName}`,
     );
   }
+  for (const port of STUN_DIRECT_PORTS) {
+    record.expect(rules.includes(`DST-PORT,${port},DIRECT`), `STUN/TURN port stays on DIRECT: ${port}`);
+  }
+  record.expect(!rules.includes('DST-PORT,443,DIRECT'), 'UDP/443 TURN is not globally exempted from QUIC blocking');
   const rustDeskGuardIndex = rules.indexOf('DOMAIN-SUFFIX,rustdesk.com,🧑‍💼 会议协作');
   const copilotIndex = rules.indexOf('RULE-SET,copilot,🤖 AI 服务');
   record.expect(rustDeskGuardIndex !== -1, 'RustDesk domain guard exists before broad Copilot ASN rules');
@@ -470,6 +487,9 @@ function validateGeneral(output, record) {
   record.expectEqual(output.dns['enhanced-mode'], 'fake-ip', 'DNS enhanced-mode defaults to fake-ip');
   record.expect(Array.isArray(output.dns.nameserver) && output.dns.nameserver.length > 0, 'DNS nameserver fallback is nonempty');
   record.expect(Array.isArray(output.dns['fake-ip-filter']) && output.dns['fake-ip-filter'].includes('+.rustdesk.com'), 'RustDesk domains receive real IP in fake-ip-filter');
+  for (const entry of STUN_FAKE_IP_FILTER_ENTRIES) {
+    record.expect(Array.isArray(output.dns['fake-ip-filter']) && output.dns['fake-ip-filter'].includes(entry), `STUN/TURN domain receives real IP in fake-ip-filter: ${entry}`);
+  }
   record.expectArrayEqual(output.dns.nameserver.slice(0, 2), ['223.5.5.5', '119.29.29.29'], 'plain IP DNS is first for bootstrap');
   record.expectArrayEqual(output.dns['direct-nameserver'], ['223.5.5.5', '119.29.29.29'], 'direct DNS avoids DoH bootstrap dependency');
   record.expectArrayEqual(output.dns['proxy-server-nameserver'], ['223.5.5.5', '119.29.29.29', '1.1.1.1', '8.8.8.8'], 'proxy server DNS uses IP bootstrap');

@@ -1,7 +1,7 @@
 ﻿// FlClash 覆写脚本 — 标准 Mihomo 内核动态分流版
-// 版本：v5.4.12-flclash.2 (2026-05-12)
+// 版本：v5.4.13-flclash.1 (2026-05-19)
 // 架构：22 url-test 区域组（11 全部 + 11 家宽）+ 32 业务策略组（含 14 流媒体平台组）+ 385 rule-providers 100%+ 服务覆盖
-// 基线：Clash Party Normal v5.4.12-normal.1（规则 100% 等价；区域组为 url-test — FlClash 内核为标准 Mihomo，不支持 smart + LightGBM）
+// 基线：Clash Party Normal v5.4.13-normal.1（规则 100% 等价；区域组为 url-test — FlClash 内核为标准 Mihomo，不支持 smart + LightGBM）
 // 适用：FlClash >= v0.8.85（覆盖脚本功能自该版本引入）；其他使用标准 Mihomo 内核的客户端
 // 变更历史：见 `FlClash/CHANGELOG.md`
 //
@@ -35,7 +35,7 @@
 //  版本常量
 // ================================================================
 
-const VERSION = 'v5.4.12-flclash.2'
+const VERSION = 'v5.4.13-flclash.1'
 
 // v5.4.9 FEAT#LOCAL-TOOLS: desktop local-tool direct whitelist.
 const LOCAL_TOOL_DIRECT_PROCESS_NAMES = [
@@ -1308,8 +1308,14 @@ function injectRules(config) {
     'DST-PORT,6540,DIRECT',
     'DST-PORT,33068,DIRECT',
     'DST-PORT,123,DIRECT',
+    // v5.4.13 FIX#STUN-REALIP: keep standard STUN/TURN discovery on DIRECT.
+    // UDP/443 TURN remains governed by the QUIC policy above.
     'DST-PORT,3478,DIRECT',
     'DST-PORT,3479,DIRECT',
+    'DST-PORT,5349,DIRECT',
+    'DST-PORT,19302,DIRECT',
+    'DST-PORT,19305,DIRECT',
+    'DST-PORT,19307,DIRECT',
     'DOMAIN-SUFFIX,chiphell.com,DIRECT',
     'DOMAIN-SUFFIX,iwipwedabay.com,DIRECT',
     'DOMAIN-SUFFIX,cdn.weixin.qq.com,DIRECT',
@@ -2315,7 +2321,19 @@ function overwriteGeneral(config) {
     config.dns.fallback = ['https://cloudflare-dns.com/dns-query', 'https://dns.google/dns-query']
   }
   var currentFakeIpFilter = Array.isArray(config.dns['fake-ip-filter']) ? config.dns['fake-ip-filter'] : []
-  config.dns['fake-ip-filter'] = uniqList(currentFakeIpFilter.concat(['+.rustdesk.com']))
+  config.dns['fake-ip-filter'] = uniqList(currentFakeIpFilter.concat([
+    '+.stun.*.*',
+    '+.stun.*.*.*',
+    '+.turn.*.*',
+    '+.turn.*.*.*',
+    'stun.l.google.com',
+    'stun1.l.google.com',
+    'stun2.l.google.com',
+    'stun3.l.google.com',
+    'stun4.l.google.com',
+    'global.turn.twilio.com',
+    '+.rustdesk.com',
+  ]))
   if (!config.profile) config.profile = {}
   config.profile['store-selected'] = true
   config.profile['store-fake-ip'] = true

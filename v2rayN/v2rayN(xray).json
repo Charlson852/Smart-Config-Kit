@@ -2,7 +2,7 @@
     {
       "id": "scki-000-meta",
       "enabled": false,
-      "remarks": "Smart-Config-Kit v5.4.12-v2n.1 | Build 2026-05-12 | Baseline Clash Party v5.4.12 | changelog: v2rayN/CHANGELOG.md",
+      "remarks": "Smart-Config-Kit v5.4.13-v2n.1 | Build 2026-05-19 | Baseline Clash Party v5.4.13 | changelog: v2rayN/CHANGELOG.md",
       "outboundTag": "direct",
       "domain": [
         "domain:smart-config-kit.invalid"
@@ -608,6 +608,18 @@
       ],
       "ip": [],
       "port": "",
+      "protocol": [],
+      "inboundTag": [],
+      "network": "tcp,udp"
+    },
+    {
+      "id": "scki-053-stun-turn",
+      "enabled": true,
+      "remarks": "STUN/TURN NAT 探测端口 → 直连",
+      "outboundTag": "direct",
+      "domain": [],
+      "ip": [],
+      "port": "3478,3479,5349,19302,19305,19307",
       "protocol": [],
       "inboundTag": [],
       "network": "tcp,udp"

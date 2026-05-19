@@ -1,7 +1,7 @@
-# Quantumult X 使用教程（对齐 Clash Party v5.4.12）
+# Quantumult X 使用教程（对齐 Clash Party v5.4.13）
 
 > 配置文件：`Quantumult X/QuantumultX.conf`
-> 版本：**v5.4.12-QX.1**（Build 2026-05-12，详见 `Quantumult X/CHANGELOG.md`；RustDesk 域名兜底走会议协作，DoH 顺序 AliDNS 优先）
+> 版本：**v5.4.13-QX.1**（Build 2026-05-19，详见 `Quantumult X/CHANGELOG.md`；补齐 STUN/TURN 标准端口直连，DoH 顺序 AliDNS 优先）
 > 目标：**Quantumult X iOS（App Store 付费正版）**
 > 架构：22 区域 `url-latency-benchmark` 组（11 全部 + 11 家宽）+ 32 业务 `static` 组 + ~290 filter_remote + 568 filter_local 规则
 

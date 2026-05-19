@@ -1,8 +1,8 @@
 ﻿# ================================================================
-# Clash Smart v5.4.12-cmfa.1 - CMFA (Clash Meta for Android) 配置
-# Build: 2026-05-12
+# Clash Smart v5.4.13-cmfa.1 - CMFA (Clash Meta for Android) 配置
+# Build: 2026-05-19
 # 架构：proxy-providers 订阅 + 22 url-test 区域组（11 全部 + 11 家宽，家宽 filter 新增 IEPL/IPLC/专线识别）+ 32 业务策略组（含 14 流媒体平台组）+ 384+ rule-providers
-# 基线：Clash Party v5.4.12（唯一主线）
+# 基线：Clash Party v5.4.13（唯一主线）
 # 变更历史：见 `Clash Meta For Android/CHANGELOG.md`
 # ================================================================
 # ★ 快速上手：
@@ -50,34 +50,40 @@ dns:
   ipv6: false
   enhanced-mode: fake-ip
   fake-ip-range: 198.18.0.1/16
-  fake-ip-filter-mode: rule
+  fake-ip-filter-mode: blacklist
   fake-ip-filter:
-  - 'RULE-SET,fakeip-filter,real-ip'
-  - 'RULE-SET,Private,real-ip'
-  - 'RULE-SET,Direct,real-ip'
-  - 'RULE-SET,XPTV,real-ip'
-  - 'RULE-SET,Download,real-ip'
-  - 'RULE-SET,AppleCN,real-ip'
-  - 'RULE-SET,China,real-ip'
-  - 'DOMAIN-SUFFIX,rustdesk.com,real-ip'
-  - 'RULE-SET,AI,fake-ip'
-  - 'DOMAIN-KEYWORD,speedtest,fake-ip'
-  - 'RULE-SET,Speedtest,fake-ip'
-  - 'RULE-SET,Twitter,fake-ip'
-  - 'RULE-SET,Telegram,fake-ip'
-  - 'RULE-SET,SocialMedia,fake-ip'
-  - 'RULE-SET,NewsMedia,fake-ip'
-  - 'RULE-SET,Games,fake-ip'
-  - 'RULE-SET,Crypto,fake-ip'
-  - 'RULE-SET,Emby,fake-ip'
-  - 'RULE-SET,Netflix,fake-ip'
-  - 'RULE-SET,YouTube,fake-ip'
-  - 'RULE-SET,Streaming,fake-ip'
-  - 'RULE-SET,Apple,fake-ip'
-  - 'RULE-SET,Google,fake-ip'
-  - 'RULE-SET,Microsoft,fake-ip'
-  - 'RULE-SET,Proxy,fake-ip'
-  - 'MATCH,real-ip'
+  - +.lan
+  - +.local
+  - time.*.com
+  - ntp.*.com
+  - +.market.xiaomi.com
+  - +.localdomain
+  - +.home.arpa
+  - +.stun.*.*
+  - +.stun.*.*.*
+  - +.turn.*.*
+  - +.turn.*.*.*
+  - +.ntp.org
+  - +.pool.ntp.org
+  - +.n.n.srv.nintendo.net
+  - +.stun.playstation.net
+  - +.xboxlive.com
+  - stun.l.google.com
+  - stun1.l.google.com
+  - stun2.l.google.com
+  - stun3.l.google.com
+  - stun4.l.google.com
+  - global.turn.twilio.com
+  - auth.docker.io
+  - registry-1.docker.io
+  - index.docker.io
+  - hub.docker.com
+  - production.cloudflare.docker.com
+  - +.push.apple.com
+  - +.pub.3gppnetwork.org
+  - +.bing.com
+  - +.rustdesk.com
+  - +.miwifi.com
   use-hosts: false
   use-system-hosts: false
   respect-rules: true
@@ -3631,6 +3637,10 @@ rules:
 - DST-PORT,123,DIRECT
 - DST-PORT,3478,DIRECT
 - DST-PORT,3479,DIRECT
+- DST-PORT,5349,DIRECT
+- DST-PORT,19302,DIRECT
+- DST-PORT,19305,DIRECT
+- DST-PORT,19307,DIRECT
 - DOMAIN-SUFFIX,chiphell.com,DIRECT
 - DOMAIN-SUFFIX,iwipwedabay.com,DIRECT
 - DOMAIN-SUFFIX,cdn.weixin.qq.com,DIRECT

@@ -7,6 +7,11 @@
 
 ---
 
+## v5.4.13-pw.1 (2026-05-19)
+
+- N/A#STUN-PORTS：Passwall shunt_rules 是域名/IP 列表模型，没有本仓库可安全写入的端口分流字段
+- META#BASELINE：元数据跟随 Clash Party v5.4.13；域名/IP 展平列表不变
+
 ## v5.4.12-pw.1 (2026-05-12)
 
 - META#RD-REALIP: Follows Clash Party v5.4.12 baseline metadata after the Mihomo RustDesk real-IP DNS fix.

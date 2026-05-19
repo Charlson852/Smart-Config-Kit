@@ -4,6 +4,11 @@
 
 ---
 
+## v5.4.13-Loon.1 (2026-05-19)
+
+- ✅ FIX#STUN-PORTS：用 Loon 原生 `DEST-PORT` 补齐 STUN/TURN 标准端口 `5349 / 19302 / 19305 / 19307 -> DIRECT`
+- N/A#FAKE-IP：Loon 无 Mihomo `fake-ip-filter`；`disable-udp-ports = 443` 仍表示 UDP/443 不作为默认 TURN 例外
+
 ## v5.4.12-Loon.2 (2026-05-16)
 
 - ✅ FIX#LOON-REMOTE-RULE：将 288 条远程规则集 URL 统一恢复到 `[Remote Rule]` 段，避免 Loon 在 `[Rule]` 段把 `https://...` 判为语法错误。

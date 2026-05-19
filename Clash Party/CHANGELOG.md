@@ -7,6 +7,13 @@
 
 ---
 
+## v5.4.13 / v5.4.13-normal.1 (2026-05-19)
+
+- ✅ FIX#STUN-REALIP：STUN/TURN NAT 探测改为真实 IP + 标准端口直连
+  - `fake-ip-filter` 补充 `stun1-4.l.google.com`、三段 STUN/TURN 通配与 `global.turn.twilio.com`
+  - `DST-PORT` 补齐 `5349 / 19302 / 19305 / 19307`，并保留 `3478 / 3479`
+  - UDP/443 型 TURN 仍由 QUIC 屏蔽策略控制，避免放开 HTTP/3 全局阻断
+
 ## v5.4.12 / v5.4.12-normal.1 (2026-05-12)
 
 - ✅ FIX#RD-REALIP：RustDesk 域名加入 `fake-ip-filter` 真实 IP 回应

@@ -5,6 +5,12 @@
 
 ---
 
+## v5.4.13-cmfa.1 (2026-05-19)
+
+- ✅ FIX#STUN-REALIP：STUN/TURN 域名不再拿 fake-ip，标准探测端口直连
+  - `fake-ip-filter-mode` 改回 `blacklist`，移除不存在的 `RULE-SET,Google` / `RULE-SET,AI` 等引用
+  - 补齐 `stun1-4.l.google.com`、STUN/TURN 通配与 `DST-PORT 5349 / 19302 / 19305 / 19307`
+
 ## v5.4.12-cmfa.1 (2026-05-12)
 
 - ✅ FIX#RD-REALIP：`DOMAIN-SUFFIX,rustdesk.com,real-ip` 加入 `fake-ip-filter-mode: rule`
