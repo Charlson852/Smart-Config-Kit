@@ -7,6 +7,11 @@
 
 ---
 
+## v5.4.15-oc-normal.1 / v5.4.15-oc-smart.1 (2026-05-20)
+
+- 🧾 DOC#GEOSITE-LEDGER：Normal / Smart 同步 Clash Party v5.4.15 元数据与台账引用。
+- ♻️ REFACTOR#AD-FP-MODULE：heredoc YAML 的 rules 顶部显式标记 Anti-ad false-positive allowlist；白名单仍前置于广告/钓鱼/威胁情报规则。
+
 ## v5.4.14-oc-normal.1 / v5.4.14-oc-smart.1 (2026-05-20)
 
 - ✅ FIX#CF-R2-P0：Normal / Smart 同步前置 `cloudflarestorage.com -> 🌐 国外网站`

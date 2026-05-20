@@ -5,6 +5,11 @@
 
 ---
 
+## v5.4.15-flclash.1 (2026-05-20)
+
+- 🧾 DOC#GEOSITE-LEDGER：同步 Clash Party Normal v5.4.15，新增 GEOSITE 覆盖台账引用。
+- ♻️ REFACTOR#AD-FP-MODULE：将广告误伤白名单提升为 AD_FALSE_POSITIVE_ALLOWLIST，并在 injectRules() 顶部统一注入。
+
 ## v5.4.14-flclash.1 (2026-05-20)
 
 - ✅ FIX#CF-R2-P0：同步 Clash Party Normal v5.4.14，前置 `cloudflarestorage.com -> 🌐 国外网站`

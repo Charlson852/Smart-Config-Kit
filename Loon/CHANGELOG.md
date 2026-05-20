@@ -4,6 +4,11 @@
 
 ---
 
+## v5.4.15-Loon.1 (2026-05-20)
+
+- 🧾 DOC#GEOSITE-LEDGER：同步 Clash Party v5.4.15 元数据，新增 GEOSITE 覆盖台账引用。
+- ♻️ REFACTOR#AD-FP-MODULE：本地 [Rule] 顶部显式标记 Anti-ad false-positive allowlist；Loon 本地规则仍优先于远程规则。
+
 ## v5.4.14-Loon.1 (2026-05-20)
 
 - ✅ FIX#CF-R2-P0：本地 `[Rule]` 前置 `DOMAIN-SUFFIX,cloudflarestorage.com,🌐 国外网站`

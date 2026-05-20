@@ -1,7 +1,7 @@
 ﻿// Clash 覆写脚本 - SUB-STORE 多机场精细分流版
-// 版本：v5.4.14-normal.1 (2026-05-20)
+// 版本：v5.4.15-normal.1 (2026-05-20)
 // 架构：22 url-test 区域组（11 全部 + 11 家宽）+ 32 业务策略组 + 385 rule-providers
-// 基线：Clash Party v5.4.14（与同目录 ClashParty(mihomo-smart).js 规则 100% 等价，仅区域组从 smart 改为 url-test）
+// 基线：Clash Party v5.4.15（与同目录 ClashParty(mihomo-smart).js 规则 100% 等价，仅区域组从 smart 改为 url-test）
 // 适用：Mihomo / Clash.Meta 稳定版内核、不支持 smart + LightGBM 的分支；也适用于想完全关闭 ML 评估的用户
 // 变更历史：见 `Clash Party/CHANGELOG.md`
 
@@ -9,7 +9,7 @@
 //  版本常量
 // ================================================================
 
-const VERSION = 'v5.4.14-normal.1'
+const VERSION = 'v5.4.15-normal.1'
 
 // v5.4.9 FEAT#LOCAL-TOOLS: desktop local-tool direct whitelist.
 const LOCAL_TOOL_DIRECT_PROCESS_NAMES = [
@@ -227,6 +227,28 @@ const BIZ = {
   GFW: '🚫 受限网站', INTL_SITE: '🌐 国外网站',
   FINAL: '🐟 漏网之鱼', AD: '🛑 广告拦截',
 }
+
+const AD_FALSE_POSITIVE_ALLOWLIST = [
+  // v5.4.2 P0-FIX#41: 小米核心服务 DIRECT 白名单——前置 miuiprivacy/advertisingmitv。
+  // 小米账号认证安全域名（auth.be.sec.miui.com / idm.api.io.mi.com 在 miuiprivacy 中被误杀导致登录"网络错误"）。
+  `DOMAIN-SUFFIX,account.xiaomi.com,DIRECT`,
+  `DOMAIN-SUFFIX,passport.xiaomi.com,DIRECT`,
+  // 小米云服务。
+  `DOMAIN-SUFFIX,micloud.xiaomi.com,DIRECT`,
+  `DOMAIN,i.mi.com,DIRECT`,
+  // 小米系统安全（均在 miuiprivacy 中被误杀）。
+  `DOMAIN,auth.be.sec.miui.com,DIRECT`,
+  `DOMAIN,idm.api.io.mi.com,DIRECT`,
+  `DOMAIN,api.installer.xiaomi.com,DIRECT`,
+  `DOMAIN,flash.sec.miui.com,DIRECT`,
+  `DOMAIN,mazu.sec.miui.com,DIRECT`,
+  `DOMAIN,ccc.sys.miui.com,DIRECT`,
+  // 小米推送注册（register.xmpush.xiaomi.com 在 advertisingmitv 中被误杀）。
+  `DOMAIN,register.xmpush.xiaomi.com,DIRECT`,
+  // v5.4.14 FIX#CF-R2: Sukka reject_phishing 当前包含 Cloudflare R2 存储域；
+  // 必须前置到广告/钓鱼拦截规则之前，否则后面的国外网站规则无法覆盖首匹配。
+  `DOMAIN-SUFFIX,cloudflarestorage.com,${BIZ.INTL_SITE}`,
+]
 
 const REGION_ORDER = ['GLOBAL', 'HK', 'TW', 'SG', 'JPKR', 'APAC', 'US', 'EU', 'AMERICAS', 'AFRICA', 'OTHER']
 const REGION_HOME_MAP = {
@@ -1213,25 +1235,9 @@ function injectRuleProviders(config) {
 
 function injectRules(config) {
   config.rules = [
-    // v5.4.2 P0-FIX#41: 小米核心服务 DIRECT 白名单——前置 miuiprivacy/advertisingmitv
-    // 小米账号认证安全域名（auth.be.sec.miui.com / idm.api.io.mi.com 在 miuiprivacy 中被误杀导致登录"网络错误"）
-    `DOMAIN-SUFFIX,account.xiaomi.com,DIRECT`,
-    `DOMAIN-SUFFIX,passport.xiaomi.com,DIRECT`,
-    // 小米云服务
-    `DOMAIN-SUFFIX,micloud.xiaomi.com,DIRECT`,
-    `DOMAIN,i.mi.com,DIRECT`,
-    // 小米系统安全（均在 miuiprivacy 中被误杀）
-    `DOMAIN,auth.be.sec.miui.com,DIRECT`,
-    `DOMAIN,idm.api.io.mi.com,DIRECT`,
-    `DOMAIN,api.installer.xiaomi.com,DIRECT`,
-    `DOMAIN,flash.sec.miui.com,DIRECT`,
-    `DOMAIN,mazu.sec.miui.com,DIRECT`,
-    `DOMAIN,ccc.sys.miui.com,DIRECT`,
-    // 小米推送注册（register.xmpush.xiaomi.com 在 advertisingmitv 中被误杀）
-    `DOMAIN,register.xmpush.xiaomi.com,DIRECT`,
-    // v5.4.14 FIX#CF-R2: Sukka reject_phishing 当前包含 Cloudflare R2 存储域；
-    // 必须前置到广告/钓鱼拦截规则之前，否则后面的国外网站规则无法覆盖首匹配。
-    `DOMAIN-SUFFIX,cloudflarestorage.com,${BIZ.INTL_SITE}`,
+    // Anti-ad false-positive allowlist: keep before all ad/phishing/TIF providers.
+    // See docs/GEOSITE_COVERAGE_LEDGER.md for ownership and update rules.
+    ...AD_FALSE_POSITIVE_ALLOWLIST,
     `RULE-SET,anti-ad,${BIZ.AD}`,
     // v5.1: P0 安全 - 钓鱼域名拦截（13万条，SukkaW）
     `RULE-SET,sukka-phishing,${BIZ.AD}`,

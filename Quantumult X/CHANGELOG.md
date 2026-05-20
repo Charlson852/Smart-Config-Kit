@@ -6,6 +6,11 @@
 
 ---
 
+## v5.4.15-QX.1 (2026-05-20)
+
+- 🧾 DOC#GEOSITE-LEDGER：同步 Clash Party v5.4.15 元数据，新增 GEOSITE 覆盖台账引用。
+- ♻️ REFACTOR#AD-FP-MODULE：[filter_remote] 顶部显式标记 Anti-ad false-positive allowlist；本地 host/host-suffix 白名单仍前置于远程广告过滤器。
+
 ## v5.4.14-QX.1 (2026-05-20)
 
 - ✅ FIX#CF-R2-P0：`host-suffix, cloudflarestorage.com, 🌐 国外网站` 前置到广告远程规则之前

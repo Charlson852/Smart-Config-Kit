@@ -4,6 +4,11 @@
 
 ---
 
+## v5.4.15-Surge.1 (2026-05-20)
+
+- 🧾 DOC#GEOSITE-LEDGER：同步 Clash Party v5.4.15 元数据，新增 GEOSITE 覆盖台账引用。
+- ♻️ REFACTOR#AD-FP-MODULE：阶段 1 顶部显式标记 Anti-ad false-positive allowlist，并将小米误伤白名单与 Cloudflare R2 白名单统一放到广告/钓鱼/TIF 规则之前。
+
 ## v5.4.14-Surge.1 (2026-05-20)
 
 - ✅ FIX#CF-R2-P0：`cloudflarestorage.com` 规则前置到阶段 1 顶部

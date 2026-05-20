@@ -1,7 +1,7 @@
 # Shadowrocket（小火箭）使用教程
 
 > 配置文件：`Shadowrocket.conf`
-> 版本：**v5.4.14-SR.1**（Build 2026-05-20，跟随 Clash Party v5.4.14 基线；前置修复 Cloudflare R2 存储域误拦截，QUIC 策略不变）
+> 版本：**v5.4.15-SR.1**（Build 2026-05-20，跟随 Clash Party v5.4.15 基线；新增 GEOSITE 覆盖台账与 anti-ad 误伤白名单前置区块，QUIC 策略不变）
 > 目标：**Shadowrocket iOS（App Store 正版）** / macOS 通用
 > 架构：22 区域组（11 全部 + 11 家宽，`url-test` + `policy-regex-filter` 按节点名自动分类）+ 32 业务策略组 + ~290 rule-set
 
@@ -47,6 +47,7 @@
 - SR「首页」最上方显示绿色的"Connected"。
 - SR「首页 → 代理组」应能看到 **22 区域 + 32 业务 = 54 个组**。
 - SR「首页 → 连接信息（Connections）」能看到每次请求走了哪个组/节点。
+- 额外检查：按根 README 的 [导入后 60 秒验证清单](../README.md#-导入后-60-秒验证清单) 确认规则下载、GEOSITE 命中与 anti-ad 误伤白名单。
 
 ### 最常见踩坑
 - ❌ **App Store 搜不到 SR**：你的 Apple ID 是中国区。换非中国区 Apple ID（注册需要一个非中国的地址 + 外国信用卡/礼品卡）。

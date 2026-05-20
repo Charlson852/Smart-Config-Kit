@@ -1,7 +1,7 @@
-# Passwall 使用教程（对齐 Clash Party v5.4.14 简化版）
+# Passwall 使用教程（对齐 Clash Party v5.4.15 简化版）
 
 > 配置参考：`Passwall/` 目录  
-> 版本：**v5.4.14-pw.1**（Build 2026-05-20；显式补齐 Cloudflare R2 存储域，Sukka phishing 源在 Passwall shunt_rules 中不适用）
+> 版本：**v5.4.15-pw.1**（Build 2026-05-20；同步 GEOSITE 覆盖台账元数据；Cloudflare R2 显式保留，Sukka phishing 源在 Passwall shunt_rules 中不适用）
 > 目标：**[Passwall](https://github.com/Openwrt-Passwall/openwrt-passwall)**（全功能版）—— [`Openwrt-Passwall`](https://github.com/Openwrt-Passwall) 组织（原 `xiaorouji` 个人仓库已迁入）维护。与 [Passwall2](https://github.com/Openwrt-Passwall/openwrt-passwall2)（精简分流版）**并行维护**（非新旧关系），规则语法同源（共用 [shunt_rules.lua](https://github.com/Openwrt-Passwall/openwrt-passwall2/blob/main/luci-app-passwall2/luasrc/model/cbi/passwall2/client/shunt_rules.lua) 解析器），同一份 `.list` 两者通用。  
 > 架构：32 条 shunt rule（展平版，每条对应一个业务类别）+ xray/sing-box 原生域名匹配语法（纯字符串 / `regexp:` / `domain:` / `full:` / `geosite:` / `rule-set:remote|local:` / `geoip:` / CIDR）
 
@@ -87,6 +87,7 @@
 - 浏览器打开 `https://www.google.com` 能打开 = 代理通了
 - Passwall → 分流控制 → 每条规则后的"命中次数"应开始累加
 - 访问 `chat.openai.com` → 应命中第 2 条（🤖 AI 服务）规则（第 1 条是 🛑 广告拦截，正常访问不会命中）
+- 额外检查：按根 README 的 [导入后 60 秒验证清单](../README.md#-导入后-60-秒验证清单) 确认规则下载、GEOSITE 命中与 anti-ad 误伤白名单。
 
 ### 最常见踩坑
 - ❌ **规则多了顺序错乱**：Passwall 按列表顺序匹配，**把"国内网站"/"广告拦截"放最前或最后**，业务规则放中间

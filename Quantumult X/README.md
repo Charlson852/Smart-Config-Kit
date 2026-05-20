@@ -1,7 +1,7 @@
-# Quantumult X 使用教程（对齐 Clash Party v5.4.14）
+# Quantumult X 使用教程（对齐 Clash Party v5.4.15）
 
 > 配置文件：`Quantumult X/QuantumultX.conf`
-> 版本：**v5.4.14-QX.1**（Build 2026-05-20，详见 `Quantumult X/CHANGELOG.md`；前置修复 Cloudflare R2 存储域误拦截，DoH 顺序 AliDNS 优先）
+> 版本：**v5.4.15-QX.1**（Build 2026-05-20，详见 `Quantumult X/CHANGELOG.md`；新增 GEOSITE 覆盖台账与 anti-ad 误伤白名单前置区块，DoH 顺序 AliDNS 优先）
 > 目标：**Quantumult X iOS（App Store 付费正版）**
 > 架构：22 区域 `url-latency-benchmark` 组（11 全部 + 11 家宽）+ 32 业务 `static` 组 + ~290 filter_remote + 568 filter_local 规则
 
@@ -43,6 +43,7 @@
 - 浏览器打开 `https://www.google.com` 能打开
 - QX「策略」面板应看到 54 组（22 url-latency-benchmark + 32 static）
 - QX「日志」面板看 filter_remote 下载成功无 404
+- 额外检查：按根 README 的 [导入后 60 秒验证清单](../README.md#-导入后-60-秒验证清单) 确认规则下载、GEOSITE 命中与 anti-ad 误伤白名单。
 
 ### 最常见踩坑
 - ❌ **加了节点但不被 11 区域组识别**：QX 用节点的 **tag 字段**做正则匹配（不是 name！）。确认订阅返回的节点 tag 含 `HK` / `JP` / `US` 等地区关键字。机场的订阅链接加 `&flag=quanx` 后缀通常能让 tag 含地区标识。

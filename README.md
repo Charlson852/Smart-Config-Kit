@@ -103,7 +103,7 @@ flowchart LR
 | 🐟 漏网之鱼 | 以 GEOSITE/GEOIP/FINAL 兜底为主（非单一固定 provider） | MetaCubeX（geo 规则） |
 | 🛑 广告拦截 | `anti-ad` `sukka-phishing` `hagezi-tif` `advertising` `privacy` `acc-unsupportvpn` | DustinWin / SukkaW / Hagezi / blackmatrix7 / Accademia |
 
-> v5.4.14 起，Cloudflare R2 存储域 `cloudflarestorage.com` 前置命中 `🌐 国外网站`，用于覆盖上游 phishing 规则源的误拦截。v5.4.13 起，STUN/TURN NAT 探测域名在 Mihomo fake-ip DNS 中返回真实 IP，标准端口 `3478 / 3479 / 5349 / 19302 / 19305 / 19307` 默认直连；UDP/443 型 TURN 仍由 QUIC 屏蔽策略控制。v5.4.12 起，RustDesk 公网 relay/API 统一按 `🧑‍💼 会议协作` 走代理链路，同时 `rustdesk.com` 返回真实 IP，避免会合阶段拿到 198.18.x fake-ip。
+> v5.4.15 起，新增 [GEOSITE 覆盖台账](./docs/GEOSITE_COVERAGE_LEDGER.md)，并把广告误伤白名单提升为显式模块。v5.4.14 起，Cloudflare R2 存储域 `cloudflarestorage.com` 前置命中 `🌐 国外网站`，用于覆盖上游 phishing 规则源的误拦截。v5.4.13 起，STUN/TURN NAT 探测域名在 Mihomo fake-ip DNS 中返回真实 IP，标准端口 `3478 / 3479 / 5349 / 19302 / 19305 / 19307` 默认直连；UDP/443 型 TURN 仍由 QUIC 屏蔽策略控制。v5.4.12 起，RustDesk 公网 relay/API 统一按 `🧑‍💼 会议协作` 走代理链路，同时 `rustdesk.com` 返回真实 IP，避免会合阶段拿到 198.18.x fake-ip。
 
 ---
 
@@ -112,6 +112,8 @@ flowchart LR
 > 本仓库在 MetaCubeX `geosite.dat` + Loyalsoldier `geoip.dat` 基础上叠加了 ~300 个补充 rule-provider。这一节解释**为什么需要它们**——以及**每一条必须回答"我比原生 dat 多解决了什么"**，不是数量游戏。
 >
 > 代理组嵌套 / Smart / LightGBM 等架构能力是另一回事，见上一章「🧩 Smart 分流规则」。
+>
+> 当前覆盖结论、误伤白名单和新增 provider 的审查流程集中维护在 [docs/GEOSITE_COVERAGE_LEDGER.md](./docs/GEOSITE_COVERAGE_LEDGER.md)。
 
 ### 匹配层的两个维度
 
@@ -317,6 +319,19 @@ tcpdump -n -i any port 443       # 应看到持续流量 → DoH 正常
 | SingBox / Hiddify / HomeProxy | ✅（JSON 已含 DoH server） | 无 |
 | v2rayN（mihomo 核）| ✅（吃 CMFA YAML） | 在 v2rayN 设置里勾选"使用配置文件里的 DNS 设置" |
 | v2rayN（sing-box / Xray 核）| ⚠️ | 参见 `v2rayN/README.md` |
+
+---
+
+## ✅ 导入后 60 秒验证清单
+
+导入任一端产物后，先看这 6 件事，能快速判断是配置问题、规则下载问题，还是节点质量问题。
+
+1. **节点与策略组存在**：Mihomo / Apple 系客户端应看到 22 区域组 + 32 业务组；sing-box Full 应看到 53 个出站；v2rayN Xray 路径没有业务策略组是正常限制。
+2. **规则源下载完成**：Clash / OpenClash / CMFA / FlClash 里 `rule-providers` 不应有大面积 403 / 404；Surge / Loon / QX 看远程规则列表是否下载成功；sing-box 看 `rule_set` 是否全部可用。
+3. **广告误伤安全阀生效**：访问或规则测试 `cloudflarestorage.com` 应命中 `🌐 国外网站`，不是 `🛑 广告拦截`；小米账号/云服务域名应走 `DIRECT`。
+4. **GEOSITE 基础命中正常**：`geosite:private` / 局域网应直连，`geosite:gfw` 应进入 `🚫 受限网站`，`geosite:category-ads-all` 应进入广告拦截。
+5. **DNS 没泄漏**：按上方 DNS 检查确认只看到预期 DoH 上游，不应看到本地 ISP DNS。
+6. **最终兜底可解释**：连接日志里落到 `🐟 漏网之鱼` 的域名要能解释；如果某个新服务长期落入 FINAL，再按 [GEOSITE 覆盖台账](./docs/GEOSITE_COVERAGE_LEDGER.md) 判断是否补 provider。
 
 ---
 

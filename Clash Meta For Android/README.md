@@ -4,7 +4,7 @@
 > 适用客户端：**Clash Meta For Android（CMFA）** / **FlClash** / **mihomo-party-android**（Android 原生）· **[ClashMi](https://github.com/KaringX/clashmi)**（跨平台 Flutter GUI，iOS/macOS/Android/Windows/Linux，复用同一 YAML；详见 §九）
 > 内核要求：**Mihomo**（原生 YAML 导入；区域组用 `url-test`，**不含 Smart + LightGBM**——CMFA 的静态 YAML 不支持 JS 覆写）
 > **FlClash 用户**：推荐使用 [FlClash 覆写脚本](../FlClash/FlClash(mihomo).js)（动态节点分类 + 家宽识别 + 订阅清理）。详见 [`FlClash/README.md`](../FlClash/README.md)。
-> 当前版本：**v5.4.14-cmfa.1**（跟随 Clash Party v5.4.14 主线；Cloudflare R2 存储域误拦截前置修复，STUN/TURN 真实 IP + 标准端口直连，DNS IP-first 自举）
+> 当前版本：**v5.4.15-cmfa.1**（跟随 Clash Party v5.4.15 主线；新增 GEOSITE 覆盖台账与 anti-ad 误伤白名单模块化说明，保留 Cloudflare R2 / STUN/TURN / DNS 修复）
 
 ---
 
@@ -37,6 +37,7 @@
 - 浏览器打开 `https://www.google.com` 能打开 = 代理通了。
 - CMFA 点底部「代理」，应看到 **22 区域组（11 全部 + 11 家宽）+ 32 业务组**。
 - 点底部「连接」能看到每次访问走了哪个组/节点。
+- 额外检查：按根 README 的 [导入后 60 秒验证清单](../README.md#-导入后-60-秒验证清单) 确认规则下载、GEOSITE 命中与 anti-ad 误伤白名单。
 
 ### 最常见踩坑
 - ❌ **APK 装不上**：没允许"来自未知来源的应用"。设置 → 安全 → 允许安装未知来源。

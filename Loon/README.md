@@ -1,7 +1,7 @@
-# Loon 使用教程（对齐 Clash Party v5.4.14）
+# Loon 使用教程（对齐 Clash Party v5.4.15）
 
 > 配置文件：`Loon/Loon.conf`
-> 版本：**v5.4.14-Loon.1**（Build 2026-05-20，详见 `Loon/CHANGELOG.md`；前置修复 Cloudflare R2 存储域误拦截，UDP/443 仍按 `disable-udp-ports` 屏蔽）
+> 版本：**v5.4.15-Loon.1**（Build 2026-05-20，详见 `Loon/CHANGELOG.md`；新增 GEOSITE 覆盖台账与 anti-ad 误伤白名单前置区块，UDP/443 仍按 `disable-udp-ports` 屏蔽）
 > 目标：**Loon iOS（App Store 付费正版）**
 > 架构：22 区域 url-test 组（11 全部 + 11 家宽，[Remote Filter] NameRegex）+ 32 业务策略组 + 288 [Remote Rule] 订阅规则集
 
@@ -44,6 +44,7 @@
 - Loon「策略组」面板应看到 54 组（22 区域 + 32 业务）
 - Loon「过滤器」面板应看到 9 个 Filter（GLOBAL / HK / TW / JPKR / APAC / US / EU / AM / AF）
 - Loon「设置 → 运行日志」看规则集 + MMDB 下载状态
+- 额外检查：按根 README 的 [导入后 60 秒验证清单](../README.md#-导入后-60-秒验证清单) 确认规则下载、GEOSITE 命中与 anti-ad 误伤白名单。
 
 ### 最常见踩坑
 - ❌ **导入提示 `https://...` 语法错误**：通常是拿到旧版或手工把远程规则 URL 放进了 `[Rule]`。Loon 远程规则集必须在 `[Remote Rule]`；请使用 v5.4.12-Loon.2 或更新版本。

@@ -7,6 +7,12 @@
 
 ---
 
+## v5.4.15 / v5.4.15-normal.1 (2026-05-20)
+
+- 🧾 DOC#GEOSITE-LEDGER：新增 docs/GEOSITE_COVERAGE_LEDGER.md，记录原生 GEOSITE/GEOIP、补充 rule-provider 与误伤白名单边界。
+- ♻️ REFACTOR#AD-FP-MODULE：Smart / Normal 两份 JS 将广告误伤白名单提升为 AD_FALSE_POSITIVE_ALLOWLIST，并在 injectRules() 顶部统一注入。
+- 🧪 VERIFY#ORDER：白名单仍位于 anti-ad / phishing / TIF / 隐私广告规则之前，规则总量保持 1053，rule-providers 保持 385。
+
 ## v5.4.14 / v5.4.14-normal.1 (2026-05-20)
 
 - ✅ FIX#CF-R2-P0：`cloudflarestorage.com` 误命中 Sukka phishing 源时不再进入 `🛑 广告拦截`

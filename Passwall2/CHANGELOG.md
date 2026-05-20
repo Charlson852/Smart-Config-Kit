@@ -6,6 +6,11 @@
 
 ---
 
+## v5.4.15-pw2.1 (2026-05-20)
+
+- 🧾 DOC#GEOSITE-LEDGER：同步 Clash Party v5.4.15 元数据，新增 GEOSITE 覆盖台账引用。
+- N/A#AD-FP-MODULE：Passwall2 shunt_rules 为降级参考，不消费 Sukka phishing / blackmatrix7 MIUI 远程源；规则列表保持 v5.4.14 语义。
+
 ## v5.4.14-pw2.1 (2026-05-20)
 
 - ✅ FIX#CF-R2-P0：`29-intl-site.list` 显式补齐 `domain:cloudflarestorage.com`

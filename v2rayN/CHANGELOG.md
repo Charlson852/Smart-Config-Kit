@@ -7,6 +7,11 @@
 
 ---
 
+## v5.4.15-v2n.1 (2026-05-20)
+
+- 🧾 DOC#GEOSITE-LEDGER：同步 Clash Party v5.4.15 元数据，新增 GEOSITE 覆盖台账引用。
+- N/A#AD-FP-MODULE：路径 C 的 Xray 路由 JSON 不消费 Sukka phishing / blackmatrix7 MIUI 远程源；保留既有 Cloudflare R2 前置规则，mihomo / sing-box 路径复用对应产物。
+
 ## v5.4.14-v2n.1 (2026-05-20)
 
 - ✅ FIX#CF-R2-P0：Xray 路由 JSON 增加 `cloudflarestorage.com -> proxy` 前置规则

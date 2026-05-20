@@ -3,7 +3,7 @@
 > 覆写脚本：`FlClash(mihomo).js`
 > 适用客户端：**FlClash**（Android / Windows / macOS / Linux）
 > 内核要求：FlClash >= **v0.8.85**
-> 当前版本：**v5.4.14-flclash.1**（22 url-test 区域组 + 32 业务策略组；Cloudflare R2 存储域误拦截前置修复，STUN/TURN 与 RustDesk 在 fake-ip-filter 中真实 IP 回应）
+> 当前版本：**v5.4.15-flclash.1**（22 url-test 区域组 + 32 业务策略组；GEOSITE 覆盖台账 + anti-ad 误伤白名单模块化，保留 Cloudflare R2 / STUN/TURN / RustDesk 修复）
 
 <table><tr>
 <td><img width="160" alt="FlClash 截图1" src="https://github.com/user-attachments/assets/e88e0724-2bc0-4111-851e-e8aa0a9141d3"></td>
@@ -50,6 +50,7 @@
 点「代理」标签，应看到：
 - **最多 22 个区域组**（11 全部 + 11 家宽；空区域自动跳过）：🌍 全球节点、🇭🇰 香港节点、🇸🇬 狮城节点、🌏 其他节点……
 - **32 业务组**：🤖 AI 服务、🎵 TikTok、🎥 Netflix、📱 社交媒体……
+- 额外检查：按根 README 的 [导入后 60 秒验证清单](../README.md#-导入后-60-秒验证清单) 确认规则下载、GEOSITE 命中与 anti-ad 误伤白名单。
 
 ---
 

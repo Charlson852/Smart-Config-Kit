@@ -1,6 +1,6 @@
-# SingBox 使用教程（对齐 Clash Party v5.4.14 Full 语义）
+# SingBox 使用教程（对齐 Clash Party v5.4.15 Full 语义）
 
-> 配置文件：`SingBox/SingBox(sing-box)-full.json`（v5.4.14-sing.1）
+> 配置文件：`SingBox/SingBox(sing-box)-full.json`（v5.4.15-sing.1）
 > 生成脚本：`SingBox/SingBox(sing-box)-generator.js`
 > 目标：在 **sing-box** 上复刻 Clash Party 的「20 区域组（10 全部 + 10 家宽）+ 32 业务组」静态策略结构，并只使用 sing-box 官方可消费的 SRS 规则集，保持 sing-box 1.12/1.13/1.14 官方配置兼容。
 > 本目录只提供 Full 配置。
@@ -35,6 +35,7 @@
 - 浏览器打开 `https://www.google.com` 能打开 = 代理通了
 - 客户端的"出站"/"策略"面板应看到 53 个组（1 `🚀 节点选择` + 20 区域 + 32 业务）
 - 首次启动后等 39 个 remote rule_set 下载完（约 1 分钟），日志不报 403/404 即可
+- 额外检查：按根 README 的 [导入后 60 秒验证清单](../README.md#-导入后-60-秒验证清单) 确认规则下载、GEOSITE 命中与 anti-ad 误伤白名单。
 
 ### 最常见踩坑
 - ❌ **客户端说 "config invalid"**：你改节点时漏了逗号/引号。用 `python3 -c 'import json; json.load(open("SingBox(sing-box)-full.json"))'` 校验 JSON 合法性。

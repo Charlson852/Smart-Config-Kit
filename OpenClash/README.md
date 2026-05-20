@@ -6,7 +6,7 @@
 > - Normal 版：`OpenClash(mihomo).sh`（`type: url-test`，非 Smart 内核）
 > - UI 配置快照：`OpenClash(mihomo).conf`（一次性导入推荐 UCI 选项）
 > - `PROCESS-NAME` 清单已语法同步；RustDesk 进程改走 `🧑‍💼 会议协作`，路由器端通常看不到局域网客户端进程名，主要用于保持 mihomo 规则形态一致。
-> - v5.4.14 起 `cloudflarestorage.com` 前置命中 `🌐 国外网站`，覆盖上游 phishing 规则源误拦截；v5.4.13 起 DNS 保持 IP-first 自举，并在 `fake-ip-filter` 中让 STUN/TURN 与 RustDesk 域名返回真实 IP；标准 STUN/TURN 端口直连，UDP/443 TURN 仍受 QUIC 屏蔽策略控制。
+> - v5.4.15 起新增 GEOSITE 覆盖台账与 anti-ad 误伤白名单模块化说明；v5.4.14 起 `cloudflarestorage.com` 前置命中 `🌐 国外网站`，覆盖上游 phishing 规则源误拦截；v5.4.13 起 DNS 保持 IP-first 自举，并在 `fake-ip-filter` 中让 STUN/TURN 与 RustDesk 域名返回真实 IP；标准 STUN/TURN 端口直连，UDP/443 TURN 仍受 QUIC 屏蔽策略控制。
 
 ---
 
@@ -224,6 +224,11 @@ use: ['Airport1', 'Airport2']
 LuCI → **配置订阅** → 添加订阅链接 → 下载 → **全局设置** 选择该配置 → 启动 OpenClash。
 
 ---
+
+### 3.7 启动后验证
+- OpenClash「运行状态」应显示内核正常启动，日志没有大面积 rule-provider 403 / 404。
+- 策略组页面应看到 22 区域组 + 32 业务组；Smart 版区域组应为 `smart`，Normal 版应为 `url-test`。
+- 额外检查：按根 README 的 [导入后 60 秒验证清单](../README.md#-导入后-60-秒验证清单) 确认规则下载、GEOSITE 命中与 anti-ad 误伤白名单。
 
 ## 4. 常见问题
 

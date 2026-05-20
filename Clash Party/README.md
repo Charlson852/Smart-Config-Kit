@@ -1,8 +1,8 @@
 # Clash Party / Clash Verge / Mihomo Party 使用教程
 
 > 覆写脚本：**两份二选一**，规则 100% 等价，仅 22 区域组（11 全部 + 11 家宽）的内核选路算法不同
-> - `ClashParty(mihomo-smart).js`（**v5.4.14**，2026-05-20）— Smart 内核 + LightGBM ML 评估
-> - `ClashParty(mihomo).js`（**v5.4.14-normal.1**，2026-05-20）— 普通内核 url-test 延迟选路
+> - `ClashParty(mihomo-smart).js`（**v5.4.15**，2026-05-20）— Smart 内核 + LightGBM ML 评估
+> - `ClashParty(mihomo).js`（**v5.4.15-normal.1**，2026-05-20）— 普通内核 url-test 延迟选路
 >
 > UI 补充配置：已整合到本文「四、粘贴 UI 补充配置」章节
 > 架构：**SUB-STORE 多机场融合** + 22 区域组（11 全部 + 11 家宽）+ 32 业务策略组 + **385 rule-providers**
@@ -70,6 +70,7 @@
 - 浏览器打开 `https://www.google.com`，能打开说明代理通了。
 - 客户端左侧「代理」页面最多会看到 **54 个代理组**（22 区域 + 32 业务；空区域会自动不建组）。
 - 左侧「连接」页面可以看每条请求走了哪个组/哪个节点。
+- 额外检查：按根 README 的 [导入后 60 秒验证清单](../README.md#-导入后-60-秒验证清单) 确认规则下载、GEOSITE 命中与 anti-ad 误伤白名单。
 
 ### 最常见的第一次踩坑
 - ❌ **订阅链接格式不对**：有些机场默认给的是 V2ray 格式。换链接时加 `?flag=clash.meta` 或 `?flag=meta` 后缀。
