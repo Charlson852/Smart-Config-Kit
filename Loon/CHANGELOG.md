@@ -4,6 +4,11 @@
 
 ---
 
+## v5.4.16-Loon.1 (2026-05-20)
+
+- ✅ FIX#149-P0：本地 `[Rule]` 前置 `DOMAIN-SUFFIX,paddle.com,🏦 金融支付`
+  - Loon 本地规则优先于远程规则，用于覆盖 anti-AD/DustinWin 对 `analytics.paddle.com` 的误拦截
+
 ## v5.4.15-Loon.1 (2026-05-20)
 
 - 🧾 DOC#GEOSITE-LEDGER：同步 Clash Party v5.4.15 元数据，新增 GEOSITE 覆盖台账引用。

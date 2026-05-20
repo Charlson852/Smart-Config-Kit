@@ -1,7 +1,7 @@
-# Passwall / Passwall2 使用教程（对齐 Clash Party v5.4.15 简化版）
+# Passwall / Passwall2 使用教程（对齐 Clash Party v5.4.16 简化版）
 
 > 配置参考：`Passwall2/` 目录  
-> 版本：**v5.4.15-pw2.1**（Build 2026-05-20；同步 GEOSITE 覆盖台账元数据；Cloudflare R2 显式保留，Sukka phishing 源在 Passwall2 shunt_rules 中不适用）
+> 版本：**v5.4.16-pw2.1**（Build 2026-05-20；Paddle 许可/支付链路归入金融支付；Cloudflare R2 显式保留，anti-AD/Sukka phishing 源在 Passwall2 shunt_rules 中不适用）
 > 目标：**[Passwall](https://github.com/Openwrt-Passwall/openwrt-passwall)**（全功能版）+ **[Passwall2](https://github.com/Openwrt-Passwall/openwrt-passwall2)**（精简分流版）—— [`Openwrt-Passwall`](https://github.com/Openwrt-Passwall) 组织（原 `xiaorouji` 个人仓库已迁入）并行维护的两款 OpenWrt 插件，**规则语法同源**（共用 [shunt_rules.lua](https://github.com/Openwrt-Passwall/openwrt-passwall2/blob/main/luci-app-passwall2/luasrc/model/cbi/passwall2/client/shunt_rules.lua) 解析器），同一份 `.list` 两者通用。  
 > 架构：32 条 shunt rule（展平版，每条对应一个业务类别）+ xray/sing-box 原生域名匹配语法（纯字符串 / `regexp:` / `domain:` / `full:` / `geosite:` / `rule-set:remote|local:` / `geoip:` / CIDR）
 
@@ -176,6 +176,7 @@ domain:coingecko.com
 ```
 geosite:paypal
 geosite:stripe
+domain:paddle.com
 domain:wise.com
 domain:revolut.com
 domain:visa.com

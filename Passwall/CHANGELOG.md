@@ -7,6 +7,11 @@
 
 ---
 
+## v5.4.16-pw.1 (2026-05-20)
+
+- ✅ FIX#149-P0：金融支付 shunt rule 补充 `domain:paddle.com`
+  - Passwall 不消费 anti-AD/DustinWin 远程源；作为降级参考，将 Paddle 许可/支付链路归入 `🏦 金融支付`
+
 ## v5.4.15-pw.1 (2026-05-20)
 
 - 🧾 DOC#GEOSITE-LEDGER：同步 Clash Party v5.4.15 元数据，新增 GEOSITE 覆盖台账引用。

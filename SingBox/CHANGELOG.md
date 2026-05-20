@@ -5,6 +5,12 @@
 
 ---
 
+## v5.4.16-sing.1 (2026-05-20)
+
+- ✅ FIX#149-P0：由生成器重建 Full JSON，前置 `paddle.com -> 🏦 金融支付`
+  - `route.rules` 中 Paddle 规则位于 `anti-ad` / `category-ads-all` reject 规则之前
+  - `_meta` 同步 Clash Party v5.4.16
+
 ## v5.4.15-sing.1 (2026-05-20)
 
 - 🧾 DOC#GEOSITE-LEDGER：同步 Clash Party v5.4.15 元数据，生成器基线更新到 Clash Party v5.4.15。

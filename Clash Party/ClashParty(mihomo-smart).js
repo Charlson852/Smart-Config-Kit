@@ -1,14 +1,14 @@
 ﻿// Clash Smart 内核覆写脚本 - SUB-STORE 多机场精细分流版
-// 版本：v5.4.15 (2026-05-20)
+// 版本：v5.4.16 (2026-05-20)
 // 架构：SUB-STORE 多机场融合 + 22 Smart 区域组（11 全部 + 11 家宽）+ 32 业务策略组（含 14 流媒体平台组）+ 385 rule-providers 100%+ 服务覆盖
-// v5.4.15: GEOSITE 覆盖台账 + anti-ad 误伤白名单模块化 · v5.4.14: Cloudflare R2 误拦截前置白名单
+// v5.4.16: Paddle/Antigravity 登录误伤白名单 · v5.4.15: GEOSITE 覆盖台账 + anti-ad 白名单模块化
 // 变更历史：见 `Clash Party/CHANGELOG.md`
 
 // ================================================================
 //  版本常量
 // ================================================================
 
-const VERSION = 'v5.4.15'
+const VERSION = 'v5.4.16'
 
 // v5.4.9 FEAT#LOCAL-TOOLS:
 // Desktop-capable local tools that should not be routed through proxy nodes.
@@ -250,6 +250,9 @@ const AD_FALSE_POSITIVE_ALLOWLIST = [
   // v5.4.14 FIX#CF-R2: Sukka reject_phishing 当前包含 Cloudflare R2 存储域；
   // 必须前置到广告/钓鱼拦截规则之前，否则后面的国外网站规则无法覆盖首匹配。
   `DOMAIN-SUFFIX,cloudflarestorage.com,${BIZ.INTL_SITE}`,
+  // v5.4.16 FIX#149: anti-AD/DustinWin 当前包含 analytics.paddle.com；
+  // Antigravity 账号设置会调用 Paddle 许可/支付链路，必须前置到广告规则之前。
+  `DOMAIN-SUFFIX,paddle.com,${BIZ.PAYMENTS}`,
 ]
 
 const REGION_ORDER = ['GLOBAL', 'HK', 'TW', 'SG', 'JPKR', 'APAC', 'US', 'EU', 'AMERICAS', 'AFRICA', 'OTHER']

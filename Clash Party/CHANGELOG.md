@@ -7,6 +7,13 @@
 
 ---
 
+## v5.4.16 / v5.4.16-normal.1 (2026-05-20)
+
+- ✅ FIX#149-P0：前置 `DOMAIN-SUFFIX,paddle.com,🏦 金融支付`，避免 `analytics.paddle.com` 被 anti-AD/DustinWin 误拦截
+  - issue #149 中 Antigravity 登录 Google 回跳后报 `There was an unexpected issue setting up your account.`
+  - 当前 anti-AD/DustinWin 源包含 `analytics.paddle.com`，因此必须放在广告/钓鱼/TIF 规则之前，而不是放在后段金融支付规则里
+  - Smart / Normal 两份 JS 同步，保持 `AD_FALSE_POSITIVE_ALLOWLIST` 作为唯一前置白名单模块
+
 ## v5.4.15 / v5.4.15-normal.1 (2026-05-20)
 
 - 🧾 DOC#GEOSITE-LEDGER：新增 docs/GEOSITE_COVERAGE_LEDGER.md，记录原生 GEOSITE/GEOIP、补充 rule-provider 与误伤白名单边界。

@@ -7,6 +7,11 @@
 
 ---
 
+## v5.4.16-v2n.1 (2026-05-20)
+
+- ✅ FIX#149-P0：路径 C（Xray 核）新增 `paddle.com -> proxy` 前置规则
+  - v2rayN Xray 不消费 anti-AD 远程源，但保留 Paddle 许可/支付链路优先级；mihomo / sing-box 路径复用对应产物
+
 ## v5.4.15-v2n.1 (2026-05-20)
 
 - 🧾 DOC#GEOSITE-LEDGER：同步 Clash Party v5.4.15 元数据，新增 GEOSITE 覆盖台账引用。

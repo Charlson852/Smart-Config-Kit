@@ -5,6 +5,11 @@
 
 ---
 
+## v5.4.16-flclash.1 (2026-05-20)
+
+- ✅ FIX#149-P0：同步 Clash Party Normal v5.4.16，前置 `paddle.com -> 🏦 金融支付`
+  - 覆盖 anti-AD/DustinWin 对 `analytics.paddle.com` 的误拦截，避免 Antigravity 账号设置/许可链路被广告规则抢先命中
+
 ## v5.4.15-flclash.1 (2026-05-20)
 
 - 🧾 DOC#GEOSITE-LEDGER：同步 Clash Party Normal v5.4.15，新增 GEOSITE 覆盖台账引用。

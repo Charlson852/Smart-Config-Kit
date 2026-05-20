@@ -5,9 +5,9 @@
   },
   "_meta": {
     "name": "SingBox Smart Full",
-    "version": "v5.4.15-sing.1",
+    "version": "v5.4.16-sing.1",
     "build": "2026-05-20",
-    "baseline": "Clash Party v5.4.15",
+    "baseline": "Clash Party v5.4.16",
     "changelog": "见 SingBox/CHANGELOG.md"
   },
   "experimental": {
@@ -1873,6 +1873,13 @@
         ],
         "action": "route",
         "outbound": "🌐 国外网站"
+      },
+      {
+        "domain_suffix": [
+          "paddle.com"
+        ],
+        "action": "route",
+        "outbound": "🏦 金融支付"
       },
       {
         "rule_set": [

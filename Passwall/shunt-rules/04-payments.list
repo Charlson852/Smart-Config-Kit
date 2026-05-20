@@ -7,6 +7,7 @@
 # [Domain List]
 geosite:paypal
 geosite:stripe
+domain:paddle.com
 domain:wise.com
 domain:revolut.com
 domain:visa.com

@@ -3,7 +3,7 @@
 > 覆写脚本：`FlClash(mihomo).js`
 > 适用客户端：**FlClash**（Android / Windows / macOS / Linux）
 > 内核要求：FlClash >= **v0.8.85**
-> 当前版本：**v5.4.15-flclash.1**（22 url-test 区域组 + 32 业务策略组；GEOSITE 覆盖台账 + anti-ad 误伤白名单模块化，保留 Cloudflare R2 / STUN/TURN / RustDesk 修复）
+> 当前版本：**v5.4.16-flclash.1**（22 url-test 区域组 + 32 业务策略组；新增 Paddle anti-ad 误伤白名单，保留 GEOSITE 覆盖台账 / Cloudflare R2 / STUN/TURN / RustDesk 修复）
 
 <table><tr>
 <td><img width="160" alt="FlClash 截图1" src="https://github.com/user-attachments/assets/e88e0724-2bc0-4111-851e-e8aa0a9141d3"></td>

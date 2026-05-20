@@ -5,6 +5,12 @@
 
 ---
 
+## v5.4.16-cmfa.1 (2026-05-20)
+
+- ✅ FIX#149-P0：rules 顶部前置 `DOMAIN-SUFFIX,paddle.com,🏦 金融支付`
+  - 当前 anti-AD/DustinWin 源包含 `analytics.paddle.com`，该白名单必须位于 `RULE-SET,anti-ad` 之前
+  - 修复 Antigravity 登录/账号设置中 Paddle 许可支付链路被广告规则误拦截的问题
+
 ## v5.4.15-cmfa.1 (2026-05-20)
 
 - 🧾 DOC#GEOSITE-LEDGER：同步 Clash Party v5.4.15 元数据，新增 GEOSITE 覆盖台账引用。

@@ -5,6 +5,12 @@
 
 ---
 
+## v5.4.16-SR.1 (2026-05-20)
+
+- ✅ FIX#149-P0：前置 `DOMAIN-SUFFIX,paddle.com,🏦 金融支付`
+  - issue #149 反馈 Antigravity 登录 Google 后回跳失败，日志中 `analytics.paddle.com` 频繁命中拦截
+  - 当前 anti-AD/DustinWin 源包含 `analytics.paddle.com`；Shadowrocket 本地规则需放在 anti-AD 远程规则之前
+
 ## v5.4.15-SR.1 (2026-05-20)
 
 - 🧾 DOC#GEOSITE-LEDGER：同步 Clash Party v5.4.15 元数据，新增 GEOSITE 覆盖台账引用。

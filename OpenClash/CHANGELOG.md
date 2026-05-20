@@ -7,6 +7,12 @@
 
 ---
 
+## v5.4.16-oc-normal.1 / v5.4.16-oc-smart.1 (2026-05-20)
+
+- ✅ FIX#149-P0：Normal / Smart 同步前置 `paddle.com -> 🏦 金融支付`
+  - 覆盖 anti-AD/DustinWin 对 `analytics.paddle.com` 的误拦截
+  - heredoc YAML 中该规则位于所有广告/钓鱼/威胁情报 `RULE-SET` 之前，避免 Antigravity 账号设置回跳失败
+
 ## v5.4.15-oc-normal.1 / v5.4.15-oc-smart.1 (2026-05-20)
 
 - 🧾 DOC#GEOSITE-LEDGER：Normal / Smart 同步 Clash Party v5.4.15 元数据与台账引用。

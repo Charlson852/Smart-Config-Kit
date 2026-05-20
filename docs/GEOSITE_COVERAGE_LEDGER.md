@@ -1,6 +1,6 @@
 # GEOSITE 覆盖台账
 
-> 基线：Clash Party `v5.4.15` / Build `2026-05-20`。
+> 基线：Clash Party `v5.4.16` / Build `2026-05-20`。
 > 目的：记录本仓库在原生 `geosite.dat` / `geoip.dat` 之外为什么还需要补充 rule-provider，以及哪些广告误伤白名单必须前置保护。
 
 ---
@@ -38,7 +38,7 @@
 | `📺/🎬/📹 流媒体` | `youtube` / `netflix` / `disney` / `hbo` / `hulu` / `primevideo` / `spotify` | blackmatrix7 / szkane Netflix IP / 区域媒体源 | 无 | 平台组优先，区域流媒体作为兜底。 |
 | `🎮 游戏` | `category-games` | Steam / Epic / Nintendo / PlayStation / Xbox 等 provider | 无 | 国内游戏直连，国外游戏进业务组。 |
 | `🔧 工具与服务` | `category-dev` | GitHub / npm / JetBrains / Docker / developer 补充源 | 本地工具进程白名单另管 | 域名与进程是两层语义，进程白名单不替代 GEOSITE。 |
-| `🏦 金融支付` | `paypal` / `stripe` | `acc-bank-*` / Visa / Mastercard / Wise / Revolut | 无 | 金融语义按地区与服务拆分，避免落入普通国外网站。 |
+| `🏦 金融支付` | `paypal` / `stripe` | `acc-bank-*` / Visa / Mastercard / Wise / Revolut | `paddle.com -> 🏦 金融支付` | 金融语义按地区与服务拆分，避免落入普通国外网站；Paddle 许可/支付链路需覆盖 anti-AD 误伤。 |
 | `🏠 国内网站` | `cn` / `geoip:cn` / `private` | 少量本地直连域名 | 小米核心服务 `DIRECT` | 国内直连不能放在广告拦截之后依赖兜底；误伤域名必须前置。 |
 | `🛰️ BT/PT Tracker` | `tracker` | tracker 补充 provider | 无 | 保持独立业务组，便于用户选择限速或代理策略。 |
 
@@ -62,6 +62,7 @@
 | `ccc.sys.miui.com` | `DIRECT` | MIUI 系统服务误伤。 |
 | `register.xmpush.xiaomi.com` | `DIRECT` | 小米推送注册被 `advertisingmitv` 类规则误伤。 |
 | `cloudflarestorage.com` | `🌐 国外网站` | Sukka phishing 当前包含 Cloudflare R2 存储域。 |
+| `paddle.com` | `🏦 金融支付` | anti-AD/DustinWin 当前包含 `analytics.paddle.com`；Antigravity 账号设置会调用 Paddle 许可/支付链路。 |
 
 ### 端侧映射
 

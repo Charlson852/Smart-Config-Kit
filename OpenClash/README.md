@@ -6,7 +6,7 @@
 > - Normal 版：`OpenClash(mihomo).sh`（`type: url-test`，非 Smart 内核）
 > - UI 配置快照：`OpenClash(mihomo).conf`（一次性导入推荐 UCI 选项）
 > - `PROCESS-NAME` 清单已语法同步；RustDesk 进程改走 `🧑‍💼 会议协作`，路由器端通常看不到局域网客户端进程名，主要用于保持 mihomo 规则形态一致。
-> - v5.4.15 起新增 GEOSITE 覆盖台账与 anti-ad 误伤白名单模块化说明；v5.4.14 起 `cloudflarestorage.com` 前置命中 `🌐 国外网站`，覆盖上游 phishing 规则源误拦截；v5.4.13 起 DNS 保持 IP-first 自举，并在 `fake-ip-filter` 中让 STUN/TURN 与 RustDesk 域名返回真实 IP；标准 STUN/TURN 端口直连，UDP/443 TURN 仍受 QUIC 屏蔽策略控制。
+> - v5.4.16 起 `paddle.com` 前置命中 `🏦 金融支付`，覆盖 anti-AD 对 `analytics.paddle.com` 的误拦截；v5.4.15 起新增 GEOSITE 覆盖台账与 anti-ad 误伤白名单模块化说明；v5.4.14 起 `cloudflarestorage.com` 前置命中 `🌐 国外网站`，覆盖上游 phishing 规则源误拦截；v5.4.13 起 DNS 保持 IP-first 自举，并在 `fake-ip-filter` 中让 STUN/TURN 与 RustDesk 域名返回真实 IP；标准 STUN/TURN 端口直连，UDP/443 TURN 仍受 QUIC 屏蔽策略控制。
 
 ---
 

@@ -2,12 +2,12 @@
 . /usr/share/openclash/log.sh
 
 # ============================================================================
-# Clash Smart v5.4.15-oc-normal.1 — OpenClash 覆写脚本（非 Smart 内核 / url-test 区域组）
+# Clash Smart v5.4.16-oc-normal.1 — OpenClash 覆写脚本（非 Smart 内核 / url-test 区域组）
 # Build: 2026-05-20
 # ============================================================================
 # 定位：与同目录 OpenClash(mihomo-smart).sh 规则 100% 等价的「非 Smart 内核」版本。
 #       两者唯一区别：22 个区域组（11 全部 + 11 家宽）从 type: smart（uselightgbm）换成 type: url-test。
-#       对齐 Clash Party v5.4.15 JS 基线。
+#       对齐 Clash Party v5.4.16 JS 基线。
 #       适用场景：
 #         - OpenClash 内核选的是 Meta(mihomo 稳定版) 而非 Meta Alpha，不支持 smart + LightGBM
 #         - 或者明确想关闭 LightGBM ML 评估、只靠经典 url-test 延迟选路
@@ -19,20 +19,20 @@
 #   • ~990 条 rules
 #   • DNS fake-ip + 嗅探（HTTP/TLS/QUIC）+ nameserver-policy 救援
 #   • Ruby 阶段做：节点过滤 / 区域分类 / url-test 组生成 / TLS 指纹注入
-# 基线：Clash Party v5.4.15（唯一主线；v5.3.1/v5.3.2 为桌面端 PROCESS-NAME 改动，路由器端不适用）── 任何规则/组/DNS 改动必须先改 Clash Party JS，
+# 基线：Clash Party v5.4.16（唯一主线；v5.3.1/v5.3.2 为桌面端 PROCESS-NAME 改动，路由器端不适用）── 任何规则/组/DNS 改动必须先改 Clash Party JS，
 #       再同步到此文件。参见仓库根目录 CLAUDE.md / AGENTS.md。
 # 变更历史：见 `OpenClash/CHANGELOG.md`（Normal 部分）。
 # ============================================================================
 
 
 
-VERSION_TAG="v5.4.15-oc-normal.1"
+VERSION_TAG="v5.4.16-oc-normal.1"
 CONFIG_FILE="$1"
 LOG_FILE="/tmp/openclash.log"
 
 LOG_OUT "Info" "[Clash-Normal] $VERSION_TAG overwrite starting..."
 LOG_OUT "Info" "[Clash-Normal] Processing: $CONFIG_FILE"
-LOG_OUT "Info" "[Clash-Normal] Full-rule build (v5.4.15, 32 business groups, non-Smart kernel)"
+LOG_OUT "Info" "[Clash-Normal] Full-rule build (v5.4.16, 32 business groups, non-Smart kernel)"
 
 # ============================================================================
 # OVERRIDE YAML
@@ -3214,6 +3214,8 @@ rules:
 - "DOMAIN,register.xmpush.xiaomi.com,DIRECT"
 # v5.4.14 FIX#CF-R2: Sukka reject_phishing 当前包含 Cloudflare R2 存储域，需前置覆盖首匹配。
 - DOMAIN-SUFFIX,cloudflarestorage.com,🌐 国外网站
+# v5.4.16 FIX#149: anti-AD/DustinWin 当前包含 analytics.paddle.com；Antigravity 登录需放行 Paddle 许可/支付链路。
+- DOMAIN-SUFFIX,paddle.com,🏦 金融支付
 - "RULE-SET,anti-ad,\U0001F6D1 广告拦截"
 - "RULE-SET,sukka-phishing,\U0001F6D1 广告拦截"
 - "RULE-SET,hagezi-tif,\U0001F6D1 广告拦截"
@@ -4307,7 +4309,7 @@ cat > "$RUBY_SCRIPT" << 'RUBY_EOF'
 require 'yaml'
 require 'digest'
 
-VERSION = "v5.4.15-oc-normal.1"
+VERSION = "v5.4.16-oc-normal.1"
 
 STATUS_LOG = "/tmp/clash_normal_status.log"
 File.open(STATUS_LOG, 'w') { |f| f.puts "[#{VERSION}] start" }

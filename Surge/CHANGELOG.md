@@ -4,6 +4,12 @@
 
 ---
 
+## v5.4.16-Surge.1 (2026-05-20)
+
+- ✅ FIX#149-P0：前置 `DOMAIN-SUFFIX,paddle.com,🏦 金融支付`
+  - 覆盖 anti-AD/DustinWin 对 `analytics.paddle.com` 的误拦截
+  - 与 Shadowrocket 同序，位于 anti-AD / phishing / TIF 远程规则之前
+
 ## v5.4.15-Surge.1 (2026-05-20)
 
 - 🧾 DOC#GEOSITE-LEDGER：同步 Clash Party v5.4.15 元数据，新增 GEOSITE 覆盖台账引用。

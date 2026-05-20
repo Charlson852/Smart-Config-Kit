@@ -2,7 +2,7 @@
     {
       "id": "scki-000-meta",
       "enabled": false,
-      "remarks": "Smart-Config-Kit v5.4.15-v2n.1 | Build 2026-05-20 | Baseline Clash Party v5.4.15 | changelog: v2rayN/CHANGELOG.md",
+      "remarks": "Smart-Config-Kit v5.4.16-v2n.1 | Build 2026-05-20 | Baseline Clash Party v5.4.16 | changelog: v2rayN/CHANGELOG.md",
       "outboundTag": "direct",
       "domain": [
         "domain:smart-config-kit.invalid"
@@ -20,6 +20,20 @@
       "outboundTag": "proxy",
       "domain": [
         "domain:cloudflarestorage.com"
+      ],
+      "ip": [],
+      "port": "",
+      "protocol": [],
+      "inboundTag": [],
+      "network": "tcp,udp"
+    },
+    {
+      "id": "scki-000b-paddle-payments",
+      "enabled": true,
+      "remarks": "Paddle 许可/支付链路 anti-ad 误伤前置白名单 → 代理",
+      "outboundTag": "proxy",
+      "domain": [
+        "domain:paddle.com"
       ],
       "ip": [],
       "port": "",

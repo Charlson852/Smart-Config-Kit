@@ -1,7 +1,7 @@
 # Shadowrocket（小火箭）使用教程
 
 > 配置文件：`Shadowrocket.conf`
-> 版本：**v5.4.15-SR.1**（Build 2026-05-20，跟随 Clash Party v5.4.15 基线；新增 GEOSITE 覆盖台账与 anti-ad 误伤白名单前置区块，QUIC 策略不变）
+> 版本：**v5.4.16-SR.1**（Build 2026-05-20，跟随 Clash Party v5.4.16 基线；新增 Paddle anti-ad 误伤白名单，QUIC 策略不变）
 > 目标：**Shadowrocket iOS（App Store 正版）** / macOS 通用
 > 架构：22 区域组（11 全部 + 11 家宽，`url-test` + `policy-regex-filter` 按节点名自动分类）+ 32 业务策略组 + ~290 rule-set
 

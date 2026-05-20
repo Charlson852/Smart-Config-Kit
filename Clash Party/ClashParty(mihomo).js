@@ -1,7 +1,7 @@
 ﻿// Clash 覆写脚本 - SUB-STORE 多机场精细分流版
-// 版本：v5.4.15-normal.1 (2026-05-20)
+// 版本：v5.4.16-normal.1 (2026-05-20)
 // 架构：22 url-test 区域组（11 全部 + 11 家宽）+ 32 业务策略组 + 385 rule-providers
-// 基线：Clash Party v5.4.15（与同目录 ClashParty(mihomo-smart).js 规则 100% 等价，仅区域组从 smart 改为 url-test）
+// 基线：Clash Party v5.4.16（与同目录 ClashParty(mihomo-smart).js 规则 100% 等价，仅区域组从 smart 改为 url-test）
 // 适用：Mihomo / Clash.Meta 稳定版内核、不支持 smart + LightGBM 的分支；也适用于想完全关闭 ML 评估的用户
 // 变更历史：见 `Clash Party/CHANGELOG.md`
 
@@ -9,7 +9,7 @@
 //  版本常量
 // ================================================================
 
-const VERSION = 'v5.4.15-normal.1'
+const VERSION = 'v5.4.16-normal.1'
 
 // v5.4.9 FEAT#LOCAL-TOOLS: desktop local-tool direct whitelist.
 const LOCAL_TOOL_DIRECT_PROCESS_NAMES = [
@@ -248,6 +248,9 @@ const AD_FALSE_POSITIVE_ALLOWLIST = [
   // v5.4.14 FIX#CF-R2: Sukka reject_phishing 当前包含 Cloudflare R2 存储域；
   // 必须前置到广告/钓鱼拦截规则之前，否则后面的国外网站规则无法覆盖首匹配。
   `DOMAIN-SUFFIX,cloudflarestorage.com,${BIZ.INTL_SITE}`,
+  // v5.4.16 FIX#149: anti-AD/DustinWin 当前包含 analytics.paddle.com；
+  // Antigravity 账号设置会调用 Paddle 许可/支付链路，必须前置到广告规则之前。
+  `DOMAIN-SUFFIX,paddle.com,${BIZ.PAYMENTS}`,
 ]
 
 const REGION_ORDER = ['GLOBAL', 'HK', 'TW', 'SG', 'JPKR', 'APAC', 'US', 'EU', 'AMERICAS', 'AFRICA', 'OTHER']
