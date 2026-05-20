@@ -103,7 +103,7 @@ flowchart LR
 | 🐟 漏网之鱼 | 以 GEOSITE/GEOIP/FINAL 兜底为主（非单一固定 provider） | MetaCubeX（geo 规则） |
 | 🛑 广告拦截 | `anti-ad` `sukka-phishing` `hagezi-tif` `advertising` `privacy` `acc-unsupportvpn` | DustinWin / SukkaW / Hagezi / blackmatrix7 / Accademia |
 
-> v5.4.13 起，STUN/TURN NAT 探测域名在 Mihomo fake-ip DNS 中返回真实 IP，标准端口 `3478 / 3479 / 5349 / 19302 / 19305 / 19307` 默认直连；UDP/443 型 TURN 仍由 QUIC 屏蔽策略控制。v5.4.12 起，RustDesk 公网 relay/API 统一按 `🧑‍💼 会议协作` 走代理链路，同时 `rustdesk.com` 返回真实 IP，避免会合阶段拿到 198.18.x fake-ip。
+> v5.4.14 起，Cloudflare R2 存储域 `cloudflarestorage.com` 前置命中 `🌐 国外网站`，用于覆盖上游 phishing 规则源的误拦截。v5.4.13 起，STUN/TURN NAT 探测域名在 Mihomo fake-ip DNS 中返回真实 IP，标准端口 `3478 / 3479 / 5349 / 19302 / 19305 / 19307` 默认直连；UDP/443 型 TURN 仍由 QUIC 屏蔽策略控制。v5.4.12 起，RustDesk 公网 relay/API 统一按 `🧑‍💼 会议协作` 走代理链路，同时 `rustdesk.com` 返回真实 IP，避免会合阶段拿到 198.18.x fake-ip。
 
 ---
 

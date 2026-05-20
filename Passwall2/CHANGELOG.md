@@ -6,6 +6,12 @@
 
 ---
 
+## v5.4.14-pw2.1 (2026-05-20)
+
+- ✅ FIX#CF-R2-P0：`29-intl-site.list` 显式补齐 `domain:cloudflarestorage.com`
+  - Passwall2 shunt_rules 不消费 Sukka phishing 源，当前 `geosite:category-ads-all` 也未命中该域；记录为同构同步
+  - `Passwall2(xray+sing-box)-apply.sh` 版本与基线同步到 Clash Party v5.4.14
+
 ## v5.4.13-pw2.1 (2026-05-19)
 
 - N/A#STUN-PORTS：Passwall2 shunt_rules 是域名/IP 列表模型，没有本仓库可安全写入的端口分流字段

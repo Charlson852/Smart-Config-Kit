@@ -6,6 +6,12 @@
 
 ---
 
+## v5.4.14-QX.1 (2026-05-20)
+
+- ✅ FIX#CF-R2-P0：`host-suffix, cloudflarestorage.com, 🌐 国外网站` 前置到广告远程规则之前
+  - 覆盖 Sukka phishing 对 Cloudflare R2 存储域的误拦截
+  - 后段 `🌐 国外网站` 重复条目已移除
+
 ## v5.4.13-QX.1 (2026-05-19)
 
 - ✅ FIX#STUN-PORTS：用 QX 原生 `dst-port` 补齐 STUN/TURN 标准端口 `5349 / 19302 / 19305 / 19307 -> DIRECT`

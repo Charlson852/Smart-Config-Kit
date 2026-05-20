@@ -5,6 +5,12 @@
 
 ---
 
+## v5.4.14-sing.1 (2026-05-20)
+
+- ✅ FIX#CF-R2-P0：由生成器重建 Full JSON，前置 `cloudflarestorage.com -> 🌐 国外网站`
+  - 生成后的 `route.rules` 中 Cloudflare R2 存储域位于 `anti-ad` / `category-ads-all` reject 规则之前
+  - `_meta` 同步 Clash Party v5.4.14
+
 ## v5.4.13-sing.1 (2026-05-19)
 
 - ✅ FIX#STUN-PORTS：由生成器重建 Full JSON，补齐 STUN/TURN 标准端口直连规则

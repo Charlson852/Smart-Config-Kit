@@ -7,6 +7,13 @@
 
 ---
 
+## v5.4.14 / v5.4.14-normal.1 (2026-05-20)
+
+- ✅ FIX#CF-R2-P0：`cloudflarestorage.com` 误命中 Sukka phishing 源时不再进入 `🛑 广告拦截`
+  - 当前 Sukka `reject_phishing` domainset 含 `+.cloudflarestorage.com`；本仓库原有 `🌐 国外网站` 规则位于广告段之后，无法覆盖首匹配
+  - 将 `DOMAIN-SUFFIX,cloudflarestorage.com,🌐 国外网站` 前置到所有广告/钓鱼/威胁情报规则之前，并移除后段重复条目
+  - Cloudflare R2 官方文档确认 `*.r2.cloudflarestorage.com` 是 R2 S3 API / presigned URL 正常访问域
+
 ## v5.4.13 / v5.4.13-normal.1 (2026-05-19)
 
 - ✅ FIX#STUN-REALIP：STUN/TURN NAT 探测改为真实 IP + 标准端口直连

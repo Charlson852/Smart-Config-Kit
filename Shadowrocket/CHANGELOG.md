@@ -5,6 +5,12 @@
 
 ---
 
+## v5.4.14-SR.1 (2026-05-20)
+
+- ✅ FIX#CF-R2-P0：`cloudflarestorage.com` 规则前置到阶段 1 顶部
+  - 避免 Sukka phishing 远程规则源把 Cloudflare R2 对象存储域误导向 `🛑 广告拦截`
+  - 后段 `🌐 国外网站` 重复条目已移除
+
 ## v5.4.13-SR.1 (2026-05-19)
 
 - ✅ FIX#STUN-PORTS：补齐 STUN/TURN 标准端口 `5349 / 19302 / 19305 / 19307 -> DIRECT`

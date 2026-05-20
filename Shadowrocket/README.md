@@ -1,7 +1,7 @@
 # Shadowrocket（小火箭）使用教程
 
 > 配置文件：`Shadowrocket.conf`
-> 版本：**v5.4.13-SR.1**（Build 2026-05-19，跟随 Clash Party v5.4.13 基线；补齐 STUN/TURN 标准端口直连，QUIC 策略不变）
+> 版本：**v5.4.14-SR.1**（Build 2026-05-20，跟随 Clash Party v5.4.14 基线；前置修复 Cloudflare R2 存储域误拦截，QUIC 策略不变）
 > 目标：**Shadowrocket iOS（App Store 正版）** / macOS 通用
 > 架构：22 区域组（11 全部 + 11 家宽，`url-test` + `policy-regex-filter` 按节点名自动分类）+ 32 业务策略组 + ~290 rule-set
 

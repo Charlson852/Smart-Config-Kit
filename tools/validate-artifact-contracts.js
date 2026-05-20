@@ -118,6 +118,15 @@ function countMatches(source, regex) {
   return matches ? matches.length : 0;
 }
 
+function checkNeedleBefore(record, id, source, beforeNeedle, afterNeedle) {
+  const beforeIndex = source.indexOf(beforeNeedle);
+  const afterIndex = source.indexOf(afterNeedle);
+  record.check(`${id}.exists`, beforeIndex !== -1, failureMessage(beforeIndex !== -1, `missing ${beforeNeedle}`));
+  record.check(`${id}.guard-order`, beforeIndex !== -1 && afterIndex !== -1 && beforeIndex < afterIndex, {
+    message: afterIndex === -1 ? `missing ${afterNeedle}` : `${beforeNeedle} must appear before ${afterNeedle}`,
+  });
+}
+
 function countLiteral(source, literal) {
   return source.split(literal).length - 1;
 }
@@ -314,6 +323,13 @@ function validateClashYaml(record, baselineVersion) {
     const hasPortRule = source.includes(`DST-PORT,${port},DIRECT`);
     record.check(`cmfa.stun-port.${port}`, hasPortRule, failureMessage(hasPortRule, `missing DST-PORT,${port},DIRECT`));
   }
+  checkNeedleBefore(
+    record,
+    'cmfa.cloudflarestorage-before-ads',
+    source,
+    "'DOMAIN-SUFFIX,cloudflarestorage.com,🌐 国外网站'",
+    "'RULE-SET,anti-ad,🛑 广告拦截'",
+  );
 }
 
 function validateOpenClash(record, baselineVersion, options) {
@@ -357,6 +373,13 @@ function validateOpenClash(record, baselineVersion, options) {
       const hasPortRule = yaml.includes(`DST-PORT,${port},DIRECT`);
       record.check(`openclash.${spec.id}.stun-port.${port}`, hasPortRule, failureMessage(hasPortRule, `missing DST-PORT,${port},DIRECT`));
     }
+    checkNeedleBefore(
+      record,
+      `openclash.${spec.id}.cloudflarestorage-before-ads`,
+      source,
+      'DOMAIN-SUFFIX,cloudflarestorage.com,🌐 国外网站',
+      'RULE-SET,anti-ad,\\U0001F6D1 广告拦截',
+    );
 
     if (rubyPath) {
       try {
@@ -423,6 +446,29 @@ function validateConfProducts(record, baselineVersion) {
     qxHasValidRunningModeTrigger,
     failureMessage(qxHasValidRunningModeTrigger, 'QX running_mode_trigger cannot use filter'),
   );
+  checkNeedleBefore(
+    record,
+    'shadowrocket.cloudflarestorage-before-ads',
+    shadowrocket,
+    'DOMAIN-SUFFIX,cloudflarestorage.com,🌐 国外网站',
+    'RULE-SET,https://fastly.jsdelivr.net/gh/privacy-protection-tools/anti-AD@master/anti-ad-surge.txt,🛑 广告拦截',
+  );
+  checkNeedleBefore(
+    record,
+    'surge.cloudflarestorage-before-ads',
+    surge,
+    'DOMAIN-SUFFIX,cloudflarestorage.com,🌐 国外网站',
+    'RULE-SET,https://fastly.jsdelivr.net/gh/privacy-protection-tools/anti-AD@master/anti-ad-surge.txt,🛑 广告拦截',
+  );
+  const loonLocalRule = /^DOMAIN-SUFFIX,cloudflarestorage\.com,🌐 国外网站$/m.test(loon);
+  record.check('loon.cloudflarestorage-local-rule', loonLocalRule, failureMessage(loonLocalRule, 'missing local Cloudflare R2 override rule'));
+  checkNeedleBefore(
+    record,
+    'qx.cloudflarestorage-before-ads',
+    qx,
+    'host-suffix, cloudflarestorage.com, 🌐 国外网站',
+    'https://fastly.jsdelivr.net/gh/privacy-protection-tools/anti-AD@master/anti-ad-surge.txt, tag=surge, force-policy=🛑 广告拦截',
+  );
 }
 
 function validateJsonProducts(record, baselineVersion) {
@@ -440,6 +486,16 @@ function validateJsonProducts(record, baselineVersion) {
     ));
     record.check(`singbox.stun-port.${port}`, hasPortRule, failureMessage(hasPortRule, `missing route rule for port ${port} -> DIRECT`));
   }
+  const singboxRules = (singbox.route || {}).rules || [];
+  const singboxCloudflareR2Index = singboxRules.findIndex((rule) => (
+    Array.isArray(rule.domain_suffix) && rule.domain_suffix.includes('cloudflarestorage.com') && rule.outbound === '🌐 国外网站'
+  ));
+  const singboxAntiAdIndex = singboxRules.findIndex((rule) => (
+    Array.isArray(rule.rule_set) && rule.rule_set.includes('anti-ad') && rule.action === 'reject'
+  ));
+  record.check('singbox.cloudflarestorage-before-ads', singboxCloudflareR2Index !== -1 && singboxAntiAdIndex !== -1 && singboxCloudflareR2Index < singboxAntiAdIndex, {
+    value: { cloudflarestorage: singboxCloudflareR2Index, antiAd: singboxAntiAdIndex },
+  });
 
   const v2rayn = readJson('v2rayN/v2rayN(xray).json');
   const allowedTags = new Set(['proxy', 'direct', 'block']);
@@ -455,6 +511,13 @@ function validateJsonProducts(record, baselineVersion) {
     ));
     record.check(`v2rayn.stun-port.${port}`, hasPortRule, failureMessage(hasPortRule, `missing port ${port} -> direct`));
   }
+  const v2CloudflareR2Index = Array.isArray(v2rayn) ? v2rayn.findIndex((rule) => (
+    rule.outboundTag === 'proxy' && Array.isArray(rule.domain) && rule.domain.includes('domain:cloudflarestorage.com')
+  )) : -1;
+  const v2AdsIndex = Array.isArray(v2rayn) ? v2rayn.findIndex((rule) => rule.id === 'scki-001-ads') : -1;
+  record.check('v2rayn.cloudflarestorage-before-ads', v2CloudflareR2Index !== -1 && v2AdsIndex !== -1 && v2CloudflareR2Index < v2AdsIndex, {
+    value: { cloudflarestorage: v2CloudflareR2Index, ads: v2AdsIndex },
+  });
 }
 
 function validatePasswall(record, baselineVersion) {
@@ -473,10 +536,14 @@ function validatePasswall(record, baselineVersion) {
     if (!reference.includes(baselineVersion)) {
       record.warn(`${spec.id}.reference-conf.baseline`, `${spec.reference} does not advertise ${baselineVersion}; apply script plus shunt-rules are authoritative`);
     }
+    record.check(`${spec.id}.cloudflarestorage-script-rule`, source.includes("domain_list='domain:cloudflarestorage.com'"));
+    record.check(`${spec.id}.cloudflarestorage-reference-rule`, reference.includes('domain:cloudflarestorage.com'));
     for (const file of shuntFiles) {
       const badLine = readText(file).split(/\r?\n/).find((line) => !/^\s*#/.test(line) && /^(DOMAIN|DOMAIN-SUFFIX|DOMAIN-KEYWORD|IP-CIDR|IP-CIDR6|RULE-SET),/.test(line));
       record.check(`${spec.id}.${path.basename(file)}.passwall-syntax`, !badLine, { message: badLine ? `Clash-style prefix: ${badLine}` : undefined });
     }
+    const intlSiteList = readText(path.join(spec.dir, '29-intl-site.list'));
+    record.check(`${spec.id}.cloudflarestorage-list-rule`, intlSiteList.includes('domain:cloudflarestorage.com'));
   }
 }
 

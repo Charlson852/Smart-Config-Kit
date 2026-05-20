@@ -1,8 +1,8 @@
 ﻿# ================================================================
-# Clash Smart v5.4.13-cmfa.1 - CMFA (Clash Meta for Android) 配置
-# Build: 2026-05-19
+# Clash Smart v5.4.14-cmfa.1 - CMFA (Clash Meta for Android) 配置
+# Build: 2026-05-20
 # 架构：proxy-providers 订阅 + 22 url-test 区域组（11 全部 + 11 家宽，家宽 filter 新增 IEPL/IPLC/专线识别）+ 32 业务策略组（含 14 流媒体平台组）+ 384+ rule-providers
-# 基线：Clash Party v5.4.13（唯一主线）
+# 基线：Clash Party v5.4.14（唯一主线）
 # 变更历史：见 `Clash Meta For Android/CHANGELOG.md`
 # ================================================================
 # ★ 快速上手：
@@ -3543,6 +3543,8 @@ rules:
 - 'DOMAIN,mazu.sec.miui.com,DIRECT'
 - 'DOMAIN,ccc.sys.miui.com,DIRECT'
 - 'DOMAIN,register.xmpush.xiaomi.com,DIRECT'
+# v5.4.14 FIX#CF-R2: Sukka reject_phishing 当前包含 Cloudflare R2 存储域，需前置覆盖首匹配。
+- 'DOMAIN-SUFFIX,cloudflarestorage.com,🌐 国外网站'
 - 'RULE-SET,anti-ad,🛑 广告拦截'
 - 'RULE-SET,sukka-phishing,🛑 广告拦截'
 - 'RULE-SET,hagezi-tif,🛑 广告拦截'
@@ -4337,7 +4339,6 @@ rules:
 - 'DOMAIN-SUFFIX,azurefd.net,🌐 国外网站'
 - 'DOMAIN-SUFFIX,msecnd.net,🌐 国外网站'
 - 'DOMAIN-SUFFIX,unpkg.com,🌐 国外网站'
-- 'DOMAIN-SUFFIX,cloudflarestorage.com,🌐 国外网站'
 - 'DOMAIN-SUFFIX,r2.dev,🌐 国外网站'
 - 'DOMAIN-SUFFIX,ziffstatic.com,🌐 国外网站'
 - 'DOMAIN-SUFFIX,ucoz.ru,🌐 国外网站'

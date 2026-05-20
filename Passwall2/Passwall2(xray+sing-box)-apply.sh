@@ -1,11 +1,12 @@
 #!/bin/sh
 # ═══════════════════════════════════════════════════════════════════════════
 # Smart-Config-Kit for Passwall / Passwall2 — UCI batch helper
-# Version: v5.4.13-pw2.1 | Build 2026-05-19
+# Version: v5.4.14-pw2.1 | Build 2026-05-20
 #
 # 用途：一次性在 Passwall2 中创建 32 条 shunt rule（含域名列表 + IP 列表），
 #       每条目标节点留空（NEED_CONFIG），用户之后到 LuCI 里手工选节点。
 #
+# 变更：v5.4.14-pw2.1 — 记录 Cloudflare R2 存储域误拦截修复；Passwall2 不消费 Sukka phishing 源，国外网站列表显式补齐 domain:cloudflarestorage.com
 # 变更：v5.4.13-pw2.1 — 跟随基线记录 STUN/TURN 端口修复；Passwall2 shunt_rules 无端口分流字段，语义不适用
 # 变更：v5.3.0-pw2.4 — 修复流媒体 .list 文件注释（Passwall → Passwall2）
 #   • 8 个流媒体 .list 文件（09~16）第 5 行注释从 "Passwall LuCI" 修正为 "Passwall2 LuCI"
@@ -400,6 +401,7 @@ uci add_list ${CONFIG_NAME}.${SEC}.domain_list='domain:tuta.com'
 uci add_list ${CONFIG_NAME}.${SEC}.domain_list='domain:mail.ru'
 # 合并自原 ☁️ 云与CDN
 uci add_list ${CONFIG_NAME}.${SEC}.domain_list='geosite:cloudflare'
+uci add_list ${CONFIG_NAME}.${SEC}.domain_list='domain:cloudflarestorage.com'
 uci add_list ${CONFIG_NAME}.${SEC}.domain_list='geosite:fastly'
 uci add_list ${CONFIG_NAME}.${SEC}.domain_list='geosite:akamai'
 uci add_list ${CONFIG_NAME}.${SEC}.domain_list='domain:jsdelivr.net'

@@ -7,6 +7,12 @@
 
 ---
 
+## v5.4.14-oc-normal.1 / v5.4.14-oc-smart.1 (2026-05-20)
+
+- ✅ FIX#CF-R2-P0：Normal / Smart 同步前置 `cloudflarestorage.com -> 🌐 国外网站`
+  - 当前 Sukka phishing 源包含 Cloudflare R2 存储域，原后段国外网站规则会被广告段首匹配覆盖
+  - heredoc YAML 在广告/钓鱼/威胁情报规则之前增加白名单，并删除后段重复条目
+
 ## v5.4.13-oc-normal.1 / v5.4.13-oc-smart.1 (2026-05-19)
 
 - ✅ FIX#STUN-REALIP：OpenClash Normal / Smart 同步 STUN/TURN 真实 IP 与端口直连

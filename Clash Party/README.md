@@ -1,8 +1,8 @@
 # Clash Party / Clash Verge / Mihomo Party 使用教程
 
 > 覆写脚本：**两份二选一**，规则 100% 等价，仅 22 区域组（11 全部 + 11 家宽）的内核选路算法不同
-> - `ClashParty(mihomo-smart).js`（**v5.4.13**，2026-05-19）— Smart 内核 + LightGBM ML 评估
-> - `ClashParty(mihomo).js`（**v5.4.13-normal.1**，2026-05-19）— 普通内核 url-test 延迟选路
+> - `ClashParty(mihomo-smart).js`（**v5.4.14**，2026-05-20）— Smart 内核 + LightGBM ML 评估
+> - `ClashParty(mihomo).js`（**v5.4.14-normal.1**，2026-05-20）— 普通内核 url-test 延迟选路
 >
 > UI 补充配置：已整合到本文「四、粘贴 UI 补充配置」章节
 > 架构：**SUB-STORE 多机场融合** + 22 区域组（11 全部 + 11 家宽）+ 32 业务策略组 + **385 rule-providers**

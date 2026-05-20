@@ -5,6 +5,12 @@
 
 ---
 
+## v5.4.14-cmfa.1 (2026-05-20)
+
+- ✅ FIX#CF-R2-P0：前置 `DOMAIN-SUFFIX,cloudflarestorage.com,🌐 国外网站`
+  - 覆盖 Sukka `reject_phishing` 对 Cloudflare R2 存储域的误拦截
+  - 后段 CDN/国外网站重复条目已移除，规则首匹配稳定落到 `🌐 国外网站`
+
 ## v5.4.13-cmfa.1 (2026-05-19)
 
 - ✅ FIX#STUN-REALIP：STUN/TURN 域名不再拿 fake-ip，标准探测端口直连

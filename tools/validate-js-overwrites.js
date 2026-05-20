@@ -416,6 +416,13 @@ function validateRulesAndProviders(output, record, target) {
   record.expect(gfwIndex !== -1, 'gfw tail rule exists');
   record.expect(antiAdIndex !== -1 && gfwIndex !== -1 && antiAdIndex < gfwIndex, 'ad blocking stays before the GFW tail block');
 
+  const cloudflareR2Index = rules.indexOf('DOMAIN-SUFFIX,cloudflarestorage.com,🌐 国外网站');
+  record.expect(cloudflareR2Index !== -1, 'Cloudflare R2 storage domain has an explicit route rule');
+  record.expect(
+    cloudflareR2Index !== -1 && antiAdIndex !== -1 && cloudflareR2Index < antiAdIndex,
+    'Cloudflare R2 storage domain is evaluated before ad/phishing reject rules',
+  );
+
   for (const [providerName, provider] of Object.entries(providers)) {
     if (provider && provider.type === 'http') {
       record.expectEqual(provider.proxy, RESTRICTED_SITE, `http rule-provider ${providerName} downloads through restricted-site proxy`);

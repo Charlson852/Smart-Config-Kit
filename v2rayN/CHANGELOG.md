@@ -7,6 +7,12 @@
 
 ---
 
+## v5.4.14-v2n.1 (2026-05-20)
+
+- ✅ FIX#CF-R2-P0：Xray 路由 JSON 增加 `cloudflarestorage.com -> proxy` 前置规则
+  - 路径 C 不消费 Sukka phishing 远程源，但同步保留 Cloudflare R2 存储域的正向优先级
+  - 元数据同步 Clash Party v5.4.14
+
 ## v5.4.13-v2n.1 (2026-05-19)
 
 - ✅ FIX#STUN-PORTS：Xray 路由 JSON 新增 `STUN/TURN NAT 探测端口 -> direct`

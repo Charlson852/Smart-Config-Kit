@@ -20,6 +20,7 @@ domain:tuta.com
 domain:mail.ru
 # 合并自原 ☁️ 云与CDN
 geosite:cloudflare
+domain:cloudflarestorage.com
 geosite:fastly
 geosite:akamai
 domain:jsdelivr.net

@@ -4,6 +4,12 @@
 
 ---
 
+## v5.4.14-Loon.1 (2026-05-20)
+
+- ✅ FIX#CF-R2-P0：本地 `[Rule]` 前置 `DOMAIN-SUFFIX,cloudflarestorage.com,🌐 国外网站`
+  - Loon 本地规则优先于订阅规则，用于覆盖 Sukka phishing 对 Cloudflare R2 存储域的误拦截
+  - 后段 `🌐 国外网站` 重复条目已移除
+
 ## v5.4.13-Loon.1 (2026-05-19)
 
 - ✅ FIX#STUN-PORTS：用 Loon 原生 `DEST-PORT` 补齐 STUN/TURN 标准端口 `5349 / 19302 / 19305 / 19307 -> DIRECT`

@@ -5,6 +5,12 @@
 
 ---
 
+## v5.4.14-flclash.1 (2026-05-20)
+
+- ✅ FIX#CF-R2-P0：同步 Clash Party Normal v5.4.14，前置 `cloudflarestorage.com -> 🌐 国外网站`
+  - 覆盖 Sukka phishing 对 Cloudflare R2 存储域的误拦截
+  - 后段 `🌐 国外网站` 重复条目已移除
+
 ## v5.4.13-flclash.1 (2026-05-19)
 
 - ✅ FIX#STUN-REALIP：同步 Clash Party Normal v5.4.13，补齐 STUN/TURN fake-ip 排除与标准端口直连

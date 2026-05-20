@@ -3,7 +3,7 @@
 > 覆写脚本：`FlClash(mihomo).js`
 > 适用客户端：**FlClash**（Android / Windows / macOS / Linux）
 > 内核要求：FlClash >= **v0.8.85**
-> 当前版本：**v5.4.13-flclash.1**（22 url-test 区域组 + 32 业务策略组；STUN/TURN 与 RustDesk 在 fake-ip-filter 中真实 IP 回应，DNS IP-first 自举）
+> 当前版本：**v5.4.14-flclash.1**（22 url-test 区域组 + 32 业务策略组；Cloudflare R2 存储域误拦截前置修复，STUN/TURN 与 RustDesk 在 fake-ip-filter 中真实 IP 回应）
 
 <table><tr>
 <td><img width="160" alt="FlClash 截图1" src="https://github.com/user-attachments/assets/e88e0724-2bc0-4111-851e-e8aa0a9141d3"></td>

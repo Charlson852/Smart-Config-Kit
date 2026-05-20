@@ -5,9 +5,9 @@
   },
   "_meta": {
     "name": "SingBox Smart Full",
-    "version": "v5.4.13-sing.1",
-    "build": "2026-05-19",
-    "baseline": "Clash Party v5.4.13",
+    "version": "v5.4.14-sing.1",
+    "build": "2026-05-20",
+    "baseline": "Clash Party v5.4.14",
     "changelog": "见 SingBox/CHANGELOG.md"
   },
   "experimental": {
@@ -1866,6 +1866,13 @@
         ],
         "action": "route",
         "outbound": "DIRECT"
+      },
+      {
+        "domain_suffix": [
+          "cloudflarestorage.com"
+        ],
+        "action": "route",
+        "outbound": "🌐 国外网站"
       },
       {
         "rule_set": [
@@ -5718,13 +5725,6 @@
       {
         "domain_suffix": [
           "unpkg.com"
-        ],
-        "action": "route",
-        "outbound": "🌐 国外网站"
-      },
-      {
-        "domain_suffix": [
-          "cloudflarestorage.com"
         ],
         "action": "route",
         "outbound": "🌐 国外网站"

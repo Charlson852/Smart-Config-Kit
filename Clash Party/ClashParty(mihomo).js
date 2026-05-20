@@ -1,7 +1,7 @@
 ﻿// Clash 覆写脚本 - SUB-STORE 多机场精细分流版
-// 版本：v5.4.13-normal.1 (2026-05-19)
+// 版本：v5.4.14-normal.1 (2026-05-20)
 // 架构：22 url-test 区域组（11 全部 + 11 家宽）+ 32 业务策略组 + 385 rule-providers
-// 基线：Clash Party v5.4.13（与同目录 ClashParty(mihomo-smart).js 规则 100% 等价，仅区域组从 smart 改为 url-test）
+// 基线：Clash Party v5.4.14（与同目录 ClashParty(mihomo-smart).js 规则 100% 等价，仅区域组从 smart 改为 url-test）
 // 适用：Mihomo / Clash.Meta 稳定版内核、不支持 smart + LightGBM 的分支；也适用于想完全关闭 ML 评估的用户
 // 变更历史：见 `Clash Party/CHANGELOG.md`
 
@@ -9,7 +9,7 @@
 //  版本常量
 // ================================================================
 
-const VERSION = 'v5.4.13-normal.1'
+const VERSION = 'v5.4.14-normal.1'
 
 // v5.4.9 FEAT#LOCAL-TOOLS: desktop local-tool direct whitelist.
 const LOCAL_TOOL_DIRECT_PROCESS_NAMES = [
@@ -1229,6 +1229,9 @@ function injectRules(config) {
     `DOMAIN,ccc.sys.miui.com,DIRECT`,
     // 小米推送注册（register.xmpush.xiaomi.com 在 advertisingmitv 中被误杀）
     `DOMAIN,register.xmpush.xiaomi.com,DIRECT`,
+    // v5.4.14 FIX#CF-R2: Sukka reject_phishing 当前包含 Cloudflare R2 存储域；
+    // 必须前置到广告/钓鱼拦截规则之前，否则后面的国外网站规则无法覆盖首匹配。
+    `DOMAIN-SUFFIX,cloudflarestorage.com,${BIZ.INTL_SITE}`,
     `RULE-SET,anti-ad,${BIZ.AD}`,
     // v5.1: P0 安全 - 钓鱼域名拦截（13万条，SukkaW）
     `RULE-SET,sukka-phishing,${BIZ.AD}`,
@@ -2022,7 +2025,6 @@ function injectRules(config) {
     `DOMAIN-SUFFIX,azurefd.net,${BIZ.INTL_SITE}`,
     `DOMAIN-SUFFIX,msecnd.net,${BIZ.INTL_SITE}`,
     `DOMAIN-SUFFIX,unpkg.com,${BIZ.INTL_SITE}`,
-    `DOMAIN-SUFFIX,cloudflarestorage.com,${BIZ.INTL_SITE}`,
     `DOMAIN-SUFFIX,r2.dev,${BIZ.INTL_SITE}`,
     `DOMAIN-SUFFIX,ziffstatic.com,${BIZ.INTL_SITE}`,
     `DOMAIN-SUFFIX,ucoz.ru,${BIZ.INTL_SITE}`,

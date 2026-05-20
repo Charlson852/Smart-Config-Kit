@@ -2,10 +2,10 @@
 . /usr/share/openclash/log.sh
 
 # ============================================================================
-# Clash Smart v5.4.13-oc-smart.1 — OpenClash 覆写脚本（与 Clash Party 主线同等规则量）
-# Build: 2026-05-19
+# Clash Smart v5.4.14-oc-smart.1 — OpenClash 覆写脚本（与 Clash Party 主线同等规则量）
+# Build: 2026-05-20
 # ============================================================================
-# 定位：对齐 Clash Party v5.4.13 JS 主线的 OpenClash 全量版本。v5.4.2: P0-FIX#41 小米白名单。
+# 定位：对齐 Clash Party v5.4.14 JS 主线的 OpenClash 全量版本。v5.4.2: P0-FIX#41 小米白名单。
 #       与同目录 OpenClash(mihomo).sh（Normal）互补：
 #         - Normal 面向稳定版 mihomo / 经典 url-test
 #         - full  面向 4GB+ 路由器 / 需要与 Clash Party 桌面端一致的细粒度分流
@@ -16,14 +16,14 @@
 #   • ~990 条 rules
 #   • DNS fake-ip + 嗅探（HTTP/TLS/QUIC）+ nameserver-policy 救援
 #   • Ruby 阶段做：节点过滤 / 区域分类 / Smart 组生成 / TLS 指纹注入
-# 基线：Clash Party v5.4.13（唯一主线；v5.3.1/v5.3.2 为桌面端 PROCESS-NAME 改动，路由器端不适用）── 任何规则/组/DNS 改动必须先改 Clash Party JS，
+# 基线：Clash Party v5.4.14（唯一主线；v5.3.1/v5.3.2 为桌面端 PROCESS-NAME 改动，路由器端不适用）── 任何规则/组/DNS 改动必须先改 Clash Party JS，
 #       再同步到此文件。参见仓库根目录 CLAUDE.md / AGENTS.md。
 # 变更历史：见 `OpenClash/CHANGELOG.md`（Full 部分）。
 # ============================================================================
 
 
 
-VERSION_TAG="v5.4.13-oc-smart.1"
+VERSION_TAG="v5.4.14-oc-smart.1"
 CONFIG_FILE="$1"
 LOG_FILE="/tmp/openclash.log"
 
@@ -3207,6 +3207,8 @@ rules:
 - "DOMAIN,mazu.sec.miui.com,DIRECT"
 - "DOMAIN,ccc.sys.miui.com,DIRECT"
 - "DOMAIN,register.xmpush.xiaomi.com,DIRECT"
+# v5.4.14 FIX#CF-R2: Sukka reject_phishing 当前包含 Cloudflare R2 存储域，需前置覆盖首匹配。
+- DOMAIN-SUFFIX,cloudflarestorage.com,🌐 国外网站
 - "RULE-SET,anti-ad,\U0001F6D1 广告拦截"
 - "RULE-SET,sukka-phishing,\U0001F6D1 广告拦截"
 - "RULE-SET,hagezi-tif,\U0001F6D1 广告拦截"
@@ -4011,7 +4013,6 @@ rules:
 - DOMAIN-SUFFIX,azurefd.net,🌐 国外网站
 - DOMAIN-SUFFIX,msecnd.net,🌐 国外网站
 - DOMAIN-SUFFIX,unpkg.com,🌐 国外网站
-- DOMAIN-SUFFIX,cloudflarestorage.com,🌐 国外网站
 - DOMAIN-SUFFIX,r2.dev,🌐 国外网站
 - DOMAIN-SUFFIX,ziffstatic.com,🌐 国外网站
 - DOMAIN-SUFFIX,ucoz.ru,🌐 国外网站
@@ -4301,7 +4302,7 @@ cat > "$RUBY_SCRIPT" << 'RUBY_EOF'
 require 'yaml'
 require 'digest'
 
-VERSION = "v5.4.13-oc-smart.1"
+VERSION = "v5.4.14-oc-smart.1"
 
 STATUS_LOG = "/tmp/clash_smart_status.log"
 File.open(STATUS_LOG, 'w') { |f| f.puts "[#{VERSION}] start" }
