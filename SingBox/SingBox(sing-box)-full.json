@@ -5,8 +5,8 @@
   },
   "_meta": {
     "name": "SingBox Smart Full",
-    "version": "v5.4.16-sing.1",
-    "build": "2026-05-20",
+    "version": "v5.4.16-sing.2",
+    "build": "2026-05-22",
     "baseline": "Clash Party v5.4.16",
     "changelog": "见 SingBox/CHANGELOG.md"
   },
@@ -2404,6 +2404,118 @@
       {
         "process_name": [
           "Navicat Premium"
+        ],
+        "action": "route",
+        "outbound": "DIRECT"
+      },
+      {
+        "process_name": [
+          "LeigodAcc.exe"
+        ],
+        "action": "route",
+        "outbound": "DIRECT"
+      },
+      {
+        "process_name": [
+          "LeigodAccel.exe"
+        ],
+        "action": "route",
+        "outbound": "DIRECT"
+      },
+      {
+        "process_name": [
+          "leigodaccel.exe"
+        ],
+        "action": "route",
+        "outbound": "DIRECT"
+      },
+      {
+        "process_name": [
+          "NeteaseUU.exe"
+        ],
+        "action": "route",
+        "outbound": "DIRECT"
+      },
+      {
+        "process_name": [
+          "NeteaseUUBrowser.exe"
+        ],
+        "action": "route",
+        "outbound": "DIRECT"
+      },
+      {
+        "process_name": [
+          "NNer.exe"
+        ],
+        "action": "route",
+        "outbound": "DIRECT"
+      },
+      {
+        "process_name": [
+          "NNerClient.exe"
+        ],
+        "action": "route",
+        "outbound": "DIRECT"
+      },
+      {
+        "process_name": [
+          "UU.exe"
+        ],
+        "action": "route",
+        "outbound": "DIRECT"
+      },
+      {
+        "process_name": [
+          "UUGameBooster.exe"
+        ],
+        "action": "route",
+        "outbound": "DIRECT"
+      },
+      {
+        "process_name": [
+          "UURepair.exe"
+        ],
+        "action": "route",
+        "outbound": "DIRECT"
+      },
+      {
+        "process_name": [
+          "UUService.exe"
+        ],
+        "action": "route",
+        "outbound": "DIRECT"
+      },
+      {
+        "process_name": [
+          "xhjsq.exe"
+        ],
+        "action": "route",
+        "outbound": "DIRECT"
+      },
+      {
+        "process_name": [
+          "XiaoHeiAccelerator.exe"
+        ],
+        "action": "route",
+        "outbound": "DIRECT"
+      },
+      {
+        "process_name": [
+          "xunyou.exe"
+        ],
+        "action": "route",
+        "outbound": "DIRECT"
+      },
+      {
+        "process_name": [
+          "XunYouAcc.exe"
+        ],
+        "action": "route",
+        "outbound": "DIRECT"
+      },
+      {
+        "process_name": [
+          "XunYouUpdate.exe"
         ],
         "action": "route",
         "outbound": "DIRECT"

@@ -7,6 +7,15 @@
 
 ---
 
+## v5.4.16 / v5.4.16-normal.2 (2026-05-22)
+
+- ✅ FEAT#GAME-ACCEL：新增游戏加速器 `PROCESS-NAME -> DIRECT` 白名单
+  - 新增 16 条进程名：UU加速器（UU.exe / NeteaseUU.exe / UUGameBooster.exe / UUService.exe / UURepair.exe / NeteaseUUBrowser.exe）、小黑加速器（XiaoHeiAccelerator.exe / xhjsq.exe）、迅游加速器（xunyou.exe / XunYouAcc.exe / XunYouUpdate.exe）、雷神加速器（LeigodAcc.exe / LeigodAccel.exe / leigodaccel.exe）、NNer加速器（NNer.exe / NNerClient.exe）
+  - 理由：这些工具自身是网络加速隧道，走代理会导致双重代理 / 连接失败
+  - Smart JS + Normal JS + CMFA YAML + OpenClash Normal + OpenClash Smart + Surge + SingBox Full + FlClash JS 全版本联动
+  - Shadowrocket / Loon / Quantumult X（iOS 端）不支持 PROCESS-NAME，跳过
+  - v2rayN / Passwall / Passwall2 无运行时进程分类，跳过
+
 ## v5.4.16 / v5.4.16-normal.1 (2026-05-20)
 
 - ✅ FIX#149-P0：前置 `DOMAIN-SUFFIX,paddle.com,🏦 金融支付`，避免 `analytics.paddle.com` 被 anti-AD/DustinWin 误拦截

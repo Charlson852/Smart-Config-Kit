@@ -2,8 +2,8 @@
 . /usr/share/openclash/log.sh
 
 # ============================================================================
-# Clash Smart v5.4.16-oc-normal.1 — OpenClash 覆写脚本（非 Smart 内核 / url-test 区域组）
-# Build: 2026-05-20
+# Clash Smart v5.4.16-oc-normal.2 — OpenClash 覆写脚本（非 Smart 内核 / url-test 区域组）
+# Build: 2026-05-22
 # ============================================================================
 # 定位：与同目录 OpenClash(mihomo-smart).sh 规则 100% 等价的「非 Smart 内核」版本。
 #       两者唯一区别：22 个区域组（11 全部 + 11 家宽）从 type: smart（uselightgbm）换成 type: url-test。
@@ -26,7 +26,7 @@
 
 
 
-VERSION_TAG="v5.4.16-oc-normal.1"
+VERSION_TAG="v5.4.16-oc-normal.2"
 CONFIG_FILE="$1"
 LOG_FILE="/tmp/openclash.log"
 
@@ -3319,6 +3319,23 @@ rules:
 - PROCESS-NAME,Navicat Premium.exe,DIRECT
 - PROCESS-NAME,Navicat,DIRECT
 - PROCESS-NAME,Navicat Premium,DIRECT
+# 游戏加速器 — 这些工具自身是网络加速隧道，走代理会导致双重代理/连接失败
+- PROCESS-NAME,LeigodAcc.exe,DIRECT
+- PROCESS-NAME,LeigodAccel.exe,DIRECT
+- PROCESS-NAME,leigodaccel.exe,DIRECT
+- PROCESS-NAME,NeteaseUU.exe,DIRECT
+- PROCESS-NAME,NeteaseUUBrowser.exe,DIRECT
+- PROCESS-NAME,NNer.exe,DIRECT
+- PROCESS-NAME,NNerClient.exe,DIRECT
+- PROCESS-NAME,UU.exe,DIRECT
+- PROCESS-NAME,UUGameBooster.exe,DIRECT
+- PROCESS-NAME,UURepair.exe,DIRECT
+- PROCESS-NAME,UUService.exe,DIRECT
+- PROCESS-NAME,xhjsq.exe,DIRECT
+- PROCESS-NAME,XiaoHeiAccelerator.exe,DIRECT
+- PROCESS-NAME,xunyou.exe,DIRECT
+- PROCESS-NAME,XunYouAcc.exe,DIRECT
+- PROCESS-NAME,XunYouUpdate.exe,DIRECT
 - DOMAIN-SUFFIX,chiphell.com,DIRECT
 - DOMAIN-SUFFIX,iwipwedabay.com,DIRECT
 - DOMAIN-SUFFIX,cdn.weixin.qq.com,DIRECT
@@ -4309,7 +4326,7 @@ cat > "$RUBY_SCRIPT" << 'RUBY_EOF'
 require 'yaml'
 require 'digest'
 
-VERSION = "v5.4.16-oc-normal.1"
+VERSION = "v5.4.16-oc-normal.2"
 
 STATUS_LOG = "/tmp/clash_normal_status.log"
 File.open(STATUS_LOG, 'w') { |f| f.puts "[#{VERSION}] start" }

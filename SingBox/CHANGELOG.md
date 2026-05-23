@@ -5,6 +5,12 @@
 
 ---
 
+## v5.4.16-sing.2 (2026-05-22)
+
+- ✅ FEAT#GAME-ACCEL：由生成器重建 Full JSON，新增游戏加速器 `process_name -> DIRECT` 规则
+  - 新增 16 条 process_name 规则（UU / 小黑 / 迅游 / 雷神 / NNer 加速器）
+  - 生成器自动从 Clash Party JS 规则转换
+
 ## v5.4.16-sing.1 (2026-05-20)
 
 - ✅ FIX#149-P0：由生成器重建 Full JSON，前置 `paddle.com -> 🏦 金融支付`

@@ -1,5 +1,5 @@
 ﻿// FlClash 覆写脚本 — 标准 Mihomo 内核动态分流版
-// 版本：v5.4.16-flclash.1 (2026-05-20)
+// 版本：v5.4.16-flclash.2 (2026-05-22)
 // 架构：22 url-test 区域组（11 全部 + 11 家宽）+ 32 业务策略组（含 14 流媒体平台组）+ 385 rule-providers 100%+ 服务覆盖
 // 基线：Clash Party Normal v5.4.16-normal.1（规则 100% 等价；区域组为 url-test — FlClash 内核为标准 Mihomo，不支持 smart + LightGBM）
 // 适用：FlClash >= v0.8.85（覆盖脚本功能自该版本引入）；其他使用标准 Mihomo 内核的客户端
@@ -35,7 +35,7 @@
 //  版本常量
 // ================================================================
 
-const VERSION = 'v5.4.16-flclash.1'
+const VERSION = 'v5.4.16-flclash.2'
 
 // v5.4.9 FEAT#LOCAL-TOOLS: desktop local-tool direct whitelist.
 const LOCAL_TOOL_DIRECT_PROCESS_NAMES = [
@@ -90,6 +90,23 @@ const LOCAL_TOOL_DIRECT_PROCESS_NAMES = [
   'Navicat Premium.exe',
   'Navicat',
   'Navicat Premium',
+  // 游戏加速器 — 这些工具自身是网络加速隧道，走代理会导致双重代理/连接失败
+  'LeigodAcc.exe',
+  'LeigodAccel.exe',
+  'leigodaccel.exe',
+  'NeteaseUU.exe',
+  'NeteaseUUBrowser.exe',
+  'NNer.exe',
+  'NNerClient.exe',
+  'UU.exe',
+  'UUGameBooster.exe',
+  'UURepair.exe',
+  'UUService.exe',
+  'xhjsq.exe',
+  'XiaoHeiAccelerator.exe',
+  'xunyou.exe',
+  'XunYouAcc.exe',
+  'XunYouUpdate.exe',
 ]
 
 const RUSTDESK_WORK_PROCESS_NAMES = [

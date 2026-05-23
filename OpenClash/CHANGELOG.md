@@ -7,6 +7,12 @@
 
 ---
 
+## v5.4.16-oc-normal.2 / v5.4.16-oc-smart.2 (2026-05-22)
+
+- ✅ FEAT#GAME-ACCEL：新增游戏加速器 `PROCESS-NAME -> DIRECT` 白名单
+  - 新增 16 条 PROCESS-NAME 规则（UU / 小黑 / 迅游 / 雷神 / NNer 加速器）
+  - Normal + Smart 同步
+
 ## v5.4.16-oc-normal.1 / v5.4.16-oc-smart.1 (2026-05-20)
 
 - ✅ FIX#149-P0：Normal / Smart 同步前置 `paddle.com -> 🏦 金融支付`

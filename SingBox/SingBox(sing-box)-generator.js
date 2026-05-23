@@ -1,8 +1,8 @@
 const fs = require('fs');
 const vm = require('vm');
 
-const VERSION = 'v5.4.16-sing.1';
-const BUILD = '2026-05-20';
+const VERSION = 'v5.4.16-sing.2';
+const BUILD = '2026-05-22';
 const BASELINE = 'Clash Party v5.4.16';
 
 const SMART = {
