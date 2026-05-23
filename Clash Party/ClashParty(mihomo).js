@@ -1,5 +1,5 @@
 ﻿// Clash 覆写脚本 - SUB-STORE 多机场精细分流版
-// 版本：v5.4.16-normal.1 (2026-05-20)
+// 版本：v5.4.16-normal.2 (2026-05-22)
 // 架构：22 url-test 区域组（11 全部 + 11 家宽）+ 32 业务策略组 + 385 rule-providers
 // 基线：Clash Party v5.4.16（与同目录 ClashParty(mihomo-smart).js 规则 100% 等价，仅区域组从 smart 改为 url-test）
 // 适用：Mihomo / Clash.Meta 稳定版内核、不支持 smart + LightGBM 的分支；也适用于想完全关闭 ML 评估的用户
@@ -9,7 +9,7 @@
 //  版本常量
 // ================================================================
 
-const VERSION = 'v5.4.16-normal.1'
+const VERSION = 'v5.4.16-normal.2'
 
 // v5.4.9 FEAT#LOCAL-TOOLS: desktop local-tool direct whitelist.
 const LOCAL_TOOL_DIRECT_PROCESS_NAMES = [
@@ -64,6 +64,23 @@ const LOCAL_TOOL_DIRECT_PROCESS_NAMES = [
   'Navicat Premium.exe',
   'Navicat',
   'Navicat Premium',
+  // 游戏加速器 — 这些工具自身是网络加速隧道，走代理会导致双重代理/连接失败
+  'LeigodAcc.exe',
+  'LeigodAccel.exe',
+  'leigodaccel.exe',
+  'NeteaseUU.exe',
+  'NeteaseUUBrowser.exe',
+  'NNer.exe',
+  'NNerClient.exe',
+  'UU.exe',
+  'UUGameBooster.exe',
+  'UURepair.exe',
+  'UUService.exe',
+  'xhjsq.exe',
+  'XiaoHeiAccelerator.exe',
+  'xunyou.exe',
+  'XunYouAcc.exe',
+  'XunYouUpdate.exe',
 ]
 
 const RUSTDESK_WORK_PROCESS_NAMES = [

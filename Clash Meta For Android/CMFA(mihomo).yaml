@@ -1,6 +1,6 @@
 ﻿# ================================================================
-# Clash Smart v5.4.16-cmfa.1 - CMFA (Clash Meta for Android) 配置
-# Build: 2026-05-20
+# Clash Smart v5.4.16-cmfa.2 - CMFA (Clash Meta for Android) 配置
+# Build: 2026-05-22
 # 架构：proxy-providers 订阅 + 22 url-test 区域组（11 全部 + 11 家宽，家宽 filter 新增 IEPL/IPLC/专线识别）+ 32 业务策略组（含 14 流媒体平台组）+ 384+ rule-providers
 # 基线：Clash Party v5.4.16（唯一主线）
 # 变更历史：见 `Clash Meta For Android/CHANGELOG.md`
@@ -3640,6 +3640,23 @@ rules:
 - 'PROCESS-NAME,Navicat Premium.exe,DIRECT'
 - 'PROCESS-NAME,Navicat,DIRECT'
 - 'PROCESS-NAME,Navicat Premium,DIRECT'
+# 游戏加速器 — 这些工具自身是网络加速隧道，走代理会导致双重代理/连接失败
+- 'PROCESS-NAME,LeigodAcc.exe,DIRECT'
+- 'PROCESS-NAME,LeigodAccel.exe,DIRECT'
+- 'PROCESS-NAME,leigodaccel.exe,DIRECT'
+- 'PROCESS-NAME,NeteaseUU.exe,DIRECT'
+- 'PROCESS-NAME,NeteaseUUBrowser.exe,DIRECT'
+- 'PROCESS-NAME,NNer.exe,DIRECT'
+- 'PROCESS-NAME,NNerClient.exe,DIRECT'
+- 'PROCESS-NAME,UU.exe,DIRECT'
+- 'PROCESS-NAME,UUGameBooster.exe,DIRECT'
+- 'PROCESS-NAME,UURepair.exe,DIRECT'
+- 'PROCESS-NAME,UUService.exe,DIRECT'
+- 'PROCESS-NAME,xhjsq.exe,DIRECT'
+- 'PROCESS-NAME,XiaoHeiAccelerator.exe,DIRECT'
+- 'PROCESS-NAME,xunyou.exe,DIRECT'
+- 'PROCESS-NAME,XunYouAcc.exe,DIRECT'
+- 'PROCESS-NAME,XunYouUpdate.exe,DIRECT'
 - DST-PORT,123,DIRECT
 - DST-PORT,3478,DIRECT
 - DST-PORT,3479,DIRECT
