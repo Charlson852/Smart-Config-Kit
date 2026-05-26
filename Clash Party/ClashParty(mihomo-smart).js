@@ -1,7 +1,7 @@
 ﻿// Clash Smart 内核覆写脚本 - SUB-STORE 多机场精细分流版
 // 版本：v5.4.17-verge-dns.1 (2026-05-26)
-// 架构：SUB-STORE 多机场融合 + 22 Smart 区域组（11 全部 + 11 家宽）+ 32 业务策略组（含 14 流媒体平台组）+ 385 rule-providers 100%+ 服务覆盖
-// v5.4.17-verge-dns.1: DNS 按 clash-verge-script 模型分流 · v5.4.16: 游戏加速器 PROCESS-NAME 直连白名单
+// 架构：SUB-STORE 多机场融合 + 22 Smart 区域组（11 全部 + 11 家宽）+ 33 业务策略组（含独立 Emby 组）+ 385 rule-providers 100%+ 服务覆盖
+// v5.4.17-verge-dns.1: DNS 按 clash-verge-script 模型分流 · custom: 独立 Emby 组 + look.bigmelook.com
 // 变更历史：见 `Clash Party/CHANGELOG.md`
 
 // ================================================================
@@ -236,6 +236,7 @@ const BIZ = {
   NFLX: '🎥 Netflix', DSNP: '🎬 Disney+', HBO: '📡 HBO/Max',
   HULU: '📺 Hulu', PRIME: '🎬 Prime Video',
   YT: '📹 YouTube', MUSIC: '🎵 音乐流媒体',
+  EMBY: '🎞️ Emby',
   STREAM_HK: '🇭🇰 香港流媒体', STREAM_TW: '🇹🇼 台湾流媒体',
   STREAM_JP: '🇯🇵 日韩流媒体', STREAM_EU: '🇪🇺 欧洲流媒体',
   STREAM_OTHER: '🌐 其他国外流媒体',
@@ -327,6 +328,16 @@ function buildSeaProxies() {
   return withResidential(['SG', 'APAC', 'GLOBAL', 'HK', 'JPKR', 'US']).concat('DIRECT')
 }
 
+function buildEmbyProxies(config, fallbackProxies) {
+  var embyNodes = []
+  if (config && Array.isArray(config.proxies)) {
+    embyNodes = config.proxies
+      .filter(function(p) { return p && typeof p.name === 'string' && /emby/i.test(p.name) })
+      .map(function(p) { return p.name })
+  }
+  return uniqList(embyNodes.concat(fallbackProxies || []))
+}
+
 // v5.1.2: GeoRouting 区域列表（module-level，供 providers + rules 共用）
 // ★ FIX#1: Asia_China 从 INTL 循环剥离，单独映射 CN_SITE（v5.1.1 误将中国域名/IP 路由到国外网站）
 const GEO_REGIONS_ALL = [
@@ -351,7 +362,7 @@ function upsertSmartGroup(config, name, proxies) {
 }
 
 // ================================================================
-//  模块 F：业务策略组注入（32组）
+//  模块 F：业务策略组注入
 // ================================================================
 
 function injectBusinessGroups(config, activeSmartNames) {
@@ -369,6 +380,7 @@ function injectBusinessGroups(config, activeSmartNames) {
   var directFirstProxies = filterActive(buildDirectFirstProxies())
   var trackerProxies = filterActive(buildTrackerProxies())
   var seaProxies = filterActive(buildSeaProxies())
+  var embyProxies = buildEmbyProxies(config, standardProxies)
   var groups = [
     { name: BIZ.AI, type: 'select', proxies: aiProxies.slice() },
     { name: BIZ.CRYPTO, type: 'select', proxies: standardProxies.slice() },
@@ -385,6 +397,7 @@ function injectBusinessGroups(config, activeSmartNames) {
     { name: BIZ.PRIME, type: 'select', proxies: standardProxies.slice() },
     { name: BIZ.YT, type: 'select', proxies: standardProxies.slice() },
     { name: BIZ.MUSIC, type: 'select', proxies: standardProxies.slice() },
+    { name: BIZ.EMBY, type: 'select', proxies: embyProxies.slice() },
     { name: BIZ.STREAM_HK, type: 'select', proxies: streamHkProxies.slice() },
     { name: BIZ.STREAM_TW, type: 'select', proxies: streamTwProxies.slice() },
     { name: BIZ.STREAM_JP, type: 'select', proxies: streamJpProxies.slice() },
@@ -1782,6 +1795,10 @@ function injectRules(config) {
     `RULE-SET,londonreal,${BIZ.STREAM_EU}`,
     `RULE-SET,szkane-uk,${BIZ.STREAM_EU}`,
 
+    // ============ 🎞️ Emby ============
+    `DOMAIN,look.bigmelook.com,${BIZ.EMBY}`,
+    `RULE-SET,emby,${BIZ.EMBY}`,
+
     // ============ 🌐 其他国外流媒体 ============
     `RULE-SET,viu,${BIZ.STREAM_OTHER}`,
     `DOMAIN-SUFFIX,wetv.vip,${BIZ.STREAM_OTHER}`,
@@ -1835,7 +1852,6 @@ function injectRules(config) {
     `RULE-SET,americasvoice,${BIZ.STREAM_OTHER}`,
     `RULE-SET,cake,${BIZ.STREAM_OTHER}`,
     `RULE-SET,dood,${BIZ.STREAM_OTHER}`,
-    `RULE-SET,emby,${BIZ.STREAM_OTHER}`,
 
     // ============ 🔧 工具与服务 ============
     `DOMAIN-SUFFIX,aws.amazon.com,${BIZ.TOOLS}`,

@@ -7,6 +7,13 @@
 
 ---
 
+## Custom Emby routing update (2026-05-26)
+
+- FEAT#EMBY: Add a dedicated `🎞️ Emby` policy group.
+  - Subscription nodes whose names contain `emby` are placed first in the group.
+  - `look.bigmelook.com` and the general Emby ruleset now route to `🎞️ Emby`.
+  - Normal fallback proxies remain available after the dedicated Emby nodes.
+
 ## v5.4.17-verge-dns.1 / v5.4.17-normal-verge-dns.1 (2026-05-26)
 
 - FIX#VERGE-DNS: Align Clash Party DNS with `xiaolin-007/clash-verge-script`.
