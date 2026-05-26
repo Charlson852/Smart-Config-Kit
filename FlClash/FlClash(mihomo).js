@@ -2344,7 +2344,7 @@ function overwriteGeneral(config) {
   if (!config.dns['enhanced-mode']) config.dns['enhanced-mode'] = 'fake-ip'
   config.dns['fake-ip-range'] = '198.18.0.1/16'
   config.dns.ipv6 = false
-  config.dns['prefer-h3'] = true
+  config.dns['prefer-h3'] = false
   config.dns['respect-rules'] = true
   config.dns['use-system-hosts'] = false
   config.dns['cache-algorithm'] = 'arc'

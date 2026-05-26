@@ -342,8 +342,8 @@ function validateClashYaml(record, baselineVersion) {
     const hasEntry = fakeIpFilterBlock.includes(entry);
     record.check(`cmfa.fake-ip-filter.${entry}`, hasEntry, failureMessage(hasEntry, `missing ${entry}`));
   }
-  record.check('cmfa.dns.prefer-h3-enabled', /prefer-h3:\s*true/.test(source));
-  record.check('cmfa.dns.respect-rules', /respect-rules:\s*true/.test(source));
+  record.check('cmfa.dns.prefer-h3-disabled-with-respect-rules', /prefer-h3:\s*false/.test(source));
+  record.check('cmfa.dns.respect-rules-enabled', /respect-rules:\s*true/.test(source));
   record.check('cmfa.dns.cache-arc', /cache-algorithm:\s*arc/.test(source));
   record.check('cmfa.dns.githubusercontent-policy', /['"]?\+\.githubusercontent\.com['"]?:/.test(source));
   record.check('cmfa.dns.fallback-geosite-gfw', /fallback-filter:[\s\S]*geosite:[\s\S]*-\s*gfw/.test(source));
@@ -407,8 +407,8 @@ function validateOpenClash(record, baselineVersion, options) {
       const hasEntry = yaml.includes(entry);
       record.check(`openclash.${spec.id}.fake-ip-filter.${entry}`, hasEntry, failureMessage(hasEntry, `missing ${entry}`));
     }
-    record.check(`openclash.${spec.id}.dns.prefer-h3-enabled`, /prefer-h3:\s*true/.test(yaml));
-    record.check(`openclash.${spec.id}.dns.respect-rules`, /respect-rules:\s*true/.test(yaml));
+    record.check(`openclash.${spec.id}.dns.prefer-h3-disabled-with-respect-rules`, /prefer-h3:\s*false/.test(yaml));
+    record.check(`openclash.${spec.id}.dns.respect-rules-enabled`, /respect-rules:\s*true/.test(yaml));
     record.check(`openclash.${spec.id}.dns.cache-arc`, /cache-algorithm:\s*arc/.test(yaml));
     record.check(`openclash.${spec.id}.dns.githubusercontent-policy`, /['"]?\+\.githubusercontent\.com['"]?:/.test(yaml));
     record.check(`openclash.${spec.id}.dns.fallback-geosite-gfw`, /fallback-filter:[\s\S]*geosite:[\s\S]*-\s*gfw/.test(yaml));

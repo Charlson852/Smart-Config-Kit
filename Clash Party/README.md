@@ -211,7 +211,7 @@ dns:
   use-hosts: false
   use-system-hosts: false
   respect-rules: true
-  prefer-h3: true
+  prefer-h3: false
   default-nameserver:
     - 223.5.5.5
     - 119.29.29.29

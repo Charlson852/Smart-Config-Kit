@@ -495,7 +495,7 @@ function validateGeneral(output, record) {
   record.expectEqual(output.dns.listen, '0.0.0.0:1053', 'DNS listener is explicit for UI overwrite clients');
   record.expectEqual(output.dns['enhanced-mode'], 'fake-ip', 'DNS enhanced-mode defaults to fake-ip');
   record.expectEqual(output.dns['fake-ip-range'], '198.18.0.1/16', 'DNS fake-ip range is explicit');
-  record.expectEqual(output.dns['prefer-h3'], true, 'DNS prefer-h3 is enabled by repository policy');
+  record.expectEqual(output.dns['prefer-h3'], false, 'DNS prefer-h3 stays disabled when respect-rules is enabled');
   record.expectEqual(output.dns['respect-rules'], true, 'DNS resolver connections respect route rules');
   record.expectEqual(output.dns['use-system-hosts'], false, 'DNS does not inherit system hosts');
   record.expectEqual(output.dns['cache-algorithm'], 'arc', 'DNS cache uses ARC');

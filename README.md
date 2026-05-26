@@ -103,7 +103,7 @@ flowchart LR
 | 🐟 漏网之鱼 | 以 GEOSITE/GEOIP/FINAL 兜底为主（非单一固定 provider） | MetaCubeX（geo 规则） |
 | 🛑 广告拦截 | `anti-ad` `sukka-phishing` `hagezi-tif` `advertising` `privacy` `acc-unsupportvpn` | DustinWin / SukkaW / Hagezi / blackmatrix7 / Accademia |
 
-> v5.4.17 起，DNS 固定为 split-bootstrap：`default-nameserver` 只放纯 IP，其它 resolver 全部 DoH，并开启 `prefer-h3: true`。v5.4.16-Surge.3 修复 Surge 导入时报 `DST-PORT,7680,REJECT` 无效配置的问题，Surge 端口规则改用官方 `DEST-PORT`。v5.4.16 起，Paddle 许可/支付链路 `paddle.com` 前置命中 `🏦 金融支付`，覆盖 anti-AD 对 `analytics.paddle.com` 的误拦截（Antigravity 登录/账号设置场景）。v5.4.15 起，新增 [GEOSITE 覆盖台账](./docs/GEOSITE_COVERAGE_LEDGER.md)，并把广告误伤白名单提升为显式模块。v5.4.14 起，Cloudflare R2 存储域 `cloudflarestorage.com` 前置命中 `🌐 国外网站`，用于覆盖上游 phishing 规则源的误拦截。v5.4.13 起，STUN/TURN NAT 探测域名在 Mihomo fake-ip DNS 中返回真实 IP，标准端口 `3478 / 3479 / 5349 / 19302 / 19305 / 19307` 默认直连；UDP/443 型 TURN 仍由 QUIC 屏蔽策略控制。v5.4.12 起，RustDesk 公网 relay/API 统一按 `🧑‍💼 会议协作` 走代理链路，同时 `rustdesk.com` 返回真实 IP，避免会合阶段拿到 198.18.x fake-ip。
+> v5.4.17 起，DNS 固定为 split-bootstrap：`default-nameserver` 只放纯 IP，其它 resolver 全部 DoH，并开启 `respect-rules: true`、关闭 `prefer-h3`。v5.4.16-Surge.3 修复 Surge 导入时报 `DST-PORT,7680,REJECT` 无效配置的问题，Surge 端口规则改用官方 `DEST-PORT`。v5.4.16 起，Paddle 许可/支付链路 `paddle.com` 前置命中 `🏦 金融支付`，覆盖 anti-AD 对 `analytics.paddle.com` 的误拦截（Antigravity 登录/账号设置场景）。v5.4.15 起，新增 [GEOSITE 覆盖台账](./docs/GEOSITE_COVERAGE_LEDGER.md)，并把广告误伤白名单提升为显式模块。v5.4.14 起，Cloudflare R2 存储域 `cloudflarestorage.com` 前置命中 `🌐 国外网站`，用于覆盖上游 phishing 规则源的误拦截。v5.4.13 起，STUN/TURN NAT 探测域名在 Mihomo fake-ip DNS 中返回真实 IP，标准端口 `3478 / 3479 / 5349 / 19302 / 19305 / 19307` 默认直连；UDP/443 型 TURN 仍由 QUIC 屏蔽策略控制。v5.4.12 起，RustDesk 公网 relay/API 统一按 `🧑‍💼 会议协作` 走代理链路，同时 `rustdesk.com` 返回真实 IP，避免会合阶段拿到 198.18.x fake-ip。
 
 ---
 

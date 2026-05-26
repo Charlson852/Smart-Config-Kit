@@ -12,7 +12,7 @@
 - ✅ FIX#DNS-SPLIT-BOOTSTRAP：Normal / Smart 同步 Clash Party v5.4.17 DNS 合同
   - `default-nameserver` 纯 IP；`nameserver` / `direct-nameserver` 固定国内 DoH
   - `proxy-server-nameserver` 固定 Cloudflare + Google DoH，AliDNS + DNSPod DoH 兜底
-  - `fallback` 固定 Cloudflare + Google DoH，开启 `prefer-h3: true` 并补齐 `fallback-filter.geosite`
+  - `fallback` 固定 Cloudflare + Google DoH，关闭 `prefer-h3`、开启 `respect-rules: true` 并补齐 `fallback-filter.geosite`
 
 ## v5.4.16-oc-normal.2 / v5.4.16-oc-smart.2 (2026-05-22)
 

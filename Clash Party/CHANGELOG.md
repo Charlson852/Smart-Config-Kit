@@ -13,7 +13,7 @@
   - `nameserver` / `direct-nameserver` 固定为 AliDNS + DNSPod DoH
   - `proxy-server-nameserver` 固定为 Cloudflare + Google DoH，AliDNS + DNSPod DoH 兜底
   - `fallback` 固定为 Cloudflare + Google DoH，`fallback-filter.geosite` 固定 `gfw` + `geolocation-!cn`
-  - `prefer-h3: true`、`respect-rules: true`、`cache-algorithm: arc` 写入主线和校验
+  - `prefer-h3: false`、`respect-rules: true`、`cache-algorithm: arc` 写入主线和校验，优先保证 DNS 上游连接按规则走代理/直连
 
 ## v5.4.16 / v5.4.16-normal.2 (2026-05-22)
 
