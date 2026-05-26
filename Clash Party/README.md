@@ -208,38 +208,33 @@ DNS：
 
 ```yaml
 dns:
-  use-hosts: false
+  enable: true
+  listen: "0.0.0.0:1053"
+  ipv6: false
+  prefer-h3: false
   use-system-hosts: false
+  cache-algorithm: arc
   respect-rules: true
+  enhanced-mode: fake-ip
+  fake-ip-range: "198.18.0.1/16"
   default-nameserver:
     - 223.5.5.5
-    - 119.29.29.29
-    - 1.1.1.1
-    - 8.8.8.8
+    - 1.2.4.8
   nameserver:
-    - https://dns.alidns.com/dns-query
-    - https://doh.pub/dns-query
+    - https://208.67.222.222/dns-query
+    - https://77.88.8.8/dns-query
+    - https://1.1.1.1/dns-query
+    - https://8.8.4.4/dns-query
   proxy-server-nameserver:
-    - https://cloudflare-dns.com/dns-query
-    - https://dns.google/dns-query
-    - https://dns.alidns.com/dns-query
+    - https://223.5.5.5/dns-query
     - https://doh.pub/dns-query
   direct-nameserver:
-    - https://dns.alidns.com/dns-query
+    - https://223.5.5.5/dns-query
     - https://doh.pub/dns-query
-  fallback:
-    - https://cloudflare-dns.com/dns-query
-    - https://dns.google/dns-query
-  fallback-filter:
-    geoip: true
-    geoip-code: CN
-    ipcidr:
-      - 240.0.0.0/4
-      - 0.0.0.0/32
-      - 127.0.0.0/8
-      - 10.0.0.0/8
-      - 192.168.0.0/16
-    domain: []
+  nameserver-policy:
+    geosite:private,cn:
+      - https://223.5.5.5/dns-query
+      - https://doh.pub/dns-query
 ```
 
 Sniffer：

@@ -2332,30 +2332,47 @@ function overwriteGeneral(config) {
   // v5.4.4 FIX#142: 修复 v5.4.1+ 引入的 DNS 空壳 bug——创建 config.dns 时未提供 nameserver
   //   导致内核跳过默认 DNS，国内网站 DIRECT 连接因 DNS 解析失败而超时
   if (!config.dns) config.dns = {}
-  if (!config.dns['enhanced-mode']) config.dns['enhanced-mode'] = 'fake-ip'
+  config.dns.enable = true
+  if (!config.dns.listen) config.dns.listen = '0.0.0.0:1053'
+  config.dns['enhanced-mode'] = 'fake-ip'
+  config.dns['fake-ip-range'] = '198.18.0.1/16'
   config.dns.ipv6 = false
-  // v5.4.11 FIX#DNS-BOOTSTRAP: DoH-only configs can deadlock in TUN when the DoH
-  // endpoint itself is unreachable. Put plain IP DNS first and keep DoH as optional.
-  var bootstrapDns = ['223.5.5.5', '119.29.29.29', '1.1.1.1', '8.8.8.8']
-  var directDns = ['223.5.5.5', '119.29.29.29']
-  var defaultDoH = ['https://dns.alidns.com/dns-query', 'https://doh.pub/dns-query']
-  var currentNameserver = Array.isArray(config.dns.nameserver) ? config.dns.nameserver : []
-  config.dns.nameserver = uniqList(directDns.concat(currentNameserver.length ? currentNameserver : defaultDoH))
+  config.dns['prefer-h3'] = false
+  config.dns['respect-rules'] = true
+  config.dns['use-system-hosts'] = false
+  config.dns['cache-algorithm'] = 'arc'
+  // FIX#DNS-LEAK: follow clash-verge-script's split DNS model.
+  // CN/private domains use domestic DoH; the default resolver set is foreign DoH and follows route rules.
+  var bootstrapDns = ['223.5.5.5', '1.2.4.8']
+  var domesticDns = ['https://223.5.5.5/dns-query', 'https://doh.pub/dns-query']
+  var foreignDns = ['https://208.67.222.222/dns-query', 'https://77.88.8.8/dns-query', 'https://1.1.1.1/dns-query', 'https://8.8.4.4/dns-query']
   config.dns['default-nameserver'] = bootstrapDns.slice()
-  config.dns['direct-nameserver'] = directDns.slice()
-  config.dns['proxy-server-nameserver'] = bootstrapDns.slice()
-  if (!Array.isArray(config.dns.fallback) || config.dns.fallback.length === 0) {
-    config.dns.fallback = ['https://cloudflare-dns.com/dns-query', 'https://dns.google/dns-query']
+  config.dns.nameserver = foreignDns.slice()
+  config.dns['proxy-server-nameserver'] = domesticDns.slice()
+  config.dns['direct-nameserver'] = domesticDns.slice()
+  config.dns['nameserver-policy'] = {
+    'geosite:private,cn': domesticDns.slice()
   }
+  delete config.dns.fallback
+  delete config.dns['fallback-filter']
   // v5.4.1 P0: fake-ip-filter 扩展（Smart 内核不支持 fake-ip-filter-mode: rule，使用传统域名列表）
   config.dns['fake-ip-filter'] = [
     '+.lan',
     '+.local',
-    'time.*.com',
-    'ntp.*.com',
-    '+.market.xiaomi.com',
     '+.localdomain',
     '+.home.arpa',
+    '+.msftconnecttest.com',
+    '+.msftncsi.com',
+    'localhost.ptlogin2.qq.com',
+    'localhost.sec.qq.com',
+    'localhost.work.weixin.qq.com',
+    '+.in-addr.arpa',
+    '+.ip6.arpa',
+    'time.*.com',
+    'time.*.gov',
+    'ntp.*.com',
+    'pool.ntp.org',
+    '+.market.xiaomi.com',
     '+.stun.*.*',
     '+.stun.*.*.*',
     '+.turn.*.*',
@@ -2403,15 +2420,6 @@ function overwriteGeneral(config) {
   var gcuExcludes = ['GCUService.exe', 'GCUBridge.exe', 'WorkPro.exe', 'GSCService.exe', 'gsupservice.exe', 'gchsvc.exe']
   gcuExcludes.forEach(function(proc) {
     if (config.tun['exclude-process'].indexOf(proc) === -1) { config.tun['exclude-process'].push(proc) }
-  })
-}
-
-function uniqList(list) {
-  var seen = {}
-  return list.filter(function(item) {
-    if (!item || seen[item]) return false
-    seen[item] = true
-    return true
   })
 }
 
