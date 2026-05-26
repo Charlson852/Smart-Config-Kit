@@ -5,9 +5,9 @@
   },
   "_meta": {
     "name": "SingBox Smart Full",
-    "version": "v5.4.16-sing.2",
-    "build": "2026-05-22",
-    "baseline": "Clash Party v5.4.16",
+    "version": "v5.4.17-sing.1",
+    "build": "2026-05-26",
+    "baseline": "Clash Party v5.4.17",
     "changelog": "见 SingBox/CHANGELOG.md"
   },
   "experimental": {
@@ -21,32 +21,37 @@
     "servers": [
       {
         "tag": "dns_bootstrap",
-        "address": "udp://223.5.5.5:53"
+        "address": "udp://223.5.5.5:53",
+        "strategy": "prefer_ipv4"
       },
       {
         "tag": "dns_direct",
-        "address": "udp://223.5.5.5:53",
+        "address": "https://dns.alidns.com/dns-query",
         "address_resolver": "dns_bootstrap",
-        "detour": "DIRECT"
+        "detour": "DIRECT",
+        "strategy": "prefer_ipv4"
       },
       {
         "tag": "dns_proxy",
         "address": "https://cloudflare-dns.com/dns-query",
         "address_resolver": "dns_bootstrap",
-        "detour": "🚀 节点选择"
+        "detour": "🌍 全球节点",
+        "strategy": "prefer_ipv4"
       }
     ],
     "rules": [
       {
         "rule_set": [
-          "cn"
+          "geosite-private",
+          "geosite-cn",
+          "geoip-cn"
         ],
         "action": "route",
         "server": "dns_direct"
       },
       {
         "rule_set": [
-          "geosite-category-ads-all"
+          "anti-ad"
         ],
         "action": "reject"
       }
@@ -1783,6 +1788,26 @@
         "tag": "geosite-category-games",
         "format": "binary",
         "url": "https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geosite/category-games.srs",
+        "http_client": {
+          "detour": "🌍 全球节点"
+        },
+        "update_interval": "1d"
+      },
+      {
+        "type": "remote",
+        "tag": "geosite-cn",
+        "format": "binary",
+        "url": "https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geosite/cn.srs",
+        "http_client": {
+          "detour": "🌍 全球节点"
+        },
+        "update_interval": "1d"
+      },
+      {
+        "type": "remote",
+        "tag": "geoip-cn",
+        "format": "binary",
+        "url": "https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geoip/cn.srs",
         "http_client": {
           "detour": "🌍 全球节点"
         },

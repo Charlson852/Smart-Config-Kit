@@ -1,7 +1,7 @@
 ﻿// FlClash 覆写脚本 — 标准 Mihomo 内核动态分流版
-// 版本：v5.4.16-flclash.2 (2026-05-22)
+// 版本：v5.4.17-flclash.1 (2026-05-26)
 // 架构：22 url-test 区域组（11 全部 + 11 家宽）+ 32 业务策略组（含 14 流媒体平台组）+ 385 rule-providers 100%+ 服务覆盖
-// 基线：Clash Party Normal v5.4.16-normal.1（规则 100% 等价；区域组为 url-test — FlClash 内核为标准 Mihomo，不支持 smart + LightGBM）
+// 基线：Clash Party Normal v5.4.17-normal.1（规则 100% 等价；区域组为 url-test — FlClash 内核为标准 Mihomo，不支持 smart + LightGBM）
 // 适用：FlClash >= v0.8.85（覆盖脚本功能自该版本引入）；其他使用标准 Mihomo 内核的客户端
 // 变更历史：见 `FlClash/CHANGELOG.md`
 //
@@ -35,7 +35,7 @@
 //  版本常量
 // ================================================================
 
-const VERSION = 'v5.4.16-flclash.2'
+const VERSION = 'v5.4.17-flclash.1'
 
 // v5.4.9 FEAT#LOCAL-TOOLS: desktop local-tool direct whitelist.
 const LOCAL_TOOL_DIRECT_PROCESS_NAMES = [
@@ -2337,23 +2337,60 @@ function overwriteGeneral(config) {
   config['keep-alive-interval'] = 15
   // FlClash: 端口/TUN/GeoX 由 App UI 管理，脚本不覆写。
   //   - 外部资源（GeoX URL）：见 FlClash/README.md §必改配置
-  //   - DNS：IP DNS 前置，避免 App UI / 订阅给 DoH-only 配置时自举超时
+  //   - DNS：default-nameserver 纯 IP 自举，其它 resolver 固定 DoH
   if (!config.dns) config.dns = {}
+  config.dns.enable = true
+  if (!config.dns.listen) config.dns.listen = '0.0.0.0:1053'
   if (!config.dns['enhanced-mode']) config.dns['enhanced-mode'] = 'fake-ip'
+  config.dns['fake-ip-range'] = '198.18.0.1/16'
   config.dns.ipv6 = false
-  var directDns = ['223.5.5.5', '119.29.29.29']
+  config.dns['prefer-h3'] = true
+  config.dns['respect-rules'] = true
+  config.dns['use-system-hosts'] = false
+  config.dns['cache-algorithm'] = 'arc'
   var bootstrapDns = ['223.5.5.5', '119.29.29.29', '1.1.1.1', '8.8.8.8']
-  var defaultDoH = ['https://dns.alidns.com/dns-query', 'https://doh.pub/dns-query']
-  var currentNameserver = Array.isArray(config.dns.nameserver) ? config.dns.nameserver : []
-  config.dns.nameserver = uniqList(directDns.concat(currentNameserver.length ? currentNameserver : defaultDoH))
+  var domesticDoH = ['https://dns.alidns.com/dns-query', 'https://doh.pub/dns-query']
+  var foreignDoH = ['https://cloudflare-dns.com/dns-query', 'https://dns.google/dns-query']
+  var proxyDoH = foreignDoH.concat(domesticDoH)
   config.dns['default-nameserver'] = bootstrapDns.slice()
-  config.dns['direct-nameserver'] = directDns.slice()
-  config.dns['proxy-server-nameserver'] = bootstrapDns.slice()
-  if (!Array.isArray(config.dns.fallback) || config.dns.fallback.length === 0) {
-    config.dns.fallback = ['https://cloudflare-dns.com/dns-query', 'https://dns.google/dns-query']
+  config.dns.nameserver = domesticDoH.slice()
+  config.dns['direct-nameserver'] = domesticDoH.slice()
+  config.dns['proxy-server-nameserver'] = proxyDoH.slice()
+  config.dns.fallback = foreignDoH.slice()
+  if (!config.dns['nameserver-policy'] || typeof config.dns['nameserver-policy'] !== 'object' || Array.isArray(config.dns['nameserver-policy'])) {
+    config.dns['nameserver-policy'] = {}
   }
+  ['+.jsdelivr.net', '+.github.com', '+.githubusercontent.com', '+.githubassets.com', '+.fastly.net'].forEach(function(host) {
+    config.dns['nameserver-policy'][host] = foreignDoH.slice()
+  })
+  if (!config.dns['fallback-filter'] || typeof config.dns['fallback-filter'] !== 'object' || Array.isArray(config.dns['fallback-filter'])) {
+    config.dns['fallback-filter'] = {}
+  }
+  config.dns['fallback-filter'].geoip = true
+  config.dns['fallback-filter']['geoip-code'] = 'CN'
+  config.dns['fallback-filter'].geosite = ['gfw', 'geolocation-!cn']
+  config.dns['fallback-filter'].ipcidr = ['240.0.0.0/4', '0.0.0.0/32', '127.0.0.0/8', '10.0.0.0/8', '192.168.0.0/16']
+  if (!Array.isArray(config.dns['fallback-filter'].domain)) config.dns['fallback-filter'].domain = []
   var currentFakeIpFilter = Array.isArray(config.dns['fake-ip-filter']) ? config.dns['fake-ip-filter'] : []
   config.dns['fake-ip-filter'] = uniqList(currentFakeIpFilter.concat([
+    '+.lan',
+    '+.local',
+    '+.localdomain',
+    '+.home.arpa',
+    '+.msftconnecttest.com',
+    '+.msftncsi.com',
+    'localhost.ptlogin2.qq.com',
+    'localhost.sec.qq.com',
+    'localhost.work.weixin.qq.com',
+    '+.in-addr.arpa',
+    '+.ip6.arpa',
+    'time.*.com',
+    'time.*.gov',
+    'ntp.*.com',
+    'pool.ntp.org',
+    '+.ntp.org',
+    '+.pool.ntp.org',
+    '+.market.xiaomi.com',
     '+.stun.*.*',
     '+.stun.*.*.*',
     '+.turn.*.*',

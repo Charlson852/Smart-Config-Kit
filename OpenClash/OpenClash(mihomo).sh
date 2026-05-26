@@ -2,12 +2,12 @@
 . /usr/share/openclash/log.sh
 
 # ============================================================================
-# Clash Smart v5.4.16-oc-normal.2 — OpenClash 覆写脚本（非 Smart 内核 / url-test 区域组）
-# Build: 2026-05-22
+# Clash Smart v5.4.17-oc-normal.1 — OpenClash 覆写脚本（非 Smart 内核 / url-test 区域组）
+# Build: 2026-05-26
 # ============================================================================
 # 定位：与同目录 OpenClash(mihomo-smart).sh 规则 100% 等价的「非 Smart 内核」版本。
 #       两者唯一区别：22 个区域组（11 全部 + 11 家宽）从 type: smart（uselightgbm）换成 type: url-test。
-#       对齐 Clash Party v5.4.16 JS 基线。
+#       对齐 Clash Party v5.4.17 JS 基线。
 #       适用场景：
 #         - OpenClash 内核选的是 Meta(mihomo 稳定版) 而非 Meta Alpha，不支持 smart + LightGBM
 #         - 或者明确想关闭 LightGBM ML 评估、只靠经典 url-test 延迟选路
@@ -19,20 +19,20 @@
 #   • ~990 条 rules
 #   • DNS fake-ip + 嗅探（HTTP/TLS/QUIC）+ nameserver-policy 救援
 #   • Ruby 阶段做：节点过滤 / 区域分类 / url-test 组生成 / TLS 指纹注入
-# 基线：Clash Party v5.4.16（唯一主线；v5.3.1/v5.3.2 为桌面端 PROCESS-NAME 改动，路由器端不适用）── 任何规则/组/DNS 改动必须先改 Clash Party JS，
+# 基线：Clash Party v5.4.17（唯一主线；v5.3.1/v5.3.2 为桌面端 PROCESS-NAME 改动，路由器端不适用）── 任何规则/组/DNS 改动必须先改 Clash Party JS，
 #       再同步到此文件。参见仓库根目录 CLAUDE.md / AGENTS.md。
 # 变更历史：见 `OpenClash/CHANGELOG.md`（Normal 部分）。
 # ============================================================================
 
 
 
-VERSION_TAG="v5.4.16-oc-normal.2"
+VERSION_TAG="v5.4.17-oc-normal.1"
 CONFIG_FILE="$1"
 LOG_FILE="/tmp/openclash.log"
 
 LOG_OUT "Info" "[Clash-Normal] $VERSION_TAG overwrite starting..."
 LOG_OUT "Info" "[Clash-Normal] Processing: $CONFIG_FILE"
-LOG_OUT "Info" "[Clash-Normal] Full-rule build (v5.4.16, 32 business groups, non-Smart kernel)"
+LOG_OUT "Info" "[Clash-Normal] Full-rule build (v5.4.17, 32 business groups, non-Smart kernel)"
 
 # ============================================================================
 # OVERRIDE YAML
@@ -54,22 +54,32 @@ dns:
   enable: true
   listen: 0.0.0.0:7874
   ipv6: false
+  prefer-h3: true
   enhanced-mode: fake-ip
   fake-ip-range: 198.18.0.1/16
   fake-ip-filter:
   - +.lan
   - +.local
-  - time.*.com
-  - ntp.*.com
-  - +.market.xiaomi.com
   - +.localdomain
   - +.home.arpa
+  - +.msftconnecttest.com
+  - +.msftncsi.com
+  - localhost.ptlogin2.qq.com
+  - localhost.sec.qq.com
+  - localhost.work.weixin.qq.com
+  - +.in-addr.arpa
+  - +.ip6.arpa
+  - time.*.com
+  - time.*.gov
+  - ntp.*.com
+  - pool.ntp.org
+  - +.ntp.org
+  - +.pool.ntp.org
+  - +.market.xiaomi.com
   - +.stun.*.*
   - +.stun.*.*.*
   - +.turn.*.*
   - +.turn.*.*.*
-  - +.ntp.org
-  - +.pool.ntp.org
   - +.n.n.srv.nintendo.net
   - +.stun.playstation.net
   - +.xboxlive.com
@@ -81,11 +91,10 @@ dns:
   - global.turn.twilio.com
   - +.rustdesk.com
   cache-algorithm: arc
-  # 对齐 Clash Party 基线（使用方法.md 第 99-132 行）
+  # 对齐 Clash Party v5.4.17 基线：default-nameserver 纯 IP，其它 resolver 固定 DoH
   use-hosts: false
   use-system-hosts: false
   respect-rules: true
-  prefer-h3: false
   default-nameserver:
   - 223.5.5.5
   - 119.29.29.29
@@ -108,24 +117,25 @@ dns:
     - https://cloudflare-dns.com/dns-query
     - https://dns.google/dns-query
   nameserver:
-  - 223.5.5.5
-  - 119.29.29.29
   - https://dns.alidns.com/dns-query
   - https://doh.pub/dns-query
   proxy-server-nameserver:
-  - 223.5.5.5
-  - 119.29.29.29
-  - 1.1.1.1
-  - 8.8.8.8
+  - https://cloudflare-dns.com/dns-query
+  - https://dns.google/dns-query
+  - https://dns.alidns.com/dns-query
+  - https://doh.pub/dns-query
   direct-nameserver:
-  - 223.5.5.5
-  - 119.29.29.29
+  - https://dns.alidns.com/dns-query
+  - https://doh.pub/dns-query
   fallback:
   - https://cloudflare-dns.com/dns-query
   - https://dns.google/dns-query
   fallback-filter:
     geoip: true
     geoip-code: CN
+    geosite:
+    - gfw
+    - geolocation-!cn
     ipcidr:
     - 240.0.0.0/4
     - 0.0.0.0/32
@@ -4326,7 +4336,7 @@ cat > "$RUBY_SCRIPT" << 'RUBY_EOF'
 require 'yaml'
 require 'digest'
 
-VERSION = "v5.4.16-oc-normal.2"
+VERSION = "v5.4.17-oc-normal.1"
 
 STATUS_LOG = "/tmp/clash_normal_status.log"
 File.open(STATUS_LOG, 'w') { |f| f.puts "[#{VERSION}] start" }

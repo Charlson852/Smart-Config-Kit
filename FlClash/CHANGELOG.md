@@ -5,6 +5,12 @@
 
 ---
 
+## v5.4.17-flclash.1 (2026-05-26)
+
+- ✅ FIX#DNS-SPLIT-BOOTSTRAP：同步 Clash Party Normal v5.4.17 DNS 合同
+  - `default-nameserver` 纯 IP，自举以外的 resolver 全部 DoH
+  - 开启 `prefer-h3: true`，并补齐 `nameserver-policy` / `fallback-filter.geosite`
+
 ## v5.4.16-flclash.2 (2026-05-22)
 
 - ✅ FEAT#GAME-ACCEL：新增游戏加速器 `PROCESS-NAME -> DIRECT` 白名单

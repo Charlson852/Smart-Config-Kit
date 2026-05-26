@@ -1,7 +1,7 @@
-# Surge 使用教程（对齐 Clash Party v5.4.16）
+# Surge 使用教程（对齐 Clash Party v5.4.17）
 
 > 配置文件：`Surge/Surge.conf`
-> 版本：**v5.4.16-Surge.3**（Build 2026-05-26，详见 `Surge/CHANGELOG.md`；修复 Surge `DST-PORT` 导入失败，端口规则改用官方 `DEST-PORT`）
+> 版本：**v5.4.17-Surge.1**（Build 2026-05-26，详见 `Surge/CHANGELOG.md`；DNS split-bootstrap 按 Surge 原生字段映射，端口规则继续使用官方 `DEST-PORT`）
 > 目标：**Surge 5 / Surge Mac**（付费正版；iOS + macOS 通用）
 > 架构：22 区域 url-test 组（11 全部 + 11 家宽，include-all-proxies + policy-regex-filter 自动按地区聚合）+ 32 业务策略组 + ~290 RULE-SET
 
@@ -198,8 +198,8 @@ Surge 的节点来源有两种方式，任选其一：
 
 | Surge 字段 | 对应 Clash 字段 | 值 |
 |------------|-----------------|------|
-| `dns-server` | `default-nameserver` | `223.5.5.5, 119.29.29.29, system` |
-| `encrypted-dns-server` | `nameserver` + `direct-nameserver` + `fallback` | 国内 DoH（AliDNS 优先）+ 国外 DoH（1.1.1.1 / 8.8.8.8） |
+| `dns-server` | `default-nameserver` | `223.5.5.5, 119.29.29.29, 1.1.1.1, 8.8.8.8` |
+| `encrypted-dns-server` | `nameserver` + `direct-nameserver` + `fallback` | 国内 DoH + 境外 DoH |
 | `hijack-dns` | `hijack-dns` | `8.8.8.8:53, 8.8.4.4:53` |
 | `geoip-maxmind-url` | `geox-url.mmdb` | Loyalsoldier Country.mmdb（Surge 专属优势：无需 UI 手动导入）|
 
@@ -240,7 +240,7 @@ Surge 的节点来源有两种方式，任选其一：
 
 ## 九、验证
 
-1. Surge → **首页** → **已启用的配置**：应显示 `Surge Smart v5.4.16-Surge.3`。
+1. Surge → **首页** → **已启用的配置**：应显示 `Surge Smart v5.4.17-Surge.1`。
 2. **策略组** 面板应出现 22 区域 + 32 业务共 54 组（不得少于 50 组）。
 3. 访问以下网站做功能验证：
    - `https://chat.openai.com` → 命中「🤖 AI 服务」
@@ -258,7 +258,7 @@ Surge 的节点来源有两种方式，任选其一：
 - 若已开代理仍失败，检查 **配置 → 常规 → 网络权限** 是否允许 Surge 访问 WiFi + 蜂窝。
 
 ### Q2：导入时报 `DST-PORT,7680,REJECT` 无效配置？
-- 请更新到 `v5.4.16-Surge.3` 或更新后的 `Surge.conf`。Surge 官方端口规则名是 [`DEST-PORT`](https://manual.nssurge.com/rule/misc-rule.html#dest-port)，不是 Mihomo / Shadowrocket 风格的 `DST-PORT`。
+- 请更新到 `v5.4.17-Surge.1` 或更新后的 `Surge.conf`。Surge 官方端口规则名是 [`DEST-PORT`](https://manual.nssurge.com/rule/misc-rule.html#dest-port)，不是 Mihomo / Shadowrocket 风格的 `DST-PORT`。
 
 ### Q3：我想要 Mihomo Smart 组 + LightGBM 自动择优，怎么办？
 - Surge 引擎不支持。Windows 上用 **Clash Verge Rev / Mihomo Party + 本仓库的 JS 覆写**。

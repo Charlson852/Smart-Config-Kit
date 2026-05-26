@@ -1,8 +1,8 @@
 ﻿# ================================================================
-# Clash Smart v5.4.16-cmfa.2 - CMFA (Clash Meta for Android) 配置
-# Build: 2026-05-22
+# Clash Smart v5.4.17-cmfa.1 - CMFA (Clash Meta for Android) 配置
+# Build: 2026-05-26
 # 架构：proxy-providers 订阅 + 22 url-test 区域组（11 全部 + 11 家宽，家宽 filter 新增 IEPL/IPLC/专线识别）+ 32 业务策略组（含 14 流媒体平台组）+ 384+ rule-providers
-# 基线：Clash Party v5.4.16（唯一主线）
+# 基线：Clash Party v5.4.17（唯一主线）
 # 变更历史：见 `Clash Meta For Android/CHANGELOG.md`
 # ================================================================
 # ★ 快速上手：
@@ -48,23 +48,33 @@ profile:
 dns:
   enable: true
   ipv6: false
+  prefer-h3: true
   enhanced-mode: fake-ip
   fake-ip-range: 198.18.0.1/16
   fake-ip-filter-mode: blacklist
   fake-ip-filter:
   - +.lan
   - +.local
-  - time.*.com
-  - ntp.*.com
-  - +.market.xiaomi.com
   - +.localdomain
   - +.home.arpa
+  - +.msftconnecttest.com
+  - +.msftncsi.com
+  - localhost.ptlogin2.qq.com
+  - localhost.sec.qq.com
+  - localhost.work.weixin.qq.com
+  - +.in-addr.arpa
+  - +.ip6.arpa
+  - time.*.com
+  - time.*.gov
+  - ntp.*.com
+  - pool.ntp.org
+  - +.ntp.org
+  - +.pool.ntp.org
+  - +.market.xiaomi.com
   - +.stun.*.*
   - +.stun.*.*.*
   - +.turn.*.*
   - +.turn.*.*.*
-  - +.ntp.org
-  - +.pool.ntp.org
   - +.n.n.srv.nintendo.net
   - +.stun.playstation.net
   - +.xboxlive.com
@@ -86,6 +96,7 @@ dns:
   - +.miwifi.com
   use-hosts: false
   use-system-hosts: false
+  cache-algorithm: arc
   respect-rules: true
   default-nameserver:
   - 223.5.5.5
@@ -93,18 +104,16 @@ dns:
   - 1.1.1.1
   - 8.8.8.8
   nameserver:
-  - 223.5.5.5
-  - 119.29.29.29
   - 'https://dns.alidns.com/dns-query'
   - 'https://doh.pub/dns-query'
   proxy-server-nameserver:
-  - 223.5.5.5
-  - 119.29.29.29
-  - 1.1.1.1
-  - 8.8.8.8
+  - 'https://cloudflare-dns.com/dns-query'
+  - 'https://dns.google/dns-query'
+  - 'https://dns.alidns.com/dns-query'
+  - 'https://doh.pub/dns-query'
   direct-nameserver:
-  - 223.5.5.5
-  - 119.29.29.29
+  - 'https://dns.alidns.com/dns-query'
+  - 'https://doh.pub/dns-query'
   nameserver-policy:
     '+.jsdelivr.net':
     - 'https://cloudflare-dns.com/dns-query'
@@ -112,12 +121,24 @@ dns:
     '+.github.com':
     - 'https://cloudflare-dns.com/dns-query'
     - 'https://dns.google/dns-query'
+    '+.githubusercontent.com':
+    - 'https://cloudflare-dns.com/dns-query'
+    - 'https://dns.google/dns-query'
+    '+.githubassets.com':
+    - 'https://cloudflare-dns.com/dns-query'
+    - 'https://dns.google/dns-query'
+    '+.fastly.net':
+    - 'https://cloudflare-dns.com/dns-query'
+    - 'https://dns.google/dns-query'
   fallback:
+  - 'https://cloudflare-dns.com/dns-query'
   - 'https://dns.google/dns-query'
-  - 'https://dns.cloudflare.com/dns-query'
   fallback-filter:
     geoip: true
     geoip-code: CN
+    geosite:
+    - gfw
+    - geolocation-!cn
     ipcidr:
     - 240.0.0.0/4
     - 0.0.0.0/32

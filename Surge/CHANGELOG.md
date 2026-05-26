@@ -4,6 +4,13 @@
 
 ---
 
+## v5.4.17-Surge.1 (2026-05-26)
+
+- ✅ FIX#DNS-SPLIT-BOOTSTRAP：Surge DNS 同步 v5.4.17 平台等价写法
+  - `dns-server` 只保留纯 IP bootstrap 列表
+  - `encrypted-dns-server` 承载国内 / 境外 DoH；`fallback-dns-server` 固定 Cloudflare + Google DoH
+  - Surge 无 Mihomo 的 `direct-nameserver` / `proxy-server-nameserver` 四段分离，按原生字段做 best-effort 映射
+
 ## v5.4.16-Surge.3 (2026-05-26)
 
 - ✅ FIX#SURGE-PORT-RULE：Surge 端口规则统一改为官方 `DEST-PORT`

@@ -1,11 +1,12 @@
 #!/bin/sh
 # ═══════════════════════════════════════════════════════════════════════════
 # Smart-Config-Kit for Passwall / Passwall2 — UCI batch helper
-# Version: v5.4.16-pw2.1 | Build 2026-05-20
+# Version: v5.4.17-pw2.1 | Build 2026-05-26
 #
 # 用途：一次性在 Passwall2 中创建 32 条 shunt rule（含域名列表 + IP 列表），
 #       每条目标节点留空（NEED_CONFIG），用户之后到 LuCI 里手工选节点。
 #
+# 变更：v5.4.17-pw2.1 — 跟随 Clash Party v5.4.17 记录 DNS split-bootstrap；Passwall2 shunt_rules 不承载 DNS
 # 变更：v5.4.16-pw2.1 — Paddle 许可/支付链路加入金融支付；Passwall2 不消费 anti-AD 远程源
 # 变更：v5.4.15-pw2.1 — 新增 GEOSITE 覆盖台账；Passwall2 仍为降级参考，不消费 Sukka phishing 源
 # 变更：v5.4.14-pw2.1 — 记录 Cloudflare R2 存储域误拦截修复；Passwall2 不消费 Sukka phishing 源，国外网站列表显式补齐 domain:cloudflarestorage.com

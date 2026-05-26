@@ -18,6 +18,10 @@ const MIN_FULL_RULES = 900;
 const RESTRICTED_SITE = '\u{1F6AB} \u53D7\u9650\u7F51\u7AD9';
 const RESTRICTED_SITE_RUBY = '\\U0001F6AB \u53D7\u9650\u7F51\u7AD9';
 const CLOUD_CDN = '\u2601\uFE0F \u4E91\u4E0ECDN';
+const DNS_BOOTSTRAP_IPS = ['223.5.5.5', '119.29.29.29', '1.1.1.1', '8.8.8.8'];
+const DNS_DOMESTIC_DOH = ['https://dns.alidns.com/dns-query', 'https://doh.pub/dns-query'];
+const DNS_FOREIGN_DOH = ['https://cloudflare-dns.com/dns-query', 'https://dns.google/dns-query'];
+const DNS_PROXY_DOH = [...DNS_FOREIGN_DOH, ...DNS_DOMESTIC_DOH];
 const STUN_DIRECT_PORTS = [3478, 3479, 5349, 19302, 19305, 19307];
 const STUN_FAKE_IP_FILTER_ENTRIES = [
   '+.stun.*.*',
@@ -196,6 +200,21 @@ function extractIndentedListBlock(source, key) {
   return output.join('\n');
 }
 
+function extractYamlListItems(source, key) {
+  return extractIndentedListBlock(source, key)
+    .split(/\r?\n/)
+    .map((line) => {
+      const match = line.trim().match(/^-\s+(.+?)\s*$/);
+      return match ? match[1].replace(/^['"]|['"]$/g, '') : null;
+    })
+    .filter(Boolean);
+}
+
+function checkExactList(record, id, actual, expected) {
+  const ok = JSON.stringify(actual) === JSON.stringify(expected);
+  record.check(id, ok, failureMessage(ok, `expected ${JSON.stringify(expected)} got ${JSON.stringify(actual)}`));
+}
+
 function listFiles(relativeDir) {
   return fs.readdirSync(relPath(relativeDir), { withFileTypes: true })
     .filter((entry) => entry.isFile())
@@ -319,6 +338,21 @@ function validateClashYaml(record, baselineVersion) {
     const hasEntry = fakeIpFilterBlock.includes(entry);
     record.check(`cmfa.fake-ip-filter.${entry}`, hasEntry, failureMessage(hasEntry, `missing ${entry}`));
   }
+  for (const entry of ['+.msftconnecttest.com', '+.msftncsi.com', '+.in-addr.arpa', '+.ip6.arpa']) {
+    const hasEntry = fakeIpFilterBlock.includes(entry);
+    record.check(`cmfa.fake-ip-filter.${entry}`, hasEntry, failureMessage(hasEntry, `missing ${entry}`));
+  }
+  record.check('cmfa.dns.prefer-h3-enabled', /prefer-h3:\s*true/.test(source));
+  record.check('cmfa.dns.respect-rules', /respect-rules:\s*true/.test(source));
+  record.check('cmfa.dns.cache-arc', /cache-algorithm:\s*arc/.test(source));
+  record.check('cmfa.dns.githubusercontent-policy', /['"]?\+\.githubusercontent\.com['"]?:/.test(source));
+  record.check('cmfa.dns.fallback-geosite-gfw', /fallback-filter:[\s\S]*geosite:[\s\S]*-\s*gfw/.test(source));
+  record.check('cmfa.dns.fallback-geosite-not-cn', /fallback-filter:[\s\S]*geosite:[\s\S]*-\s*geolocation-!cn/.test(source));
+  checkExactList(record, 'cmfa.dns.default-nameserver-exact', extractYamlListItems(source, 'default-nameserver'), DNS_BOOTSTRAP_IPS);
+  checkExactList(record, 'cmfa.dns.nameserver-exact', extractYamlListItems(source, 'nameserver'), DNS_DOMESTIC_DOH);
+  checkExactList(record, 'cmfa.dns.direct-nameserver-exact', extractYamlListItems(source, 'direct-nameserver'), DNS_DOMESTIC_DOH);
+  checkExactList(record, 'cmfa.dns.proxy-server-nameserver-exact', extractYamlListItems(source, 'proxy-server-nameserver'), DNS_PROXY_DOH);
+  checkExactList(record, 'cmfa.dns.fallback-exact', extractYamlListItems(source, 'fallback'), DNS_FOREIGN_DOH);
   for (const port of STUN_DIRECT_PORTS) {
     const hasPortRule = source.includes(`DST-PORT,${port},DIRECT`);
     record.check(`cmfa.stun-port.${port}`, hasPortRule, failureMessage(hasPortRule, `missing DST-PORT,${port},DIRECT`));
@@ -369,6 +403,21 @@ function validateOpenClash(record, baselineVersion, options) {
       const hasEntry = yaml.includes(entry);
       record.check(`openclash.${spec.id}.fake-ip-filter.${entry}`, hasEntry, failureMessage(hasEntry, `missing ${entry}`));
     }
+    for (const entry of ['+.msftconnecttest.com', '+.msftncsi.com', '+.in-addr.arpa', '+.ip6.arpa']) {
+      const hasEntry = yaml.includes(entry);
+      record.check(`openclash.${spec.id}.fake-ip-filter.${entry}`, hasEntry, failureMessage(hasEntry, `missing ${entry}`));
+    }
+    record.check(`openclash.${spec.id}.dns.prefer-h3-enabled`, /prefer-h3:\s*true/.test(yaml));
+    record.check(`openclash.${spec.id}.dns.respect-rules`, /respect-rules:\s*true/.test(yaml));
+    record.check(`openclash.${spec.id}.dns.cache-arc`, /cache-algorithm:\s*arc/.test(yaml));
+    record.check(`openclash.${spec.id}.dns.githubusercontent-policy`, /['"]?\+\.githubusercontent\.com['"]?:/.test(yaml));
+    record.check(`openclash.${spec.id}.dns.fallback-geosite-gfw`, /fallback-filter:[\s\S]*geosite:[\s\S]*-\s*gfw/.test(yaml));
+    record.check(`openclash.${spec.id}.dns.fallback-geosite-not-cn`, /fallback-filter:[\s\S]*geosite:[\s\S]*-\s*geolocation-!cn/.test(yaml));
+    checkExactList(record, `openclash.${spec.id}.dns.default-nameserver-exact`, extractYamlListItems(yaml, 'default-nameserver'), DNS_BOOTSTRAP_IPS);
+    checkExactList(record, `openclash.${spec.id}.dns.nameserver-exact`, extractYamlListItems(yaml, 'nameserver'), DNS_DOMESTIC_DOH);
+    checkExactList(record, `openclash.${spec.id}.dns.direct-nameserver-exact`, extractYamlListItems(yaml, 'direct-nameserver'), DNS_DOMESTIC_DOH);
+    checkExactList(record, `openclash.${spec.id}.dns.proxy-server-nameserver-exact`, extractYamlListItems(yaml, 'proxy-server-nameserver'), DNS_PROXY_DOH);
+    checkExactList(record, `openclash.${spec.id}.dns.fallback-exact`, extractYamlListItems(yaml, 'fallback'), DNS_FOREIGN_DOH);
     for (const port of STUN_DIRECT_PORTS) {
       const hasPortRule = yaml.includes(`DST-PORT,${port},DIRECT`);
       record.check(`openclash.${spec.id}.stun-port.${port}`, hasPortRule, failureMessage(hasPortRule, `missing DST-PORT,${port},DIRECT`));
@@ -416,13 +465,23 @@ function validateConfProducts(record, baselineVersion) {
   const surge = readText('Surge/Surge.conf');
   const loon = readText('Loon/Loon.conf');
   const qx = readText('Quantumult X/QuantumultX.conf');
+  record.check('shadowrocket.dns.nameserver-doh-only', shadowrocket.includes('dns-server = https://dns.alidns.com/dns-query,https://doh.pub/dns-query'));
+  record.check('shadowrocket.dns.proxy-server-doh-only', shadowrocket.includes('proxy-dns-server = https://cloudflare-dns.com/dns-query,https://dns.google/dns-query,https://dns.alidns.com/dns-query,https://doh.pub/dns-query'));
+  record.check('shadowrocket.dns.fallback-doh-only', shadowrocket.includes('fallback-dns-server = https://cloudflare-dns.com/dns-query,https://dns.google/dns-query'));
+  record.check('surge.dns.bootstrap-ip-only', surge.includes('dns-server = 223.5.5.5, 119.29.29.29, 1.1.1.1, 8.8.8.8'));
+  record.check('surge.dns.encrypted-doh', surge.includes('encrypted-dns-server = https://dns.alidns.com/dns-query, https://doh.pub/dns-query, https://cloudflare-dns.com/dns-query, https://dns.google/dns-query'));
+  record.check('surge.dns.fallback-doh', surge.includes('fallback-dns-server = https://cloudflare-dns.com/dns-query, https://dns.google/dns-query'));
+  record.check('loon.dns.bootstrap-ip-only', loon.includes('dns-server = 223.5.5.5, 119.29.29.29, 1.1.1.1, 8.8.8.8'));
+  record.check('loon.dns.doh', loon.includes('doh-server = https://dns.alidns.com/dns-query, https://doh.pub/dns-query, https://cloudflare-dns.com/dns-query, https://dns.google/dns-query'));
+  for (const server of DNS_BOOTSTRAP_IPS) record.check(`qx.dns.server.${server}`, qx.includes(`server=${server}`));
+  for (const server of [...DNS_DOMESTIC_DOH, ...DNS_FOREIGN_DOH]) record.check(`qx.dns.doh-server.${server}`, qx.includes(`doh-server=${server}`));
   for (const port of STUN_DIRECT_PORTS) {
     const srHasPortRule = shadowrocket.includes(`DST-PORT,${port},DIRECT`);
-    const surgeHasPortRule = surge.includes(`DST-PORT,${port},DIRECT`);
+    const surgeHasPortRule = surge.includes(`DEST-PORT,${port},DIRECT`);
     const loonHasPortRule = loon.includes(`DEST-PORT,${port},DIRECT`);
     const qxHasPortRule = qx.includes(`dst-port, ${port}, DIRECT`);
     record.check(`shadowrocket.stun-port.${port}`, srHasPortRule, failureMessage(srHasPortRule, `missing DST-PORT,${port},DIRECT`));
-    record.check(`surge.stun-port.${port}`, surgeHasPortRule, failureMessage(surgeHasPortRule, `missing DST-PORT,${port},DIRECT`));
+    record.check(`surge.stun-port.${port}`, surgeHasPortRule, failureMessage(surgeHasPortRule, `missing DEST-PORT,${port},DIRECT`));
     record.check(`loon.stun-port.${port}`, loonHasPortRule, failureMessage(loonHasPortRule, `missing DEST-PORT,${port},DIRECT`));
     record.check(`qx.stun-port.${port}`, qxHasPortRule, failureMessage(qxHasPortRule, `missing dst-port, ${port}, DIRECT`));
   }
@@ -476,10 +535,36 @@ function validateJsonProducts(record, baselineVersion) {
   const selectorCount = (singbox.outbounds || []).filter((outbound) => outbound.type === 'selector' || outbound.type === 'urltest').length;
   const ruleSetCount = ((singbox.route || {}).rule_set || []).length;
   const routeRuleCount = ((singbox.route || {}).rules || []).length;
+  const dnsRules = ((singbox.dns || {}).rules || []);
+  const dnsServers = ((singbox.dns || {}).servers || []);
+  const dnsServerByTag = Object.fromEntries(dnsServers.filter((server) => server && server.tag).map((server) => [server.tag, server]));
   record.check('singbox.baseline-meta', singbox._meta && singbox._meta.baseline === `Clash Party ${baselineVersion}`, { value: singbox._meta && singbox._meta.baseline });
   record.check('singbox.selector-urltest-count', selectorCount === EXPECTED_SINGBOX_GROUPS, { value: selectorCount });
   record.check('singbox.rule-set-count', ruleSetCount >= 30, { value: ruleSetCount });
   record.check('singbox.route-rule-count', routeRuleCount >= 600, { value: routeRuleCount });
+  record.check('singbox.dns.bootstrap-ip-only', dnsServerByTag.dns_bootstrap && dnsServerByTag.dns_bootstrap.address === 'udp://223.5.5.5:53', {
+    value: dnsServerByTag.dns_bootstrap && dnsServerByTag.dns_bootstrap.address,
+  });
+  record.check('singbox.dns.direct-doh', dnsServerByTag.dns_direct && dnsServerByTag.dns_direct.address === 'https://dns.alidns.com/dns-query', {
+    value: dnsServerByTag.dns_direct && dnsServerByTag.dns_direct.address,
+  });
+  record.check('singbox.dns.proxy-doh', dnsServerByTag.dns_proxy && dnsServerByTag.dns_proxy.address === 'https://cloudflare-dns.com/dns-query', {
+    value: dnsServerByTag.dns_proxy && dnsServerByTag.dns_proxy.address,
+  });
+  record.check('singbox.dns.direct-bootstrap-resolver', dnsServerByTag.dns_direct && dnsServerByTag.dns_direct.address_resolver === 'dns_bootstrap');
+  record.check('singbox.dns.proxy-bootstrap-resolver', dnsServerByTag.dns_proxy && dnsServerByTag.dns_proxy.address_resolver === 'dns_bootstrap');
+  const singboxPrivateDnsDirect = dnsRules.some((rule) => (
+    Array.isArray(rule.rule_set) && rule.rule_set.includes('geosite-private') && rule.server === 'dns_direct'
+  ));
+  record.check('singbox.dns.private-direct', singboxPrivateDnsDirect, failureMessage(singboxPrivateDnsDirect, 'geosite-private DNS must use dns_direct'));
+  const singboxCnDnsDirect = dnsRules.some((rule) => (
+    Array.isArray(rule.rule_set)
+      && rule.rule_set.includes('geosite-cn')
+      && rule.rule_set.includes('geoip-cn')
+      && rule.server === 'dns_direct'
+  ));
+  record.check('singbox.dns.cn-direct', singboxCnDnsDirect, failureMessage(singboxCnDnsDirect, 'geosite-cn and geoip-cn DNS must use dns_direct'));
+  record.check('singbox.dns.final-proxy', (singbox.dns || {}).final === 'dns_proxy', { value: (singbox.dns || {}).final });
   for (const port of STUN_DIRECT_PORTS) {
     const hasPortRule = ((singbox.route || {}).rules || []).some((rule) => (
       Array.isArray(rule.port) && rule.port.includes(port) && rule.outbound === 'DIRECT'

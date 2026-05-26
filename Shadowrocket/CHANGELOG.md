@@ -5,6 +5,13 @@
 
 ---
 
+## v5.4.17-SR.1 (2026-05-26)
+
+- ✅ FIX#DNS-SPLIT-BOOTSTRAP：Shadowrocket DNS 同步 v5.4.17 split-bootstrap 语义
+  - `dns-server` 只保留国内 DoH；`proxy-dns-server` 固定境外 DoH + 国内 DoH 兜底
+  - `fallback-dns-server` 固定 Cloudflare + Google DoH
+  - Shadowrocket 无独立 `default-nameserver` 字段，DoH 域名自举由客户端实现
+
 ## v5.4.16-SR.1 (2026-05-20)
 
 - ✅ FIX#149-P0：前置 `DOMAIN-SUFFIX,paddle.com,🏦 金融支付`

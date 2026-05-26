@@ -7,6 +7,14 @@
 
 ---
 
+## v5.4.17 / v5.4.17-normal.1 (2026-05-26)
+
+- ✅ FIX#DNS-SPLIT-BOOTSTRAP：DNS 固定为 `default-nameserver` 纯 IP 自举，其它 resolver 全部 DoH
+  - `nameserver` / `direct-nameserver` 固定为 AliDNS + DNSPod DoH
+  - `proxy-server-nameserver` 固定为 Cloudflare + Google DoH，AliDNS + DNSPod DoH 兜底
+  - `fallback` 固定为 Cloudflare + Google DoH，`fallback-filter.geosite` 固定 `gfw` + `geolocation-!cn`
+  - `prefer-h3: true`、`respect-rules: true`、`cache-algorithm: arc` 写入主线和校验
+
 ## v5.4.16 / v5.4.16-normal.2 (2026-05-22)
 
 - ✅ FEAT#GAME-ACCEL：新增游戏加速器 `PROCESS-NAME -> DIRECT` 白名单

@@ -5,6 +5,13 @@
 
 ---
 
+## v5.4.17-cmfa.1 (2026-05-26)
+
+- ✅ FIX#DNS-SPLIT-BOOTSTRAP：同步 Clash Party v5.4.17 DNS 合同
+  - `default-nameserver` 只保留 `223.5.5.5 / 119.29.29.29 / 1.1.1.1 / 8.8.8.8`
+  - `nameserver` / `direct-nameserver` 全部使用国内 DoH；`proxy-server-nameserver` / `fallback` 使用境外 DoH
+  - 开启 `prefer-h3: true`，补齐 `nameserver-policy` 与 `fallback-filter.geosite`
+
 ## v5.4.16-cmfa.2 (2026-05-22)
 
 - ✅ FEAT#GAME-ACCEL：新增游戏加速器 `PROCESS-NAME -> DIRECT` 白名单

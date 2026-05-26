@@ -6,7 +6,7 @@
 > - Normal 版：`OpenClash(mihomo).sh`（`type: url-test`，非 Smart 内核）
 > - UI 配置快照：`OpenClash(mihomo).conf`（一次性导入推荐 UCI 选项）
 > - `PROCESS-NAME` 清单已语法同步；RustDesk 进程改走 `🧑‍💼 会议协作`，路由器端通常看不到局域网客户端进程名，主要用于保持 mihomo 规则形态一致。
-> - v5.4.16 起 `paddle.com` 前置命中 `🏦 金融支付`，覆盖 anti-AD 对 `analytics.paddle.com` 的误拦截；v5.4.15 起新增 GEOSITE 覆盖台账与 anti-ad 误伤白名单模块化说明；v5.4.14 起 `cloudflarestorage.com` 前置命中 `🌐 国外网站`，覆盖上游 phishing 规则源误拦截；v5.4.13 起 DNS 保持 IP-first 自举，并在 `fake-ip-filter` 中让 STUN/TURN 与 RustDesk 域名返回真实 IP；标准 STUN/TURN 端口直连，UDP/443 TURN 仍受 QUIC 屏蔽策略控制。
+> - v5.4.17 起 DNS 固定为 split-bootstrap：`default-nameserver` 纯 IP，其它 resolver 全部 DoH，并开启 `prefer-h3: true`；v5.4.16 起 `paddle.com` 前置命中 `🏦 金融支付`，覆盖 anti-AD 对 `analytics.paddle.com` 的误拦截；v5.4.15 起新增 GEOSITE 覆盖台账与 anti-ad 误伤白名单模块化说明；v5.4.14 起 `cloudflarestorage.com` 前置命中 `🌐 国外网站`，覆盖上游 phishing 规则源误拦截；v5.4.13 起在 `fake-ip-filter` 中让 STUN/TURN 与 RustDesk 域名返回真实 IP；标准 STUN/TURN 端口直连，UDP/443 TURN 仍受 QUIC 屏蔽策略控制。
 
 ---
 
@@ -29,9 +29,9 @@
 | 适用内核 | Mihomo Smart / Meta Alpha | Mihomo Meta 稳定内核（非 Smart） |
 | 区域组类型 | `type: smart` | `type: url-test` |
 | LightGBM | 支持（`uselightgbm: true`） | 不支持 |
-| 规则覆盖 | 385 providers / 1049 rules | 385 providers / 1049 rules |
-| 业务组数量 | 31 | 31 |
-| 区域组数量 | 18 | 18 |
+| 规则覆盖 | 385 providers / ~990 rules | 385 providers / ~990 rules |
+| 业务组数量 | 32 | 32 |
+| 区域组数量 | 22 | 22 |
 | DNS / Sniffer / Rule-Providers | 完全一致 | 完全一致 |
 
 一句话：**想要 ML 自动择优就选 Smart；只想稳定跑在非 Smart 内核就选 Normal。**
@@ -234,7 +234,7 @@ LuCI → **配置订阅** → 添加订阅链接 → 下载 → **全局设置**
 
 ### Q1：我现在不是 Smart 内核，还能用这套规则吗？
 
-可以。直接用 `OpenClash(mihomo).sh` 即可，规则覆盖（385 providers / 1049 rules）与 Smart 版完全一致。
+可以。直接用 `OpenClash(mihomo).sh` 即可，规则覆盖（385 providers / ~990 rules）与 Smart 版完全一致。
 
 ### Q2：我后面升级到 Smart 内核，要重做配置吗？
 

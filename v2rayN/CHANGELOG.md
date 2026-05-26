@@ -7,6 +7,12 @@
 
 ---
 
+## v5.4.17-v2n.1 (2026-05-26)
+
+- N/A#DNS-SPLIT-BOOTSTRAP：路径 C（Xray 核）只发布路由规则 JSON，不承载 DNS resolver 配置
+  - 元数据同步 Clash Party v5.4.17
+  - v2rayN 的 mihomo / sing-box 路径继续直接复用 CMFA / SingBox 产物
+
 ## v5.4.16-v2n.1 (2026-05-20)
 
 - ✅ FIX#149-P0：路径 C（Xray 核）新增 `paddle.com -> proxy` 前置规则

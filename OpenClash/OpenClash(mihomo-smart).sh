@@ -2,10 +2,10 @@
 . /usr/share/openclash/log.sh
 
 # ============================================================================
-# Clash Smart v5.4.16-oc-smart.2 — OpenClash 覆写脚本（与 Clash Party 主线同等规则量）
-# Build: 2026-05-22
+# Clash Smart v5.4.17-oc-smart.1 — OpenClash 覆写脚本（与 Clash Party 主线同等规则量）
+# Build: 2026-05-26
 # ============================================================================
-# 定位：对齐 Clash Party v5.4.16 JS 主线的 OpenClash 全量版本。v5.4.2: P0-FIX#41 小米白名单。
+# 定位：对齐 Clash Party v5.4.17 JS 主线的 OpenClash 全量版本。v5.4.2: P0-FIX#41 小米白名单。
 #       与同目录 OpenClash(mihomo).sh（Normal）互补：
 #         - Normal 面向稳定版 mihomo / 经典 url-test
 #         - full  面向 4GB+ 路由器 / 需要与 Clash Party 桌面端一致的细粒度分流
@@ -16,14 +16,14 @@
 #   • ~990 条 rules
 #   • DNS fake-ip + 嗅探（HTTP/TLS/QUIC）+ nameserver-policy 救援
 #   • Ruby 阶段做：节点过滤 / 区域分类 / Smart 组生成 / TLS 指纹注入
-# 基线：Clash Party v5.4.16（唯一主线；v5.3.1/v5.3.2 为桌面端 PROCESS-NAME 改动，路由器端不适用）── 任何规则/组/DNS 改动必须先改 Clash Party JS，
+# 基线：Clash Party v5.4.17（唯一主线；v5.3.1/v5.3.2 为桌面端 PROCESS-NAME 改动，路由器端不适用）── 任何规则/组/DNS 改动必须先改 Clash Party JS，
 #       再同步到此文件。参见仓库根目录 CLAUDE.md / AGENTS.md。
 # 变更历史：见 `OpenClash/CHANGELOG.md`（Full 部分）。
 # ============================================================================
 
 
 
-VERSION_TAG="v5.4.16-oc-smart.2"
+VERSION_TAG="v5.4.17-oc-smart.1"
 CONFIG_FILE="$1"
 LOG_FILE="/tmp/openclash.log"
 
@@ -51,22 +51,32 @@ dns:
   enable: true
   listen: 0.0.0.0:7874
   ipv6: false
+  prefer-h3: true
   enhanced-mode: fake-ip
   fake-ip-range: 198.18.0.1/16
   fake-ip-filter:
   - +.lan
   - +.local
-  - time.*.com
-  - ntp.*.com
-  - +.market.xiaomi.com
   - +.localdomain
   - +.home.arpa
+  - +.msftconnecttest.com
+  - +.msftncsi.com
+  - localhost.ptlogin2.qq.com
+  - localhost.sec.qq.com
+  - localhost.work.weixin.qq.com
+  - +.in-addr.arpa
+  - +.ip6.arpa
+  - time.*.com
+  - time.*.gov
+  - ntp.*.com
+  - pool.ntp.org
+  - +.ntp.org
+  - +.pool.ntp.org
+  - +.market.xiaomi.com
   - +.stun.*.*
   - +.stun.*.*.*
   - +.turn.*.*
   - +.turn.*.*.*
-  - +.ntp.org
-  - +.pool.ntp.org
   - +.n.n.srv.nintendo.net
   - +.stun.playstation.net
   - +.xboxlive.com
@@ -78,11 +88,10 @@ dns:
   - global.turn.twilio.com
   - +.rustdesk.com
   cache-algorithm: arc
-  # 对齐 Clash Party 基线（使用方法.md 第 99-132 行）
+  # 对齐 Clash Party v5.4.17 基线：default-nameserver 纯 IP，其它 resolver 固定 DoH
   use-hosts: false
   use-system-hosts: false
   respect-rules: true
-  prefer-h3: false
   default-nameserver:
   - 223.5.5.5
   - 119.29.29.29
@@ -105,24 +114,25 @@ dns:
     - https://cloudflare-dns.com/dns-query
     - https://dns.google/dns-query
   nameserver:
-  - 223.5.5.5
-  - 119.29.29.29
   - https://dns.alidns.com/dns-query
   - https://doh.pub/dns-query
   proxy-server-nameserver:
-  - 223.5.5.5
-  - 119.29.29.29
-  - 1.1.1.1
-  - 8.8.8.8
+  - https://cloudflare-dns.com/dns-query
+  - https://dns.google/dns-query
+  - https://dns.alidns.com/dns-query
+  - https://doh.pub/dns-query
   direct-nameserver:
-  - 223.5.5.5
-  - 119.29.29.29
+  - https://dns.alidns.com/dns-query
+  - https://doh.pub/dns-query
   fallback:
   - https://cloudflare-dns.com/dns-query
   - https://dns.google/dns-query
   fallback-filter:
     geoip: true
     geoip-code: CN
+    geosite:
+    - gfw
+    - geolocation-!cn
     ipcidr:
     - 240.0.0.0/4
     - 0.0.0.0/32
@@ -4323,7 +4333,7 @@ cat > "$RUBY_SCRIPT" << 'RUBY_EOF'
 require 'yaml'
 require 'digest'
 
-VERSION = "v5.4.16-oc-smart.2"
+VERSION = "v5.4.17-oc-smart.1"
 
 STATUS_LOG = "/tmp/clash_smart_status.log"
 File.open(STATUS_LOG, 'w') { |f| f.puts "[#{VERSION}] start" }

@@ -213,9 +213,9 @@ URL, tag=标签, force-policy=策略组, update-interval=秒, opt-parser=true/fa
 | 策略组嵌套 | **不支持**（仅 static + url-latency-benchmark） | 支持嵌套 | 支持嵌套 |
 | 远程规则语法 | `[filter_remote]` tag=/force-policy= | `[Rule] RULE-SET,URL,policy` | `[Rule] RULE-SET,URL,policy` |
 | 本地规则类型 | 小写 `host`/`host-suffix`/`ip-cidr` | 大写 `DOMAIN`/`DOMAIN-SUFFIX`/`IP-CIDR` | 大写 `DOMAIN`/`DOMAIN-SUFFIX`/`IP-CIDR` |
-| 端口规则名 | `dst-port` | `DST-PORT` | `DST-PORT` |
+| 端口规则名 | `dst-port` | `DEST-PORT` | `DST-PORT` |
 | IPv6 CIDR | 支持 `ip6-cidr` 独立类型 | 可能 `IP-CIDR` 统一处理（Loon） | 有 `IP-CIDR6` |
-| DNS server | `server=IP` + `doh-server=URL` | `dns-server=IP,system` + `doh-server=URL` | `dns-server=IP,system` |
-| doh-server 多条目 | **仅第一条生效** | 全部生效 | 全部生效 |
+| DNS server | `server=IP` + `doh-server=URL` | `dns-server=IP` + `encrypted-dns-server=URL` | `dns-server=URL` + `proxy-dns-server=URL` |
+| doh-server 多条目 | iOS 版本相关；iOS 15+ 支持多条并发 | 全部生效 | 全部生效 |
 | 最终兜底 | `final, policy` | `FINAL,policy` | `FINAL,policy,dns-failed` |
 | alive-checker | `alive-checker-enabled=true`（需确认字段名） | 无 | 无 |

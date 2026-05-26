@@ -1,9 +1,9 @@
 const fs = require('fs');
 const vm = require('vm');
 
-const VERSION = 'v5.4.16-sing.2';
-const BUILD = '2026-05-22';
-const BASELINE = 'Clash Party v5.4.16';
+const VERSION = 'v5.4.17-sing.1';
+const BUILD = '2026-05-26';
+const BASELINE = 'Clash Party v5.4.17';
 
 const SMART = {
   GLOBAL: '🌍 全球节点',
@@ -467,7 +467,44 @@ const ruleSet = Object.entries(providers).map(([tag, info]) => {
   };
 }).filter(Boolean);
 
-const availableRuleSets = new Set([...ruleSet, ...extraGeoSiteTags].map((item) => item.tag));
+const dnsRouteRuleSets = [
+  {
+    type: 'remote',
+    tag: 'geosite-private',
+    format: 'binary',
+    url: 'https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geosite/private.srs',
+    http_client: { detour: SMART.GLOBAL },
+    update_interval: '1d'
+  },
+  {
+    type: 'remote',
+    tag: 'geosite-cn',
+    format: 'binary',
+    url: 'https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geosite/cn.srs',
+    http_client: { detour: SMART.GLOBAL },
+    update_interval: '1d'
+  },
+  {
+    type: 'remote',
+    tag: 'geoip-cn',
+    format: 'binary',
+    url: 'https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geoip/cn.srs',
+    http_client: { detour: SMART.GLOBAL },
+    update_interval: '1d'
+  }
+];
+
+function uniqueRuleSets(items) {
+  const seen = new Set();
+  return items.filter(function(item) {
+    if (!item || seen.has(item.tag)) return false;
+    seen.add(item.tag);
+    return true;
+  });
+}
+
+const allRouteRuleSets = uniqueRuleSets([...ruleSet, ...extraGeoSiteTags, ...dnsRouteRuleSets]);
+const availableRuleSets = new Set(allRouteRuleSets.map((item) => item.tag));
 const convertedRules = rules.map((rule) => toSingRule(rule, availableRuleSets)).filter(Boolean);
 const skippedProviders = Object.keys(providers).length - ruleSet.length;
 const skippedRules = rules.length - convertedRules.length;
@@ -480,28 +517,45 @@ baseConfig._meta = {
   changelog: '见 SingBox/CHANGELOG.md'
 };
 
-if (baseConfig.dns && Array.isArray(baseConfig.dns.servers)) {
-  // 添加 bootstrap DNS（用 IP 直连，避免域名解析循环依赖）
-  const hasBootstrap = baseConfig.dns.servers.some(function(s) { return s.tag === 'dns_bootstrap'; });
-  if (!hasBootstrap) {
-    baseConfig.dns.servers.unshift({
+baseConfig.dns = {
+  servers: [
+    {
       tag: 'dns_bootstrap',
-      address: 'udp://223.5.5.5:53'
-    });
-  }
-  baseConfig.dns.servers = baseConfig.dns.servers.map(function(server) {
-    if (server && server.tag === 'dns_proxy') {
-      return { ...server, detour: '🚀 节点选择', address_resolver: 'dns_bootstrap' };
+      address: 'udp://223.5.5.5:53',
+      strategy: 'prefer_ipv4'
+    },
+    {
+      tag: 'dns_direct',
+      address: 'https://dns.alidns.com/dns-query',
+      address_resolver: 'dns_bootstrap',
+      detour: 'DIRECT',
+      strategy: 'prefer_ipv4'
+    },
+    {
+      tag: 'dns_proxy',
+      address: 'https://cloudflare-dns.com/dns-query',
+      address_resolver: 'dns_bootstrap',
+      detour: SMART.GLOBAL,
+      strategy: 'prefer_ipv4'
     }
-    if (server && server.tag === 'dns_direct') {
-      return { ...server, address: 'udp://223.5.5.5:53', address_resolver: 'dns_bootstrap' };
+  ],
+  rules: [
+    {
+      rule_set: ['geosite-private', 'geosite-cn', 'geoip-cn'],
+      action: 'route',
+      server: 'dns_direct'
+    },
+    {
+      rule_set: ['anti-ad'],
+      action: 'reject'
     }
-    return server;
-  });
-}
+  ],
+  final: 'dns_proxy',
+  strategy: 'prefer_ipv4'
+};
 
 baseConfig.outbounds = buildOutbounds();
-baseConfig.route.rule_set = [...ruleSet, ...extraGeoSiteTags];
+baseConfig.route.rule_set = allRouteRuleSets;
 baseConfig.route.rules = convertedRules;
 baseConfig.route.final = BIZ.FINAL;
 

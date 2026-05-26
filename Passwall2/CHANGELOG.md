@@ -6,6 +6,12 @@
 
 ---
 
+## v5.4.17-pw2.1 (2026-05-26)
+
+- N/A#DNS-SPLIT-BOOTSTRAP：Passwall2 shunt_rules 只承载分流规则，不承载 DNS resolver 配置
+  - apply 脚本与参考 `.conf` 元数据同步 Clash Party v5.4.17
+  - DNS split-bootstrap 由用户在 Passwall2 节点/全局 DNS 页面按本机环境配置
+
 ## v5.4.16-pw2.1 (2026-05-20)
 
 - ✅ FIX#149-P0：金融支付 shunt rule 补充 `domain:paddle.com`

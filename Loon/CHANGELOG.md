@@ -4,6 +4,12 @@
 
 ---
 
+## v5.4.17-Loon.1 (2026-05-26)
+
+- ✅ FIX#DNS-SPLIT-BOOTSTRAP：Loon DNS 同步 v5.4.17 平台等价写法
+  - `dns-server` 只保留纯 IP bootstrap 列表，DoH URL 仅放 `doh-server`
+  - Loon 无 Mihomo 的 `direct-nameserver` / `proxy-server-nameserver` 四段分离，按原生字段做 best-effort 映射
+
 ## v5.4.16-Loon.1 (2026-05-20)
 
 - ✅ FIX#149-P0：本地 `[Rule]` 前置 `DOMAIN-SUFFIX,paddle.com,🏦 金融支付`

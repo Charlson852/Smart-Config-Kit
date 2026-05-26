@@ -491,15 +491,33 @@ function validateRulesAndProviders(output, record, target) {
 
 function validateGeneral(output, record) {
   record.expect(output.dns && typeof output.dns === 'object', 'DNS object exists after overwrite');
+  record.expectEqual(output.dns.enable, true, 'DNS is explicitly enabled');
+  record.expectEqual(output.dns.listen, '0.0.0.0:1053', 'DNS listener is explicit for UI overwrite clients');
   record.expectEqual(output.dns['enhanced-mode'], 'fake-ip', 'DNS enhanced-mode defaults to fake-ip');
+  record.expectEqual(output.dns['fake-ip-range'], '198.18.0.1/16', 'DNS fake-ip range is explicit');
+  record.expectEqual(output.dns['prefer-h3'], true, 'DNS prefer-h3 is enabled by repository policy');
+  record.expectEqual(output.dns['respect-rules'], true, 'DNS resolver connections respect route rules');
+  record.expectEqual(output.dns['use-system-hosts'], false, 'DNS does not inherit system hosts');
+  record.expectEqual(output.dns['cache-algorithm'], 'arc', 'DNS cache uses ARC');
   record.expect(Array.isArray(output.dns.nameserver) && output.dns.nameserver.length > 0, 'DNS nameserver fallback is nonempty');
   record.expect(Array.isArray(output.dns['fake-ip-filter']) && output.dns['fake-ip-filter'].includes('+.rustdesk.com'), 'RustDesk domains receive real IP in fake-ip-filter');
+  for (const entry of ['+.msftconnecttest.com', '+.msftncsi.com', '+.in-addr.arpa', '+.ip6.arpa']) {
+    record.expect(Array.isArray(output.dns['fake-ip-filter']) && output.dns['fake-ip-filter'].includes(entry), `split DNS fake-ip bypass includes ${entry}`);
+  }
   for (const entry of STUN_FAKE_IP_FILTER_ENTRIES) {
     record.expect(Array.isArray(output.dns['fake-ip-filter']) && output.dns['fake-ip-filter'].includes(entry), `STUN/TURN domain receives real IP in fake-ip-filter: ${entry}`);
   }
-  record.expectArrayEqual(output.dns.nameserver.slice(0, 2), ['223.5.5.5', '119.29.29.29'], 'plain IP DNS is first for bootstrap');
-  record.expectArrayEqual(output.dns['direct-nameserver'], ['223.5.5.5', '119.29.29.29'], 'direct DNS avoids DoH bootstrap dependency');
-  record.expectArrayEqual(output.dns['proxy-server-nameserver'], ['223.5.5.5', '119.29.29.29', '1.1.1.1', '8.8.8.8'], 'proxy server DNS uses IP bootstrap');
+  record.expectArrayEqual(output.dns['default-nameserver'], ['223.5.5.5', '119.29.29.29', '1.1.1.1', '8.8.8.8'], 'default DNS bootstrap stays pure IP');
+  record.expectArrayEqual(output.dns.nameserver, ['https://dns.alidns.com/dns-query', 'https://doh.pub/dns-query'], 'primary nameserver is domestic DoH');
+  record.expectArrayEqual(output.dns['direct-nameserver'], ['https://dns.alidns.com/dns-query', 'https://doh.pub/dns-query'], 'direct DNS is domestic DoH');
+  record.expectArrayEqual(output.dns['proxy-server-nameserver'], ['https://cloudflare-dns.com/dns-query', 'https://dns.google/dns-query', 'https://dns.alidns.com/dns-query', 'https://doh.pub/dns-query'], 'proxy server DNS is foreign DoH first with domestic DoH backup');
+  record.expectArrayEqual(output.dns.fallback, ['https://cloudflare-dns.com/dns-query', 'https://dns.google/dns-query'], 'fallback DNS is foreign DoH');
+  const nameserverPolicy = output.dns['nameserver-policy'] && typeof output.dns['nameserver-policy'] === 'object' ? output.dns['nameserver-policy'] : {};
+  record.expect(Object.keys(nameserverPolicy).length > 0, 'DNS nameserver-policy exists');
+  record.expectArrayEqual(nameserverPolicy['+.githubusercontent.com'] || [], ['https://cloudflare-dns.com/dns-query', 'https://dns.google/dns-query'], 'GitHub asset DNS policy uses foreign DoH');
+  const fallbackFilter = output.dns['fallback-filter'] && typeof output.dns['fallback-filter'] === 'object' ? output.dns['fallback-filter'] : {};
+  record.expect(Object.keys(fallbackFilter).length > 0, 'DNS fallback-filter exists');
+  record.expectArrayEqual(fallbackFilter.geosite || [], ['gfw', 'geolocation-!cn'], 'fallback-filter routes GFW/non-CN domains to fallback DNS');
   record.expect(output.profile && output.profile['store-selected'] === true, 'profile.store-selected is enabled');
 
   const proxies = proxyByName(output);

@@ -6,6 +6,12 @@
 
 ---
 
+## v5.4.17-QX.1 (2026-05-26)
+
+- ✅ FIX#DNS-SPLIT-BOOTSTRAP：Quantumult X DNS 同步 v5.4.17 平台等价写法
+  - `server=` 只保留纯 IP bootstrap 列表，DoH URL 继续使用 `doh-server=`
+  - QX 无 Mihomo 的四段 DNS 模型，且多条 `doh-server` 的故障转移能力受客户端实现限制
+
 ## v5.4.16-QX.1 (2026-05-20)
 
 - ✅ FIX#149-P0：前置 `host-suffix, paddle.com, 🏦 金融支付`

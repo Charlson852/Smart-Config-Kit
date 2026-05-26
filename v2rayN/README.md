@@ -1,6 +1,6 @@
-# v2rayN 使用教程（对齐 Clash Party v5.4.16）
+# v2rayN 使用教程（对齐 Clash Party v5.4.17）
 
-> 路径 C（Xray 核）产物：`v2rayN/v2rayN(xray).json` v5.4.16-v2n.1（详见 `v2rayN/CHANGELOG.md`；新增 Paddle 前置规则，并保留 GEOSITE 覆盖台账与 Cloudflare R2 前置规则）。
+> 路径 C（Xray 核）产物：`v2rayN/v2rayN(xray).json` v5.4.17-v2n.1（详见 `v2rayN/CHANGELOG.md`；Xray 路由 JSON 不承载 DNS split-bootstrap，mihomo / sing-box 路径复用对应产物）。
 
 > 本目录提供 Windows 客户端 **v2rayN** 的接入说明。
 > v2rayN 本身不是内核，它是一个「多核心调度器」——可以切换到 **mihomo（推荐）/ sing-box / Xray** 三种核心。

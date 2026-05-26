@@ -103,7 +103,7 @@ flowchart LR
 | 🐟 漏网之鱼 | 以 GEOSITE/GEOIP/FINAL 兜底为主（非单一固定 provider） | MetaCubeX（geo 规则） |
 | 🛑 广告拦截 | `anti-ad` `sukka-phishing` `hagezi-tif` `advertising` `privacy` `acc-unsupportvpn` | DustinWin / SukkaW / Hagezi / blackmatrix7 / Accademia |
 
-> v5.4.16-Surge.3 修复 Surge 导入时报 `DST-PORT,7680,REJECT` 无效配置的问题，Surge 端口规则改用官方 `DEST-PORT`。v5.4.16 起，Paddle 许可/支付链路 `paddle.com` 前置命中 `🏦 金融支付`，覆盖 anti-AD 对 `analytics.paddle.com` 的误拦截（Antigravity 登录/账号设置场景）。v5.4.15 起，新增 [GEOSITE 覆盖台账](./docs/GEOSITE_COVERAGE_LEDGER.md)，并把广告误伤白名单提升为显式模块。v5.4.14 起，Cloudflare R2 存储域 `cloudflarestorage.com` 前置命中 `🌐 国外网站`，用于覆盖上游 phishing 规则源的误拦截。v5.4.13 起，STUN/TURN NAT 探测域名在 Mihomo fake-ip DNS 中返回真实 IP，标准端口 `3478 / 3479 / 5349 / 19302 / 19305 / 19307` 默认直连；UDP/443 型 TURN 仍由 QUIC 屏蔽策略控制。v5.4.12 起，RustDesk 公网 relay/API 统一按 `🧑‍💼 会议协作` 走代理链路，同时 `rustdesk.com` 返回真实 IP，避免会合阶段拿到 198.18.x fake-ip。
+> v5.4.17 起，DNS 固定为 split-bootstrap：`default-nameserver` 只放纯 IP，其它 resolver 全部 DoH，并开启 `prefer-h3: true`。v5.4.16-Surge.3 修复 Surge 导入时报 `DST-PORT,7680,REJECT` 无效配置的问题，Surge 端口规则改用官方 `DEST-PORT`。v5.4.16 起，Paddle 许可/支付链路 `paddle.com` 前置命中 `🏦 金融支付`，覆盖 anti-AD 对 `analytics.paddle.com` 的误拦截（Antigravity 登录/账号设置场景）。v5.4.15 起，新增 [GEOSITE 覆盖台账](./docs/GEOSITE_COVERAGE_LEDGER.md)，并把广告误伤白名单提升为显式模块。v5.4.14 起，Cloudflare R2 存储域 `cloudflarestorage.com` 前置命中 `🌐 国外网站`，用于覆盖上游 phishing 规则源的误拦截。v5.4.13 起，STUN/TURN NAT 探测域名在 Mihomo fake-ip DNS 中返回真实 IP，标准端口 `3478 / 3479 / 5349 / 19302 / 19305 / 19307` 默认直连；UDP/443 型 TURN 仍由 QUIC 屏蔽策略控制。v5.4.12 起，RustDesk 公网 relay/API 统一按 `🧑‍💼 会议协作` 走代理链路，同时 `rustdesk.com` 返回真实 IP，避免会合阶段拿到 198.18.x fake-ip。
 
 ---
 
@@ -275,7 +275,7 @@ flowchart TB
 
 | 威胁 | 本方案如何化解 |
 |---|---|
-| GFW DNS 污染 | ① ~ ④ 全部走 DoH（TLS 加密），GFW 看不到 DNS 内容更注入不了；④ 的 `fallback-filter.geoip-code: CN` 再做一次"看到 CN IP 就切换上游"的解毒逻辑 |
+| GFW DNS 污染 | ① 只用于 DoH 域名 bootstrap，② ~ ④ 全部走 DoH（TLS 加密），GFW 看不到 DNS 内容更注入不了；④ 的 `fallback-filter.geoip-code: CN` 再做一次"看到 CN IP 就切换上游"的解毒逻辑 |
 | ISP DNS 劫持 | 53 端口只用于 bootstrap 那 4 个 IP，业务查询 **100% 走 443 DoH**；ISP 连 SNI 都看不到（Cloudflare / 阿里 DNS 的 ECH/CECPQ 进一步加密） |
 | 运营商流量审计 | DoH 走 HTTPS 443，和正常网页流量外观一致；运营商**不能区分**你在查 DNS 还是刷网页 |
 | 机场节点 IP 暴露 | ③ `proxy-server-nameserver` 让节点域名解析走海外 DoH，ISP 完全不知道你连过这个机场 |

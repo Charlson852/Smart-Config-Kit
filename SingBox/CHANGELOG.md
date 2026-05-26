@@ -5,6 +5,13 @@
 
 ---
 
+## v5.4.17-sing.1 (2026-05-26)
+
+- ✅ FIX#DNS-SPLIT-BOOTSTRAP：由生成器重建 Full JSON，同步 v5.4.17 DNS split-bootstrap 语义
+  - `dns_bootstrap` 保留纯 IP 自举；`dns_direct` 改为 AliDNS DoH，`dns_proxy` 改为 Cloudflare DoH
+  - 新增 `geosite-private` / `geosite-cn` / `geoip-cn` DNS rule-set，国内与私有域名显式走 `dns_direct`
+  - `dns.final` 保持 `dns_proxy`
+
 ## v5.4.16-sing.2 (2026-05-22)
 
 - ✅ FEAT#GAME-ACCEL：由生成器重建 Full JSON，新增游戏加速器 `process_name -> DIRECT` 规则

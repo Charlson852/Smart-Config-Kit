@@ -1,8 +1,8 @@
 # Clash Party / Clash Verge / Mihomo Party 使用教程
 
 > 覆写脚本：**两份二选一**，规则 100% 等价，仅 22 区域组（11 全部 + 11 家宽）的内核选路算法不同
-> - `ClashParty(mihomo-smart).js`（**v5.4.16**，2026-05-20）— Smart 内核 + LightGBM ML 评估
-> - `ClashParty(mihomo).js`（**v5.4.16-normal.1**，2026-05-20）— 普通内核 url-test 延迟选路
+> - `ClashParty(mihomo-smart).js`（**v5.4.17**，2026-05-26）— Smart 内核 + LightGBM ML 评估
+> - `ClashParty(mihomo).js`（**v5.4.17-normal.1**，2026-05-26）— 普通内核 url-test 延迟选路
 >
 > UI 补充配置：已整合到本文「四、粘贴 UI 补充配置」章节
 > 架构：**SUB-STORE 多机场融合** + 22 区域组（11 全部 + 11 家宽）+ 32 业务策略组 + **385 rule-providers**
@@ -78,7 +78,7 @@
 - ❌ **LightGBM 模型没下载**（仅 Smart 版）：启动后若日志有 `Model.bin not found`，手动下 https://github.com/vernesong/mihomo/releases/download/LightGBM-Model/Model.bin 放到客户端的 mihomo 工作目录；或直接换成**普通版**脚本，不依赖 `Model.bin`。
 - ❌ **Smart 版提示内核不支持 `type: smart`**：你用的不是 mihomo Alpha。要么换内核（Clash Verge Rev → 设置 → Clash 内核 → Mihomo Alpha），要么直接改用**普通版**脚本。
 - ❌ **找不到业务组 / 区域组**：确认订阅返回的是 Mihomo / Clash.Meta 格式（不是 Surge / Quantumult）。
-- ❌ **RustDesk 仍然超时**：v5.4.12 后 RustDesk 应命中 `🧑‍💼 会议协作`，不要让该组停在 `DIRECT`；DNS 段应是 IP-first，并且 `fake-ip-filter` 应包含 `+.rustdesk.com` 真实 IP 回应。
+- ❌ **RustDesk 仍然超时**：v5.4.12 后 RustDesk 应命中 `🧑‍💼 会议协作`，不要让该组停在 `DIRECT`；DNS 段应采用 v5.4.17 split-bootstrap（default 纯 IP，其它 resolver 全 DoH），并且 `fake-ip-filter` 应包含 `+.rustdesk.com` 真实 IP 回应。
 - ❌ **WebRTC / STUN 测出代理出口或失败**：v5.4.13 后标准 STUN/TURN 端口 `3478 / 3479 / 5349 / 19302 / 19305 / 19307` 应直连；若服务强制走 UDP/443 TURN，仍会受 QUIC 屏蔽策略影响。
 
 ---
@@ -185,7 +185,7 @@ Clash Party 系列（Mihomo Party / Clash Verge Rev / Clash Nyanpasu）底层都
 
 ## 四、粘贴 UI 补充配置
 
-脚本主要处理 **proxies / proxy-groups / rules** 三大块，但不覆盖 **DNS / Sniffer / GeoX URL**（这些字段若写入 JS 会被UI配置覆盖）。因此需要把下方内容粘贴到客户端的 **外部数据、DNS、嗅探覆写中**：
+脚本会写入 **proxies / proxy-groups / rules / DNS** 主体配置；但不同 GUI 仍可能用 UI Mixin 覆盖 DNS / Sniffer / GeoX URL。为避免客户端侧覆盖掉 v5.4.17 DNS 合同，建议把下方内容同步粘贴到客户端的 **外部数据、DNS、嗅探覆写中**：
 
 GeoX URL：
 
@@ -211,6 +211,7 @@ dns:
   use-hosts: false
   use-system-hosts: false
   respect-rules: true
+  prefer-h3: true
   default-nameserver:
     - 223.5.5.5
     - 119.29.29.29
@@ -233,6 +234,9 @@ dns:
   fallback-filter:
     geoip: true
     geoip-code: CN
+    geosite:
+      - gfw
+      - geolocation-!cn
     ipcidr:
       - 240.0.0.0/4
       - 0.0.0.0/32
