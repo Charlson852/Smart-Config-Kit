@@ -4373,7 +4373,7 @@ status "[filter] raw=#{raw_proxies.size} filtered=#{filtered_proxies.size} home=
 # Phase 1b: 区域分类
 # ---------------------------------------------------------------
 REGIONS = {
-  "HK"  => /香港|\bHK\b|HKG|Hong\s?Kong|🇭🇰/i,
+  "HK"  => /香港|港|\bHK\b|HKG|Hong\s?Kong|🇭🇰/i,
   "TW"  => /台湾|台灣|\bTW\b|TWN|Taiwan|🇹🇼/i,
   "JP"  => /日本|\bJP\b|JPN|Japan|🇯🇵|Tokyo|Osaka/i,
   # v5.2.6-oc-normal.1 FIX#24-P0: 补 KOR（KOR 不是 KR 的子串，原始 /KR/ 无法匹配 "KOR 01"）

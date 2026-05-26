@@ -1,7 +1,35 @@
-# CLAUDE.md — 仓库维护契约（AI 必读）
+# CLAUDE.md
+
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+## 仓库维护契约（AI 必读）
 
 > 本文件是 Smart-Config-Kit 仓库的**强约束维护契约**，所有自动化代理（Claude Code、Codex、Copilot 等）在修改本仓库前**必须完整阅读并遵守**。
 > 违反以下任何一条，PR 必须退回重做。
+
+---
+
+## Quick Start / 常用命令
+
+```bash
+# 验证 JS 覆写脚本（节点分类 / 组顺序 / 规则引用等）
+node tools/validate-js-overwrites.js
+node tools/validate-js-overwrites.js --target smart    # 仅验证 Smart 版
+node tools/validate-js-overwrites.js --target normal   # 仅验证 Normal 版
+node tools/validate-js-overwrites.js --target flclash  # 仅验证 FlClash 版
+
+# 验证跨客户端产物一致性（组计数 / JSON 合法性 / YAML 重复键 / Passwall 规则前缀）
+node tools/validate-artifact-contracts.js
+node tools/validate-artifact-contracts.js --strict-ruby  # 含 Ruby YAML 解析
+
+# 验证 PROCESS-NAME 直连白名单
+node tools/validate-process-name-direct.js
+
+# 重新生成 SingBox Full JSON（禁止手工改）
+node "SingBox/SingBox(sing-box)-generator.js"
+
+# §5 自检脚本（完整版见下方 §5 节）
+```
 
 ---
 
@@ -397,8 +425,8 @@ done
 |------|----------|---------|------|------|----------------|
 | **Clash 家族** | `DOMAIN-SUFFIX,example.com` | `IP-CIDR,1.2.3.0/24` | `DST-PORT,443` | `PROCESS-NAME,curl` | `RULE-SET,name` + 顶部 `rule-providers` |
 | **Shadowrocket** | `DOMAIN-SUFFIX,example.com` | `IP-CIDR,1.2.3.0/24` | `DST-PORT,443` | （iOS 限制，不支持） | `RULE-SET,<url>,<policy>`（直接 URL，无 rule-providers 节） |
-| **Surge** | `DOMAIN-SUFFIX,example.com` | `IP-CIDR,1.2.3.0/24` | `DST-PORT,443`（与 Clash/SR 同） | `PROCESS-NAME,curl` | `RULE-SET,<url> <policy>` |
-| **Loon** | `DOMAIN-SUFFIX,example.com` | `IP-CIDR,1.2.3.0/24` | **`DEST-PORT,443`**（**唯一异类**：禁止 `DST-PORT`，弹"DST-PORT 语法错误"） | `PROCESS-NAME,curl` | `RULE-SET,<url>,<policy>` |
+| **Surge** | `DOMAIN-SUFFIX,example.com` | `IP-CIDR,1.2.3.0/24` | **`DEST-PORT,443`**（禁止 `DST-PORT`） | `PROCESS-NAME,curl` | `RULE-SET,<url> <policy>` |
+| **Loon** | `DOMAIN-SUFFIX,example.com` | `IP-CIDR,1.2.3.0/24` | **`DEST-PORT,443`**（同 Surge，禁止 `DST-PORT`） | `PROCESS-NAME,curl` | `RULE-SET,<url>,<policy>` |
 | **Quantumult X** | `host-suffix, example.com, <policy>` | `ip-cidr, 1.2.3.0/24, <policy>` | （走 `[filter_local]` 单独段） | `process-name, curl, <policy>` | `[filter_remote]` URL 顶部声明 |
 | **Passwall / Passwall2** | 纯字符串 / `domain:example.com` / `full:exact.com` / `regexp:^...$` | `1.2.3.0/24`（直写，无前缀） | （UI 单独配） | （不支持） | `geosite:cn` / `rule-set:remote:<url>` / `rule-set:local:/path` |
 | **sing-box** | JSON `domain_suffix: ["example.com"]` | JSON `ip_cidr: ["1.2.3.0/24"]` | `port: [443]` | `process_name: ["curl"]` | `rule_set: ["geosite-cn"]` + 顶部 `route.rule_set` |
