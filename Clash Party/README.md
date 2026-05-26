@@ -221,8 +221,6 @@ dns:
     - 223.5.5.5
     - 1.2.4.8
   nameserver:
-    - https://208.67.222.222/dns-query
-    - https://77.88.8.8/dns-query
     - https://1.1.1.1/dns-query
     - https://8.8.4.4/dns-query
   proxy-server-nameserver:

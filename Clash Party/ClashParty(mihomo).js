@@ -2315,7 +2315,7 @@ function overwriteGeneral(config) {
   // CN/private domains use domestic DoH; the default resolver set is foreign DoH and follows route rules.
   var bootstrapDns = ['223.5.5.5', '1.2.4.8']
   var domesticDns = ['https://223.5.5.5/dns-query', 'https://doh.pub/dns-query']
-  var foreignDns = ['https://208.67.222.222/dns-query', 'https://77.88.8.8/dns-query', 'https://1.1.1.1/dns-query', 'https://8.8.4.4/dns-query']
+  var foreignDns = ['https://1.1.1.1/dns-query', 'https://8.8.4.4/dns-query']
   config.dns['default-nameserver'] = bootstrapDns.slice()
   config.dns.nameserver = foreignDns.slice()
   config.dns['proxy-server-nameserver'] = domesticDns.slice()
