@@ -3,7 +3,7 @@
 > 覆写脚本：`FlClash(mihomo).js`
 > 适用客户端：**FlClash**（Android / Windows / macOS / Linux）
 > 内核要求：FlClash >= **v0.8.85**
-> 当前版本：**v5.4.17-flclash.1**（22 url-test 区域组 + 32 业务策略组；DNS split-bootstrap 固定为 default 纯 IP + 其它 resolver 全 DoH，保留 GEOSITE 覆盖台账 / Cloudflare R2 / STUN/TURN / RustDesk 修复）
+> 当前版本：**v5.4.17-flclash-no-cn-dns.1**（22 url-test 区域组 + 32 业务策略组；DNS 上游固定为 Cloudflare + Google，避免 DNS leak test 出现国内 DNS；保留 GEOSITE 覆盖台账 / Cloudflare R2 / STUN/TURN / RustDesk 修复）
 
 <table><tr>
 <td><img width="160" alt="FlClash 截图1" src="https://github.com/user-attachments/assets/e88e0724-2bc0-4111-851e-e8aa0a9141d3"></td>
@@ -29,8 +29,8 @@
 1. FlClash → 底部「配置」→ 顶部 **「覆写脚本」**
 2. 点右上角 **+**
 3. 输入名称（如 `Smart分流`），选择加载方式：
-   - **URL**：填入 `https://raw.githubusercontent.com/IvanSolis1989/Smart-Config-Kit/main/FlClash/FlClash%28mihomo%29.js`
-   - **jsdelivr CDN**（国内更快）：`https://cdn.jsdelivr.net/gh/IvanSolis1989/Smart-Config-Kit@main/FlClash/FlClash%28mihomo%29.js`
+   - **URL**：填入 `https://raw.githubusercontent.com/Charlson852/Smart-Config-Kit/refs/heads/fix/flclash-no-cn-dns/FlClash/FlClash%28mihomo%29.js`
+   - **原作者通用版**：`https://cdn.jsdelivr.net/gh/IvanSolis1989/Smart-Config-Kit@main/FlClash/FlClash%28mihomo%29.js`
    - **粘贴**：浏览器打开 Raw 链接，全选复制粘贴；第一行必须是 `// FlClash 覆写脚本`
 4. 保存
 
@@ -90,21 +90,17 @@ dns:
   respect-rules: true
   prefer-h3: false
   default-nameserver:
-    - 223.5.5.5
-    - 119.29.29.29
     - 1.1.1.1
     - 8.8.8.8
   nameserver:
-    - https://dns.alidns.com/dns-query
-    - https://doh.pub/dns-query
+    - https://cloudflare-dns.com/dns-query
+    - https://dns.google/dns-query
   proxy-server-nameserver:
     - https://cloudflare-dns.com/dns-query
     - https://dns.google/dns-query
-    - https://dns.alidns.com/dns-query
-    - https://doh.pub/dns-query
   direct-nameserver:
-    - https://dns.alidns.com/dns-query
-    - https://doh.pub/dns-query
+    - https://cloudflare-dns.com/dns-query
+    - https://dns.google/dns-query
   fallback:
     - https://cloudflare-dns.com/dns-query
     - https://dns.google/dns-query

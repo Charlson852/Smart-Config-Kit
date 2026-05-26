@@ -5,6 +5,12 @@
 
 ---
 
+## v5.4.17-flclash-no-cn-dns.1 (2026-05-26)
+
+- FIX#NO-CN-DNS: Use Cloudflare + Google for every FlClash DNS upstream so DNS leak tests do not show domestic DNS resolvers.
+  - `default-nameserver`: `1.1.1.1` + `8.8.8.8`
+  - `nameserver` / `direct-nameserver` / `proxy-server-nameserver` / `fallback`: Cloudflare DoH + Google DoH
+
 ## v5.4.17-flclash.1 (2026-05-26)
 
 - ✅ FIX#DNS-SPLIT-BOOTSTRAP：同步 Clash Party Normal v5.4.17 DNS 合同

@@ -1,5 +1,5 @@
 ﻿// FlClash 覆写脚本 — 标准 Mihomo 内核动态分流版
-// 版本：v5.4.17-flclash.1 (2026-05-26)
+// 版本：v5.4.17-flclash-no-cn-dns.1 (2026-05-26)
 // 架构：22 url-test 区域组（11 全部 + 11 家宽）+ 32 业务策略组（含 14 流媒体平台组）+ 385 rule-providers 100%+ 服务覆盖
 // 基线：Clash Party Normal v5.4.17-normal.1（规则 100% 等价；区域组为 url-test — FlClash 内核为标准 Mihomo，不支持 smart + LightGBM）
 // 适用：FlClash >= v0.8.85（覆盖脚本功能自该版本引入）；其他使用标准 Mihomo 内核的客户端
@@ -11,9 +11,9 @@
 //
 // 【第 1 步：创建覆写脚本】
 //   FlClash → 配置 →「覆写脚本」→ 右上角 + → 输入名称
-//   方式 A（URL）：填入 https://raw.githubusercontent.com/IvanSolis1989/Smart-Config-Kit/main/FlClash/FlClash%28mihomo%29.js
+//   方式 A（URL）：填入 https://raw.githubusercontent.com/Charlson852/Smart-Config-Kit/refs/heads/fix/flclash-no-cn-dns/FlClash/FlClash%28mihomo%29.js
 //   方式 B（粘贴）：打开上方 Raw 链接，全选复制粘贴；第一行必须是 `// FlClash 覆写脚本`
-//   方式 C（jsdelivr）：https://cdn.jsdelivr.net/gh/IvanSolis1989/Smart-Config-Kit@main/FlClash/FlClash%28mihomo%29.js
+//   方式 C（原作者通用版）：https://cdn.jsdelivr.net/gh/IvanSolis1989/Smart-Config-Kit@main/FlClash/FlClash%28mihomo%29.js
 //   保存。
 //
 // 【第 2 步：关联到订阅】
@@ -35,7 +35,7 @@
 //  版本常量
 // ================================================================
 
-const VERSION = 'v5.4.17-flclash.1'
+const VERSION = 'v5.4.17-flclash-no-cn-dns.1'
 
 // v5.4.9 FEAT#LOCAL-TOOLS: desktop local-tool direct whitelist.
 const LOCAL_TOOL_DIRECT_PROCESS_NAMES = [
@@ -2337,7 +2337,7 @@ function overwriteGeneral(config) {
   config['keep-alive-interval'] = 15
   // FlClash: 端口/TUN/GeoX 由 App UI 管理，脚本不覆写。
   //   - 外部资源（GeoX URL）：见 FlClash/README.md §必改配置
-  //   - DNS：default-nameserver 纯 IP 自举，其它 resolver 固定 DoH
+  //   - DNS：所有上游固定走 Cloudflare/Google，避免 DNS leak test 出现国内 DNS。
   if (!config.dns) config.dns = {}
   config.dns.enable = true
   if (!config.dns.listen) config.dns.listen = '0.0.0.0:1053'
@@ -2348,14 +2348,12 @@ function overwriteGeneral(config) {
   config.dns['respect-rules'] = true
   config.dns['use-system-hosts'] = false
   config.dns['cache-algorithm'] = 'arc'
-  var bootstrapDns = ['223.5.5.5', '119.29.29.29', '1.1.1.1', '8.8.8.8']
-  var domesticDoH = ['https://dns.alidns.com/dns-query', 'https://doh.pub/dns-query']
+  var bootstrapDns = ['1.1.1.1', '8.8.8.8']
   var foreignDoH = ['https://cloudflare-dns.com/dns-query', 'https://dns.google/dns-query']
-  var proxyDoH = foreignDoH.concat(domesticDoH)
   config.dns['default-nameserver'] = bootstrapDns.slice()
-  config.dns.nameserver = domesticDoH.slice()
-  config.dns['direct-nameserver'] = domesticDoH.slice()
-  config.dns['proxy-server-nameserver'] = proxyDoH.slice()
+  config.dns.nameserver = foreignDoH.slice()
+  config.dns['direct-nameserver'] = foreignDoH.slice()
+  config.dns['proxy-server-nameserver'] = foreignDoH.slice()
   config.dns.fallback = foreignDoH.slice()
   if (!config.dns['nameserver-policy'] || typeof config.dns['nameserver-policy'] !== 'object' || Array.isArray(config.dns['nameserver-policy'])) {
     config.dns['nameserver-policy'] = {}
