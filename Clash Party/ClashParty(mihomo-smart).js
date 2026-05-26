@@ -1,14 +1,14 @@
 ﻿// Clash Smart 内核覆写脚本 - SUB-STORE 多机场精细分流版
-// 版本：v5.4.17 (2026-05-26)
+// 版本：v5.4.17-verge-dns.1 (2026-05-26)
 // 架构：SUB-STORE 多机场融合 + 22 Smart 区域组（11 全部 + 11 家宽）+ 32 业务策略组（含 14 流媒体平台组）+ 385 rule-providers 100%+ 服务覆盖
-// v5.4.17: DNS 固定为 default IP bootstrap + 其它 resolver DoH · v5.4.16: 游戏加速器 PROCESS-NAME 直连白名单
+// v5.4.17-verge-dns.1: DNS 按 clash-verge-script 模型分流 · v5.4.16: 游戏加速器 PROCESS-NAME 直连白名单
 // 变更历史：见 `Clash Party/CHANGELOG.md`
 
 // ================================================================
 //  版本常量
 // ================================================================
 
-const VERSION = 'v5.4.17'
+const VERSION = 'v5.4.17-verge-dns.1'
 
 // v5.4.9 FEAT#LOCAL-TOOLS:
 // Desktop-capable local tools that should not be routed through proxy nodes.
@@ -2339,33 +2339,27 @@ function overwriteGeneral(config) {
   config.dns.ipv6 = false
   config.dns['prefer-h3'] = false
   config.dns['respect-rules'] = true
+  config.dns['use-hosts'] = false
   config.dns['use-system-hosts'] = false
   config.dns['cache-algorithm'] = 'arc'
-  // v5.4.17 FIX#DNS-SPLIT-BOOTSTRAP: default-nameserver 只保留纯 IP 自举；
-  // nameserver / direct-nameserver / proxy-server-nameserver 固定走 DoH，避免普通解析回落到系统 DNS。
-  var bootstrapDns = ['223.5.5.5', '119.29.29.29', '1.1.1.1', '8.8.8.8']
+  // Align with xiaolin-007/clash-verge-script: default resolver is foreign DoH;
+  // CN/private domains are pinned back to domestic DoH by nameserver-policy.
+  var bootstrapDns = ['223.5.5.5', '1.2.4.8']
   var domesticDoH = ['https://dns.alidns.com/dns-query', 'https://doh.pub/dns-query']
-  var foreignDoH = ['https://cloudflare-dns.com/dns-query', 'https://dns.google/dns-query']
-  var proxyDoH = foreignDoH.concat(domesticDoH)
+  var foreignDoH = ['https://1.1.1.1/dns-query', 'https://dns.google/dns-query']
   config.dns['default-nameserver'] = bootstrapDns.slice()
-  config.dns.nameserver = domesticDoH.slice()
+  config.dns.nameserver = foreignDoH.slice()
   config.dns['direct-nameserver'] = domesticDoH.slice()
-  config.dns['proxy-server-nameserver'] = proxyDoH.slice()
-  config.dns.fallback = foreignDoH.slice()
+  config.dns['proxy-server-nameserver'] = domesticDoH.slice()
+  delete config.dns.fallback
   if (!config.dns['nameserver-policy'] || typeof config.dns['nameserver-policy'] !== 'object' || Array.isArray(config.dns['nameserver-policy'])) {
     config.dns['nameserver-policy'] = {}
   }
-  ['+.jsdelivr.net', '+.github.com', '+.githubusercontent.com', '+.githubassets.com', '+.fastly.net'].forEach(function(host) {
+  config.dns['nameserver-policy']['geosite:private,cn'] = domesticDoH.slice()
+  ;['+.jsdelivr.net', '+.github.com', '+.githubusercontent.com', '+.githubassets.com', '+.fastly.net'].forEach(function(host) {
     config.dns['nameserver-policy'][host] = foreignDoH.slice()
   })
-  if (!config.dns['fallback-filter'] || typeof config.dns['fallback-filter'] !== 'object' || Array.isArray(config.dns['fallback-filter'])) {
-    config.dns['fallback-filter'] = {}
-  }
-  config.dns['fallback-filter'].geoip = true
-  config.dns['fallback-filter']['geoip-code'] = 'CN'
-  config.dns['fallback-filter'].geosite = ['gfw', 'geolocation-!cn']
-  config.dns['fallback-filter'].ipcidr = ['240.0.0.0/4', '0.0.0.0/32', '127.0.0.0/8', '10.0.0.0/8', '192.168.0.0/16']
-  if (!Array.isArray(config.dns['fallback-filter'].domain)) config.dns['fallback-filter'].domain = []
+  delete config.dns['fallback-filter']
   // v5.4.1 P0: fake-ip-filter 扩展（Smart 内核不支持 fake-ip-filter-mode: rule，使用传统域名列表）
   config.dns['fake-ip-filter'] = [
     '+.lan',

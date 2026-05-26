@@ -1,5 +1,5 @@
 ﻿// Clash 覆写脚本 - SUB-STORE 多机场精细分流版
-// 版本：v5.4.17-normal.1 (2026-05-26)
+// 版本：v5.4.17-normal-verge-dns.1 (2026-05-26)
 // 架构：22 url-test 区域组（11 全部 + 11 家宽）+ 32 业务策略组 + 385 rule-providers
 // 基线：Clash Party v5.4.17（与同目录 ClashParty(mihomo-smart).js 规则 100% 等价，仅区域组从 smart 改为 url-test）
 // 适用：Mihomo / Clash.Meta 稳定版内核、不支持 smart + LightGBM 的分支；也适用于想完全关闭 ML 评估的用户
@@ -9,7 +9,7 @@
 //  版本常量
 // ================================================================
 
-const VERSION = 'v5.4.17-normal.1'
+const VERSION = 'v5.4.17-normal-verge-dns.1'
 
 // v5.4.9 FEAT#LOCAL-TOOLS: desktop local-tool direct whitelist.
 const LOCAL_TOOL_DIRECT_PROCESS_NAMES = [
@@ -2309,33 +2309,27 @@ function overwriteGeneral(config) {
   config.dns.ipv6 = false
   config.dns['prefer-h3'] = false
   config.dns['respect-rules'] = true
+  config.dns['use-hosts'] = false
   config.dns['use-system-hosts'] = false
   config.dns['cache-algorithm'] = 'arc'
-  // v5.4.17 FIX#DNS-SPLIT-BOOTSTRAP: default-nameserver 只保留纯 IP 自举；
-  // nameserver / direct-nameserver / proxy-server-nameserver 固定走 DoH，避免普通解析回落到系统 DNS。
-  var bootstrapDns = ['223.5.5.5', '119.29.29.29', '1.1.1.1', '8.8.8.8']
+  // Align with xiaolin-007/clash-verge-script: default resolver is foreign DoH;
+  // CN/private domains are pinned back to domestic DoH by nameserver-policy.
+  var bootstrapDns = ['223.5.5.5', '1.2.4.8']
   var domesticDoH = ['https://dns.alidns.com/dns-query', 'https://doh.pub/dns-query']
-  var foreignDoH = ['https://cloudflare-dns.com/dns-query', 'https://dns.google/dns-query']
-  var proxyDoH = foreignDoH.concat(domesticDoH)
+  var foreignDoH = ['https://1.1.1.1/dns-query', 'https://dns.google/dns-query']
   config.dns['default-nameserver'] = bootstrapDns.slice()
-  config.dns.nameserver = domesticDoH.slice()
+  config.dns.nameserver = foreignDoH.slice()
   config.dns['direct-nameserver'] = domesticDoH.slice()
-  config.dns['proxy-server-nameserver'] = proxyDoH.slice()
-  config.dns.fallback = foreignDoH.slice()
+  config.dns['proxy-server-nameserver'] = domesticDoH.slice()
+  delete config.dns.fallback
   if (!config.dns['nameserver-policy'] || typeof config.dns['nameserver-policy'] !== 'object' || Array.isArray(config.dns['nameserver-policy'])) {
     config.dns['nameserver-policy'] = {}
   }
-  ['+.jsdelivr.net', '+.github.com', '+.githubusercontent.com', '+.githubassets.com', '+.fastly.net'].forEach(function(host) {
+  config.dns['nameserver-policy']['geosite:private,cn'] = domesticDoH.slice()
+  ;['+.jsdelivr.net', '+.github.com', '+.githubusercontent.com', '+.githubassets.com', '+.fastly.net'].forEach(function(host) {
     config.dns['nameserver-policy'][host] = foreignDoH.slice()
   })
-  if (!config.dns['fallback-filter'] || typeof config.dns['fallback-filter'] !== 'object' || Array.isArray(config.dns['fallback-filter'])) {
-    config.dns['fallback-filter'] = {}
-  }
-  config.dns['fallback-filter'].geoip = true
-  config.dns['fallback-filter']['geoip-code'] = 'CN'
-  config.dns['fallback-filter'].geosite = ['gfw', 'geolocation-!cn']
-  config.dns['fallback-filter'].ipcidr = ['240.0.0.0/4', '0.0.0.0/32', '127.0.0.0/8', '10.0.0.0/8', '192.168.0.0/16']
-  if (!Array.isArray(config.dns['fallback-filter'].domain)) config.dns['fallback-filter'].domain = []
+  delete config.dns['fallback-filter']
   // v5.4.1 P0+P2: fake-ip-filter 扩展 + Hosts DNS 预解析
   config.dns['fake-ip-filter'] = ['+.lan','+.local','+.localdomain','+.home.arpa','+.msftconnecttest.com','+.msftncsi.com','localhost.ptlogin2.qq.com','localhost.sec.qq.com','localhost.work.weixin.qq.com','+.in-addr.arpa','+.ip6.arpa','time.*.com','time.*.gov','ntp.*.com','pool.ntp.org','+.ntp.org','+.pool.ntp.org','+.market.xiaomi.com','+.stun.*.*','+.stun.*.*.*','+.turn.*.*','+.turn.*.*.*','+.n.n.srv.nintendo.net','+.stun.playstation.net','+.xboxlive.com','stun.l.google.com','stun1.l.google.com','stun2.l.google.com','stun3.l.google.com','stun4.l.google.com','global.turn.twilio.com','auth.docker.io','registry-1.docker.io','index.docker.io','hub.docker.com','production.cloudflare.docker.com','+.push.apple.com','+.pub.3gppnetwork.org','+.bing.com','+.rustdesk.com','+.miwifi.com']
   if (!config.hosts) config.hosts = {}

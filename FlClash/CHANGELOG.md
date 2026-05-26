@@ -5,6 +5,14 @@
 
 ---
 
+## v5.4.17-flclash-verge-dns.1 (2026-05-26)
+
+- FIX#VERGE-DNS: Align FlClash DNS with `xiaolin-007/clash-verge-script`.
+  - `nameserver`: Cloudflare + Google DoH as the default resolver set.
+  - `direct-nameserver` / `proxy-server-nameserver`: AliDNS + DNSPod DoH.
+  - `nameserver-policy.geosite:private,cn`: AliDNS + DNSPod DoH.
+  - Remove fallback DNS so unknown DNS leak-test domains do not fall back to domestic resolvers.
+
 ## v5.4.17-flclash.1 (2026-05-26)
 
 - ✅ FIX#DNS-SPLIT-BOOTSTRAP：同步 Clash Party Normal v5.4.17 DNS 合同
