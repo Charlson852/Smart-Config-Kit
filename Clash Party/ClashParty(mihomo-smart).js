@@ -2356,7 +2356,7 @@ function overwriteGeneral(config) {
     config.dns['nameserver-policy'] = {}
   }
   ['+.jsdelivr.net', '+.github.com', '+.githubusercontent.com', '+.githubassets.com', '+.fastly.net'].forEach(function(host) {
-    config.dns['nameserver-policy'][host] = foreignDoH.slice()
+    if (!config.dns['nameserver-policy'][host]) config.dns['nameserver-policy'][host] = foreignDoH.slice()
   })
   if (!config.dns['fallback-filter'] || typeof config.dns['fallback-filter'] !== 'object' || Array.isArray(config.dns['fallback-filter'])) {
     config.dns['fallback-filter'] = {}
@@ -2367,7 +2367,8 @@ function overwriteGeneral(config) {
   config.dns['fallback-filter'].ipcidr = ['240.0.0.0/4', '0.0.0.0/32', '127.0.0.0/8', '10.0.0.0/8', '192.168.0.0/16']
   if (!Array.isArray(config.dns['fallback-filter'].domain)) config.dns['fallback-filter'].domain = []
   // v5.4.1 P0: fake-ip-filter 扩展（Smart 内核不支持 fake-ip-filter-mode: rule，使用传统域名列表）
-  config.dns['fake-ip-filter'] = [
+  var currentFakeIpFilter = Array.isArray(config.dns['fake-ip-filter']) ? config.dns['fake-ip-filter'] : []
+  config.dns['fake-ip-filter'] = uniqList(currentFakeIpFilter.concat([
     '+.lan',
     '+.local',
     '+.localdomain',
@@ -2410,7 +2411,7 @@ function overwriteGeneral(config) {
     // v5.4.12 FIX#RD-REALIP: RustDesk rendezvous/relay needs real IPs while still routing via work proxy.
     '+.rustdesk.com',
     '+.miwifi.com'
-  ]
+  ]))
   // v5.4.1 P3: Mixed Listeners——按地区分配端口，SwitchyOmega 一键切地区
   if (!config.listeners) config.listeners = []
   var regionPorts = [

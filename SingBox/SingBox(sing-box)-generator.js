@@ -1,8 +1,8 @@
 const fs = require('fs');
 const vm = require('vm');
 
-const VERSION = 'v5.4.17-sing.2';
-const BUILD = '2026-05-26';
+const VERSION = 'v5.4.18-sing.1';
+const BUILD = '2026-05-27';
 const BASELINE = 'Clash Party v5.4.17';
 
 const SMART = {
@@ -467,28 +467,15 @@ const ruleSet = Object.entries(providers).map(([tag, info]) => {
   };
 }).filter(Boolean);
 
+// v5.4.18: removed geosite-cn / geoip-cn — reuse provider-derived 'cn' / 'cn-ip' tags
+// already created by ruleSet to avoid duplicate .srs downloads (~2-5 MB wasted per cycle).
+// geosite-private is kept as a defensive entry for DNS rules in case no GEOSITE,private rule exists.
 const dnsRouteRuleSets = [
   {
     type: 'remote',
     tag: 'geosite-private',
     format: 'binary',
     url: 'https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geosite/private.srs',
-    http_client: { detour: SMART.GLOBAL },
-    update_interval: '1d'
-  },
-  {
-    type: 'remote',
-    tag: 'geosite-cn',
-    format: 'binary',
-    url: 'https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geosite/cn.srs',
-    http_client: { detour: SMART.GLOBAL },
-    update_interval: '1d'
-  },
-  {
-    type: 'remote',
-    tag: 'geoip-cn',
-    format: 'binary',
-    url: 'https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geoip/cn.srs',
     http_client: { detour: SMART.GLOBAL },
     update_interval: '1d'
   }
@@ -525,8 +512,30 @@ baseConfig.dns = {
       strategy: 'prefer_ipv4'
     },
     {
+      tag: 'dns_bootstrap2',
+      address: 'udp://119.29.29.29:53',
+      strategy: 'prefer_ipv4'
+    },
+    {
+      tag: 'dns_bootstrap3',
+      address: 'udp://1.1.1.1:53',
+      strategy: 'prefer_ipv4'
+    },
+    {
+      tag: 'dns_bootstrap4',
+      address: 'udp://8.8.8.8:53',
+      strategy: 'prefer_ipv4'
+    },
+    {
       tag: 'dns_direct',
       address: 'https://dns.alidns.com/dns-query',
+      address_resolver: 'dns_bootstrap',
+      detour: 'DIRECT',
+      strategy: 'prefer_ipv4'
+    },
+    {
+      tag: 'dns_direct2',
+      address: 'https://doh.pub/dns-query',
       address_resolver: 'dns_bootstrap',
       detour: 'DIRECT',
       strategy: 'prefer_ipv4'
@@ -537,11 +546,18 @@ baseConfig.dns = {
       address_resolver: 'dns_bootstrap',
       detour: '🚀 节点选择',
       strategy: 'prefer_ipv4'
+    },
+    {
+      tag: 'dns_proxy2',
+      address: 'https://dns.google/dns-query',
+      address_resolver: 'dns_bootstrap',
+      detour: '🚀 节点选择',
+      strategy: 'prefer_ipv4'
     }
   ],
   rules: [
     {
-      rule_set: ['geosite-private', 'geosite-cn', 'geoip-cn'],
+      rule_set: ['geosite-private', 'cn', 'cn-ip'],
       action: 'route',
       server: 'dns_direct'
     },
