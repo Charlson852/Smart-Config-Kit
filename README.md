@@ -103,7 +103,7 @@ flowchart LR
 | 🐟 漏网之鱼 | 以 GEOSITE/GEOIP/FINAL 兜底为主（非单一固定 provider） | MetaCubeX（geo 规则） |
 | 🛑 广告拦截 | `anti-ad` `sukka-phishing` `hagezi-tif` `advertising` `privacy` `acc-unsupportvpn` | DustinWin / SukkaW / Hagezi / blackmatrix7 / Accademia |
 
-> v5.4.17 起，DNS 固定为 split-bootstrap：`default-nameserver` 只放纯 IP，其它 resolver 全部 DoH，并开启 `respect-rules: true`、关闭 `prefer-h3`。v5.4.16-Surge.3 修复 Surge 导入时报 `DST-PORT,7680,REJECT` 无效配置的问题，Surge 端口规则改用官方 `DEST-PORT`。v5.4.16 起，Paddle 许可/支付链路 `paddle.com` 前置命中 `🏦 金融支付`，覆盖 anti-AD 对 `analytics.paddle.com` 的误拦截（Antigravity 登录/账号设置场景）。v5.4.15 起，新增 [GEOSITE 覆盖台账](./docs/GEOSITE_COVERAGE_LEDGER.md)，并把广告误伤白名单提升为显式模块。v5.4.14 起，Cloudflare R2 存储域 `cloudflarestorage.com` 前置命中 `🌐 国外网站`，用于覆盖上游 phishing 规则源的误拦截。v5.4.13 起，STUN/TURN NAT 探测域名在 Mihomo fake-ip DNS 中返回真实 IP，标准端口 `3478 / 3479 / 5349 / 19302 / 19305 / 19307` 默认直连；UDP/443 型 TURN 仍由 QUIC 屏蔽策略控制。v5.4.12 起，RustDesk 公网 relay/API 统一按 `🧑‍💼 会议协作` 走代理链路，同时 `rustdesk.com` 返回真实 IP，避免会合阶段拿到 198.18.x fake-ip。
+> v5.4.12 起持续修复误伤白名单（Paddle / Cloudflare R2 / STUN / RustDesk）+ Surge `DEST-PORT` 兼容 + [GEOSITE 覆盖台账](./docs/GEOSITE_COVERAGE_LEDGER.md)；DNS 自 v5.4.17 起采用 split-bootstrap 加固，详见下方 [DNS 净化](#-dns-净化科学上网的第一道防线)。
 
 ---
 
@@ -289,6 +289,10 @@ flowchart TB
 4. **`proxy-server-nameserver` 必须单独配置**（容易忽略）。这是解决"机场节点 IP 被针对性封"的关键——让机场节点域名的解析也走海外 DoH 而不是默认通道。
 5. **fake-ip 模式强烈推荐**（`enhanced-mode: fake-ip`）。比 redir-host 快 + 无本地缓存污染 + 规则命中更精准。
 6. **别在 `hosts:` 里写业务域名**。`hosts:` 只适合给 bootstrap DoH（例如 `one.one.one.one → 1.1.1.1`）写兜底 IP，用来规避 DNS 冷启动死锁；写业务域名会让本配置的规则命中失效。
+
+### 近期 DNS 加固（v5.4.12+）
+
+> **v5.4.12** RustDesk `rustdesk.com` fake-ip 下返回真实 IP → **v5.4.13** STUN/TURN 端口直连 + 真实 IP → **v5.4.17** split-bootstrap（`default-nameserver` 纯 IP + 其余全部 DoH + `respect-rules: true` + 关闭 `prefer-h3`）。详见 [Clash Party CHANGELOG](./Clash%20Party/CHANGELOG.md)。
 
 ### 怎么验证 DNS 真的净化了
 
