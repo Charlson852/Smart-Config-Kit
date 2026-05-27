@@ -5,6 +5,16 @@
 
 ---
 
+## v5.4.18-sing.1 (2026-05-27)
+
+- ✅ FIX#SING-DNS-REDUNDANCY：DNS server 各路径补齐冗余，消除单点故障
+  - `dns_bootstrap` 加 `dns_bootstrap2` / `dns_bootstrap3` / `dns_bootstrap4`（119.29.29.29 / 1.1.1.1 / 8.8.8.8）
+  - `dns_direct` 加 `dns_direct2`（doh.pub DoH），`dns_proxy` 加 `dns_proxy2`（dns.google DoH）
+  - 对齐 Clash Party 基线 `default-nameserver` 4 IP + `nameserver` 2 DoH + `proxy-server-nameserver` 4 DoH
+- ✅ FIX#SING-RULESET-DEDUP：消除 route.rule_set 中的重复 .srs 下载
+  - 移除 `geosite-cn` / `geoip-cn`（与 provider 派生的 `cn` / `cn-ip` URL 完全重复）
+  - DNS rules 改为引用已有 tag `cn` / `cn-ip`，减少 ~2-5 MB 冗余下载
+
 ## v5.4.17-sing.2 (2026-05-26)
 
 - ✅ FIX#DNS-SINGBOX-SELECTOR：`dns_proxy.detour` 改回 `🚀 节点选择`

@@ -346,8 +346,8 @@ function validateClashYaml(record, baselineVersion) {
   record.check('cmfa.dns.respect-rules-enabled', /respect-rules:\s*true/.test(source));
   record.check('cmfa.dns.cache-arc', /cache-algorithm:\s*arc/.test(source));
   record.check('cmfa.dns.githubusercontent-policy', /['"]?\+\.githubusercontent\.com['"]?:/.test(source));
-  record.check('cmfa.dns.fallback-geosite-gfw', /fallback-filter:[\s\S]*geosite:[\s\S]*-\s*gfw/.test(source));
-  record.check('cmfa.dns.fallback-geosite-not-cn', /fallback-filter:[\s\S]*geosite:[\s\S]*-\s*geolocation-!cn/.test(source));
+  record.check('cmfa.dns.fallback-geosite-gfw', /fallback-filter:[^]*?geosite:[^]*?-\s*gfw/.test(source));
+  record.check('cmfa.dns.fallback-geosite-not-cn', /fallback-filter:[^]*?geosite:[^]*?-\s*geolocation-!cn/.test(source));
   checkExactList(record, 'cmfa.dns.default-nameserver-exact', extractYamlListItems(source, 'default-nameserver'), DNS_BOOTSTRAP_IPS);
   checkExactList(record, 'cmfa.dns.nameserver-exact', extractYamlListItems(source, 'nameserver'), DNS_DOMESTIC_DOH);
   checkExactList(record, 'cmfa.dns.direct-nameserver-exact', extractYamlListItems(source, 'direct-nameserver'), DNS_DOMESTIC_DOH);
@@ -411,8 +411,8 @@ function validateOpenClash(record, baselineVersion, options) {
     record.check(`openclash.${spec.id}.dns.respect-rules-enabled`, /respect-rules:\s*true/.test(yaml));
     record.check(`openclash.${spec.id}.dns.cache-arc`, /cache-algorithm:\s*arc/.test(yaml));
     record.check(`openclash.${spec.id}.dns.githubusercontent-policy`, /['"]?\+\.githubusercontent\.com['"]?:/.test(yaml));
-    record.check(`openclash.${spec.id}.dns.fallback-geosite-gfw`, /fallback-filter:[\s\S]*geosite:[\s\S]*-\s*gfw/.test(yaml));
-    record.check(`openclash.${spec.id}.dns.fallback-geosite-not-cn`, /fallback-filter:[\s\S]*geosite:[\s\S]*-\s*geolocation-!cn/.test(yaml));
+    record.check(`openclash.${spec.id}.dns.fallback-geosite-gfw`, /fallback-filter:[^]*?geosite:[^]*?-\s*gfw/.test(yaml));
+    record.check(`openclash.${spec.id}.dns.fallback-geosite-not-cn`, /fallback-filter:[^]*?geosite:[^]*?-\s*geolocation-!cn/.test(yaml));
     checkExactList(record, `openclash.${spec.id}.dns.default-nameserver-exact`, extractYamlListItems(yaml, 'default-nameserver'), DNS_BOOTSTRAP_IPS);
     checkExactList(record, `openclash.${spec.id}.dns.nameserver-exact`, extractYamlListItems(yaml, 'nameserver'), DNS_DOMESTIC_DOH);
     checkExactList(record, `openclash.${spec.id}.dns.direct-nameserver-exact`, extractYamlListItems(yaml, 'direct-nameserver'), DNS_DOMESTIC_DOH);
@@ -465,9 +465,11 @@ function validateConfProducts(record, baselineVersion) {
   const surge = readText('Surge/Surge.conf');
   const loon = readText('Loon/Loon.conf');
   const qx = readText('Quantumult X/QuantumultX.conf');
-  record.check('shadowrocket.dns.nameserver-doh-only', shadowrocket.includes('dns-server = https://dns.alidns.com/dns-query,https://doh.pub/dns-query'));
-  record.check('shadowrocket.dns.proxy-server-doh-only', shadowrocket.includes('proxy-dns-server = https://cloudflare-dns.com/dns-query,https://dns.google/dns-query,https://dns.alidns.com/dns-query,https://doh.pub/dns-query'));
-  record.check('shadowrocket.dns.fallback-doh-only', shadowrocket.includes('fallback-dns-server = https://cloudflare-dns.com/dns-query,https://dns.google/dns-query'));
+  // v5.4.18: normalize whitespace around commas to avoid false failures on cosmetic formatting changes
+  const srNorm = (s) => s.replace(/\s*,\s*/g, ',');
+  record.check('shadowrocket.dns.nameserver-doh-only', srNorm(shadowrocket).includes('dns-server = https://dns.alidns.com/dns-query,https://doh.pub/dns-query'));
+  record.check('shadowrocket.dns.proxy-server-doh-only', srNorm(shadowrocket).includes('proxy-dns-server = https://cloudflare-dns.com/dns-query,https://dns.google/dns-query,https://dns.alidns.com/dns-query,https://doh.pub/dns-query'));
+  record.check('shadowrocket.dns.fallback-doh-only', srNorm(shadowrocket).includes('fallback-dns-server = https://cloudflare-dns.com/dns-query,https://dns.google/dns-query'));
   record.check('surge.dns.bootstrap-ip-only', surge.includes('dns-server = 223.5.5.5, 119.29.29.29, 1.1.1.1, 8.8.8.8'));
   record.check('surge.dns.encrypted-doh', surge.includes('encrypted-dns-server = https://dns.alidns.com/dns-query, https://doh.pub/dns-query, https://cloudflare-dns.com/dns-query, https://dns.google/dns-query'));
   record.check('surge.dns.fallback-doh', surge.includes('fallback-dns-server = https://cloudflare-dns.com/dns-query, https://dns.google/dns-query'));
@@ -491,6 +493,13 @@ function validateConfProducts(record, baselineVersion) {
     'loon.no-dst-port-prefix',
     loonHasNoDstPortPrefix,
     failureMessage(loonHasNoDstPortPrefix, 'Loon must use DEST-PORT, not DST-PORT'),
+  );
+
+  const surgeHasNoDstPortPrefix = !surge.split(/\r?\n/).some((line) => /^DST-PORT,/.test(line));
+  record.check(
+    'surge.no-dst-port-prefix',
+    surgeHasNoDstPortPrefix,
+    failureMessage(surgeHasNoDstPortPrefix, 'Surge must use DEST-PORT, not DST-PORT'),
   );
 
   const qxHasNoDohUrlInServerField = !qx.split(/\r?\n/).some((line) => /^server=https:\/\//.test(line));
@@ -556,17 +565,27 @@ function validateJsonProducts(record, baselineVersion) {
   record.check('singbox.dns.proxy-detour-main-selector', dnsServerByTag.dns_proxy && dnsServerByTag.dns_proxy.detour === '🚀 节点选择', {
     value: dnsServerByTag.dns_proxy && dnsServerByTag.dns_proxy.detour,
   });
+  // v5.4.18: verify DNS redundancy — bootstrap/direct/proxy each have backup servers
+  record.check('singbox.dns.bootstrap-redundancy', dnsServers.filter((s) => s.tag && s.tag.startsWith('dns_bootstrap')).length >= 2, {
+    value: dnsServers.filter((s) => s.tag && s.tag.startsWith('dns_bootstrap')).map((s) => s.tag),
+  });
+  record.check('singbox.dns.direct-redundancy', dnsServers.filter((s) => s.tag && s.tag.startsWith('dns_direct')).length >= 2, {
+    value: dnsServers.filter((s) => s.tag && s.tag.startsWith('dns_direct')).map((s) => s.tag),
+  });
+  record.check('singbox.dns.proxy-redundancy', dnsServers.filter((s) => s.tag && s.tag.startsWith('dns_proxy')).length >= 2, {
+    value: dnsServers.filter((s) => s.tag && s.tag.startsWith('dns_proxy')).map((s) => s.tag),
+  });
   const singboxPrivateDnsDirect = dnsRules.some((rule) => (
     Array.isArray(rule.rule_set) && rule.rule_set.includes('geosite-private') && rule.server === 'dns_direct'
   ));
   record.check('singbox.dns.private-direct', singboxPrivateDnsDirect, failureMessage(singboxPrivateDnsDirect, 'geosite-private DNS must use dns_direct'));
   const singboxCnDnsDirect = dnsRules.some((rule) => (
     Array.isArray(rule.rule_set)
-      && rule.rule_set.includes('geosite-cn')
-      && rule.rule_set.includes('geoip-cn')
+      && rule.rule_set.includes('cn')
+      && rule.rule_set.includes('cn-ip')
       && rule.server === 'dns_direct'
   ));
-  record.check('singbox.dns.cn-direct', singboxCnDnsDirect, failureMessage(singboxCnDnsDirect, 'geosite-cn and geoip-cn DNS must use dns_direct'));
+  record.check('singbox.dns.cn-direct', singboxCnDnsDirect, failureMessage(singboxCnDnsDirect, 'cn and cn-ip DNS must use dns_direct'));
   record.check('singbox.dns.final-proxy', (singbox.dns || {}).final === 'dns_proxy', { value: (singbox.dns || {}).final });
   for (const port of STUN_DIRECT_PORTS) {
     const hasPortRule = ((singbox.route || {}).rules || []).some((rule) => (

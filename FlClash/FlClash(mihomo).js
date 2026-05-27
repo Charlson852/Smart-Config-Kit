@@ -2348,6 +2348,15 @@ function overwriteGeneral(config) {
   config.dns['respect-rules'] = true
   config.dns['use-system-hosts'] = false
   config.dns['cache-algorithm'] = 'arc'
+  // v5.4.18 FIX#FLCLASH-HOSTS: Hosts DNS 预解析——消除 fake-ip 冷启动循环依赖
+  if (!config.hosts) config.hosts = {}
+  var dnsHosts = {
+    'dns.alidns.com': ['223.5.5.5', '223.6.6.6'],
+    'doh.pub': ['119.29.29.29'],
+    'dns.google': ['8.8.8.8', '8.8.4.4'],
+    'cloudflare-dns.com': ['1.1.1.1', '1.0.0.1']
+  }
+  Object.keys(dnsHosts).forEach(function(k) { if (!config.hosts[k]) config.hosts[k] = dnsHosts[k] })
   var bootstrapDns = ['223.5.5.5', '119.29.29.29', '1.1.1.1', '8.8.8.8']
   var domesticDoH = ['https://dns.alidns.com/dns-query', 'https://doh.pub/dns-query']
   var foreignDoH = ['https://cloudflare-dns.com/dns-query', 'https://dns.google/dns-query']
@@ -2361,7 +2370,7 @@ function overwriteGeneral(config) {
     config.dns['nameserver-policy'] = {}
   }
   ['+.jsdelivr.net', '+.github.com', '+.githubusercontent.com', '+.githubassets.com', '+.fastly.net'].forEach(function(host) {
-    config.dns['nameserver-policy'][host] = foreignDoH.slice()
+    if (!config.dns['nameserver-policy'][host]) config.dns['nameserver-policy'][host] = foreignDoH.slice()
   })
   if (!config.dns['fallback-filter'] || typeof config.dns['fallback-filter'] !== 'object' || Array.isArray(config.dns['fallback-filter'])) {
     config.dns['fallback-filter'] = {}
