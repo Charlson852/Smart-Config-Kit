@@ -5,6 +5,13 @@
 
 ---
 
+## v5.4.17-cmfa.2 (2026-05-30)
+
+- ★ FIX#HOSTS-ALIGN：`use-hosts: false` → `true`，对齐主线启用 hosts 预解析
+  - 主线（Clash Party Smart JS）`use-hosts` 默认 true 且 hosts 固定全部 DoH 域名 IP，用于消除 fake-ip 冷启动循环依赖 + 防 DoH 域名被污染
+  - CMFA 此前显式 `use-hosts: false` 关掉了已对齐主线的 hosts 块（dns.alidns.com / doh.pub / dns.google / cloudflare-dns.com）；改 true 后生效
+  - §1 DNS 跨产物联动：OpenClash Normal/Full 同步（并补全各自 hosts 缺失的 alidns/doh.pub）
+
 ## v5.4.17-cmfa.1 (2026-05-26)
 
 - ✅ FIX#DNS-SPLIT-BOOTSTRAP：同步 Clash Party v5.4.17 DNS 合同

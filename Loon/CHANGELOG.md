@@ -4,6 +4,14 @@
 
 ---
 
+## v5.4.17-Loon.2 (2026-05-30)
+
+- ★ FIX#KR-WB：`JPKR_Filter` / `APAC_Filter`（及对应家宽）裸 `KR` 补词边界 `(?<![a-zA-Z])KR(?![a-zA-Z])`（与本文件 US/SG 写法一致）
+  - Loon `NameRegex` 带 `(?i)`，原裸 `KR` 连小写 `kr` 也误伤（Ukraine / Krakow / Kraken → 🇯🇵 日韩节点），加边界后消除
+  - 覆盖 JPKR_Filter / JPKR_HOME_Filter / APAC_Filter / APAC_HOME_Filter 4 处；KOR/Korea/Seoul/🇰🇷 完整词不受影响
+  - §1.5 同构审计：主线 JS + CMFA 本就带边界未改
+  - 回归测试见 `tools/test-kr-boundary.js`
+
 ## v5.4.17-Loon.1 (2026-05-26)
 
 - ✅ FIX#DNS-SPLIT-BOOTSTRAP：Loon DNS 同步 v5.4.17 平台等价写法

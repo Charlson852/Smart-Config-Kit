@@ -7,6 +7,19 @@
 
 ---
 
+## v5.4.17-oc-normal.2 / v5.4.17-oc-smart.2 (2026-05-30)
+
+- ★ FIX#KR-WB：Ruby `REGIONS` 裸 `KR` 补词边界 `\bKR\b`（与同文件 HK/TW/JP/SG/US 一致）
+  - 原 `/KR/i` 子串匹配，误把 Ukraine / Krakow / Kraken 等含 kr 串节点分到 🇯🇵 日韩节点
+  - `\b` 把数字视为词字符，"KR01" 数字紧邻不命中（与 HK01/TW01 同；conf 产物用 lookbehind 允许数字边界，KR01 命中——各端既有风格差异，已记录）
+  - §1.5 审计：Normal 与 Full 同构，同步修复；主线 Clash Party×3 JS + CMFA 本就带边界，未改
+- ★ FIX#DEDUP：删除 rules 末尾重复死规则 noip.com / GEOIP,cloudflare / GEOIP,CN（各 1 处）
+  - 与前段同条目字面重复，因规则顺序短路永不执行、目标组相同；删除零分流影响
+- ★ FIX#HOSTS-ALIGN：`use-hosts: false` → `true`，并补全 hosts 缺失的 `dns.alidns.com` / `doh.pub`
+  - 对齐主线：hosts 固定全部自用 DoH 域名 IP（alidns/doh.pub/google/cloudflare），消除 fake-ip 冷启动循环依赖
+  - 此前 `use-hosts:false` 让 hosts 块失效（报告误判为"应删 hosts"，实为应启用）；§1 DNS 联动 CMFA 同步
+- 回归测试见 `tools/test-kr-boundary.js`
+
 ## v5.4.17-oc-normal.1 / v5.4.17-oc-smart.1 (2026-05-26)
 
 - ✅ FIX#DNS-SPLIT-BOOTSTRAP：Normal / Smart 同步 Clash Party v5.4.17 DNS 合同

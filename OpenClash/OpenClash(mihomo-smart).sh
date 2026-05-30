@@ -23,7 +23,7 @@
 
 
 
-VERSION_TAG="v5.4.17-oc-smart.1"
+VERSION_TAG="v5.4.17-oc-smart.2"
 CONFIG_FILE="$1"
 LOG_FILE="/tmp/openclash.log"
 
@@ -47,6 +47,11 @@ hosts:
   - 8.8.8.8
   - 8.8.4.4
   dns.quad9.net: 9.9.9.9
+  dns.alidns.com:
+  - 223.5.5.5
+  - 223.6.6.6
+  doh.pub:
+  - 119.29.29.29
 dns:
   enable: true
   listen: 0.0.0.0:7874
@@ -89,7 +94,8 @@ dns:
   - +.rustdesk.com
   cache-algorithm: arc
   # 对齐 Clash Party v5.4.17 基线：default-nameserver 纯 IP，其它 resolver 固定 DoH
-  use-hosts: false
+  # FIX#HOSTS-ALIGN: use-hosts 改 true（对齐主线启用 hosts 预解析，消除 fake-ip 冷启动循环依赖）
+  use-hosts: true
   use-system-hosts: false
   respect-rules: true
   default-nameserver:
@@ -4310,14 +4316,11 @@ rules:
 - "RULE-SET,acc-geo-d-asia-china,\U0001F3E0 国内网站"
 - "RULE-SET,acc-geo-ip-asia-china,\U0001F3E0 国内网站,no-resolve"
 - "GEOIP,CN,\U0001F3E0 国内网站,no-resolve"
-- "DOMAIN-SUFFIX,noip.com,\U0001F310 国外网站"
-- GEOIP,cloudflare,🌐 国外网站,no-resolve
 - "GEOIP,telegram,\U0001F4AC 即时通讯,no-resolve"
 - "GEOIP,netflix,\U0001F3A5 Netflix,no-resolve"
 - "GEOIP,facebook,\U0001F4F1 社交媒体,no-resolve"
 - "GEOIP,twitter,\U0001F4F1 社交媒体,no-resolve"
 - "GEOIP,google,\U0001F527 工具与服务,no-resolve"
-- "GEOIP,CN,\U0001F3E0 国内网站,no-resolve"
 - "MATCH,\U0001F41F 漏网之鱼"
 OVERRIDE_EOF
 
@@ -4333,7 +4336,7 @@ cat > "$RUBY_SCRIPT" << 'RUBY_EOF'
 require 'yaml'
 require 'digest'
 
-VERSION = "v5.4.17-oc-smart.1"
+VERSION = "v5.4.17-oc-smart.2"
 
 STATUS_LOG = "/tmp/clash_smart_status.log"
 File.open(STATUS_LOG, 'w') { |f| f.puts "[#{VERSION}] start" }
@@ -4384,8 +4387,9 @@ REGIONS = {
   "TW"  => /台湾|台灣|\bTW\b|TWN|Taiwan|🇹🇼/i,
   "JP"  => /日本|\bJP\b|JPN|Japan|🇯🇵|Tokyo|Osaka/i,
   # v5.2.6-oc-full FIX#24-P0: 补 KOR（KOR 不是 KR 的子串，原始 /KR/ 无法匹配 "KOR 01"）
-  #   HK/TW/JP/SG 使用 \b 防误匹配，显式补充 alpha-3 码 HKG/TWN/JPN/SGP
-  "KR"  => /韩国|韓國|KR|KOR|Korea|Korean|🇰🇷|Seoul/i,
+  #   HK/TW/JP/KR/SG 使用 \b 防误匹配，显式补充 alpha-3 码 HKG/TWN/JPN/KOR/SGP
+  #   FIX#KR-WB: KR 补 \bKR\b（裸 /KR/ 在 /i 下误匹配 Ukraine/Krakow/Kraken 等含 kr 串）
+  "KR"  => /韩国|韓國|\bKR\b|KOR|Korea|Korean|🇰🇷|Seoul/i,
   "SG"  => /新加坡|\bSG\b|SGP|Singapore|🇸🇬/i,
   "US"  => /美国|美國|\bUS\b|USA|United\s?States|America|🇺🇸|Los\s?Angeles|New\s?York|Seattle|Silicon|San\s?Jose/i,
   "UK"  => /英国|英國|UK\b|GB\b|Britain|London|🇬🇧/i,
