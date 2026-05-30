@@ -5,8 +5,9 @@
 
 ---
 
-## v5.4.18-flclash.2 (2026-05-30)
+## v5.4.17-flclash.2 (2026-05-30)
 
+- ★ FIX#VERSION-PREFIX：主版本前缀由误写的 v5.4.18 修正为 v5.4.17，对齐 baseline（主线 Smart JS）与其余 9 产物（CLAUDE.md §4；修复 validate-artifact-contracts 的 `js.flclash.version-prefix` 检查。内容（url-test/DNS 调优）不变，仅版本号前缀修正）
 - ⚡ PERF#URLTEST-LATENCY：url-test 组参数全面调优，解决卡顿/高延迟/无法联网
   - `lazy: false`（全组节点主动测速，不再只测当前节点，避免"卡在劣化节点上"）
   - `interval: 120 → 180`（lazy=false 下合理拉长间隔，减少全组测速风暴）

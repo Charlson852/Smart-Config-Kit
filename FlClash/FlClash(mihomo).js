@@ -1,7 +1,7 @@
 ﻿// FlClash 覆写脚本 — 标准 Mihomo 内核动态分流版
-// 版本：v5.4.18-flclash.2 (2026-05-30)
+// 版本：v5.4.17-flclash.2 (2026-05-30)
 // 架构：22 url-test 区域组（11 全部 + 11 家宽）+ 32 业务策略组（含 14 流媒体平台组）+ 385 rule-providers 100%+ 服务覆盖
-// 基线：Clash Party Normal v5.4.18-normal.1（规则 100% 等价；区域组为 url-test — FlClash 内核为标准 Mihomo，不支持 smart + LightGBM）
+// 基线：Clash Party Normal v5.4.17-normal.1（规则 100% 等价；区域组为 url-test — FlClash 内核为标准 Mihomo，不支持 smart + LightGBM）
 // 适用：FlClash >= v0.8.85（覆盖脚本功能自该版本引入）；其他使用标准 Mihomo 内核的客户端
 // 变更历史：见 `FlClash/CHANGELOG.md`
 //
@@ -35,7 +35,7 @@
 //  版本常量
 // ================================================================
 
-const VERSION = 'v5.4.18-flclash.2'
+const VERSION = 'v5.4.17-flclash.2'
 
 // v5.4.9 FEAT#LOCAL-TOOLS: desktop local-tool direct whitelist.
 const LOCAL_TOOL_DIRECT_PROCESS_NAMES = [
@@ -2348,7 +2348,7 @@ function overwriteGeneral(config) {
   config.dns['respect-rules'] = true
   config.dns['use-system-hosts'] = false
   config.dns['cache-algorithm'] = 'arc'
-  // v5.4.18 FIX#FLCLASH-HOSTS: Hosts DNS 预解析——消除 fake-ip 冷启动循环依赖
+  // v5.4.17 FIX#FLCLASH-HOSTS: Hosts DNS 预解析——消除 fake-ip 冷启动循环依赖
   if (!config.hosts) config.hosts = {}
   var dnsHosts = {
     'dns.alidns.com': ['223.5.5.5', '223.6.6.6'],
