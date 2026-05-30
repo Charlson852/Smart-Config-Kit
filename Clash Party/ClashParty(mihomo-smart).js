@@ -1,14 +1,14 @@
 ﻿// Clash Smart 内核覆写脚本 - SUB-STORE 多机场精细分流版
-// 版本：v5.4.21 (2026-05-31)
+// 版本：v5.4.22 (2026-05-31)
 // 架构：SUB-STORE 多机场融合 + 22 Smart 区域组（11 全部 + 11 家宽）+ 32 业务策略组（含 14 流媒体平台组）+ 385 rule-providers 100%+ 服务覆盖
-// v5.4.21: 借鉴 Proxy-override 批D（#4 DoH-over-IP bootstrap）· v5.4.20: 批B（#6 节点过滤 junk 关键词）· v5.4.19: 批A（#2/#3/#5）· v5.4.17: DNS split-bootstrap
+// v5.4.22: 借鉴 Proxy-override 批C（#1 QUIC 精细化）· v5.4.21: 批D（#4 DoH-over-IP）· v5.4.20: 批B（#6 junk 过滤）· v5.4.19: 批A（#2/#3/#5）
 // 变更历史：见 `Clash Party/CHANGELOG.md`
 
 // ================================================================
 //  版本常量
 // ================================================================
 
-const VERSION = 'v5.4.21'
+const VERSION = 'v5.4.22'
 
 // v5.4.9 FEAT#LOCAL-TOOLS:
 // Desktop-capable local tools that should not be routed through proxy nodes.
@@ -277,6 +277,10 @@ const AD_FALSE_POSITIVE_ALLOWLIST = [
   `DOMAIN-SUFFIX,jpush.cn,DIRECT`,
   `DOMAIN-SUFFIX,jpush.io,DIRECT`,
   `DOMAIN,msg.umeng.com,DIRECT`,
+  // v5.4.22 GeTui(个推)推送 SDK 直连——延续 #2：被通用广告/隐私表(category-ads-all/privacy)当 tracker 拦截，但承载 App 推送(米家等)，放行保推送可达。
+  `DOMAIN-SUFFIX,getui.com,DIRECT`,
+  `DOMAIN-SUFFIX,getui.net,DIRECT`,
+  `DOMAIN-SUFFIX,gepush.com,DIRECT`,
 ]
 
 const REGION_ORDER = ['GLOBAL', 'HK', 'TW', 'SG', 'JPKR', 'APAC', 'US', 'EU', 'AMERICAS', 'AFRICA', 'OTHER']
@@ -1289,8 +1293,12 @@ function injectRules(config) {
     `RULE-SET,miuiprivacy,${BIZ.AD}`,
     `RULE-SET,privacy,${BIZ.AD}`,
     `RULE-SET,youmengchuangxiang,${BIZ.AD}`,
-    // v5.4.1 P3: QUIC 条件阻断——阻断海外 QUIC (UDP/443)，保留国内 QUIC，减少 UDP 超时
-    `AND,((DST-PORT,443),(NETWORK,UDP),(NOT,((GEOIP,CN)))),REJECT`,
+    // v5.4.22 #1 借鉴 Proxy-override：QUIC 精细化——YouTube/Google/MS/Apple 白名单豁免（QUIC 走对应业务组），其余海外 QUIC REJECT 强制回退 HTTP/2
+    `AND,((DST-PORT,443),(NETWORK,UDP),(GEOSITE,youtube)),${BIZ.YT}`,
+    `AND,((DST-PORT,443),(NETWORK,UDP),(GEOSITE,google)),${BIZ.TOOLS}`,
+    `AND,((DST-PORT,443),(NETWORK,UDP),(RULE-SET,microsoft)),${BIZ.MS}`,
+    `AND,((DST-PORT,443),(NETWORK,UDP),(RULE-SET,apple)),${BIZ.APPLE}`,
+    `AND,((DST-PORT,443),(NETWORK,UDP),(NOT,((GEOSITE,cn)))),REJECT`,
     // v5.2.1 FIX#19: DST-PORT,7680 必须在 GEOIP,private 之前，否则私有 IP 先匹配走 DIRECT
     'DST-PORT,7680,REJECT',
     'GEOSITE,private,DIRECT',
@@ -2431,6 +2439,23 @@ function overwriteGeneral(config) {
     '+.mcdn.bilivideo.cn',
     '+.miwifi.com'
   ]))
+  // v5.4.22 #1 借鉴 Proxy-override：QUIC SNI 嗅探（对齐 CMFA/OpenClash 的 sniffer）。
+  //   force-dns-mapping 把真实 IP 连接（含 batch A 放进 fake-ip-filter 的域名，如 mcdn.bilivideo.cn）
+  //   映射回域名，使 QUIC 精细化的 GEOSITE/RULE-SET 匹配对真 IP QUIC 同样生效；否则真 IP QUIC 会被
+  //   NOT,((GEOSITE,cn)) 误判 REJECT。skip-dst-address 跳过 Telegram 网段（MTProto 会干扰嗅探）。
+  config.sniffer = {
+    enable: true,
+    'parse-pure-ip': true,
+    'force-dns-mapping': true,
+    'override-destination': true,
+    sniff: {
+      HTTP: { ports: ['80', '8080-8880'], 'override-destination': true },
+      TLS: { ports: ['443', '8443'] },
+      QUIC: { ports: ['443', '8443', '4433'] }
+    },
+    'skip-domain': ['+.push.apple.com'],
+    'skip-dst-address': ['91.105.192.0/23', '91.108.4.0/22', '91.108.8.0/21', '91.108.16.0/21', '91.108.56.0/22', '95.161.64.0/20', '149.154.160.0/20', '185.76.151.0/24', '2001:67c:4e8::/48', '2001:b28:f23c::/47', '2001:b28:f23f::/48', '2a0a:f280:203::/48']
+  }
   // v5.4.1 P3: Mixed Listeners——按地区分配端口，SwitchyOmega 一键切地区
   if (!config.listeners) config.listeners = []
   var regionPorts = [

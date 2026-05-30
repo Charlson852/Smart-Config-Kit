@@ -7,6 +7,15 @@
 
 ---
 
+## v5.4.22-oc-normal.1 / v5.4.22-oc-smart.1 (2026-05-31)
+
+- ★ GeTui(个推)推送 SDK `getui.com` / `getui.net` / `gepush.com` 加直连白名单（review 后补；延续 #2，被通用广告/隐私表当 tracker 拦截但承载 App 推送如米家；owner 选放行）。
+
+#1 借鉴 Proxy-override：QUIC 精细化——AND 规则白名单豁免（YouTube/Google/MS/Apple）；其余非 CN QUIC REJECT。首次补齐 OpenClash 的 QUIC AND 规则（此前缺失）。
+
+- ★ FIX#HOSTS-DEDUP（review 修复）：删除 v5.4.21(#4) 误引入的重复 `use-hosts: false`——它在 YAML last-wins 下静默回退了 v5.4.17 FIX#HOSTS-ALIGN 的 `use-hosts: true`（两份 .sh 在同一 dns YAML 块内出现重复键）。修复后 hosts 预解析恢复，消除 fake-ip 冷启动循环依赖。
+- 兜底判据 `GEOIP,CN` → `GEOSITE,cn`（同主线，fake-ip 下更可靠）。
+
 ## v5.4.21-oc-normal.1 / v5.4.21-oc-smart.1 (2026-05-31)
 
 #4 借鉴 Proxy-override：`default-nameserver` 从纯明文 IP 升级为 DoH-over-IP + 1 明文兜底（阿里×2 + Google + CF）；消除 bootstrap 阶段 DNS 泄漏。

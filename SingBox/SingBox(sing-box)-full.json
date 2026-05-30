@@ -5,9 +5,9 @@
   },
   "_meta": {
     "name": "SingBox Smart Full",
-    "version": "v5.4.21-sing.1",
+    "version": "v5.4.22-sing.1",
     "build": "2026-05-31",
-    "baseline": "Clash Party v5.4.21",
+    "baseline": "Clash Party v5.4.22",
     "changelog": "见 SingBox/CHANGELOG.md"
   },
   "experimental": {
@@ -1944,6 +1944,27 @@
       {
         "domain": [
           "msg.umeng.com"
+        ],
+        "action": "route",
+        "outbound": "DIRECT"
+      },
+      {
+        "domain_suffix": [
+          "getui.com"
+        ],
+        "action": "route",
+        "outbound": "DIRECT"
+      },
+      {
+        "domain_suffix": [
+          "getui.net"
+        ],
+        "action": "route",
+        "outbound": "DIRECT"
+      },
+      {
+        "domain_suffix": [
+          "gepush.com"
         ],
         "action": "route",
         "outbound": "DIRECT"
@@ -6926,6 +6947,68 @@
       {
         "action": "route",
         "outbound": "🐟 漏网之鱼"
+      },
+      {
+        "rule_set": [
+          "geosite-youtube"
+        ],
+        "port": [
+          443
+        ],
+        "network": "udp",
+        "action": "route",
+        "outbound": "📹 YouTube"
+      },
+      {
+        "rule_set": [
+          "geosite-google"
+        ],
+        "port": [
+          443
+        ],
+        "network": "udp",
+        "action": "route",
+        "outbound": "🔧 工具与服务"
+      },
+      {
+        "rule_set": [
+          "microsoft"
+        ],
+        "port": [
+          443
+        ],
+        "network": "udp",
+        "action": "route",
+        "outbound": "Ⓜ️ 微软服务"
+      },
+      {
+        "rule_set": [
+          "apple"
+        ],
+        "port": [
+          443
+        ],
+        "network": "udp",
+        "action": "route",
+        "outbound": "🍎 苹果服务"
+      },
+      {
+        "rule_set": [
+          "geosite-cn"
+        ],
+        "port": [
+          443
+        ],
+        "network": "udp",
+        "action": "route",
+        "outbound": "DIRECT"
+      },
+      {
+        "port": [
+          443
+        ],
+        "network": "udp",
+        "action": "reject"
       }
     ]
   }

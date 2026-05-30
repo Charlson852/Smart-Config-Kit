@@ -2,10 +2,10 @@
 . /usr/share/openclash/log.sh
 
 # ============================================================================
-# Clash Smart v5.4.21-oc-smart.1 — OpenClash 覆写脚本（与 Clash Party 主线同等规则量）
+# Clash Smart v5.4.22-oc-smart.1 — OpenClash 覆写脚本（与 Clash Party 主线同等规则量）
 # Build: 2026-05-31
 # ============================================================================
-# 定位：对齐 Clash Party v5.4.21 JS 主线的 OpenClash 全量版本。v5.4.2: P0-FIX#41 小米白名单。
+# 定位：对齐 Clash Party v5.4.22 JS 主线的 OpenClash 全量版本。v5.4.2: P0-FIX#41 小米白名单。
 #       与同目录 OpenClash(mihomo).sh（Normal）互补：
 #         - Normal 面向稳定版 mihomo / 经典 url-test
 #         - full  面向 4GB+ 路由器 / 需要与 Clash Party 桌面端一致的细粒度分流
@@ -23,7 +23,7 @@
 
 
 
-VERSION_TAG="v5.4.21-oc-smart.1"
+VERSION_TAG="v5.4.22-oc-smart.1"
 CONFIG_FILE="$1"
 LOG_FILE="/tmp/openclash.log"
 
@@ -107,10 +107,9 @@ dns:
   # 对齐 Clash Party v5.4.17 基线：default-nameserver 纯 IP，其它 resolver 固定 DoH
   # FIX#HOSTS-ALIGN: use-hosts 改 true（对齐主线启用 hosts 预解析，消除 fake-ip 冷启动循环依赖）
   use-hosts: true
-  # v5.4.21 #4 借鉴 Proxy-override：default-nameserver DoH-over-IP + 1 明文兜底
-  use-hosts: false
   use-system-hosts: false
   respect-rules: true
+  # v5.4.21 #4 借鉴 Proxy-override：default-nameserver DoH-over-IP + 1 明文兜底
   default-nameserver:
   - 'https://223.5.5.5/dns-query'
   - 'https://223.6.6.6/dns-query'
@@ -3249,6 +3248,10 @@ rules:
 - "DOMAIN-SUFFIX,jpush.cn,DIRECT"
 - "DOMAIN-SUFFIX,jpush.io,DIRECT"
 - "DOMAIN,msg.umeng.com,DIRECT"
+# v5.4.22 GeTui(个推)推送 SDK 直连——延续 #2（被通用广告/隐私表当 tracker 拦截，承载 App 推送如米家）
+- "DOMAIN-SUFFIX,getui.com,DIRECT"
+- "DOMAIN-SUFFIX,getui.net,DIRECT"
+- "DOMAIN-SUFFIX,gepush.com,DIRECT"
 - "RULE-SET,anti-ad,\U0001F6D1 广告拦截"
 - "RULE-SET,sukka-phishing,\U0001F6D1 广告拦截"
 - "RULE-SET,hagezi-tif,\U0001F6D1 广告拦截"
@@ -3268,6 +3271,12 @@ rules:
 - "RULE-SET,miuiprivacy,\U0001F6D1 广告拦截"
 - "RULE-SET,privacy,\U0001F6D1 广告拦截"
 - "RULE-SET,youmengchuangxiang,\U0001F6D1 广告拦截"
+  # v5.4.22 #1 借鉴 Proxy-override：QUIC 精细化——YouTube/Google/MS/Apple 白名单豁免，其余海外 QUIC REJECT
+- "AND,((DST-PORT,443),(NETWORK,UDP),(GEOSITE,youtube)),\U0001F4F9 YouTube"
+- "AND,((DST-PORT,443),(NETWORK,UDP),(GEOSITE,google)),\U0001F527 工具与服务"
+- "AND,((DST-PORT,443),(NETWORK,UDP),(RULE-SET,microsoft)),Ⓜ️ 微软服务"
+- "AND,((DST-PORT,443),(NETWORK,UDP),(RULE-SET,apple)),\U0001F34E 苹果服务"
+- "AND,((DST-PORT,443),(NETWORK,UDP),(NOT,((GEOSITE,cn)))),REJECT"
 - DST-PORT,7680,REJECT
 - GEOSITE,private,DIRECT
 - GEOIP,private,DIRECT,no-resolve
@@ -4361,7 +4370,7 @@ cat > "$RUBY_SCRIPT" << 'RUBY_EOF'
 require 'yaml'
 require 'digest'
 
-VERSION = "v5.4.21-oc-smart.1"
+VERSION = "v5.4.22-oc-smart.1"
 
 STATUS_LOG = "/tmp/clash_smart_status.log"
 File.open(STATUS_LOG, 'w') { |f| f.puts "[#{VERSION}] start" }

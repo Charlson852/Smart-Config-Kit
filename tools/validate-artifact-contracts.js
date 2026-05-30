@@ -348,6 +348,11 @@ function validateClashYaml(record, baselineVersion) {
   record.check('cmfa.dns.prefer-h3-disabled-with-respect-rules', /prefer-h3:\s*false/.test(source));
   record.check('cmfa.dns.respect-rules-enabled', /respect-rules:\s*true/.test(source));
   record.check('cmfa.dns.cache-arc', /cache-algorithm:\s*arc/.test(source));
+  // v5.4.22 review (FIX#HOSTS-DEDUP 防复发)：dns 块标量键不得重复（YAML last-wins 静默覆盖）
+  for (const dnsKey of ['use-hosts', 'use-system-hosts', 'enhanced-mode', 'prefer-h3', 'respect-rules']) {
+    const dupN = countMatches(source, new RegExp(`^\\s+${dnsKey}:`, 'gm'));
+    if (dupN >= 1) record.check(`cmfa.dns.singleton.${dnsKey}`, dupN === 1, { value: dupN, message: `dns 块标量键 ${dnsKey} 出现 ${dupN} 次（重复键 → YAML last-wins 静默覆盖）` });
+  }
   record.check('cmfa.dns.githubusercontent-policy', /['"]?\+\.githubusercontent\.com['"]?:/.test(source));
   record.check('cmfa.dns.fallback-geosite-gfw', /fallback-filter:[^]*?geosite:[^]*?-\s*gfw/.test(source));
   record.check('cmfa.dns.fallback-geosite-not-cn', /fallback-filter:[^]*?geosite:[^]*?-\s*geolocation-!cn/.test(source));
@@ -413,6 +418,12 @@ function validateOpenClash(record, baselineVersion, options) {
     record.check(`openclash.${spec.id}.dns.prefer-h3-disabled-with-respect-rules`, /prefer-h3:\s*false/.test(yaml));
     record.check(`openclash.${spec.id}.dns.respect-rules-enabled`, /respect-rules:\s*true/.test(yaml));
     record.check(`openclash.${spec.id}.dns.cache-arc`, /cache-algorithm:\s*arc/.test(yaml));
+    // v5.4.22 review (FIX#HOSTS-DEDUP 防复发)：dns 块标量键不得重复——YAML last-wins 会静默覆盖前者，
+    //   #159(#4) 曾用重复 `use-hosts: false` 回退 #156 的 `use-hosts: true`，validator 此前未覆盖嵌套层重复键。
+    for (const dnsKey of ['use-hosts', 'use-system-hosts', 'enhanced-mode', 'prefer-h3', 'respect-rules']) {
+      const dupN = countMatches(source, new RegExp(`^\\s+${dnsKey}:`, 'gm'));
+      if (dupN >= 1) record.check(`openclash.${spec.id}.dns.singleton.${dnsKey}`, dupN === 1, { value: dupN, message: `dns 块标量键 ${dnsKey} 出现 ${dupN} 次（重复键 → YAML last-wins 静默覆盖；见 FIX#HOSTS-DEDUP）` });
+    }
     record.check(`openclash.${spec.id}.dns.githubusercontent-policy`, /['"]?\+\.githubusercontent\.com['"]?:/.test(yaml));
     record.check(`openclash.${spec.id}.dns.fallback-geosite-gfw`, /fallback-filter:[^]*?geosite:[^]*?-\s*gfw/.test(yaml));
     record.check(`openclash.${spec.id}.dns.fallback-geosite-not-cn`, /fallback-filter:[^]*?geosite:[^]*?-\s*geolocation-!cn/.test(yaml));

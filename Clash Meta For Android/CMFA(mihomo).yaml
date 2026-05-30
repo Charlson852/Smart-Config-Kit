@@ -1,10 +1,8 @@
 # ================================================================
-# Clash Smart v5.4.19-cmfa.1 - CMFA (Clash Meta for Android) 配置
-﻿# ================================================================
-# Clash Smart v5.4.21-cmfa.1 - CMFA (Clash Meta for Android) 配置
+# Clash Smart v5.4.22-cmfa.1 - CMFA (Clash Meta for Android) 配置
 # Build: 2026-05-31
 # 架构：proxy-providers 订阅 + 22 url-test 区域组（11 全部 + 11 家宽，家宽 filter 新增 IEPL/IPLC/专线识别）+ 32 业务策略组（含 14 流媒体平台组）+ 384+ rule-providers
-# 基线：Clash Party v5.4.21（唯一主线）
+# 基线：Clash Party v5.4.22（唯一主线）
 # 变更历史：见 `Clash Meta For Android/CHANGELOG.md`
 # ================================================================
 # ★ 快速上手：
@@ -3592,6 +3590,10 @@ rules:
 - 'DOMAIN-SUFFIX,jpush.cn,DIRECT'
 - 'DOMAIN-SUFFIX,jpush.io,DIRECT'
 - 'DOMAIN,msg.umeng.com,DIRECT'
+# v5.4.22 GeTui(个推)推送 SDK 直连——延续 #2（被通用广告/隐私表当 tracker 拦截，承载 App 推送如米家）
+- 'DOMAIN-SUFFIX,getui.com,DIRECT'
+- 'DOMAIN-SUFFIX,getui.net,DIRECT'
+- 'DOMAIN-SUFFIX,gepush.com,DIRECT'
 - 'RULE-SET,anti-ad,🛑 广告拦截'
 - 'RULE-SET,sukka-phishing,🛑 广告拦截'
 - 'RULE-SET,hagezi-tif,🛑 广告拦截'
@@ -3610,6 +3612,12 @@ rules:
 - 'RULE-SET,miuiprivacy,🛑 广告拦截'
 - 'RULE-SET,privacy,🛑 广告拦截'
 - 'RULE-SET,youmengchuangxiang,🛑 广告拦截'
+  # v5.4.22 #1 借鉴 Proxy-override：QUIC 精细化——YouTube/Google/MS/Apple 白名单豁免（QUIC 走对应业务组），其余海外 QUIC REJECT 强制回退 HTTP/2
+- 'AND,((DST-PORT,443),(NETWORK,UDP),(GEOSITE,youtube)),📹 YouTube'
+- 'AND,((DST-PORT,443),(NETWORK,UDP),(GEOSITE,google)),🔧 工具与服务'
+- 'AND,((DST-PORT,443),(NETWORK,UDP),(RULE-SET,microsoft)),Ⓜ️ 微软服务'
+- 'AND,((DST-PORT,443),(NETWORK,UDP),(RULE-SET,apple)),🍎 苹果服务'
+- 'AND,((DST-PORT,443),(NETWORK,UDP),(NOT,((GEOSITE,cn)))),REJECT'
 - DOMAIN-SUFFIX,local,DIRECT
 - DOMAIN-SUFFIX,localhost,DIRECT
 - DOMAIN-SUFFIX,lan,DIRECT

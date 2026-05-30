@@ -5,6 +5,12 @@
 
 ---
 
+## v5.4.22-sing.1 (2026-05-31)
+
+- ★ GeTui(个推)推送 SDK `getui.com` / `getui.net` / `gepush.com` 直连（review 后补；由主线 allowlist 自动派生后重新生成 route.rules）。
+
+- #1 借鉴 Proxy-override：QUIC 精细化——generator.js 扩展硬编码 6 条 route rule（白名单 4 + CN 放行 + 其余 REJECT）；AND 复合规则不入 toSingRule()。
+
 ## v5.4.21-sing.1 (2026-05-31)
 
 #4 借鉴 Proxy-override：bootstrap 从 `udp://IP:53` 升级为 `https://IP/dns-query` + TLS SNI 覆盖（dns.alidns.com / cloudflare-dns.com / dns.google）；消除 bootstrap 阶段 DNS 泄漏。generator.js bump 后重新生成。

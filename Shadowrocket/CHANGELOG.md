@@ -5,6 +5,12 @@
 
 ---
 
+## v5.4.22-SR.1 (2026-05-31)
+
+- ★ GeTui(个推)推送 SDK `getui.com` / `getui.net` / `gepush.com` 加直连白名单（review 后补；延续 #2，被通用广告/隐私表当 tracker 拦截但承载 App 推送如米家；owner 选放行）。
+
+- N/A#1 QUIC 精细化：SR block-quic 是引擎级开关，不支持 AND/NOT 白名单豁免。引擎标注见文件内注释。
+
 ## v5.4.21-SR.1 (2026-05-31)
 
 #4 借鉴 Proxy-override：全部 DoH URL（dns-server / proxy-dns-server / fallback-dns-server）从域名改为 IP-host DoH，消除 bootstrap 阶段 DNS 泄漏；SR 无独立 bootstrap 字段，直接用 IP DoH 即免自举。

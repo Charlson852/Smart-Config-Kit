@@ -2,7 +2,7 @@
     {
       "id": "scki-000-meta",
       "enabled": false,
-      "remarks": "Smart-Config-Kit v5.4.21-v2n.1 | Build 2026-05-31 | Baseline Clash Party v5.4.21 | changelog: v2rayN/CHANGELOG.md | #4 DoH-over-IP bootstrap N/A (Xray routing, no dns-out)",
+      "remarks": "Smart-Config-Kit v5.4.22-v2n.1 | Build 2026-05-31 | Baseline Clash Party v5.4.22 | changelog: v2rayN/CHANGELOG.md | #1 QUIC N/A (Xray routing)",
       "outboundTag": "direct",
       "domain": [
         "domain:smart-config-kit.invalid"
@@ -50,6 +50,9 @@
         "domain:jpush.cn",
         "domain:jpush.io",
         "full:msg.umeng.com",
+        "domain:getui.com",
+        "domain:getui.net",
+        "domain:gepush.com",
         "domain:baomitu.com",
         "domain:bootcss.com",
         "domain:staticfile.org",

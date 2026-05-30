@@ -7,6 +7,21 @@
 
 ---
 
+## v5.4.22 / v5.4.22-normal.1 (2026-05-31)
+
+- ★ GeTui(个推)推送 SDK `getui.com` / `getui.net` / `gepush.com` 加直连白名单（review 后补；延续 #2 jpush/umeng——被通用广告/隐私表当 tracker 拦截但承载 App 推送如米家；owner 选放行保推送可达）。
+
+借鉴 Proxy-override 批 C · #1 QUIC 精细化（spec：`docs/2026-05-30-proxy-override-借鉴设计.md`）：
+
+- AND 规则白名单豁免：YouTube/Google/MS/Apple 的 QUIC 流量路由到对应业务组（依赖 sniffer QUIC 嗅探 SNI → GEOSITE/RULE-SET 匹配）
+- 其余非中国 QUIC → REJECT，强制回退 HTTP/2（同 Proxy-override 原版语义）
+- 首次补齐 CMFA + OpenClash×2 的 QUIC AND 规则（此前缺失，与主线不对称）
+- SingBox generator 扩展 QUIC 转换（AND 复合规则 → 6 条首命中 route rule）
+- iOS 四件套引擎限制：block-quic/disable-udp-ports 不支持 AND/NOT 白名单豁免，标注 N/A
+- 配套新增 `config.sniffer`（QUIC/443 SNI 嗅探 + `force-dns-mapping`，对齐 CMFA/OpenClash 既有 sniffer）——使 QUIC 的 GEOSITE/RULE-SET 匹配对 fake-ip-filter 真 IP 域名（如 `mcdn.bilivideo.cn`）同样生效；此前 Smart/Normal/FlClash 缺 sniffer，真 IP QUIC 会被 `NOT,((GEOSITE,cn))` 误 REJECT（review 修复）
+- 兜底判据由 `GEOIP,CN` 改为 `GEOSITE,cn`（**有意的语义变更**）：fake-ip 模式下 `GEOIP,CN` 对 198.18.x.x fake IP 判不出 CN，`GEOSITE,cn` 直接匹配映射域名更可靠
+- QUIC 精细化默认开；如何关闭见 `Clash Party/README.md`
+
 ## v5.4.21 / v5.4.21-normal.1 (2026-05-31)
 
 借鉴 Proxy-override 批 D · #4 DoH-over-IP bootstrap（spec：`docs/2026-05-30-proxy-override-借鉴设计.md`）：

@@ -1,9 +1,9 @@
 const fs = require('fs');
 const vm = require('vm');
 
-const VERSION = 'v5.4.21-sing.1';
-const BUILD = '2026-05-31';
-const BASELINE = 'Clash Party v5.4.21';
+const VERSION = 'v5.4.22-sing.1';
+const BUILD = '2026-05-31'; // v5.4.22
+const BASELINE = 'Clash Party v5.4.22';
 
 const SMART = {
   GLOBAL: '🌍 全球节点',
@@ -494,7 +494,9 @@ const allRouteRuleSets = uniqueRuleSets([...ruleSet, ...extraGeoSiteTags, ...dns
 const availableRuleSets = new Set(allRouteRuleSets.map((item) => item.tag));
 const convertedRules = rules.map((rule) => toSingRule(rule, availableRuleSets)).filter(Boolean);
 const skippedProviders = Object.keys(providers).length - ruleSet.length;
-const skippedRules = rules.length - convertedRules.length;
+// v5.4.22: AND/QUIC rules handled out-of-band (not through toSingRule), don't count as skipped
+const QUIC_AND_RULES = 5;
+const skippedRules = rules.length - convertedRules.length - QUIC_AND_RULES;
 
 baseConfig._meta = {
   name: 'SingBox Smart Full',
@@ -578,7 +580,17 @@ baseConfig.dns = {
 
 baseConfig.outbounds = buildOutbounds();
 baseConfig.route.rule_set = allRouteRuleSets;
-baseConfig.route.rules = convertedRules;
+// v5.4.22 #1 借鉴 Proxy-override：QUIC 精细化——sing-box 首命中模型逐条匹配
+// YouTube/Google/MS/Apple QUIC → 走对应业务组；CN QUIC → DIRECT 放行；其余海外 QUIC → REJECT
+const quicRules = [
+  { rule_set: ['geosite-youtube'], port: [443], network: 'udp', action: 'route', outbound: '📹 YouTube' },
+  { rule_set: ['geosite-google'], port: [443], network: 'udp', action: 'route', outbound: '🔧 工具与服务' },
+  { rule_set: ['microsoft'], port: [443], network: 'udp', action: 'route', outbound: 'Ⓜ️ 微软服务' },
+  { rule_set: ['apple'], port: [443], network: 'udp', action: 'route', outbound: '🍎 苹果服务' },
+  { rule_set: ['geosite-cn'], port: [443], network: 'udp', action: 'route', outbound: 'DIRECT' },
+  { port: [443], network: 'udp', action: 'reject' },
+];
+baseConfig.route.rules = [...convertedRules, ...quicRules];
 baseConfig.route.final = BIZ.FINAL;
 
 fs.writeFileSync('SingBox/SingBox(sing-box)-full.json', JSON.stringify(baseConfig, null, 2) + '\n');
