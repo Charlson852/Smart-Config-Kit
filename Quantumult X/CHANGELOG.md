@@ -6,6 +6,14 @@
 
 ---
 
+## v5.4.19-QX.1 (2026-05-30)
+
+借鉴 Proxy-override 批 A · #2 国内 SDK/CDN 直连前置（跟随 Clash Party v5.4.19；spec：`docs/2026-05-30-proxy-override-借鉴设计.md`）：
+
+- jpush / `msg.umeng.com` 在 `[filter_remote]` 中前置到 `jiguangtuisong` / `youmengchuangxiang` 远程拦截规则之前强制 `direct`（QX 按文件顺序首命中——本产物是除 mihomo 家族外唯一存在该 tracker 拦截冲突的）
+- `baomitu.com` / `bootcss.com` / `staticfile.org` / `upaiyun.com` 加入 `[filter_local]` 国内网站兜底段
+- 与 Shadowrocket 同步手改（与 `srk_to_qx` 转换风格一致）；不适用 #3 fake-ip-filter / #5 direct-nameserver-follow-policy（非 mihomo 内核）
+- 🔢 版本：v5.4.17-QX.1 → v5.4.19-QX.1（全产物跳过烧毁的 .18 统一到 v5.4.19）
 ## v5.4.17-QX.2 (2026-05-30)
 
 - ★ FIX#KR-WB：日韩 / 亚太 `server-tag-regex` 裸 `KR` 补词边界 `(?<![a-zA-Z])KR(?![a-zA-Z])`（与本文件 US/SG 写法一致）

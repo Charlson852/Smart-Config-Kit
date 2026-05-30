@@ -1,8 +1,8 @@
-﻿# ================================================================
-# Clash Smart v5.4.17-cmfa.2 - CMFA (Clash Meta for Android) 配置
+# ================================================================
+# Clash Smart v5.4.19-cmfa.1 - CMFA (Clash Meta for Android) 配置
 # Build: 2026-05-30
 # 架构：proxy-providers 订阅 + 22 url-test 区域组（11 全部 + 11 家宽，家宽 filter 新增 IEPL/IPLC/专线识别）+ 32 业务策略组（含 14 流媒体平台组）+ 384+ rule-providers
-# 基线：Clash Party v5.4.17（唯一主线）
+# 基线：Clash Party v5.4.19（唯一主线）
 # 变更历史：见 `Clash Meta For Android/CHANGELOG.md`
 # ================================================================
 # ★ 快速上手：
@@ -93,6 +93,17 @@ dns:
   - +.pub.3gppnetwork.org
   - +.bing.com
   - +.rustdesk.com
+  # v5.4.19 #3 借鉴 Proxy-override：远控/游戏/P2P 需真实 IP 才能打洞/直连（同 RustDesk 语义）
+  - +.todesk.com
+  - +.oray.com
+  - +.sunlogin.com
+  - +.teamviewer.com
+  - +.anydesk.com
+  - +.battlenet.com.cn
+  - +.wotgame.cn
+  - +.wggames.cn
+  - +.wowsgame.cn
+  - +.mcdn.bilivideo.cn
   - +.miwifi.com
   # FIX#HOSTS-ALIGN: use-hosts 改 true（对齐主线，hosts 已固定全部 DoH 域名 IP，消除 fake-ip 冷启动循环依赖）
   use-hosts: true
@@ -115,6 +126,8 @@ dns:
   direct-nameserver:
   - 'https://dns.alidns.com/dns-query'
   - 'https://doh.pub/dns-query'
+  # v5.4.19 #5 借鉴 Proxy-override：让 direct-nameserver 也遵循 nameserver-policy（默认 false 会忽略它）。policy 仅含境外 CDN，零国内误伤。
+  direct-nameserver-follow-policy: true
   nameserver-policy:
     '+.jsdelivr.net':
     - 'https://cloudflare-dns.com/dns-query'
@@ -3571,6 +3584,10 @@ rules:
 - 'DOMAIN-SUFFIX,cloudflarestorage.com,🌐 国外网站'
 # v5.4.16 FIX#149: anti-AD/DustinWin 当前包含 analytics.paddle.com；Antigravity 登录需放行 Paddle 许可/支付链路。
 - 'DOMAIN-SUFFIX,paddle.com,🏦 金融支付'
+# v5.4.19 #2 借鉴 Proxy-override：国内推送 SDK 直连前置——jpush/umeng 被 jiguangtuisong/youmengchuangxiang 当 tracker 拦截，但承载合法 App 推送/消息功能，需 DIRECT（参照 P0-FIX#41 小米先例）。
+- 'DOMAIN-SUFFIX,jpush.cn,DIRECT'
+- 'DOMAIN-SUFFIX,jpush.io,DIRECT'
+- 'DOMAIN,msg.umeng.com,DIRECT'
 - 'RULE-SET,anti-ad,🛑 广告拦截'
 - 'RULE-SET,sukka-phishing,🛑 广告拦截'
 - 'RULE-SET,hagezi-tif,🛑 广告拦截'
@@ -4634,6 +4651,11 @@ rules:
 - 'DOMAIN-SUFFIX,126.com,🏠 国内网站'
 - 'DOMAIN-SUFFIX,126.net,🏠 国内网站'
 - 'DOMAIN-SUFFIX,jianguoyun.com,🏠 国内网站'
+# v5.4.19 #2 借鉴 Proxy-override：国内前端 CDN 直连前置（纯静态库托管，无 tracker 冲突）。
+- 'DOMAIN-SUFFIX,baomitu.com,🏠 国内网站'
+- 'DOMAIN-SUFFIX,bootcss.com,🏠 国内网站'
+- 'DOMAIN-SUFFIX,staticfile.org,🏠 国内网站'
+- 'DOMAIN-SUFFIX,upaiyun.com,🏠 国内网站'
 - 'RULE-SET,cn,🏠 国内网站'
 - 'RULE-SET,cn-ip,🏠 国内网站,no-resolve'
 - 'DOMAIN-SUFFIX,alimama.com,🏠 国内网站'

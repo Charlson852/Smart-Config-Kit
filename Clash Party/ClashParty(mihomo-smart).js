@@ -1,14 +1,14 @@
 ﻿// Clash Smart 内核覆写脚本 - SUB-STORE 多机场精细分流版
-// 版本：v5.4.17 (2026-05-26)
+// 版本：v5.4.19 (2026-05-30)
 // 架构：SUB-STORE 多机场融合 + 22 Smart 区域组（11 全部 + 11 家宽）+ 32 业务策略组（含 14 流媒体平台组）+ 385 rule-providers 100%+ 服务覆盖
-// v5.4.17: DNS 固定为 default IP bootstrap + 其它 resolver DoH · v5.4.16: 游戏加速器 PROCESS-NAME 直连白名单
+// v5.4.19: 借鉴 Proxy-override 批A（国内SDK/CDN直连·fake-ip-filter补全·direct-nameserver-follow-policy）· v5.4.17: DNS 固定 default IP bootstrap
 // 变更历史：见 `Clash Party/CHANGELOG.md`
 
 // ================================================================
 //  版本常量
 // ================================================================
 
-const VERSION = 'v5.4.17'
+const VERSION = 'v5.4.19'
 
 // v5.4.9 FEAT#LOCAL-TOOLS:
 // Desktop-capable local tools that should not be routed through proxy nodes.
@@ -270,6 +270,12 @@ const AD_FALSE_POSITIVE_ALLOWLIST = [
   // v5.4.16 FIX#149: anti-AD/DustinWin 当前包含 analytics.paddle.com；
   // Antigravity 账号设置会调用 Paddle 许可/支付链路，必须前置到广告规则之前。
   `DOMAIN-SUFFIX,paddle.com,${BIZ.PAYMENTS}`,
+  // v5.4.19 #2 借鉴 Proxy-override：国内推送 SDK 直连前置——jpush(极光推送)/umeng(友盟) 在
+  // jiguangtuisong / youmengchuangxiang 规则集中被当 tracker 拦截，但承载合法 App 推送/消息功能，
+  // 故前置到广告规则之前强制 DIRECT（参照 P0-FIX#41 小米先例）。
+  `DOMAIN-SUFFIX,jpush.cn,DIRECT`,
+  `DOMAIN-SUFFIX,jpush.io,DIRECT`,
+  `DOMAIN,msg.umeng.com,DIRECT`,
 ]
 
 const REGION_ORDER = ['GLOBAL', 'HK', 'TW', 'SG', 'JPKR', 'APAC', 'US', 'EU', 'AMERICAS', 'AFRICA', 'OTHER']
@@ -2273,6 +2279,11 @@ function injectRules(config) {
     `DOMAIN-SUFFIX,126.com,${BIZ.CN_SITE}`,
     `DOMAIN-SUFFIX,126.net,${BIZ.CN_SITE}`,
     `DOMAIN-SUFFIX,jianguoyun.com,${BIZ.CN_SITE}`,
+    // v5.4.19 #2 借鉴 Proxy-override：国内前端 CDN 直连前置（纯静态库托管，无 tracker 冲突）。
+    `DOMAIN-SUFFIX,baomitu.com,${BIZ.CN_SITE}`,
+    `DOMAIN-SUFFIX,bootcss.com,${BIZ.CN_SITE}`,
+    `DOMAIN-SUFFIX,staticfile.org,${BIZ.CN_SITE}`,
+    `DOMAIN-SUFFIX,upaiyun.com,${BIZ.CN_SITE}`,
     `RULE-SET,cn,${BIZ.CN_SITE}`,
     `RULE-SET,cn-ip,${BIZ.CN_SITE},no-resolve`,
     `DOMAIN-SUFFIX,alimama.com,${BIZ.CN_SITE}`,
@@ -2350,6 +2361,9 @@ function overwriteGeneral(config) {
   config.dns['default-nameserver'] = bootstrapDns.slice()
   config.dns.nameserver = domesticDoH.slice()
   config.dns['direct-nameserver'] = domesticDoH.slice()
+  // v5.4.19 #5 借鉴 Proxy-override：让 direct-nameserver 也遵循 nameserver-policy（默认 false 会忽略它）。
+  // 官方 use case 即"direct 用国内 DoH + policy 指定域名走指定 DNS"；本仓库 policy 仅含境外 CDN，零国内误伤。
+  config.dns['direct-nameserver-follow-policy'] = true
   config.dns['proxy-server-nameserver'] = proxyDoH.slice()
   config.dns.fallback = foreignDoH.slice()
   if (!config.dns['nameserver-policy'] || typeof config.dns['nameserver-policy'] !== 'object' || Array.isArray(config.dns['nameserver-policy'])) {
@@ -2410,6 +2424,10 @@ function overwriteGeneral(config) {
     '+.bing.com',
     // v5.4.12 FIX#RD-REALIP: RustDesk rendezvous/relay needs real IPs while still routing via work proxy.
     '+.rustdesk.com',
+    // v5.4.19 #3 借鉴 Proxy-override：远控/游戏/P2P 需真实 IP 才能打洞/直连（同 RustDesk 语义）。
+    '+.todesk.com', '+.oray.com', '+.sunlogin.com', '+.teamviewer.com', '+.anydesk.com',
+    '+.battlenet.com.cn', '+.wotgame.cn', '+.wggames.cn', '+.wowsgame.cn',
+    '+.mcdn.bilivideo.cn',
     '+.miwifi.com'
   ]))
   // v5.4.1 P3: Mixed Listeners——按地区分配端口，SwitchyOmega 一键切地区

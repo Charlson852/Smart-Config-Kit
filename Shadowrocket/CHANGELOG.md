@@ -5,6 +5,14 @@
 
 ---
 
+## v5.4.19-SR.1 (2026-05-30)
+
+借鉴 Proxy-override 批 A · #2 国内 SDK/CDN 直连前置（跟随 Clash Party v5.4.19；spec：`docs/2026-05-30-proxy-override-借鉴设计.md`）：
+
+- jpush / `msg.umeng.com` 前置到广告拦截 RULE-SET 之前强制 DIRECT（承载合法 App 推送/消息；与 mihomo 家族行为对齐，避免跨端不一致）
+- `baomitu.com` / `bootcss.com` / `staticfile.org` / `upaiyun.com` 加入 🏠 国内网站段
+- 不适用 #3 fake-ip-filter（iOS Shadowrocket 无该字段）/ #5 direct-nameserver-follow-policy（非 mihomo 内核）
+- 🔢 版本：v5.4.17-SR.1 → v5.4.19-SR.1（全产物跳过烧毁的 .18 统一到 v5.4.19）
 ## v5.4.17-SR.2 (2026-05-30)
 
 - ★ FIX#KR-WB：日韩 / 亚太 `policy-regex-filter` 裸 `KR` 补词边界 `(?<![a-zA-Z])KR(?![a-zA-Z])`（与本文件 US/SG 写法一致）

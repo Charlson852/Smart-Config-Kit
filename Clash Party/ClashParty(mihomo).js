@@ -1,7 +1,7 @@
 ﻿// Clash 覆写脚本 - SUB-STORE 多机场精细分流版
-// 版本：v5.4.17-normal.1 (2026-05-26)
+// 版本：v5.4.19-normal.1 (2026-05-30)
 // 架构：22 url-test 区域组（11 全部 + 11 家宽）+ 32 业务策略组 + 385 rule-providers
-// 基线：Clash Party v5.4.17（与同目录 ClashParty(mihomo-smart).js 规则 100% 等价，仅区域组从 smart 改为 url-test）
+// 基线：Clash Party v5.4.19（与同目录 ClashParty(mihomo-smart).js 规则 100% 等价，仅区域组从 smart 改为 url-test）
 // 适用：Mihomo / Clash.Meta 稳定版内核、不支持 smart + LightGBM 的分支；也适用于想完全关闭 ML 评估的用户
 // 变更历史：见 `Clash Party/CHANGELOG.md`
 
@@ -9,7 +9,7 @@
 //  版本常量
 // ================================================================
 
-const VERSION = 'v5.4.17-normal.1'
+const VERSION = 'v5.4.19-normal.1'
 
 // v5.4.9 FEAT#LOCAL-TOOLS: desktop local-tool direct whitelist.
 const LOCAL_TOOL_DIRECT_PROCESS_NAMES = [
@@ -268,6 +268,12 @@ const AD_FALSE_POSITIVE_ALLOWLIST = [
   // v5.4.16 FIX#149: anti-AD/DustinWin 当前包含 analytics.paddle.com；
   // Antigravity 账号设置会调用 Paddle 许可/支付链路，必须前置到广告规则之前。
   `DOMAIN-SUFFIX,paddle.com,${BIZ.PAYMENTS}`,
+  // v5.4.19 #2 借鉴 Proxy-override：国内推送 SDK 直连前置——jpush(极光推送)/umeng(友盟) 在
+  // jiguangtuisong / youmengchuangxiang 规则集中被当 tracker 拦截，但承载合法 App 推送/消息功能，
+  // 故前置到广告规则之前强制 DIRECT（参照 P0-FIX#41 小米先例）。
+  `DOMAIN-SUFFIX,jpush.cn,DIRECT`,
+  `DOMAIN-SUFFIX,jpush.io,DIRECT`,
+  `DOMAIN,msg.umeng.com,DIRECT`,
 ]
 
 const REGION_ORDER = ['GLOBAL', 'HK', 'TW', 'SG', 'JPKR', 'APAC', 'US', 'EU', 'AMERICAS', 'AFRICA', 'OTHER']
@@ -2268,6 +2274,11 @@ function injectRules(config) {
     `DOMAIN-SUFFIX,126.com,${BIZ.CN_SITE}`,
     `DOMAIN-SUFFIX,126.net,${BIZ.CN_SITE}`,
     `DOMAIN-SUFFIX,jianguoyun.com,${BIZ.CN_SITE}`,
+    // v5.4.19 #2 借鉴 Proxy-override：国内前端 CDN 直连前置（纯静态库托管，无 tracker 冲突）。
+    `DOMAIN-SUFFIX,baomitu.com,${BIZ.CN_SITE}`,
+    `DOMAIN-SUFFIX,bootcss.com,${BIZ.CN_SITE}`,
+    `DOMAIN-SUFFIX,staticfile.org,${BIZ.CN_SITE}`,
+    `DOMAIN-SUFFIX,upaiyun.com,${BIZ.CN_SITE}`,
     `RULE-SET,cn,${BIZ.CN_SITE}`,
     `RULE-SET,cn-ip,${BIZ.CN_SITE},no-resolve`,
     `DOMAIN-SUFFIX,alimama.com,${BIZ.CN_SITE}`,
@@ -2320,6 +2331,9 @@ function overwriteGeneral(config) {
   config.dns['default-nameserver'] = bootstrapDns.slice()
   config.dns.nameserver = domesticDoH.slice()
   config.dns['direct-nameserver'] = domesticDoH.slice()
+  // v5.4.19 #5 借鉴 Proxy-override：让 direct-nameserver 也遵循 nameserver-policy（默认 false 会忽略它）。
+  // 官方 use case 即"direct 用国内 DoH + policy 指定域名走指定 DNS"；本仓库 policy 仅含境外 CDN，零国内误伤。
+  config.dns['direct-nameserver-follow-policy'] = true
   config.dns['proxy-server-nameserver'] = proxyDoH.slice()
   config.dns.fallback = foreignDoH.slice()
   if (!config.dns['nameserver-policy'] || typeof config.dns['nameserver-policy'] !== 'object' || Array.isArray(config.dns['nameserver-policy'])) {
@@ -2338,7 +2352,7 @@ function overwriteGeneral(config) {
   if (!Array.isArray(config.dns['fallback-filter'].domain)) config.dns['fallback-filter'].domain = []
   // v5.4.1 P0+P2: fake-ip-filter 扩展 + Hosts DNS 预解析
   var currentFakeIpFilter = Array.isArray(config.dns['fake-ip-filter']) ? config.dns['fake-ip-filter'] : []
-  config.dns['fake-ip-filter'] = uniqList(currentFakeIpFilter.concat(['+.lan','+.local','+.localdomain','+.home.arpa','+.msftconnecttest.com','+.msftncsi.com','localhost.ptlogin2.qq.com','localhost.sec.qq.com','localhost.work.weixin.qq.com','+.in-addr.arpa','+.ip6.arpa','time.*.com','time.*.gov','ntp.*.com','pool.ntp.org','+.ntp.org','+.pool.ntp.org','+.market.xiaomi.com','+.stun.*.*','+.stun.*.*.*','+.turn.*.*','+.turn.*.*.*','+.n.n.srv.nintendo.net','+.stun.playstation.net','+.xboxlive.com','stun.l.google.com','stun1.l.google.com','stun2.l.google.com','stun3.l.google.com','stun4.l.google.com','global.turn.twilio.com','auth.docker.io','registry-1.docker.io','index.docker.io','hub.docker.com','production.cloudflare.docker.com','+.push.apple.com','+.pub.3gppnetwork.org','+.bing.com','+.rustdesk.com','+.miwifi.com']))
+  config.dns['fake-ip-filter'] = uniqList(currentFakeIpFilter.concat(['+.lan','+.local','+.localdomain','+.home.arpa','+.msftconnecttest.com','+.msftncsi.com','localhost.ptlogin2.qq.com','localhost.sec.qq.com','localhost.work.weixin.qq.com','+.in-addr.arpa','+.ip6.arpa','time.*.com','time.*.gov','ntp.*.com','pool.ntp.org','+.ntp.org','+.pool.ntp.org','+.market.xiaomi.com','+.stun.*.*','+.stun.*.*.*','+.turn.*.*','+.turn.*.*.*','+.n.n.srv.nintendo.net','+.stun.playstation.net','+.xboxlive.com','stun.l.google.com','stun1.l.google.com','stun2.l.google.com','stun3.l.google.com','stun4.l.google.com','global.turn.twilio.com','auth.docker.io','registry-1.docker.io','index.docker.io','hub.docker.com','production.cloudflare.docker.com','+.push.apple.com','+.pub.3gppnetwork.org','+.bing.com','+.rustdesk.com','+.todesk.com','+.oray.com','+.sunlogin.com','+.teamviewer.com','+.anydesk.com','+.battlenet.com.cn','+.wotgame.cn','+.wggames.cn','+.wowsgame.cn','+.mcdn.bilivideo.cn','+.miwifi.com']))
   if (!config.hosts) config.hosts = {}
   var dnsH = {'dns.alidns.com':['223.5.5.5','223.6.6.6'],'doh.pub':['119.29.29.29'],'dns.google':['8.8.8.8','8.8.4.4'],'cloudflare-dns.com':['1.1.1.1','1.0.0.1']}
   Object.keys(dnsH).forEach(function(k){if(!config.hosts[k])config.hosts[k]=dnsH[k]})

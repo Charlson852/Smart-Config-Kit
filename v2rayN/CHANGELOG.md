@@ -7,6 +7,14 @@
 
 ---
 
+## v5.4.19-v2n.1 (2026-05-30)
+
+借鉴 Proxy-override 批 A · #2 国内 SDK/CDN 直连前置（跟随 Clash Party v5.4.19；spec：`docs/2026-05-30-proxy-override-借鉴设计.md`）：
+
+- 新增 `scki-000c-cn-sdk-cdn-direct` 路由规则（`outboundTag: direct`），前置于 `scki-001-ads`：`jpush.cn` / `jpush.io` + `full:msg.umeng.com`（避免被 `geosite:category-ads-all` 误拦）+ `baomitu.com` / `bootcss.com` / `staticfile.org` / `upaiyun.com` CDN
+- 不适用 #3 fake-ip-filter / #5 direct-nameserver-follow-policy（Xray 路由 JSON 不承载 fake-ip / mihomo DNS 字段）
+- 🔢 版本：v5.4.17-v2n.1 → v5.4.19-v2n.1（全产物跳过烧毁的 .18 统一到 v5.4.19）
+
 ## v5.4.17-v2n.1 (2026-05-26)
 
 - N/A#DNS-SPLIT-BOOTSTRAP：路径 C（Xray 核）只发布路由规则 JSON，不承载 DNS resolver 配置

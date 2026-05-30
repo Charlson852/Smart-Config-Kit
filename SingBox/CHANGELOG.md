@@ -5,6 +5,14 @@
 
 ---
 
+## v5.4.19-sing.1 (2026-05-30)
+
+借鉴 Proxy-override 批 A · #2 国内 SDK/CDN 直连前置（由主线 Smart JS 规则自动派生后重新生成；spec：`docs/2026-05-30-proxy-override-借鉴设计.md`）：
+
+- 重新生成后 `route.rules` 自动纳入主线新增的 #2 规则：`jpush.cn` / `jpush.io` / `msg.umeng.com` → DIRECT；`baomitu.com` / `bootcss.com` / `staticfile.org` / `upaiyun.com` → 🏠 国内网站
+- #3 fake-ip-filter 不适用（sing-box 不使用 fake-ip 增强模式）；#5 `direct-nameserver-follow-policy` 不适用（sing-box DNS 结构由 generator 独立构建，非 mihomo 字段）
+- 🔢 版本：v5.4.18-sing.1 → v5.4.19-sing.1（generator VERSION / BUILD / BASELINE 同步；全产物统一对齐 v5.4.19）
+
 ## v5.4.18-sing.1 (2026-05-27)
 
 - ✅ FIX#SING-DNS-REDUNDANCY：DNS server 各路径补齐冗余，消除单点故障

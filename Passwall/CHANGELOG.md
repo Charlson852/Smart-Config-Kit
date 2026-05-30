@@ -7,6 +7,14 @@
 
 ---
 
+## v5.4.19-pw.1 (2026-05-30)
+
+借鉴 Proxy-override 批 A · #2 国内 SDK/CDN 直连前置（跟随 Clash Party v5.4.19；spec：`docs/2026-05-30-proxy-override-借鉴设计.md`）：
+
+- `27-cn-site.list` [Domain List] 增加：`full:msg.umeng.com` + `domain:jpush.cn` / `jpush.io`（承载合法 App 推送；Passwall 无 jiguang/youmeng 拦截源，零冲突）+ `domain:baomitu.com` / `bootcss.com` / `staticfile.org` / `upaiyun.com`（前端 CDN）→ 均归 direct shunt
+- 不适用 #3 fake-ip-filter / #5 direct-nameserver-follow-policy（Passwall shunt_rules 不承载 fake-ip / mihomo DNS 字段）
+- 🔢 版本：v5.4.17-pw.1 → v5.4.19-pw.1（全产物跳过烧毁的 .18 统一到 v5.4.19）
+
 ## v5.4.17-pw.1 (2026-05-26)
 
 - N/A#DNS-SPLIT-BOOTSTRAP：Passwall shunt_rules 只承载分流规则，不承载 DNS resolver 配置
