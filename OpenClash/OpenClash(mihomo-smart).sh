@@ -2,10 +2,10 @@
 . /usr/share/openclash/log.sh
 
 # ============================================================================
-# Clash Smart v5.4.17-oc-smart.1 — OpenClash 覆写脚本（与 Clash Party 主线同等规则量）
+# Clash Smart v5.4.19-oc-smart.1 — OpenClash 覆写脚本（与 Clash Party 主线同等规则量）
 # Build: 2026-05-26
 # ============================================================================
-# 定位：对齐 Clash Party v5.4.17 JS 主线的 OpenClash 全量版本。v5.4.2: P0-FIX#41 小米白名单。
+# 定位：对齐 Clash Party v5.4.19 JS 主线的 OpenClash 全量版本。v5.4.2: P0-FIX#41 小米白名单。
 #       与同目录 OpenClash(mihomo).sh（Normal）互补：
 #         - Normal 面向稳定版 mihomo / 经典 url-test
 #         - full  面向 4GB+ 路由器 / 需要与 Clash Party 桌面端一致的细粒度分流
@@ -16,14 +16,14 @@
 #   • ~990 条 rules
 #   • DNS fake-ip + 嗅探（HTTP/TLS/QUIC）+ nameserver-policy 救援
 #   • Ruby 阶段做：节点过滤 / 区域分类 / Smart 组生成 / TLS 指纹注入
-# 基线：Clash Party v5.4.17（唯一主线；v5.3.1/v5.3.2 为桌面端 PROCESS-NAME 改动，路由器端不适用）── 任何规则/组/DNS 改动必须先改 Clash Party JS，
+# 基线：Clash Party v5.4.19（唯一主线；v5.3.1/v5.3.2 为桌面端 PROCESS-NAME 改动，路由器端不适用）── 任何规则/组/DNS 改动必须先改 Clash Party JS，
 #       再同步到此文件。参见仓库根目录 CLAUDE.md / AGENTS.md。
 # 变更历史：见 `OpenClash/CHANGELOG.md`（Full 部分）。
 # ============================================================================
 
 
 
-VERSION_TAG="v5.4.17-oc-smart.1"
+VERSION_TAG="v5.4.19-oc-smart.1"
 CONFIG_FILE="$1"
 LOG_FILE="/tmp/openclash.log"
 
@@ -87,6 +87,17 @@ dns:
   - stun4.l.google.com
   - global.turn.twilio.com
   - +.rustdesk.com
+  # v5.4.19 #3 借鉴 Proxy-override：远控/游戏/P2P 需真实 IP 才能打洞/直连（同 RustDesk 语义）
+  - +.todesk.com
+  - +.oray.com
+  - +.sunlogin.com
+  - +.teamviewer.com
+  - +.anydesk.com
+  - +.battlenet.com.cn
+  - +.wotgame.cn
+  - +.wggames.cn
+  - +.wowsgame.cn
+  - +.mcdn.bilivideo.cn
   cache-algorithm: arc
   # 对齐 Clash Party v5.4.17 基线：default-nameserver 纯 IP，其它 resolver 固定 DoH
   use-hosts: false
@@ -124,6 +135,8 @@ dns:
   direct-nameserver:
   - https://dns.alidns.com/dns-query
   - https://doh.pub/dns-query
+  # v5.4.19 #5 借鉴 Proxy-override：让 direct-nameserver 也遵循 nameserver-policy（默认 false）。policy 仅含境外 CDN，零国内误伤。
+  direct-nameserver-follow-policy: true
   fallback:
   - https://cloudflare-dns.com/dns-query
   - https://dns.google/dns-query
@@ -3223,6 +3236,10 @@ rules:
 - DOMAIN-SUFFIX,cloudflarestorage.com,🌐 国外网站
 # v5.4.16 FIX#149: anti-AD/DustinWin 当前包含 analytics.paddle.com；Antigravity 登录需放行 Paddle 许可/支付链路。
 - DOMAIN-SUFFIX,paddle.com,🏦 金融支付
+# v5.4.19 #2 借鉴 Proxy-override：国内推送 SDK 直连前置——jpush/umeng 被 jiguangtuisong/youmengchuangxiang 当 tracker 拦截，但承载合法 App 推送/消息功能，需 DIRECT（参照 P0-FIX#41 小米先例）。
+- "DOMAIN-SUFFIX,jpush.cn,DIRECT"
+- "DOMAIN-SUFFIX,jpush.io,DIRECT"
+- "DOMAIN,msg.umeng.com,DIRECT"
 - "RULE-SET,anti-ad,\U0001F6D1 广告拦截"
 - "RULE-SET,sukka-phishing,\U0001F6D1 广告拦截"
 - "RULE-SET,hagezi-tif,\U0001F6D1 广告拦截"
@@ -4299,6 +4316,11 @@ rules:
 - "DOMAIN-SUFFIX,126.com,\U0001F3E0 国内网站"
 - "DOMAIN-SUFFIX,126.net,\U0001F3E0 国内网站"
 - "DOMAIN-SUFFIX,jianguoyun.com,\U0001F3E0 国内网站"
+# v5.4.19 #2 借鉴 Proxy-override：国内前端 CDN 直连前置（纯静态库托管，无 tracker 冲突）。
+- "DOMAIN-SUFFIX,baomitu.com,\U0001F3E0 国内网站"
+- "DOMAIN-SUFFIX,bootcss.com,\U0001F3E0 国内网站"
+- "DOMAIN-SUFFIX,staticfile.org,\U0001F3E0 国内网站"
+- "DOMAIN-SUFFIX,upaiyun.com,\U0001F3E0 国内网站"
 - "RULE-SET,cn,\U0001F3E0 国内网站"
 - "RULE-SET,cn-ip,\U0001F3E0 国内网站,no-resolve"
 - "DOMAIN-SUFFIX,alimama.com,\U0001F3E0 国内网站"
@@ -4333,7 +4355,7 @@ cat > "$RUBY_SCRIPT" << 'RUBY_EOF'
 require 'yaml'
 require 'digest'
 
-VERSION = "v5.4.17-oc-smart.1"
+VERSION = "v5.4.19-oc-smart.1"
 
 STATUS_LOG = "/tmp/clash_smart_status.log"
 File.open(STATUS_LOG, 'w') { |f| f.puts "[#{VERSION}] start" }

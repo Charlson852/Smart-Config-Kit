@@ -7,6 +7,25 @@
 
 ---
 
+## v5.4.19 / v5.4.19-normal.1 (2026-05-30)
+
+借鉴 Proxy-override 批 A（低风险三项；设计 spec：`docs/2026-05-30-proxy-override-借鉴设计.md`）：
+
+- ✅ #2 国内 SDK/CDN 直连前置
+  - jpush(极光推送) / `msg.umeng.com`(友盟) 加进 `AD_FALSE_POSITIVE_ALLOWLIST` 强制 DIRECT——此前被 `jiguangtuisong` / `youmengchuangxiang` 规则集当 tracker 拦截，导致 App 推送/消息功能受影响（参照 P0-FIX#41 小米先例；owner 已确认主动撤回此拦截）
+  - 360 `baomitu.com` / BootCDN `bootcss.com` / 七牛 `staticfile.org` / 又拍云 `upaiyun.com` 前置到 🏠 国内网站段 `RULE-SET,cn` 之前（目标用 `🏠 国内网站` 组而非 hard DIRECT，对齐同段 163.com 写法）
+  - 不加 `adjust.com` / `appsflyer.com`（海外归因 SDK，避免误判直连）
+- ✅ #3 fake-ip-filter 补全（10 条，需真实 IP 才能打洞/直连，同 RustDesk v5.4.12 语义）
+  - 远控：`+.todesk.com` `+.oray.com` `+.sunlogin.com` `+.teamviewer.com` `+.anydesk.com`
+  - 游戏：`+.battlenet.com.cn` `+.wotgame.cn` `+.wggames.cn` `+.wowsgame.cn`
+  - B站 P2P：`+.mcdn.bilivideo.cn`
+- ✅ #5 `direct-nameserver-follow-policy: true`
+  - 让 direct 出口域名解析也遵循 `nameserver-policy`（mihomo 默认 false 会忽略它）
+  - 官方文档 use case 即本场景（direct 用国内 DoH + policy 指定境外 CDN 走境外 DoH）；本仓库 policy 仅含境外 CDN，零国内误伤
+  - 不抬高最低内核门槛：与已使用的 `direct-nameserver` 同字段族（耦合添加，"仅当 direct-nameserver 不为空时生效"）
+- 📋 全产物联动：#2 全 14 产物（各端语法）；#3 / #5 限 6 mihomo 家族（SingBox 无 fake-ip；Loon/QX/SR 非 mihomo）
+- 🔢 版本：跳过烧毁的 v5.4.18（FlClash 曾误写后回退、SingBox 漏回退停在 .18），全产物统一对齐到 v5.4.19
+
 ## v5.4.17 / v5.4.17-normal.1 (2026-05-26)
 
 - ✅ FIX#DNS-SPLIT-BOOTSTRAP：DNS 固定为 `default-nameserver` 纯 IP 自举，其它 resolver 全部 DoH

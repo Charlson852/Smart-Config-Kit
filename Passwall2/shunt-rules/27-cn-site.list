@@ -8,6 +8,14 @@
 # [Domain List]
 domain:bbys.app
 domain:cdn.weixin.qq.com
+# v5.4.19 #2 借鉴 Proxy-override：国内推送 SDK + 前端 CDN 直连前置（纯静态库托管 / 合法 App 推送）
+full:msg.umeng.com
+domain:jpush.cn
+domain:jpush.io
+domain:baomitu.com
+domain:bootcss.com
+domain:staticfile.org
+domain:upaiyun.com
 geosite:cn
 
 # [IP List]

@@ -5,9 +5,9 @@
   },
   "_meta": {
     "name": "SingBox Smart Full",
-    "version": "v5.4.18-sing.1",
-    "build": "2026-05-27",
-    "baseline": "Clash Party v5.4.17",
+    "version": "v5.4.19-sing.1",
+    "build": "2026-05-30",
+    "baseline": "Clash Party v5.4.19",
     "changelog": "见 SingBox/CHANGELOG.md"
   },
   "experimental": {
@@ -1914,6 +1914,27 @@
         ],
         "action": "route",
         "outbound": "🏦 金融支付"
+      },
+      {
+        "domain_suffix": [
+          "jpush.cn"
+        ],
+        "action": "route",
+        "outbound": "DIRECT"
+      },
+      {
+        "domain_suffix": [
+          "jpush.io"
+        ],
+        "action": "route",
+        "outbound": "DIRECT"
+      },
+      {
+        "domain": [
+          "msg.umeng.com"
+        ],
+        "action": "route",
+        "outbound": "DIRECT"
       },
       {
         "rule_set": [
@@ -6767,6 +6788,34 @@
       {
         "domain_suffix": [
           "jianguoyun.com"
+        ],
+        "action": "route",
+        "outbound": "🏠 国内网站"
+      },
+      {
+        "domain_suffix": [
+          "baomitu.com"
+        ],
+        "action": "route",
+        "outbound": "🏠 国内网站"
+      },
+      {
+        "domain_suffix": [
+          "bootcss.com"
+        ],
+        "action": "route",
+        "outbound": "🏠 国内网站"
+      },
+      {
+        "domain_suffix": [
+          "staticfile.org"
+        ],
+        "action": "route",
+        "outbound": "🏠 国内网站"
+      },
+      {
+        "domain_suffix": [
+          "upaiyun.com"
         ],
         "action": "route",
         "outbound": "🏠 国内网站"
