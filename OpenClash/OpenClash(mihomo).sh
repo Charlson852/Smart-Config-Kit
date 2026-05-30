@@ -3273,7 +3273,7 @@ rules:
   # v5.4.22 #1 借鉴 Proxy-override：QUIC 精细化——YouTube/Google/MS/Apple 白名单豁免，其余海外 QUIC REJECT
 - "AND,((DST-PORT,443),(NETWORK,UDP),(GEOSITE,youtube)),\U0001F4F9 YouTube"
 - "AND,((DST-PORT,443),(NETWORK,UDP),(GEOSITE,google)),\U0001F527 工具与服务"
-- "AND,((DST-PORT,443),(NETWORK,UDP),(RULE-SET,microsoft)),\U24C2️ 微软服务"
+- "AND,((DST-PORT,443),(NETWORK,UDP),(RULE-SET,microsoft)),Ⓜ️ 微软服务"
 - "AND,((DST-PORT,443),(NETWORK,UDP),(RULE-SET,apple)),\U0001F34E 苹果服务"
 - "AND,((DST-PORT,443),(NETWORK,UDP),(NOT,((GEOSITE,cn)))),REJECT"
 - DST-PORT,7680,REJECT
