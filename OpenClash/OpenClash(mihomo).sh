@@ -4515,9 +4515,9 @@ def make_smart_group(name, proxies_filter_mode:, explicit_proxies: nil)
     "name"               => name,
     "type"               => "url-test",
     "url"                => "https://cp.cloudflare.com/generate_204",
-    "interval"           => 600,
-    "tolerance"          => 150,
-    "lazy"               => true,
+    "interval"           => 180,
+    "tolerance"          => 10,
+    "lazy"               => false,
   }
   if proxies_filter_mode == :include_all
     g["include-all-proxies"] = true

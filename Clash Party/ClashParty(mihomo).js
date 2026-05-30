@@ -342,7 +342,7 @@ const GEO_REGIONS_INTL = GEO_REGIONS_ALL.filter(r => r !== 'Asia_China')
 // ================================================================
 
 function upsertSmartGroup(config, name, proxies) {
-  var group = { name: name, type: 'url-test', url: 'https://www.gstatic.com/generate_204', interval: 120, tolerance: 30, lazy: true, proxies: proxies.slice() }
+  var group = { name: name, type: 'url-test', url: 'https://www.gstatic.com/generate_204', interval: 180, tolerance: 10, lazy: false, proxies: proxies.slice() }
   var idx = config['proxy-groups'].findIndex(function(g) { return g && g.name === name })
   if (idx !== -1) { config['proxy-groups'][idx] = group } else { config['proxy-groups'].push(group) }
   console.log(`[${VERSION}] url-test: "${name}" -> ${proxies.length} nodes`)
