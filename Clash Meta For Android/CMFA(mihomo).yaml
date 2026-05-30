@@ -1,4 +1,4 @@
-﻿# ================================================================
+# ================================================================
 # Clash Smart v5.4.19-cmfa.1 - CMFA (Clash Meta for Android) 配置
 # Build: 2026-05-30
 # 架构：proxy-providers 订阅 + 22 url-test 区域组（11 全部 + 11 家宽，家宽 filter 新增 IEPL/IPLC/专线识别）+ 32 业务策略组（含 14 流媒体平台组）+ 384+ rule-providers
@@ -105,7 +105,8 @@ dns:
   - +.wowsgame.cn
   - +.mcdn.bilivideo.cn
   - +.miwifi.com
-  use-hosts: false
+  # FIX#HOSTS-ALIGN: use-hosts 改 true（对齐主线，hosts 已固定全部 DoH 域名 IP，消除 fake-ip 冷启动循环依赖）
+  use-hosts: true
   use-system-hosts: false
   cache-algorithm: arc
   respect-rules: true
