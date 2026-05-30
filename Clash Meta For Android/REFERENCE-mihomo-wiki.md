@@ -2,6 +2,7 @@
 
 > 抓取自 https://wiki.metacubex.one/ (2026-04-26)
 > 更新于 2026-04-30：最新稳定版 v1.19.24（2026-04-20）。v1.19.17 已移除 relay 组类型（改用 dialer-proxy）——本仓库未使用 relay，无影响。v1.19.24 新增 XHTTP H3/HTTP1.1 模式、BBR profile。Smart/LightGBM 字段无变更。
+> 更新于 2026-05-30：default-nameserver 由"必须为 IP，不能为域名"修正为"必须为 IP，**可为加密 DNS**"——host 须为 IP，但 scheme 可为 tls://IP / https://IP/dns-query（官方原文"必须为 IP, 可为加密 DNS"）。
 > 本文件为本地参考，用于审核本仓库各配置文件与官方文档的兼容性。
 
 ---
@@ -176,7 +177,7 @@ rules:
 | `use-hosts` | 是否响应配置的 hosts，默认 true |
 | `use-system-hosts` | 是否查询系统 hosts，默认 true |
 | `respect-rules` | DNS 连接遵守路由规则；需配置 `proxy-server-nameserver` |
-| `default-nameserver` | 默认 DNS，必须为 IP，不能为域名 |
+| `default-nameserver` | 默认 DNS，**必须为 IP，可为加密 DNS**（host 须为 IP，scheme 可 tls:// / https://；如 `tls://223.5.5.5`、`https://223.5.5.5/dns-query` 均合法，仅 host 为域名时不合法） |
 | `nameserver-policy` | 特定域名使用特定 DNS 服务器；key 支持域名通配符和 geosite |
 | `nameserver` | 默认域名解析服务器 |
 | `fallback` | 备用域名解析服务器 |
