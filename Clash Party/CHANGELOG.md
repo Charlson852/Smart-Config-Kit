@@ -7,6 +7,57 @@
 
 ---
 
+## v5.4.22 / v5.4.22-normal.1 (2026-05-31)
+
+- ★ GeTui(个推)推送 SDK `getui.com` / `getui.net` / `gepush.com` 加直连白名单（review 后补；延续 #2 jpush/umeng——被通用广告/隐私表当 tracker 拦截但承载 App 推送如米家；owner 选放行保推送可达）。
+
+借鉴 Proxy-override 批 C · #1 QUIC 精细化（spec：`docs/2026-05-30-proxy-override-借鉴设计.md`）：
+
+- AND 规则白名单豁免：YouTube/Google/MS/Apple 的 QUIC 流量路由到对应业务组（依赖 sniffer QUIC 嗅探 SNI → GEOSITE/RULE-SET 匹配）
+- 其余非中国 QUIC → REJECT，强制回退 HTTP/2（同 Proxy-override 原版语义）
+- 首次补齐 CMFA + OpenClash×2 的 QUIC AND 规则（此前缺失，与主线不对称）
+- SingBox generator 扩展 QUIC 转换（AND 复合规则 → 6 条首命中 route rule）
+- iOS 四件套引擎限制：block-quic/disable-udp-ports 不支持 AND/NOT 白名单豁免，标注 N/A
+- 配套新增 `config.sniffer`（QUIC/443 SNI 嗅探 + `force-dns-mapping`，对齐 CMFA/OpenClash 既有 sniffer）——使 QUIC 的 GEOSITE/RULE-SET 匹配对 fake-ip-filter 真 IP 域名（如 `mcdn.bilivideo.cn`）同样生效；此前 Smart/Normal/FlClash 缺 sniffer，真 IP QUIC 会被 `NOT,((GEOSITE,cn))` 误 REJECT（review 修复）
+- 兜底判据由 `GEOIP,CN` 改为 `GEOSITE,cn`（**有意的语义变更**）：fake-ip 模式下 `GEOIP,CN` 对 198.18.x.x fake IP 判不出 CN，`GEOSITE,cn` 直接匹配映射域名更可靠
+- QUIC 精细化默认开；如何关闭见 `Clash Party/README.md`
+
+## v5.4.21 / v5.4.21-normal.1 (2026-05-31)
+
+借鉴 Proxy-override 批 D · #4 DoH-over-IP bootstrap（spec：`docs/2026-05-30-proxy-override-借鉴设计.md`）：
+
+- `default-nameserver` 从纯明文 IP 升级为 DoH-over-IP（`https://IP/dns-query`） + 1 个明文 IP 兜底 `223.5.5.5`
+- 消除 bootstrap 阶段 DNS 泄漏；阿里×2（`223.5.5.5`/`223.6.6.6`） + Google（`8.8.8.8`） + Cloudflare（`1.1.1.1`）
+- 溯源：mihomo 官方 wiki 明确 `default-nameserver` 支持加密 DNS（DoH/DoT/DoQ）；mihomo ≥ 1.18.x
+
+## v5.4.20 / v5.4.20-normal.1 (2026-05-30)
+
+借鉴 Proxy-override 批 B · #6 节点过滤关键词补充（spec：`docs/2026-05-30-proxy-override-借鉴设计.md`）：
+
+- junk 节点过滤器 `isInfoNode` 新增关键词：中文子串 `免费` / `试用` / `应急`；英文（`\b` 词边界，防误伤 Signal 等）`Sign` / `Login` / `Register` / `Help` / `FAQ`
+- 不加「更新」「地址」（误伤风险高，owner spec 排除）
+- 回归测试：新增 `tools/test-info-node-filter.js`（6 mihomo 产物源码一致性）+ 扩展 `tools/validate-js-overwrites.js` fixture（3 JS 行为断言：8 个 junk 正例被过滤 + `Signal 香港 IEPL x1` 负例保留并分类 HK，验证 `\b` 词边界生效）
+- 🔢 版本：v5.4.19 → v5.4.20
+
+## v5.4.19 / v5.4.19-normal.1 (2026-05-30)
+
+借鉴 Proxy-override 批 A（低风险三项；设计 spec：`docs/2026-05-30-proxy-override-借鉴设计.md`）：
+
+- ✅ #2 国内 SDK/CDN 直连前置
+  - jpush(极光推送) / `msg.umeng.com`(友盟) 加进 `AD_FALSE_POSITIVE_ALLOWLIST` 强制 DIRECT——此前被 `jiguangtuisong` / `youmengchuangxiang` 规则集当 tracker 拦截，导致 App 推送/消息功能受影响（参照 P0-FIX#41 小米先例；owner 已确认主动撤回此拦截）
+  - 360 `baomitu.com` / BootCDN `bootcss.com` / 七牛 `staticfile.org` / 又拍云 `upaiyun.com` 前置到 🏠 国内网站段 `RULE-SET,cn` 之前（目标用 `🏠 国内网站` 组而非 hard DIRECT，对齐同段 163.com 写法）
+  - 不加 `adjust.com` / `appsflyer.com`（海外归因 SDK，避免误判直连）
+- ✅ #3 fake-ip-filter 补全（10 条，需真实 IP 才能打洞/直连，同 RustDesk v5.4.12 语义）
+  - 远控：`+.todesk.com` `+.oray.com` `+.sunlogin.com` `+.teamviewer.com` `+.anydesk.com`
+  - 游戏：`+.battlenet.com.cn` `+.wotgame.cn` `+.wggames.cn` `+.wowsgame.cn`
+  - B站 P2P：`+.mcdn.bilivideo.cn`
+- ✅ #5 `direct-nameserver-follow-policy: true`
+  - 让 direct 出口域名解析也遵循 `nameserver-policy`（mihomo 默认 false 会忽略它）
+  - 官方文档 use case 即本场景（direct 用国内 DoH + policy 指定境外 CDN 走境外 DoH）；本仓库 policy 仅含境外 CDN，零国内误伤
+  - 不抬高最低内核门槛：与已使用的 `direct-nameserver` 同字段族（耦合添加，"仅当 direct-nameserver 不为空时生效"）
+- 📋 全产物联动：#2 全 14 产物（各端语法）；#3 / #5 限 6 mihomo 家族（SingBox 无 fake-ip；Loon/QX/SR 非 mihomo）
+- 🔢 版本：跳过烧毁的 v5.4.18（FlClash 曾误写后回退、SingBox 漏回退停在 .18），全产物统一对齐到 v5.4.19
+
 ## v5.4.17 / v5.4.17-normal.1 (2026-05-26)
 
 - ✅ FIX#DNS-SPLIT-BOOTSTRAP：DNS 固定为 `default-nameserver` 纯 IP 自举，其它 resolver 全部 DoH

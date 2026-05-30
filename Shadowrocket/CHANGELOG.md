@@ -5,6 +5,36 @@
 
 ---
 
+## v5.4.22-SR.1 (2026-05-31)
+
+- ★ GeTui(个推)推送 SDK `getui.com` / `getui.net` / `gepush.com` 加直连白名单（review 后补；延续 #2，被通用广告/隐私表当 tracker 拦截但承载 App 推送如米家；owner 选放行）。
+
+- N/A#1 QUIC 精细化：SR block-quic 是引擎级开关，不支持 AND/NOT 白名单豁免。引擎标注见文件内注释。
+
+## v5.4.21-SR.1 (2026-05-31)
+
+#4 借鉴 Proxy-override：全部 DoH URL（dns-server / proxy-dns-server / fallback-dns-server）从域名改为 IP-host DoH，消除 bootstrap 阶段 DNS 泄漏；SR 无独立 bootstrap 字段，直接用 IP DoH 即免自举。
+
+## v5.4.20-SR.1 (2026-05-30)
+
+- N/A#6 节点过滤关键词补充（批 B）：Shadowrocket 不处理订阅去 junk（无 isInfoNode / exclude-filter 等运行时 junk 过滤器），#6 不适用；版本跟随 Clash Party v5.4.20 基线对齐。
+
+## v5.4.19-SR.1 (2026-05-30)
+
+借鉴 Proxy-override 批 A · #2 国内 SDK/CDN 直连前置（跟随 Clash Party v5.4.19；spec：`docs/2026-05-30-proxy-override-借鉴设计.md`）：
+
+- jpush / `msg.umeng.com` 前置到广告拦截 RULE-SET 之前强制 DIRECT（承载合法 App 推送/消息；与 mihomo 家族行为对齐，避免跨端不一致）
+- `baomitu.com` / `bootcss.com` / `staticfile.org` / `upaiyun.com` 加入 🏠 国内网站段
+- 不适用 #3 fake-ip-filter（iOS Shadowrocket 无该字段）/ #5 direct-nameserver-follow-policy（非 mihomo 内核）
+- 🔢 版本：v5.4.17-SR.1 → v5.4.19-SR.1（全产物跳过烧毁的 .18 统一到 v5.4.19）
+## v5.4.17-SR.2 (2026-05-30)
+
+- ★ FIX#KR-WB：日韩 / 亚太 `policy-regex-filter` 裸 `KR` 补词边界 `(?<![a-zA-Z])KR(?![a-zA-Z])`（与本文件 US/SG 写法一致）
+  - 大小写敏感下仅大写 `KR` 子串误伤（KRAKEN / DARKROOM → 🇯🇵 日韩节点），加边界后消除
+  - 覆盖日韩节点 / 日韩家宽 / 亚太节点 / 亚太家宽 4 行；KOR/Korea/Seoul/🇰🇷 完整词不受影响
+  - §1.5 同构审计：主线 Clash Party×3 JS + CMFA 本就带边界未改；OpenClash/Loon/Surge/QX 同步修复
+  - 回归测试见 `tools/test-kr-boundary.js`
+
 ## v5.4.17-SR.1 (2026-05-26)
 
 - ✅ FIX#DNS-SPLIT-BOOTSTRAP：Shadowrocket DNS 同步 v5.4.17 split-bootstrap 语义

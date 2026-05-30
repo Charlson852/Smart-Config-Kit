@@ -5,6 +5,44 @@
 
 ---
 
+## v5.4.22-cmfa.1 (2026-05-31)
+
+- ★ GeTui(个推)推送 SDK `getui.com` / `getui.net` / `gepush.com` 加直连白名单（review 后补；延续 #2，被通用广告/隐私表当 tracker 拦截但承载 App 推送如米家；owner 选放行）。
+
+#1 借鉴 Proxy-override：QUIC 精细化——AND 规则白名单豁免（YouTube/Google/MS/Apple 的 QUIC 走对应业务组）；其余非 CN QUIC REJECT。首次补齐 CMFA 的 QUIC AND 规则（此前缺失）。
+
+- 兜底判据 `GEOIP,CN` → `GEOSITE,cn`（**有意的语义变更**，fake-ip 下更可靠）；CMFA 既有 `sniffer`（force-dns-mapping）保障真 IP QUIC 的 GEOSITE 匹配。
+
+## v5.4.21-cmfa.1 (2026-05-31)
+
+#4 借鉴 Proxy-override：`default-nameserver` 从纯明文 IP 升级为 DoH-over-IP + 1 明文兜底；消除 bootstrap 阶段 DNS 泄漏。
+
+## v5.4.20-cmfa.1 (2026-05-30)
+
+借鉴 Proxy-override 批 B · #6 节点过滤关键词补充（spec：`docs/2026-05-30-proxy-override-借鉴设计.md`）：
+
+- proxy-providers `exclude-filter` 正则新增：中文 `免费` / `试用` / `应急`；英文 `\bSign\b` / `\bLogin\b` / `\bRegister\b` / `\bHelp\b` / `\bFAQ\b`（Go RE2 子串引擎下用 `\b` 词边界，避免误伤 Signal 等）
+- 不加「更新」「地址」（误伤风险高，owner spec 排除）
+- 一致性回归：`tools/test-info-node-filter.js` 覆盖本产物 exclude-filter
+- 🔢 版本：v5.4.19-cmfa.1 → v5.4.20-cmfa.1
+
+## v5.4.19-cmfa.1 (2026-05-30)
+
+借鉴 Proxy-override 批 A（跟随 Clash Party v5.4.19；spec：`docs/2026-05-30-proxy-override-借鉴设计.md`）：
+
+- ✅ #2 国内 SDK/CDN 直连前置
+  - jpush / `msg.umeng.com` 前置到 `RULE-SET,jiguangtuisong` / `youmengchuangxiang` 广告拦截规则之前强制 DIRECT（沿用 paddle / 小米误杀前置白名单机制）
+  - `baomitu.com` / `bootcss.com` / `staticfile.org` / `upaiyun.com` 前置到 🏠 国内网站段 `RULE-SET,cn` 之前
+- ✅ #3 fake-ip-filter 补全 10 条（远控 todesk/oray/sunlogin/teamviewer/anydesk · 游戏 battlenet.com.cn/wotgame.cn/wggames.cn/wowsgame.cn · B站 P2P mcdn.bilivideo.cn）
+- ✅ #5 `direct-nameserver-follow-policy: true`（direct 出口域名解析遵循 nameserver-policy；本仓库 policy 仅含境外 CDN，零国内误伤）
+- 🔢 版本：v5.4.17-cmfa.1 → v5.4.19-cmfa.1（全产物跳过烧毁的 .18 统一到 v5.4.19）
+## v5.4.17-cmfa.2 (2026-05-30)
+
+- ★ FIX#HOSTS-ALIGN：`use-hosts: false` → `true`，对齐主线启用 hosts 预解析
+  - 主线（Clash Party Smart JS）`use-hosts` 默认 true 且 hosts 固定全部 DoH 域名 IP，用于消除 fake-ip 冷启动循环依赖 + 防 DoH 域名被污染
+  - CMFA 此前显式 `use-hosts: false` 关掉了已对齐主线的 hosts 块（dns.alidns.com / doh.pub / dns.google / cloudflare-dns.com）；改 true 后生效
+  - §1 DNS 跨产物联动：OpenClash Normal/Full 同步（并补全各自 hosts 缺失的 alidns/doh.pub）
+
 ## v5.4.17-cmfa.1 (2026-05-26)
 
 - ✅ FIX#DNS-SPLIT-BOOTSTRAP：同步 Clash Party v5.4.17 DNS 合同

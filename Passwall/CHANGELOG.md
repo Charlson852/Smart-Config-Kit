@@ -7,6 +7,28 @@
 
 ---
 
+## v5.4.22-pw.1 (2026-05-31)
+
+- ★ GeTui(个推)推送 SDK `getui.com` / `getui.net` / `gepush.com` 加入 `27-cn-site.list`（review 后补；延续 #2，归 direct shunt；owner 选放行保 App 推送如米家）。
+
+- N/A#1 QUIC 精细化：Passwall 不承载 QUIC 阻断，#1 不适用；版本跟随基线对齐。
+
+## v5.4.21-pw.1 (2026-05-31)
+
+- N/A#4 DoH-over-IP bootstrap：Passwall shunt_rules 不承载 DNS resolver，#4 不适用；版本跟随基线对齐。
+
+## v5.4.20-pw.1 (2026-05-30)
+
+- N/A#6 节点过滤关键词补充（批 B）：Passwall 无运行时节点分类 / junk 过滤器（静态 shunt_rules），#6 不适用；版本跟随 Clash Party v5.4.20 基线对齐。
+
+## v5.4.19-pw.1 (2026-05-30)
+
+借鉴 Proxy-override 批 A · #2 国内 SDK/CDN 直连前置（跟随 Clash Party v5.4.19；spec：`docs/2026-05-30-proxy-override-借鉴设计.md`）：
+
+- `27-cn-site.list` [Domain List] 增加：`full:msg.umeng.com` + `domain:jpush.cn` / `jpush.io`（承载合法 App 推送；Passwall 无 jiguang/youmeng 拦截源，零冲突）+ `domain:baomitu.com` / `bootcss.com` / `staticfile.org` / `upaiyun.com`（前端 CDN）→ 均归 direct shunt
+- 不适用 #3 fake-ip-filter / #5 direct-nameserver-follow-policy（Passwall shunt_rules 不承载 fake-ip / mihomo DNS 字段）
+- 🔢 版本：v5.4.17-pw.1 → v5.4.19-pw.1（全产物跳过烧毁的 .18 统一到 v5.4.19）
+
 ## v5.4.17-pw.1 (2026-05-26)
 
 - N/A#DNS-SPLIT-BOOTSTRAP：Passwall shunt_rules 只承载分流规则，不承载 DNS resolver 配置

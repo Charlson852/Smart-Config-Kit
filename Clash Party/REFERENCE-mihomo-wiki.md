@@ -2,6 +2,8 @@
 
 > 抓取自 https://wiki.metacubex.one/ (2026-04-26)
 > 更新于 2026-04-30：最新稳定版 v1.19.24（2026-04-20）。v1.19.17 已移除 relay 组类型（改用 dialer-proxy）——本仓库未使用 relay，无影响。Smart/LightGBM 字段无变更。
+> 更新于 2026-05-30：批 A #5 落地——WebFetch `wiki/config/dns` + WebSearch 确认 `direct-nameserver-follow-policy` 语义：默认 `false`（忽略 nameserver-policy），`true` 时 direct 出口域名解析也遵守 nameserver-policy，仅当 direct-nameserver 非空时生效；官方 use case 即「direct 用国内 DoH + policy 指定域名走指定 DNS」。与 `direct-nameserver` 同字段族（耦合添加），本仓库已使用 direct-nameserver，故置 true 不抬高最低内核要求。
+> 更新于 2026-05-30：default-nameserver 由"必须为 IP，不能为域名"修正为"必须为 IP，**可为加密 DNS**"——host 须为 IP，但 scheme 可为 tls://IP / https://IP/dns-query（官方原文"必须为 IP, 可为加密 DNS"）。
 > 本文件为本地参考，用于审核本仓库各配置文件与官方文档的兼容性。
 
 ---
@@ -176,14 +178,14 @@ rules:
 | `use-hosts` | 是否响应配置的 hosts，默认 true |
 | `use-system-hosts` | 是否查询系统 hosts，默认 true |
 | `respect-rules` | DNS 连接遵守路由规则；需配置 `proxy-server-nameserver` |
-| `default-nameserver` | 默认 DNS，必须为 IP，不能为域名 |
+| `default-nameserver` | 默认 DNS，**必须为 IP，可为加密 DNS**（host 须为 IP，scheme 可 tls:// / https://；如 `tls://223.5.5.5`、`https://223.5.5.5/dns-query` 均合法，仅 host 为域名时不合法） |
 | `nameserver-policy` | 特定域名使用特定 DNS 服务器；key 支持域名通配符和 geosite |
 | `nameserver` | 默认域名解析服务器 |
 | `fallback` | 备用域名解析服务器 |
 | `proxy-server-nameserver` | 代理节点域名解析服务器 |
 | `proxy-server-nameserver-policy` | 节点域名解析策略 |
 | `direct-nameserver` | 直连出口的 DNS 服务器 |
-| `direct-nameserver-follow-policy` | 是否遵守 nameserver-policy |
+| `direct-nameserver-follow-policy` | 是否遵守 nameserver-policy（默认 **false** = 忽略；仅当 direct-nameserver 非空时生效。本仓库 v5.4.19 起置 `true`，使 direct 出口域名解析也遵守 policy） |
 | `fallback-filter` | 备用 DNS 过滤器；含 `geoip` / `geoip-code` / `geosite` / `ipcidr` / `domain` |
 
 ### fake-ip-filter-mode: rule 模式

@@ -7,6 +7,51 @@
 
 ---
 
+## v5.4.22-oc-normal.1 / v5.4.22-oc-smart.1 (2026-05-31)
+
+- ★ GeTui(个推)推送 SDK `getui.com` / `getui.net` / `gepush.com` 加直连白名单（review 后补；延续 #2，被通用广告/隐私表当 tracker 拦截但承载 App 推送如米家；owner 选放行）。
+
+#1 借鉴 Proxy-override：QUIC 精细化——AND 规则白名单豁免（YouTube/Google/MS/Apple）；其余非 CN QUIC REJECT。首次补齐 OpenClash 的 QUIC AND 规则（此前缺失）。
+
+- ★ FIX#HOSTS-DEDUP（review 修复）：删除 v5.4.21(#4) 误引入的重复 `use-hosts: false`——它在 YAML last-wins 下静默回退了 v5.4.17 FIX#HOSTS-ALIGN 的 `use-hosts: true`（两份 .sh 在同一 dns YAML 块内出现重复键）。修复后 hosts 预解析恢复，消除 fake-ip 冷启动循环依赖。
+- 兜底判据 `GEOIP,CN` → `GEOSITE,cn`（同主线，fake-ip 下更可靠）。
+
+## v5.4.21-oc-normal.1 / v5.4.21-oc-smart.1 (2026-05-31)
+
+#4 借鉴 Proxy-override：`default-nameserver` 从纯明文 IP 升级为 DoH-over-IP + 1 明文兜底（阿里×2 + Google + CF）；消除 bootstrap 阶段 DNS 泄漏。
+
+## v5.4.20-oc-normal.1 / v5.4.20-oc-smart.1 (2026-05-30)
+
+借鉴 Proxy-override 批 B · #6 节点过滤关键词补充（Normal / Smart 同步；spec：`docs/2026-05-30-proxy-override-借鉴设计.md`）：
+
+- Ruby `INFO_PATTERNS` reject 数组新增：中文 `/免费/` `/试用/` `/应急/`；英文 `/\bSign\b/i` `/\bLogin\b/i` `/\bRegister\b/i` `/\bHelp\b/i` `/\bFAQ\b/i`（`\b` 词边界防误伤 Signal；`/注册/` Register 中文已存在）
+- 不加「更新」「地址」（误伤风险高，owner spec 排除）
+- 一致性回归：`tools/test-info-node-filter.js` 覆盖两份 .sh 的 Ruby INFO_PATTERNS
+- 🔢 版本：v5.4.19-oc-* → v5.4.20-oc-*
+
+## v5.4.19-oc-normal.1 / v5.4.19-oc-smart.1 (2026-05-30)
+
+借鉴 Proxy-override 批 A（Normal / Smart 同步；跟随 Clash Party v5.4.19；spec：`docs/2026-05-30-proxy-override-借鉴设计.md`）：
+
+- ✅ #2 国内 SDK/CDN 直连前置
+  - jpush / `msg.umeng.com` 前置到 `RULE-SET,jiguangtuisong` / `youmengchuangxiang` 广告拦截规则之前强制 DIRECT（沿用 paddle / 小米误杀前置白名单段）
+  - `baomitu.com` / `bootcss.com` / `staticfile.org` / `upaiyun.com` 前置到 🏠 国内网站段 `RULE-SET,cn` 之前
+- ✅ #3 fake-ip-filter 补全 10 条（远控 todesk/oray/sunlogin/teamviewer/anydesk · 游戏 battlenet.com.cn/wotgame.cn/wggames.cn/wowsgame.cn · B站 P2P mcdn.bilivideo.cn）
+- ✅ #5 `direct-nameserver-follow-policy: true`（direct 出口域名解析遵循 nameserver-policy；本仓库 policy 仅含境外 CDN，零国内误伤）
+- 🔢 版本：v5.4.17-oc-* → v5.4.19-oc-*（全产物跳过烧毁的 .18 统一到 v5.4.19；含 VERSION_TAG + 内嵌 Ruby VERSION 双处）
+## v5.4.17-oc-normal.2 / v5.4.17-oc-smart.2 (2026-05-30)
+
+- ★ FIX#KR-WB：Ruby `REGIONS` 裸 `KR` 补词边界 `\bKR\b`（与同文件 HK/TW/JP/SG/US 一致）
+  - 原 `/KR/i` 子串匹配，误把 Ukraine / Krakow / Kraken 等含 kr 串节点分到 🇯🇵 日韩节点
+  - `\b` 把数字视为词字符，"KR01" 数字紧邻不命中（与 HK01/TW01 同；conf 产物用 lookbehind 允许数字边界，KR01 命中——各端既有风格差异，已记录）
+  - §1.5 审计：Normal 与 Full 同构，同步修复；主线 Clash Party×3 JS + CMFA 本就带边界，未改
+- ★ FIX#DEDUP：删除 rules 末尾重复死规则 noip.com / GEOIP,cloudflare / GEOIP,CN（各 1 处）
+  - 与前段同条目字面重复，因规则顺序短路永不执行、目标组相同；删除零分流影响
+- ★ FIX#HOSTS-ALIGN：`use-hosts: false` → `true`，并补全 hosts 缺失的 `dns.alidns.com` / `doh.pub`
+  - 对齐主线：hosts 固定全部自用 DoH 域名 IP（alidns/doh.pub/google/cloudflare），消除 fake-ip 冷启动循环依赖
+  - 此前 `use-hosts:false` 让 hosts 块失效（报告误判为"应删 hosts"，实为应启用）；§1 DNS 联动 CMFA 同步
+- 回归测试见 `tools/test-kr-boundary.js`
+
 ## v5.4.17-oc-normal.1 / v5.4.17-oc-smart.1 (2026-05-26)
 
 - ✅ FIX#DNS-SPLIT-BOOTSTRAP：Normal / Smart 同步 Clash Party v5.4.17 DNS 合同

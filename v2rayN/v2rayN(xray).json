@@ -2,7 +2,7 @@
     {
       "id": "scki-000-meta",
       "enabled": false,
-      "remarks": "Smart-Config-Kit v5.4.17-v2n.1 | Build 2026-05-26 | Baseline Clash Party v5.4.17 | changelog: v2rayN/CHANGELOG.md | DNS split-bootstrap not applicable to Xray routing rules",
+      "remarks": "Smart-Config-Kit v5.4.22-v2n.1 | Build 2026-05-31 | Baseline Clash Party v5.4.22 | changelog: v2rayN/CHANGELOG.md | #1 QUIC N/A (Xray routing)",
       "outboundTag": "direct",
       "domain": [
         "domain:smart-config-kit.invalid"
@@ -34,6 +34,29 @@
       "outboundTag": "proxy",
       "domain": [
         "domain:paddle.com"
+      ],
+      "ip": [],
+      "port": "",
+      "protocol": [],
+      "inboundTag": [],
+      "network": "tcp,udp"
+    },
+    {
+      "id": "scki-000c-cn-sdk-cdn-direct",
+      "enabled": true,
+      "remarks": "v5.4.19 #2 借鉴 Proxy-override：国内推送 SDK + 前端 CDN 直连前置（jpush/umeng 前置于 ads 避免被 category-ads-all 误拦；360/BootCDN/七牛/又拍云 CDN 走直连）",
+      "outboundTag": "direct",
+      "domain": [
+        "domain:jpush.cn",
+        "domain:jpush.io",
+        "full:msg.umeng.com",
+        "domain:getui.com",
+        "domain:getui.net",
+        "domain:gepush.com",
+        "domain:baomitu.com",
+        "domain:bootcss.com",
+        "domain:staticfile.org",
+        "domain:upaiyun.com"
       ],
       "ip": [],
       "port": "",

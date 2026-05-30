@@ -5,6 +5,28 @@
 
 ---
 
+## v5.4.22-sing.1 (2026-05-31)
+
+- ★ GeTui(个推)推送 SDK `getui.com` / `getui.net` / `gepush.com` 直连（review 后补；由主线 allowlist 自动派生后重新生成 route.rules）。
+
+- #1 借鉴 Proxy-override：QUIC 精细化——generator.js 扩展硬编码 6 条 route rule（白名单 4 + CN 放行 + 其余 REJECT）；AND 复合规则不入 toSingRule()。
+
+## v5.4.21-sing.1 (2026-05-31)
+
+#4 借鉴 Proxy-override：bootstrap 从 `udp://IP:53` 升级为 `https://IP/dns-query` + TLS SNI 覆盖（dns.alidns.com / cloudflare-dns.com / dns.google）；消除 bootstrap 阶段 DNS 泄漏。generator.js bump 后重新生成。
+
+## v5.4.20-sing.1 (2026-05-30)
+
+- N/A#6 节点过滤关键词补充（批 B）：sing-box 为静态 outbound 列表（用户自接入节点，无订阅 junk 过滤），#6 不适用。generator.js 版本/基线 bump 后重新生成，route.rules 不变（1077→725 转换）；版本跟随 Clash Party v5.4.20 基线对齐。
+
+## v5.4.19-sing.1 (2026-05-30)
+
+借鉴 Proxy-override 批 A · #2 国内 SDK/CDN 直连前置（由主线 Smart JS 规则自动派生后重新生成；spec：`docs/2026-05-30-proxy-override-借鉴设计.md`）：
+
+- 重新生成后 `route.rules` 自动纳入主线新增的 #2 规则：`jpush.cn` / `jpush.io` / `msg.umeng.com` → DIRECT；`baomitu.com` / `bootcss.com` / `staticfile.org` / `upaiyun.com` → 🏠 国内网站
+- #3 fake-ip-filter 不适用（sing-box 不使用 fake-ip 增强模式）；#5 `direct-nameserver-follow-policy` 不适用（sing-box DNS 结构由 generator 独立构建，非 mihomo 字段）
+- 🔢 版本：v5.4.18-sing.1 → v5.4.19-sing.1（generator VERSION / BUILD / BASELINE 同步；全产物统一对齐 v5.4.19）
+
 ## v5.4.18-sing.1 (2026-05-27)
 
 - ✅ FIX#SING-DNS-REDUNDANCY：DNS server 各路径补齐冗余，消除单点故障

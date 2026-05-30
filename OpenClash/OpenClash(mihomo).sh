@@ -2,12 +2,12 @@
 . /usr/share/openclash/log.sh
 
 # ============================================================================
-# Clash Smart v5.4.17-oc-normal.1 — OpenClash 覆写脚本（非 Smart 内核 / url-test 区域组）
-# Build: 2026-05-26
+# Clash Smart v5.4.22-oc-normal.1 — OpenClash 覆写脚本（非 Smart 内核 / url-test 区域组）
+# Build: 2026-05-31
 # ============================================================================
 # 定位：与同目录 OpenClash(mihomo-smart).sh 规则 100% 等价的「非 Smart 内核」版本。
 #       两者唯一区别：22 个区域组（11 全部 + 11 家宽）从 type: smart（uselightgbm）换成 type: url-test。
-#       对齐 Clash Party v5.4.17 JS 基线。
+#       对齐 Clash Party v5.4.22 JS 基线。
 #       适用场景：
 #         - OpenClash 内核选的是 Meta(mihomo 稳定版) 而非 Meta Alpha，不支持 smart + LightGBM
 #         - 或者明确想关闭 LightGBM ML 评估、只靠经典 url-test 延迟选路
@@ -19,14 +19,14 @@
 #   • ~990 条 rules
 #   • DNS fake-ip + 嗅探（HTTP/TLS/QUIC）+ nameserver-policy 救援
 #   • Ruby 阶段做：节点过滤 / 区域分类 / url-test 组生成 / TLS 指纹注入
-# 基线：Clash Party v5.4.17（唯一主线；v5.3.1/v5.3.2 为桌面端 PROCESS-NAME 改动，路由器端不适用）── 任何规则/组/DNS 改动必须先改 Clash Party JS，
+# 基线：Clash Party v5.4.20（唯一主线；v5.3.1/v5.3.2 为桌面端 PROCESS-NAME 改动，路由器端不适用）── 任何规则/组/DNS 改动必须先改 Clash Party JS，
 #       再同步到此文件。参见仓库根目录 CLAUDE.md / AGENTS.md。
 # 变更历史：见 `OpenClash/CHANGELOG.md`（Normal 部分）。
 # ============================================================================
 
 
 
-VERSION_TAG="v5.4.17-oc-normal.1"
+VERSION_TAG="v5.4.22-oc-normal.1"
 CONFIG_FILE="$1"
 LOG_FILE="/tmp/openclash.log"
 
@@ -50,6 +50,11 @@ hosts:
   - 8.8.8.8
   - 8.8.4.4
   dns.quad9.net: 9.9.9.9
+  dns.alidns.com:
+  - 223.5.5.5
+  - 223.6.6.6
+  doh.pub:
+  - 119.29.29.29
 dns:
   enable: true
   listen: 0.0.0.0:7874
@@ -90,16 +95,30 @@ dns:
   - stun4.l.google.com
   - global.turn.twilio.com
   - +.rustdesk.com
+  # v5.4.19 #3 借鉴 Proxy-override：远控/游戏/P2P 需真实 IP 才能打洞/直连（同 RustDesk 语义）
+  - +.todesk.com
+  - +.oray.com
+  - +.sunlogin.com
+  - +.teamviewer.com
+  - +.anydesk.com
+  - +.battlenet.com.cn
+  - +.wotgame.cn
+  - +.wggames.cn
+  - +.wowsgame.cn
+  - +.mcdn.bilivideo.cn
   cache-algorithm: arc
   # 对齐 Clash Party v5.4.17 基线：default-nameserver 纯 IP，其它 resolver 固定 DoH
-  use-hosts: false
+  # FIX#HOSTS-ALIGN: use-hosts 改 true（对齐主线启用 hosts 预解析，消除 fake-ip 冷启动循环依赖）
+  use-hosts: true
   use-system-hosts: false
   respect-rules: true
+  # v5.4.21 #4 借鉴 Proxy-override：default-nameserver DoH-over-IP + 1 明文兜底
   default-nameserver:
-  - 223.5.5.5
-  - 119.29.29.29
-  - 1.1.1.1
-  - 8.8.8.8
+  - 'https://223.5.5.5/dns-query'
+  - 'https://223.6.6.6/dns-query'
+  - 'https://8.8.8.8/dns-query'
+  - 'https://1.1.1.1/dns-query'
+  - '223.5.5.5'
   nameserver-policy:
     '+.jsdelivr.net':
     - https://cloudflare-dns.com/dns-query
@@ -127,6 +146,8 @@ dns:
   direct-nameserver:
   - https://dns.alidns.com/dns-query
   - https://doh.pub/dns-query
+  # v5.4.19 #5 借鉴 Proxy-override：让 direct-nameserver 也遵循 nameserver-policy（默认 false）。policy 仅含境外 CDN，零国内误伤。
+  direct-nameserver-follow-policy: true
   fallback:
   - https://cloudflare-dns.com/dns-query
   - https://dns.google/dns-query
@@ -3226,6 +3247,14 @@ rules:
 - DOMAIN-SUFFIX,cloudflarestorage.com,🌐 国外网站
 # v5.4.16 FIX#149: anti-AD/DustinWin 当前包含 analytics.paddle.com；Antigravity 登录需放行 Paddle 许可/支付链路。
 - DOMAIN-SUFFIX,paddle.com,🏦 金融支付
+# v5.4.19 #2 借鉴 Proxy-override：国内推送 SDK 直连前置——jpush/umeng 被 jiguangtuisong/youmengchuangxiang 当 tracker 拦截，但承载合法 App 推送/消息功能，需 DIRECT（参照 P0-FIX#41 小米先例）。
+- "DOMAIN-SUFFIX,jpush.cn,DIRECT"
+- "DOMAIN-SUFFIX,jpush.io,DIRECT"
+- "DOMAIN,msg.umeng.com,DIRECT"
+# v5.4.22 GeTui(个推)推送 SDK 直连——延续 #2（被通用广告/隐私表当 tracker 拦截，承载 App 推送如米家）
+- "DOMAIN-SUFFIX,getui.com,DIRECT"
+- "DOMAIN-SUFFIX,getui.net,DIRECT"
+- "DOMAIN-SUFFIX,gepush.com,DIRECT"
 - "RULE-SET,anti-ad,\U0001F6D1 广告拦截"
 - "RULE-SET,sukka-phishing,\U0001F6D1 广告拦截"
 - "RULE-SET,hagezi-tif,\U0001F6D1 广告拦截"
@@ -3245,6 +3274,12 @@ rules:
 - "RULE-SET,miuiprivacy,\U0001F6D1 广告拦截"
 - "RULE-SET,privacy,\U0001F6D1 广告拦截"
 - "RULE-SET,youmengchuangxiang,\U0001F6D1 广告拦截"
+  # v5.4.22 #1 借鉴 Proxy-override：QUIC 精细化——YouTube/Google/MS/Apple 白名单豁免，其余海外 QUIC REJECT
+- "AND,((DST-PORT,443),(NETWORK,UDP),(GEOSITE,youtube)),\U0001F4F9 YouTube"
+- "AND,((DST-PORT,443),(NETWORK,UDP),(GEOSITE,google)),\U0001F527 工具与服务"
+- "AND,((DST-PORT,443),(NETWORK,UDP),(RULE-SET,microsoft)),Ⓜ️ 微软服务"
+- "AND,((DST-PORT,443),(NETWORK,UDP),(RULE-SET,apple)),\U0001F34E 苹果服务"
+- "AND,((DST-PORT,443),(NETWORK,UDP),(NOT,((GEOSITE,cn)))),REJECT"
 - DST-PORT,7680,REJECT
 - GEOSITE,private,DIRECT
 - GEOIP,private,DIRECT,no-resolve
@@ -4302,6 +4337,11 @@ rules:
 - "DOMAIN-SUFFIX,126.com,\U0001F3E0 国内网站"
 - "DOMAIN-SUFFIX,126.net,\U0001F3E0 国内网站"
 - "DOMAIN-SUFFIX,jianguoyun.com,\U0001F3E0 国内网站"
+# v5.4.19 #2 借鉴 Proxy-override：国内前端 CDN 直连前置（纯静态库托管，无 tracker 冲突）。
+- "DOMAIN-SUFFIX,baomitu.com,\U0001F3E0 国内网站"
+- "DOMAIN-SUFFIX,bootcss.com,\U0001F3E0 国内网站"
+- "DOMAIN-SUFFIX,staticfile.org,\U0001F3E0 国内网站"
+- "DOMAIN-SUFFIX,upaiyun.com,\U0001F3E0 国内网站"
 - "RULE-SET,cn,\U0001F3E0 国内网站"
 - "RULE-SET,cn-ip,\U0001F3E0 国内网站,no-resolve"
 - "DOMAIN-SUFFIX,alimama.com,\U0001F3E0 国内网站"
@@ -4313,14 +4353,11 @@ rules:
 - "RULE-SET,acc-geo-d-asia-china,\U0001F3E0 国内网站"
 - "RULE-SET,acc-geo-ip-asia-china,\U0001F3E0 国内网站,no-resolve"
 - "GEOIP,CN,\U0001F3E0 国内网站,no-resolve"
-- "DOMAIN-SUFFIX,noip.com,\U0001F310 国外网站"
-- GEOIP,cloudflare,🌐 国外网站,no-resolve
 - "GEOIP,telegram,\U0001F4AC 即时通讯,no-resolve"
 - "GEOIP,netflix,\U0001F3A5 Netflix,no-resolve"
 - "GEOIP,facebook,\U0001F4F1 社交媒体,no-resolve"
 - "GEOIP,twitter,\U0001F4F1 社交媒体,no-resolve"
 - "GEOIP,google,\U0001F527 工具与服务,no-resolve"
-- "GEOIP,CN,\U0001F3E0 国内网站,no-resolve"
 - "MATCH,\U0001F41F 漏网之鱼"
 OVERRIDE_EOF
 
@@ -4336,7 +4373,7 @@ cat > "$RUBY_SCRIPT" << 'RUBY_EOF'
 require 'yaml'
 require 'digest'
 
-VERSION = "v5.4.17-oc-normal.1"
+VERSION = "v5.4.22-oc-normal.1"
 
 STATUS_LOG = "/tmp/clash_normal_status.log"
 File.open(STATUS_LOG, 'w') { |f| f.puts "[#{VERSION}] start" }
@@ -4357,6 +4394,8 @@ INFO_PATTERNS = [
   /订阅/, /机场/, /客服/, /网址/, /邀请/, /注册/,
   /公告/, /通知/, /公众号/, /永久/, /套餐/, /续费/,
   /dns|DNS/, /IPLC|iplc/, /中转/,
+  # v5.4.20 #6 借鉴 Proxy-override：补充 junk 关键词（中文子串 + 英文 \b 词边界防误伤 Signal 等；/注册/ 已存在）
+  /免费/, /试用/, /应急/, /\bSign\b/i, /\bLogin\b/i, /\bRegister\b/i, /\bHelp\b/i, /\bFAQ\b/i,
   /^剩余|^到期|^流量|^官网/
 ]
 RESIDENTIAL_PATTERNS = [
@@ -4387,8 +4426,9 @@ REGIONS = {
   "TW"  => /台湾|台灣|\bTW\b|TWN|Taiwan|🇹🇼/i,
   "JP"  => /日本|\bJP\b|JPN|Japan|🇯🇵|Tokyo|Osaka/i,
   # v5.2.6-oc-normal.1 FIX#24-P0: 补 KOR（KOR 不是 KR 的子串，原始 /KR/ 无法匹配 "KOR 01"）
-  #   HK/TW/JP/SG 使用 \b 防误匹配，显式补充 alpha-3 码 HKG/TWN/JPN/SGP
-  "KR"  => /韩国|韓國|KR|KOR|Korea|Korean|🇰🇷|Seoul/i,
+  #   HK/TW/JP/KR/SG 使用 \b 防误匹配，显式补充 alpha-3 码 HKG/TWN/JPN/KOR/SGP
+  #   FIX#KR-WB: KR 补 \bKR\b（裸 /KR/ 在 /i 下误匹配 Ukraine/Krakow/Kraken 等含 kr 串）
+  "KR"  => /韩国|韓國|\bKR\b|KOR|Korea|Korean|🇰🇷|Seoul/i,
   "SG"  => /新加坡|\bSG\b|SGP|Singapore|🇸🇬/i,
   "US"  => /美国|美國|\bUS\b|USA|United\s?States|America|🇺🇸|Los\s?Angeles|New\s?York|Seattle|Silicon|San\s?Jose/i,
   "UK"  => /英国|英國|UK\b|GB\b|Britain|London|🇬🇧/i,

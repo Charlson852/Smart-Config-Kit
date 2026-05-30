@@ -5,8 +5,41 @@
 
 ---
 
-## v5.4.18-flclash.2 (2026-05-30)
+## v5.4.22-flclash.1 (2026-05-31)
 
+- ★ GeTui(个推)推送 SDK `getui.com` / `getui.net` / `gepush.com` 加直连白名单（review 后补；延续 #2，被通用广告/隐私表当 tracker 拦截但承载 App 推送如米家；owner 选放行）。
+
+#1 借鉴 Proxy-override：QUIC 精细化——AND 规则白名单豁免（YouTube/Google/MS/Apple 的 QUIC 走对应业务组）；其余非 CN QUIC REJECT。
+
+- 配套新增 `config.sniffer`（QUIC/443 SNI 嗅探 + `force-dns-mapping`，对齐 CMFA/OpenClash）——使真 IP QUIC（fake-ip-filter 域名）也能 GEOSITE 匹配，避免误 REJECT（review 修复）。
+- 兜底判据 `GEOIP,CN` → `GEOSITE,cn`（fake-ip 下更可靠）。
+
+## v5.4.21-flclash.1 (2026-05-31)
+
+#4 借鉴 Proxy-override：`default-nameserver` 从纯明文 IP 升级为 DoH-over-IP + 1 明文兜底；消除 bootstrap 阶段 DNS 泄漏。
+
+## v5.4.20-flclash.1 (2026-05-30)
+
+借鉴 Proxy-override 批 B · #6 节点过滤关键词补充（跟随 Clash Party v5.4.20）：
+
+- junk 节点过滤器 `isInfoNode` 新增：中文 `免费` / `试用` / `应急`；英文（`\b` 词边界）`Sign` / `Login` / `Register` / `Help` / `FAQ`
+- 不加「更新」「地址」（误伤风险高）
+- 回归：`tools/validate-js-overwrites.js` flclash target fixture（junk 过滤 + Signal 守卫）+ `tools/test-info-node-filter.js` 一致性
+- 🔢 版本：v5.4.19-flclash.1 → v5.4.20-flclash.1
+
+## v5.4.19-flclash.1 (2026-05-30)
+
+借鉴 Proxy-override 批 A（跟随 Clash Party v5.4.19；spec：`docs/2026-05-30-proxy-override-借鉴设计.md`）：
+
+- ✅ #2 国内 SDK/CDN 直连前置：jpush / `msg.umeng.com` 加 `AD_FALSE_POSITIVE_ALLOWLIST` 强制 DIRECT（绕过 `jiguangtuisong` / `youmengchuangxiang` 拦截）；`baomitu.com` / `bootcss.com` / `staticfile.org` / `upaiyun.com` 前置到 🏠 国内网站段
+- ✅ #3 fake-ip-filter 补全 10 条（远控 todesk/oray/sunlogin/teamviewer/anydesk · 游戏 battlenet.com.cn/wotgame.cn/wggames.cn/wowsgame.cn · B站 P2P mcdn.bilivideo.cn）
+- ✅ #5 `direct-nameserver-follow-policy: true`（direct 出口域名解析遵循 nameserver-policy；本仓库 policy 仅含境外 CDN，零国内误伤）
+- 🔢 版本对齐：v5.4.18-flclash.2 → v5.4.19-flclash.1（全产物跳过烧毁的 .18 统一到 v5.4.19）
+
+## v5.4.18-flclash.2 (2026-05-30)
+## v5.4.17-flclash.2 (2026-05-30)
+
+- ★ FIX#VERSION-PREFIX：主版本前缀由误写的 v5.4.18 修正为 v5.4.17，对齐 baseline（主线 Smart JS）与其余 9 产物（CLAUDE.md §4；修复 validate-artifact-contracts 的 `js.flclash.version-prefix` 检查。内容（url-test/DNS 调优）不变，仅版本号前缀修正）
 - ⚡ PERF#URLTEST-LATENCY：url-test 组参数全面调优，解决卡顿/高延迟/无法联网
   - `lazy: false`（全组节点主动测速，不再只测当前节点，避免"卡在劣化节点上"）
   - `interval: 120 → 180`（lazy=false 下合理拉长间隔，减少全组测速风暴）

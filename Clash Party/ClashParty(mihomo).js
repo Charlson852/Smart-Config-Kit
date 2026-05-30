@@ -1,7 +1,7 @@
 ﻿// Clash 覆写脚本 - SUB-STORE 多机场精细分流版
-// 版本：v5.4.17-normal.1 (2026-05-26)
+// 版本：v5.4.22-normal.1 (2026-05-31)
 // 架构：22 url-test 区域组（11 全部 + 11 家宽）+ 32 业务策略组 + 385 rule-providers
-// 基线：Clash Party v5.4.17（与同目录 ClashParty(mihomo-smart).js 规则 100% 等价，仅区域组从 smart 改为 url-test）
+// 基线：Clash Party v5.4.22（与同目录 ClashParty(mihomo-smart).js 规则 100% 等价，仅区域组从 smart 改为 url-test）
 // 适用：Mihomo / Clash.Meta 稳定版内核、不支持 smart + LightGBM 的分支；也适用于想完全关闭 ML 评估的用户
 // 变更历史：见 `Clash Party/CHANGELOG.md`
 
@@ -9,7 +9,7 @@
 //  版本常量
 // ================================================================
 
-const VERSION = 'v5.4.17-normal.1'
+const VERSION = 'v5.4.22-normal.1'
 
 // v5.4.9 FEAT#LOCAL-TOOLS: desktop local-tool direct whitelist.
 const LOCAL_TOOL_DIRECT_PROCESS_NAMES = [
@@ -95,8 +95,9 @@ const RUSTDESK_WORK_PROCESS_NAMES = [
 // ================================================================
 
 function isInfoNode(name) {
-  const infoPatterns = ['导航网址', '距离下次重置', '剩余流量', '套餐到期', '网址导航', '官网', '订阅', '到期', '剩余', '重置']
-  const infoRes = [/\b(?:USE|USED|TOTAL|EXPIRE|EMAIL)\b/i, /Panel|Channel|Author|剩余流量|已用流量|到期时间|下次重置/i]
+  // v5.4.20 #6 借鉴 Proxy-override：补充 junk 关键词（免费/试用/应急 中文子串；Sign/Login/Register/Help/FAQ 英文用 \b 词边界，避免误伤 Signal 等合法节点）。不加「更新/地址」（误伤风险高）。
+  const infoPatterns = ['导航网址', '距离下次重置', '剩余流量', '套餐到期', '网址导航', '官网', '订阅', '到期', '剩余', '重置', '免费', '试用', '应急']
+  const infoRes = [/\b(?:USE|USED|TOTAL|EXPIRE|EMAIL)\b/i, /Panel|Channel|Author|剩余流量|已用流量|到期时间|下次重置/i, /\b(?:Sign|Login|Register|Help|FAQ)\b/i]
   const s = String(name || '')
   return infoPatterns.some(p => s.includes(p)) || infoRes.some(re => re.test(s))
 }
@@ -268,6 +269,16 @@ const AD_FALSE_POSITIVE_ALLOWLIST = [
   // v5.4.16 FIX#149: anti-AD/DustinWin 当前包含 analytics.paddle.com；
   // Antigravity 账号设置会调用 Paddle 许可/支付链路，必须前置到广告规则之前。
   `DOMAIN-SUFFIX,paddle.com,${BIZ.PAYMENTS}`,
+  // v5.4.19 #2 借鉴 Proxy-override：国内推送 SDK 直连前置——jpush(极光推送)/umeng(友盟) 在
+  // jiguangtuisong / youmengchuangxiang 规则集中被当 tracker 拦截，但承载合法 App 推送/消息功能，
+  // 故前置到广告规则之前强制 DIRECT（参照 P0-FIX#41 小米先例）。
+  `DOMAIN-SUFFIX,jpush.cn,DIRECT`,
+  `DOMAIN-SUFFIX,jpush.io,DIRECT`,
+  `DOMAIN,msg.umeng.com,DIRECT`,
+  // v5.4.22 GeTui(个推)推送 SDK 直连——延续 #2：被通用广告/隐私表(category-ads-all/privacy)当 tracker 拦截，但承载 App 推送(米家等)，放行保推送可达。
+  `DOMAIN-SUFFIX,getui.com,DIRECT`,
+  `DOMAIN-SUFFIX,getui.net,DIRECT`,
+  `DOMAIN-SUFFIX,gepush.com,DIRECT`,
 ]
 
 const REGION_ORDER = ['GLOBAL', 'HK', 'TW', 'SG', 'JPKR', 'APAC', 'US', 'EU', 'AMERICAS', 'AFRICA', 'OTHER']
@@ -1281,8 +1292,12 @@ function injectRules(config) {
     `RULE-SET,miuiprivacy,${BIZ.AD}`,
     `RULE-SET,privacy,${BIZ.AD}`,
     `RULE-SET,youmengchuangxiang,${BIZ.AD}`,
-    // v5.4.1 P3: QUIC 条件阻断
-    "AND,((DST-PORT,443),(NETWORK,UDP),(NOT,((GEOIP,CN)))),REJECT",
+    // v5.4.22 #1 借鉴 Proxy-override：QUIC 精细化——YouTube/Google/MS/Apple 白名单豁免，其余海外 QUIC REJECT
+    "AND,((DST-PORT,443),(NETWORK,UDP),(GEOSITE,youtube)),📹 YouTube",
+    "AND,((DST-PORT,443),(NETWORK,UDP),(GEOSITE,google)),🔧 工具与服务",
+    "AND,((DST-PORT,443),(NETWORK,UDP),(RULE-SET,microsoft)),Ⓜ️ 微软服务",
+    "AND,((DST-PORT,443),(NETWORK,UDP),(RULE-SET,apple)),🍎 苹果服务",
+    "AND,((DST-PORT,443),(NETWORK,UDP),(NOT,((GEOSITE,cn)))),REJECT",
     // v5.2.1 FIX#19: DST-PORT,7680 必须在 GEOIP,private 之前，否则私有 IP 先匹配走 DIRECT
     'DST-PORT,7680,REJECT',
     'GEOSITE,private,DIRECT',
@@ -2268,6 +2283,11 @@ function injectRules(config) {
     `DOMAIN-SUFFIX,126.com,${BIZ.CN_SITE}`,
     `DOMAIN-SUFFIX,126.net,${BIZ.CN_SITE}`,
     `DOMAIN-SUFFIX,jianguoyun.com,${BIZ.CN_SITE}`,
+    // v5.4.19 #2 借鉴 Proxy-override：国内前端 CDN 直连前置（纯静态库托管，无 tracker 冲突）。
+    `DOMAIN-SUFFIX,baomitu.com,${BIZ.CN_SITE}`,
+    `DOMAIN-SUFFIX,bootcss.com,${BIZ.CN_SITE}`,
+    `DOMAIN-SUFFIX,staticfile.org,${BIZ.CN_SITE}`,
+    `DOMAIN-SUFFIX,upaiyun.com,${BIZ.CN_SITE}`,
     `RULE-SET,cn,${BIZ.CN_SITE}`,
     `RULE-SET,cn-ip,${BIZ.CN_SITE},no-resolve`,
     `DOMAIN-SUFFIX,alimama.com,${BIZ.CN_SITE}`,
@@ -2311,15 +2331,18 @@ function overwriteGeneral(config) {
   config.dns['respect-rules'] = true
   config.dns['use-system-hosts'] = false
   config.dns['cache-algorithm'] = 'arc'
-  // v5.4.17 FIX#DNS-SPLIT-BOOTSTRAP: default-nameserver 只保留纯 IP 自举；
-  // nameserver / direct-nameserver / proxy-server-nameserver 固定走 DoH，避免普通解析回落到系统 DNS。
-  var bootstrapDns = ['223.5.5.5', '119.29.29.29', '1.1.1.1', '8.8.8.8']
+  // v5.4.21 #4 借鉴 Proxy-override：default-nameserver 从纯明文 IP 升级为 DoH-over-IP（IP host + https scheme）+
+  // 1 个明文兜底；消除 bootstrap 阶段的 DNS 泄漏，同时保留明文韧性（防 443 被劫持/首包失败）。
+  var bootstrapDns = ['https://223.5.5.5/dns-query', 'https://223.6.6.6/dns-query', 'https://8.8.8.8/dns-query', 'https://1.1.1.1/dns-query', '223.5.5.5']
   var domesticDoH = ['https://dns.alidns.com/dns-query', 'https://doh.pub/dns-query']
   var foreignDoH = ['https://cloudflare-dns.com/dns-query', 'https://dns.google/dns-query']
   var proxyDoH = foreignDoH.concat(domesticDoH)
   config.dns['default-nameserver'] = bootstrapDns.slice()
   config.dns.nameserver = domesticDoH.slice()
   config.dns['direct-nameserver'] = domesticDoH.slice()
+  // v5.4.19 #5 借鉴 Proxy-override：让 direct-nameserver 也遵循 nameserver-policy（默认 false 会忽略它）。
+  // 官方 use case 即"direct 用国内 DoH + policy 指定域名走指定 DNS"；本仓库 policy 仅含境外 CDN，零国内误伤。
+  config.dns['direct-nameserver-follow-policy'] = true
   config.dns['proxy-server-nameserver'] = proxyDoH.slice()
   config.dns.fallback = foreignDoH.slice()
   if (!config.dns['nameserver-policy'] || typeof config.dns['nameserver-policy'] !== 'object' || Array.isArray(config.dns['nameserver-policy'])) {
@@ -2338,10 +2361,12 @@ function overwriteGeneral(config) {
   if (!Array.isArray(config.dns['fallback-filter'].domain)) config.dns['fallback-filter'].domain = []
   // v5.4.1 P0+P2: fake-ip-filter 扩展 + Hosts DNS 预解析
   var currentFakeIpFilter = Array.isArray(config.dns['fake-ip-filter']) ? config.dns['fake-ip-filter'] : []
-  config.dns['fake-ip-filter'] = uniqList(currentFakeIpFilter.concat(['+.lan','+.local','+.localdomain','+.home.arpa','+.msftconnecttest.com','+.msftncsi.com','localhost.ptlogin2.qq.com','localhost.sec.qq.com','localhost.work.weixin.qq.com','+.in-addr.arpa','+.ip6.arpa','time.*.com','time.*.gov','ntp.*.com','pool.ntp.org','+.ntp.org','+.pool.ntp.org','+.market.xiaomi.com','+.stun.*.*','+.stun.*.*.*','+.turn.*.*','+.turn.*.*.*','+.n.n.srv.nintendo.net','+.stun.playstation.net','+.xboxlive.com','stun.l.google.com','stun1.l.google.com','stun2.l.google.com','stun3.l.google.com','stun4.l.google.com','global.turn.twilio.com','auth.docker.io','registry-1.docker.io','index.docker.io','hub.docker.com','production.cloudflare.docker.com','+.push.apple.com','+.pub.3gppnetwork.org','+.bing.com','+.rustdesk.com','+.miwifi.com']))
+  config.dns['fake-ip-filter'] = uniqList(currentFakeIpFilter.concat(['+.lan','+.local','+.localdomain','+.home.arpa','+.msftconnecttest.com','+.msftncsi.com','localhost.ptlogin2.qq.com','localhost.sec.qq.com','localhost.work.weixin.qq.com','+.in-addr.arpa','+.ip6.arpa','time.*.com','time.*.gov','ntp.*.com','pool.ntp.org','+.ntp.org','+.pool.ntp.org','+.market.xiaomi.com','+.stun.*.*','+.stun.*.*.*','+.turn.*.*','+.turn.*.*.*','+.n.n.srv.nintendo.net','+.stun.playstation.net','+.xboxlive.com','stun.l.google.com','stun1.l.google.com','stun2.l.google.com','stun3.l.google.com','stun4.l.google.com','global.turn.twilio.com','auth.docker.io','registry-1.docker.io','index.docker.io','hub.docker.com','production.cloudflare.docker.com','+.push.apple.com','+.pub.3gppnetwork.org','+.bing.com','+.rustdesk.com','+.todesk.com','+.oray.com','+.sunlogin.com','+.teamviewer.com','+.anydesk.com','+.battlenet.com.cn','+.wotgame.cn','+.wggames.cn','+.wowsgame.cn','+.mcdn.bilivideo.cn','+.miwifi.com']))
   if (!config.hosts) config.hosts = {}
   var dnsH = {'dns.alidns.com':['223.5.5.5','223.6.6.6'],'doh.pub':['119.29.29.29'],'dns.google':['8.8.8.8','8.8.4.4'],'cloudflare-dns.com':['1.1.1.1','1.0.0.1']}
   Object.keys(dnsH).forEach(function(k){if(!config.hosts[k])config.hosts[k]=dnsH[k]})
+  // v5.4.22 #1 借鉴 Proxy-override：QUIC SNI 嗅探（对齐 CMFA/OpenClash）；force-dns-mapping 使真 IP QUIC（fake-ip-filter 域名如 mcdn.bilivideo.cn）也能 GEOSITE 匹配，避免被 NOT,((GEOSITE,cn)) 误拒。
+  config.sniffer = { enable: true, 'parse-pure-ip': true, 'force-dns-mapping': true, 'override-destination': true, sniff: { HTTP: { ports: ['80', '8080-8880'], 'override-destination': true }, TLS: { ports: ['443', '8443'] }, QUIC: { ports: ['443', '8443', '4433'] } }, 'skip-domain': ['+.push.apple.com'], 'skip-dst-address': ['91.105.192.0/23', '91.108.4.0/22', '91.108.8.0/21', '91.108.16.0/21', '91.108.56.0/22', '95.161.64.0/20', '149.154.160.0/20', '185.76.151.0/24', '2001:67c:4e8::/48', '2001:b28:f23c::/47', '2001:b28:f23f::/48', '2a0a:f280:203::/48'] }
   config['unified-delay'] = true
   config['tcp-concurrent'] = true
   config['find-process-mode'] = 'strict'

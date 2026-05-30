@@ -7,6 +7,28 @@
 
 ---
 
+## v5.4.22-v2n.1 (2026-05-31)
+
+- ★ GeTui(个推)推送 SDK `getui.com` / `getui.net` / `gepush.com` 加入 `scki-000c` direct 路由规则（review 后补；延续 #2，前置于 ads；owner 选放行保 App 推送如米家）。
+
+- N/A#1 QUIC 精细化：v2rayN Xray 路由 JSON 不承载 QUIC 阻断，#1 不适用；版本跟随基线对齐。
+
+## v5.4.21-v2n.1 (2026-05-31)
+
+- N/A#4 DoH-over-IP bootstrap：v2rayN Xray 路由 JSON 不承载 DNS resolver（只有 route/proxy/direct/block），#4 不适用；版本跟随基线对齐。
+
+## v5.4.20-v2n.1 (2026-05-30)
+
+- N/A#6 节点过滤关键词补充（批 B）：Xray 路由 JSON 无运行时节点分类 / junk 过滤器，#6 不适用；版本跟随 Clash Party v5.4.20 基线对齐。
+
+## v5.4.19-v2n.1 (2026-05-30)
+
+借鉴 Proxy-override 批 A · #2 国内 SDK/CDN 直连前置（跟随 Clash Party v5.4.19；spec：`docs/2026-05-30-proxy-override-借鉴设计.md`）：
+
+- 新增 `scki-000c-cn-sdk-cdn-direct` 路由规则（`outboundTag: direct`），前置于 `scki-001-ads`：`jpush.cn` / `jpush.io` + `full:msg.umeng.com`（避免被 `geosite:category-ads-all` 误拦）+ `baomitu.com` / `bootcss.com` / `staticfile.org` / `upaiyun.com` CDN
+- 不适用 #3 fake-ip-filter / #5 direct-nameserver-follow-policy（Xray 路由 JSON 不承载 fake-ip / mihomo DNS 字段）
+- 🔢 版本：v5.4.17-v2n.1 → v5.4.19-v2n.1（全产物跳过烧毁的 .18 统一到 v5.4.19）
+
 ## v5.4.17-v2n.1 (2026-05-26)
 
 - N/A#DNS-SPLIT-BOOTSTRAP：路径 C（Xray 核）只发布路由规则 JSON，不承载 DNS resolver 配置
