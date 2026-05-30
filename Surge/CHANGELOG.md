@@ -6,6 +6,8 @@
 
 ## v5.4.22-Surge.1 (2026-05-31)
 
+- ★ GeTui(个推)推送 SDK `getui.com` / `getui.net` / `gepush.com` 加直连白名单（review 后补；延续 #2，被通用广告/隐私表当 tracker 拦截但承载 App 推送如米家；owner 选放行）。
+
 - N/A#1 QUIC 精细化：Surge block-quic 是引擎级开关，不支持 AND/NOT 白名单豁免。QUIC 精细化由 mihomo 产物承载。
 
 ## v5.4.21-Surge.1 (2026-05-31)

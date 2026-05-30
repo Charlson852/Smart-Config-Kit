@@ -12,6 +12,9 @@ domain:cdn.weixin.qq.com
 full:msg.umeng.com
 domain:jpush.cn
 domain:jpush.io
+domain:getui.com
+domain:getui.net
+domain:gepush.com
 domain:baomitu.com
 domain:bootcss.com
 domain:staticfile.org

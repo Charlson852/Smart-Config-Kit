@@ -6,6 +6,8 @@
 
 ## v5.4.22-Loon.1 (2026-05-31)
 
+- ★ GeTui(个推)推送 SDK `getui.com` / `getui.net` / `gepush.com` 加直连白名单（review 后补；延续 #2，被通用广告/隐私表当 tracker 拦截但承载 App 推送如米家；owner 选放行）。
+
 - N/A#1 QUIC 精细化：Loon disable-udp-ports 不支持 AND/NOT 白名单豁免。引擎标注见文件内注释。
 
 ## v5.4.21-Loon.1 (2026-05-31)

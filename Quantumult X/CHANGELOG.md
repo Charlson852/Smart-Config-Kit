@@ -8,6 +8,8 @@
 
 ## v5.4.22-QX.1 (2026-05-31)
 
+- ★ GeTui(个推)推送 SDK `getui.com` / `getui.net` / `gepush.com` 加 `[filter_remote]` 直连白名单（review 后补；延续 #2，前置于广告 URL；owner 选放行保 App 推送如米家）。
+
 - N/A#1 QUIC 精细化：QX fallback_udp_policy 不支持 AND/NOT 白名单豁免。引擎标注见文件内注释。
 
 ## v5.4.21-QX.1 (2026-05-31)

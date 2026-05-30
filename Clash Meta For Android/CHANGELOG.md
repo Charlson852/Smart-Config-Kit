@@ -7,6 +7,8 @@
 
 ## v5.4.22-cmfa.1 (2026-05-31)
 
+- ★ GeTui(个推)推送 SDK `getui.com` / `getui.net` / `gepush.com` 加直连白名单（review 后补；延续 #2，被通用广告/隐私表当 tracker 拦截但承载 App 推送如米家；owner 选放行）。
+
 #1 借鉴 Proxy-override：QUIC 精细化——AND 规则白名单豁免（YouTube/Google/MS/Apple 的 QUIC 走对应业务组）；其余非 CN QUIC REJECT。首次补齐 CMFA 的 QUIC AND 规则（此前缺失）。
 
 - 兜底判据 `GEOIP,CN` → `GEOSITE,cn`（**有意的语义变更**，fake-ip 下更可靠）；CMFA 既有 `sniffer`（force-dns-mapping）保障真 IP QUIC 的 GEOSITE 匹配。

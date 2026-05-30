@@ -9,6 +9,8 @@
 
 ## v5.4.22-v2n.1 (2026-05-31)
 
+- ★ GeTui(个推)推送 SDK `getui.com` / `getui.net` / `gepush.com` 加入 `scki-000c` direct 路由规则（review 后补；延续 #2，前置于 ads；owner 选放行保 App 推送如米家）。
+
 - N/A#1 QUIC 精细化：v2rayN Xray 路由 JSON 不承载 QUIC 阻断，#1 不适用；版本跟随基线对齐。
 
 ## v5.4.21-v2n.1 (2026-05-31)

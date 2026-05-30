@@ -3251,6 +3251,10 @@ rules:
 - "DOMAIN-SUFFIX,jpush.cn,DIRECT"
 - "DOMAIN-SUFFIX,jpush.io,DIRECT"
 - "DOMAIN,msg.umeng.com,DIRECT"
+# v5.4.22 GeTui(个推)推送 SDK 直连——延续 #2（被通用广告/隐私表当 tracker 拦截，承载 App 推送如米家）
+- "DOMAIN-SUFFIX,getui.com,DIRECT"
+- "DOMAIN-SUFFIX,getui.net,DIRECT"
+- "DOMAIN-SUFFIX,gepush.com,DIRECT"
 - "RULE-SET,anti-ad,\U0001F6D1 广告拦截"
 - "RULE-SET,sukka-phishing,\U0001F6D1 广告拦截"
 - "RULE-SET,hagezi-tif,\U0001F6D1 广告拦截"

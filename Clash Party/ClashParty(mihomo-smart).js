@@ -277,6 +277,10 @@ const AD_FALSE_POSITIVE_ALLOWLIST = [
   `DOMAIN-SUFFIX,jpush.cn,DIRECT`,
   `DOMAIN-SUFFIX,jpush.io,DIRECT`,
   `DOMAIN,msg.umeng.com,DIRECT`,
+  // v5.4.22 GeTui(个推)推送 SDK 直连——延续 #2：被通用广告/隐私表(category-ads-all/privacy)当 tracker 拦截，但承载 App 推送(米家等)，放行保推送可达。
+  `DOMAIN-SUFFIX,getui.com,DIRECT`,
+  `DOMAIN-SUFFIX,getui.net,DIRECT`,
+  `DOMAIN-SUFFIX,gepush.com,DIRECT`,
 ]
 
 const REGION_ORDER = ['GLOBAL', 'HK', 'TW', 'SG', 'JPKR', 'APAC', 'US', 'EU', 'AMERICAS', 'AFRICA', 'OTHER']

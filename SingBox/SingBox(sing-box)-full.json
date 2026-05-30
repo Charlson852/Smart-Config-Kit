@@ -1949,6 +1949,27 @@
         "outbound": "DIRECT"
       },
       {
+        "domain_suffix": [
+          "getui.com"
+        ],
+        "action": "route",
+        "outbound": "DIRECT"
+      },
+      {
+        "domain_suffix": [
+          "getui.net"
+        ],
+        "action": "route",
+        "outbound": "DIRECT"
+      },
+      {
+        "domain_suffix": [
+          "gepush.com"
+        ],
+        "action": "route",
+        "outbound": "DIRECT"
+      },
+      {
         "rule_set": [
           "anti-ad"
         ],
