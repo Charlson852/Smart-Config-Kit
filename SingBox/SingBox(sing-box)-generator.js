@@ -218,7 +218,7 @@ function urltest(tag, outbounds) {
     tag,
     outbounds,
     interval: '3m',
-    tolerance: 50
+    tolerance: 10
   };
 }
 

@@ -5,6 +5,16 @@
 
 ---
 
+## v5.4.18-flclash.2 (2026-05-30)
+
+- ⚡ PERF#URLTEST-LATENCY：url-test 组参数全面调优，解决卡顿/高延迟/无法联网
+  - `lazy: false`（全组节点主动测速，不再只测当前节点，避免"卡在劣化节点上"）
+  - `interval: 120 → 180`（lazy=false 下合理拉长间隔，减少全组测速风暴）
+  - `tolerance: 30 → 10`（切换阈值从 30ms 降至 10ms，节点劣化时更快切换）
+- ⚡ PERF#DNS-RESILIENCE：DNS 引导与代理层优化
+  - `default-nameserver` 移除境外 `1.1.1.1` / `8.8.8.8`，改用 `223.5.5.5` / `119.29.29.29` / `180.76.76.76`（全量国内自举，打破 fake-ip 循环依赖）
+  - `proxy-server-nameserver` 不再混入国内 DoH（代理链路 DNS 纯走境外 Cloudflare/Google DoH）
+
 ## v5.4.17-flclash.1 (2026-05-26)
 
 - ✅ FIX#DNS-SPLIT-BOOTSTRAP：同步 Clash Party Normal v5.4.17 DNS 合同

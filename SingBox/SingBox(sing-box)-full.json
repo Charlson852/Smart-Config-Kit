@@ -129,7 +129,7 @@
         "🌍 非洲节点"
       ],
       "interval": "3m",
-      "tolerance": 50
+      "tolerance": 10
     },
     {
       "type": "selector",
@@ -1012,7 +1012,7 @@
         "🏡 非洲家宽"
       ],
       "interval": "3m",
-      "tolerance": 50
+      "tolerance": 10
     },
     {
       "type": "selector",
@@ -1797,6 +1797,16 @@
         "tag": "geosite-tracker",
         "format": "binary",
         "url": "https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geosite/tracker.srs",
+        "http_client": {
+          "detour": "🌍 全球节点"
+        },
+        "update_interval": "1d"
+      },
+      {
+        "type": "remote",
+        "tag": "geosite-gfw",
+        "format": "binary",
+        "url": "https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geosite/gfw.srs",
         "http_client": {
           "detour": "🌍 全球节点"
         },
@@ -5567,6 +5577,13 @@
       {
         "domain_suffix": [
           "cloudflare-dns.com"
+        ],
+        "action": "route",
+        "outbound": "🚫 受限网站"
+      },
+      {
+        "rule_set": [
+          "geosite-gfw"
         ],
         "action": "route",
         "outbound": "🚫 受限网站"
