@@ -2,7 +2,7 @@
     {
       "id": "scki-000-meta",
       "enabled": false,
-      "remarks": "Smart-Config-Kit v5.4.19-v2n.1 | Build 2026-05-30 | Baseline Clash Party v5.4.19 | changelog: v2rayN/CHANGELOG.md | DNS split-bootstrap not applicable to Xray routing rules",
+      "remarks": "Smart-Config-Kit v5.4.21-v2n.1 | Build 2026-05-31 | Baseline Clash Party v5.4.21 | changelog: v2rayN/CHANGELOG.md | #4 DoH-over-IP bootstrap N/A (Xray routing, no dns-out)",
       "outboundTag": "direct",
       "domain": [
         "domain:smart-config-kit.invalid"

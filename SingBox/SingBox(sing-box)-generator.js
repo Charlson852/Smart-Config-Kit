@@ -1,9 +1,9 @@
 const fs = require('fs');
 const vm = require('vm');
 
-const VERSION = 'v5.4.19-sing.1';
-const BUILD = '2026-05-30';
-const BASELINE = 'Clash Party v5.4.19';
+const VERSION = 'v5.4.21-sing.1';
+const BUILD = '2026-05-31';
+const BASELINE = 'Clash Party v5.4.21';
 
 const SMART = {
   GLOBAL: '🌍 全球节点',
@@ -506,25 +506,31 @@ baseConfig._meta = {
 
 baseConfig.dns = {
   servers: [
+    // v5.4.21 #4 借鉴 Proxy-override：bootstrap 从 udp://IP:53 升级为 DoH-over-IP（https://IP/dns-query）。
+    // IP host 无需 address_resolver（免 bootstrap 循环）；TLS server_name 覆盖 SNI 以通过证书验证。
     {
       tag: 'dns_bootstrap',
-      address: 'udp://223.5.5.5:53',
-      strategy: 'prefer_ipv4'
+      address: 'https://223.5.5.5/dns-query',
+      strategy: 'prefer_ipv4',
+      tls: { server_name: 'dns.alidns.com' }
     },
     {
       tag: 'dns_bootstrap2',
-      address: 'udp://119.29.29.29:53',
-      strategy: 'prefer_ipv4'
+      address: 'https://223.6.6.6/dns-query',
+      strategy: 'prefer_ipv4',
+      tls: { server_name: 'dns.alidns.com' }
     },
     {
       tag: 'dns_bootstrap3',
-      address: 'udp://1.1.1.1:53',
-      strategy: 'prefer_ipv4'
+      address: 'https://1.1.1.1/dns-query',
+      strategy: 'prefer_ipv4',
+      tls: { server_name: 'cloudflare-dns.com' }
     },
     {
       tag: 'dns_bootstrap4',
-      address: 'udp://8.8.8.8:53',
-      strategy: 'prefer_ipv4'
+      address: 'https://8.8.8.8/dns-query',
+      strategy: 'prefer_ipv4',
+      tls: { server_name: 'dns.google' }
     },
     {
       tag: 'dns_direct',

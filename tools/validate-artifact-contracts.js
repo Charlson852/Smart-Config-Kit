@@ -18,7 +18,10 @@ const MIN_FULL_RULES = 900;
 const RESTRICTED_SITE = '\u{1F6AB} \u53D7\u9650\u7F51\u7AD9';
 const RESTRICTED_SITE_RUBY = '\\U0001F6AB \u53D7\u9650\u7F51\u7AD9';
 const CLOUD_CDN = '\u2601\uFE0F \u4E91\u4E0ECDN';
-const DNS_BOOTSTRAP_IPS = ['223.5.5.5', '119.29.29.29', '1.1.1.1', '8.8.8.8'];
+// v5.4.21 #4: DoH-over-IP bootstrap + 1 plaintext fallback
+const DNS_BOOTSTRAP_DOH_OVER_IP = ['https://223.5.5.5/dns-query', 'https://223.6.6.6/dns-query', 'https://8.8.8.8/dns-query', 'https://1.1.1.1/dns-query'];
+const DNS_BOOTSTRAP_IPS = [...DNS_BOOTSTRAP_DOH_OVER_IP, '223.5.5.5'];
+const DNS_BOOTSTRAP_PLAINTEXT = ['223.5.5.5', '119.29.29.29', '1.1.1.1', '8.8.8.8'];
 const DNS_DOMESTIC_DOH = ['https://dns.alidns.com/dns-query', 'https://doh.pub/dns-query'];
 const DNS_FOREIGN_DOH = ['https://cloudflare-dns.com/dns-query', 'https://dns.google/dns-query'];
 const DNS_PROXY_DOH = [...DNS_FOREIGN_DOH, ...DNS_DOMESTIC_DOH];
@@ -467,16 +470,17 @@ function validateConfProducts(record, baselineVersion) {
   const qx = readText('Quantumult X/QuantumultX.conf');
   // v5.4.18: normalize whitespace around commas to avoid false failures on cosmetic formatting changes
   const srNorm = (s) => s.replace(/\s*,\s*/g, ',');
-  record.check('shadowrocket.dns.nameserver-doh-only', srNorm(shadowrocket).includes('dns-server = https://dns.alidns.com/dns-query,https://doh.pub/dns-query'));
-  record.check('shadowrocket.dns.proxy-server-doh-only', srNorm(shadowrocket).includes('proxy-dns-server = https://cloudflare-dns.com/dns-query,https://dns.google/dns-query,https://dns.alidns.com/dns-query,https://doh.pub/dns-query'));
-  record.check('shadowrocket.dns.fallback-doh-only', srNorm(shadowrocket).includes('fallback-dns-server = https://cloudflare-dns.com/dns-query,https://dns.google/dns-query'));
-  record.check('surge.dns.bootstrap-ip-only', surge.includes('dns-server = 223.5.5.5, 119.29.29.29, 1.1.1.1, 8.8.8.8'));
-  record.check('surge.dns.encrypted-doh', surge.includes('encrypted-dns-server = https://dns.alidns.com/dns-query, https://doh.pub/dns-query, https://cloudflare-dns.com/dns-query, https://dns.google/dns-query'));
-  record.check('surge.dns.fallback-doh', surge.includes('fallback-dns-server = https://cloudflare-dns.com/dns-query, https://dns.google/dns-query'));
-  record.check('loon.dns.bootstrap-ip-only', loon.includes('dns-server = 223.5.5.5, 119.29.29.29, 1.1.1.1, 8.8.8.8'));
-  record.check('loon.dns.doh', loon.includes('doh-server = https://dns.alidns.com/dns-query, https://doh.pub/dns-query, https://cloudflare-dns.com/dns-query, https://dns.google/dns-query'));
-  for (const server of DNS_BOOTSTRAP_IPS) record.check(`qx.dns.server.${server}`, qx.includes(`server=${server}`));
-  for (const server of [...DNS_DOMESTIC_DOH, ...DNS_FOREIGN_DOH]) record.check(`qx.dns.doh-server.${server}`, qx.includes(`doh-server=${server}`));
+  // v5.4.21 #4: DoH-over-IP — all DoH URLs use IP host to eliminate bootstrap leak
+  record.check('shadowrocket.dns.nameserver-doh-over-ip', srNorm(shadowrocket).includes('dns-server = https://223.5.5.5/dns-query,https://223.6.6.6/dns-query,https://8.8.8.8/dns-query,https://1.1.1.1/dns-query'));
+  record.check('shadowrocket.dns.proxy-server-doh-over-ip', srNorm(shadowrocket).includes('proxy-dns-server = https://8.8.8.8/dns-query,https://1.1.1.1/dns-query,https://223.5.5.5/dns-query,https://223.6.6.6/dns-query'));
+  record.check('shadowrocket.dns.fallback-doh-over-ip', srNorm(shadowrocket).includes('fallback-dns-server = https://8.8.8.8/dns-query,https://1.1.1.1/dns-query'));
+  record.check('surge.dns.bootstrap-plaintext-fallback', surge.includes('dns-server = 223.5.5.5, 119.29.29.29, 1.1.1.1, 8.8.8.8'));
+  record.check('surge.dns.encrypted-doh-over-ip', surge.includes('encrypted-dns-server = https://223.5.5.5/dns-query, https://223.6.6.6/dns-query, https://8.8.8.8/dns-query, https://1.1.1.1/dns-query'));
+  record.check('surge.dns.fallback-doh-over-ip', surge.includes('fallback-dns-server = https://8.8.8.8/dns-query, https://1.1.1.1/dns-query'));
+  record.check('loon.dns.bootstrap-plaintext-fallback', loon.includes('dns-server = 223.5.5.5, 119.29.29.29, 1.1.1.1, 8.8.8.8'));
+  record.check('loon.dns.doh-over-ip', loon.includes('doh-server = https://223.5.5.5/dns-query, https://223.6.6.6/dns-query, https://8.8.8.8/dns-query, https://1.1.1.1/dns-query'));
+  for (const server of DNS_BOOTSTRAP_PLAINTEXT) record.check(`qx.dns.server.${server}`, qx.includes(`server=${server}`));
+  for (const server of DNS_BOOTSTRAP_DOH_OVER_IP) record.check(`qx.dns.doh-server.${server}`, qx.includes(`doh-server=${server}`));
   for (const port of STUN_DIRECT_PORTS) {
     const srHasPortRule = shadowrocket.includes(`DST-PORT,${port},DIRECT`);
     const surgeHasPortRule = surge.includes(`DEST-PORT,${port},DIRECT`);
@@ -551,7 +555,7 @@ function validateJsonProducts(record, baselineVersion) {
   record.check('singbox.selector-urltest-count', selectorCount === EXPECTED_SINGBOX_GROUPS, { value: selectorCount });
   record.check('singbox.rule-set-count', ruleSetCount >= 30, { value: ruleSetCount });
   record.check('singbox.route-rule-count', routeRuleCount >= 600, { value: routeRuleCount });
-  record.check('singbox.dns.bootstrap-ip-only', dnsServerByTag.dns_bootstrap && dnsServerByTag.dns_bootstrap.address === 'udp://223.5.5.5:53', {
+  record.check('singbox.dns.bootstrap-doh-over-ip', dnsServerByTag.dns_bootstrap && dnsServerByTag.dns_bootstrap.address === 'https://223.5.5.5/dns-query' && dnsServerByTag.dns_bootstrap.tls && dnsServerByTag.dns_bootstrap.tls.server_name === 'dns.alidns.com', {
     value: dnsServerByTag.dns_bootstrap && dnsServerByTag.dns_bootstrap.address,
   });
   record.check('singbox.dns.direct-doh', dnsServerByTag.dns_direct && dnsServerByTag.dns_direct.address === 'https://dns.alidns.com/dns-query', {

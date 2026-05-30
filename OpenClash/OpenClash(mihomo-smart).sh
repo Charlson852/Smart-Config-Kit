@@ -2,10 +2,10 @@
 . /usr/share/openclash/log.sh
 
 # ============================================================================
-# Clash Smart v5.4.19-oc-smart.1 — OpenClash 覆写脚本（与 Clash Party 主线同等规则量）
-# Build: 2026-05-26
+# Clash Smart v5.4.21-oc-smart.1 — OpenClash 覆写脚本（与 Clash Party 主线同等规则量）
+# Build: 2026-05-31
 # ============================================================================
-# 定位：对齐 Clash Party v5.4.19 JS 主线的 OpenClash 全量版本。v5.4.2: P0-FIX#41 小米白名单。
+# 定位：对齐 Clash Party v5.4.21 JS 主线的 OpenClash 全量版本。v5.4.2: P0-FIX#41 小米白名单。
 #       与同目录 OpenClash(mihomo).sh（Normal）互补：
 #         - Normal 面向稳定版 mihomo / 经典 url-test
 #         - full  面向 4GB+ 路由器 / 需要与 Clash Party 桌面端一致的细粒度分流
@@ -16,15 +16,14 @@
 #   • ~990 条 rules
 #   • DNS fake-ip + 嗅探（HTTP/TLS/QUIC）+ nameserver-policy 救援
 #   • Ruby 阶段做：节点过滤 / 区域分类 / Smart 组生成 / TLS 指纹注入
-# 基线：Clash Party v5.4.19（唯一主线；v5.3.1/v5.3.2 为桌面端 PROCESS-NAME 改动，路由器端不适用）── 任何规则/组/DNS 改动必须先改 Clash Party JS，
+# 基线：Clash Party v5.4.20（唯一主线；v5.3.1/v5.3.2 为桌面端 PROCESS-NAME 改动，路由器端不适用）── 任何规则/组/DNS 改动必须先改 Clash Party JS，
 #       再同步到此文件。参见仓库根目录 CLAUDE.md / AGENTS.md。
 # 变更历史：见 `OpenClash/CHANGELOG.md`（Full 部分）。
 # ============================================================================
 
 
 
-VERSION_TAG="v5.4.19-oc-smart.1"
-VERSION_TAG="v5.4.17-oc-smart.2"
+VERSION_TAG="v5.4.21-oc-smart.1"
 CONFIG_FILE="$1"
 LOG_FILE="/tmp/openclash.log"
 
@@ -108,13 +107,16 @@ dns:
   # 对齐 Clash Party v5.4.17 基线：default-nameserver 纯 IP，其它 resolver 固定 DoH
   # FIX#HOSTS-ALIGN: use-hosts 改 true（对齐主线启用 hosts 预解析，消除 fake-ip 冷启动循环依赖）
   use-hosts: true
+  # v5.4.21 #4 借鉴 Proxy-override：default-nameserver DoH-over-IP + 1 明文兜底
+  use-hosts: false
   use-system-hosts: false
   respect-rules: true
   default-nameserver:
-  - 223.5.5.5
-  - 119.29.29.29
-  - 1.1.1.1
-  - 8.8.8.8
+  - 'https://223.5.5.5/dns-query'
+  - 'https://223.6.6.6/dns-query'
+  - 'https://8.8.8.8/dns-query'
+  - 'https://1.1.1.1/dns-query'
+  - '223.5.5.5'
   nameserver-policy:
     '+.jsdelivr.net':
     - https://cloudflare-dns.com/dns-query
@@ -4359,8 +4361,7 @@ cat > "$RUBY_SCRIPT" << 'RUBY_EOF'
 require 'yaml'
 require 'digest'
 
-VERSION = "v5.4.19-oc-smart.1"
-VERSION = "v5.4.17-oc-smart.2"
+VERSION = "v5.4.21-oc-smart.1"
 
 STATUS_LOG = "/tmp/clash_smart_status.log"
 File.open(STATUS_LOG, 'w') { |f| f.puts "[#{VERSION}] start" }
@@ -4381,6 +4382,8 @@ INFO_PATTERNS = [
   /订阅/, /机场/, /客服/, /网址/, /邀请/, /注册/,
   /公告/, /通知/, /公众号/, /永久/, /套餐/, /续费/,
   /dns|DNS/, /IPLC|iplc/, /中转/,
+  # v5.4.20 #6 借鉴 Proxy-override：补充 junk 关键词（中文子串 + 英文 \b 词边界防误伤 Signal 等；/注册/ 已存在）
+  /免费/, /试用/, /应急/, /\bSign\b/i, /\bLogin\b/i, /\bRegister\b/i, /\bHelp\b/i, /\bFAQ\b/i,
   /^剩余|^到期|^流量|^官网/
 ]
 RESIDENTIAL_PATTERNS = [

@@ -5,9 +5,9 @@
   },
   "_meta": {
     "name": "SingBox Smart Full",
-    "version": "v5.4.19-sing.1",
-    "build": "2026-05-30",
-    "baseline": "Clash Party v5.4.19",
+    "version": "v5.4.21-sing.1",
+    "build": "2026-05-31",
+    "baseline": "Clash Party v5.4.21",
     "changelog": "见 SingBox/CHANGELOG.md"
   },
   "experimental": {
@@ -21,23 +21,35 @@
     "servers": [
       {
         "tag": "dns_bootstrap",
-        "address": "udp://223.5.5.5:53",
-        "strategy": "prefer_ipv4"
+        "address": "https://223.5.5.5/dns-query",
+        "strategy": "prefer_ipv4",
+        "tls": {
+          "server_name": "dns.alidns.com"
+        }
       },
       {
         "tag": "dns_bootstrap2",
-        "address": "udp://119.29.29.29:53",
-        "strategy": "prefer_ipv4"
+        "address": "https://223.6.6.6/dns-query",
+        "strategy": "prefer_ipv4",
+        "tls": {
+          "server_name": "dns.alidns.com"
+        }
       },
       {
         "tag": "dns_bootstrap3",
-        "address": "udp://1.1.1.1:53",
-        "strategy": "prefer_ipv4"
+        "address": "https://1.1.1.1/dns-query",
+        "strategy": "prefer_ipv4",
+        "tls": {
+          "server_name": "cloudflare-dns.com"
+        }
       },
       {
         "tag": "dns_bootstrap4",
-        "address": "udp://8.8.8.8:53",
-        "strategy": "prefer_ipv4"
+        "address": "https://8.8.8.8/dns-query",
+        "strategy": "prefer_ipv4",
+        "tls": {
+          "server_name": "dns.google"
+        }
       },
       {
         "tag": "dns_direct",

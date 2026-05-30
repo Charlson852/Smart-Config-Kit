@@ -5,6 +5,14 @@
 
 ---
 
+## v5.4.21-sing.1 (2026-05-31)
+
+#4 借鉴 Proxy-override：bootstrap 从 `udp://IP:53` 升级为 `https://IP/dns-query` + TLS SNI 覆盖（dns.alidns.com / cloudflare-dns.com / dns.google）；消除 bootstrap 阶段 DNS 泄漏。generator.js bump 后重新生成。
+
+## v5.4.20-sing.1 (2026-05-30)
+
+- N/A#6 节点过滤关键词补充（批 B）：sing-box 为静态 outbound 列表（用户自接入节点，无订阅 junk 过滤），#6 不适用。generator.js 版本/基线 bump 后重新生成，route.rules 不变（1077→725 转换）；版本跟随 Clash Party v5.4.20 基线对齐。
+
 ## v5.4.19-sing.1 (2026-05-30)
 
 借鉴 Proxy-override 批 A · #2 国内 SDK/CDN 直连前置（由主线 Smart JS 规则自动派生后重新生成；spec：`docs/2026-05-30-proxy-override-借鉴设计.md`）：
