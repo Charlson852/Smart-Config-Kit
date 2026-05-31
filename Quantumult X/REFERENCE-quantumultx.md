@@ -89,6 +89,19 @@ doh-server=https://URL
 - 多个 `doh-server=` 条目中，**只有第一个生效**
 - `system` 关键字作为 IP 值使用：`server=/example.com/system`
 
+### v1.6.0 新增 DNS 选项
+
+| 字段 | 说明 |
+| ---- | ---- |
+| `prefer-doh3` | 优先使用 DNS over HTTP/3，回退到 HTTP/2 |
+| `dns-reject-domain-behavior` | DNS 拒绝行为：`loopback` / `no-error-no-answer` / `nxdomain` / `none` |
+| `doh-server = URL, excluded_ssids=SSID1` | 按 SSID 排除 DoH 服务器 |
+| `doh-server = URL, included_ssids=SSID2` | 按 SSID 包含 DoH 服务器 |
+
+### v1.6.0 新增代理协议
+
+- **anytls**：原生 UDP-over-TCP 传输，无需单独配置 `udp-over-tcp`
+
 ---
 
 ## 四、[policy] 段 — 策略组

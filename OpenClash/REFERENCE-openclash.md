@@ -66,6 +66,16 @@ rules:
 - 覆写 YAML 是"追加/合并"到最终配置，不是完全替换
 - `proxy-groups` 的覆写需要通过 OpenClash 的内置代理组管理或自定义脚本
 
+### 2.2a YAML 语法覆写脚本（v0.47.086+ 新能力）
+
+自 v0.47.086（2026-04-07）起，OpenClash 支持 **YAML 语法覆写脚本**（除传统 shell 脚本外），并支持**按配置文件定向**覆写脚本。本仓库的 shell heredoc 方式仍然完全兼容。
+
+### 2.2b v0.47.096 新增配置选项
+
+- **全局 UA 覆写**（`global_ua`）：新增全局 User-Agent 覆写选项，默认 UA 已调整
+- **MRS 默认**：绕过大陆规则默认使用 MRS 格式（本仓库 rule-providers 已全部使用 MRS，无影响）
+- **移除自动防火墙转发端口绕过**：用户需通过源流量访问控制手动配置
+
 ### 2.3 UCI → YAML 处理管道
 
 OpenClash 的 `yml_change.sh` 分三阶段将 UCI 配置转换为 Clash YAML：

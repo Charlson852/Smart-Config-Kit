@@ -196,6 +196,21 @@ Surge 支持使用单独的 `[DNS]` 段进行更精细的 DNS 配置。
 | `source` | 源地址匹配（IP-CIDR） | Yes | No |
 | `dns-failed` | FINAL 规则在 DNS 解析失败时使用（Shadowrocket 特有） | No | Yes |
 
+### Inline Ruleset（Mac 5.3.1+ 新能力）
+
+自 Surge Mac 5.3.1 起，支持在 profile 内直接嵌入规则集（无需外部文件/URL）：
+
+```
+[Ruleset Streaming]
+DOMAIN-SUFFIX,netflix.com
+DOMAIN-SUFFIX,netflix.net
+
+[Rule]
+RULE-SET,Streaming,StreamingProxy
+```
+
+本仓库使用远程 RULE-SET URL，不受此新功能影响。
+
 ---
 
 ## 6. [Host] 本地 DNS 映射
