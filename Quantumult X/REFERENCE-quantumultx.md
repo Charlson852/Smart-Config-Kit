@@ -5,6 +5,8 @@
 > - https://qx.atlucky.me/ (社区权威 Wiki，页面 hash 认证)
 > - https://blackmatrix7.github.io/ios_rule_script/7.2-platform-specific-configuration (社区参考)
 > - 获取日期: 2026-04-26
+> 更新于 2026-05-31（复查）：QX v1.6.0（2026-05-21）。新增 AnyTLS 代理协议支持。不涉及分流配置语法变更。当前配置语法与基线兼容。
+>
 > 更新于 2026-04-30（复查）：重新检查 GitHub 仓库（crossutility/Quantumult-X），无新发布。当前配置语法与基线兼容。
 
 ---

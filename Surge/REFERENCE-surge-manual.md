@@ -2,6 +2,8 @@
 
 > 来源: https://manual.nssurge.com/
 > 获取日期: 2026-04-26
+> 更新于 2026-05-31（复查）：Surge iOS v5.18.0（2026-05-06）。manual.nssurge.com 配置手册未发现语法变更。Surge 5.x 配置语法与当前基线兼容。
+>
 > 更新于 2026-04-30（复查）：重新抓取 manual.nssurge.com，未发现版本号或配置语法变更。Surge 5.x 配置语法与当前基线兼容。
 > 注意: 本文档基于 Surge 5.x / Surge Mac 5.x 官方手册编写
 
