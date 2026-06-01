@@ -8,7 +8,7 @@
 //  版本常量
 // ================================================================
 
-const VERSION = 'v5.4.22'
+const VERSION = 'v5.4.23'
 
 // v5.4.9 FEAT#LOCAL-TOOLS:
 // Desktop-capable local tools that should not be routed through proxy nodes.
@@ -2293,10 +2293,12 @@ function injectRules(config) {
     `DOMAIN-SUFFIX,bootcss.com,${BIZ.CN_SITE}`,
     `DOMAIN-SUFFIX,staticfile.org,${BIZ.CN_SITE}`,
     `DOMAIN-SUFFIX,upaiyun.com,${BIZ.CN_SITE}`,
+    `DOMAIN-SUFFIX,zhimg.com,${BIZ.CN_SITE}`,
     `RULE-SET,cn,${BIZ.CN_SITE}`,
     `RULE-SET,cn-ip,${BIZ.CN_SITE},no-resolve`,
     `DOMAIN-SUFFIX,alimama.com,${BIZ.CN_SITE}`,
     `DOMAIN-SUFFIX,zxtdjy.com,${BIZ.CN_SITE}`,
+    `DOMAIN-SUFFIX,zhihu.co,${BIZ.CN_SITE}`,
     `RULE-SET,acc-chinamax,${BIZ.CN_SITE}`,
     // v5.4.4 FIX#144: bbys.app 视频播放走直连
     `DOMAIN-SUFFIX,bbys.app,DIRECT`,

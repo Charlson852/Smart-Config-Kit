@@ -9,7 +9,7 @@
 //  版本常量
 // ================================================================
 
-const VERSION = 'v5.4.22-normal.1'
+const VERSION = 'v5.4.23-normal.1'
 
 // v5.4.9 FEAT#LOCAL-TOOLS: desktop local-tool direct whitelist.
 const LOCAL_TOOL_DIRECT_PROCESS_NAMES = [
@@ -2288,10 +2288,12 @@ function injectRules(config) {
     `DOMAIN-SUFFIX,bootcss.com,${BIZ.CN_SITE}`,
     `DOMAIN-SUFFIX,staticfile.org,${BIZ.CN_SITE}`,
     `DOMAIN-SUFFIX,upaiyun.com,${BIZ.CN_SITE}`,
+    `DOMAIN-SUFFIX,zhimg.com,${BIZ.CN_SITE}`,
     `RULE-SET,cn,${BIZ.CN_SITE}`,
     `RULE-SET,cn-ip,${BIZ.CN_SITE},no-resolve`,
     `DOMAIN-SUFFIX,alimama.com,${BIZ.CN_SITE}`,
     `DOMAIN-SUFFIX,zxtdjy.com,${BIZ.CN_SITE}`,
+    `DOMAIN-SUFFIX,zhihu.co,${BIZ.CN_SITE}`,
     `RULE-SET,acc-chinamax,${BIZ.CN_SITE}`,
     // v5.4.4 FIX#144: bbys.app 视频播放走直连
     `DOMAIN-SUFFIX,bbys.app,DIRECT`,

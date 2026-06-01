@@ -19,14 +19,14 @@
 #   • ~990 条 rules
 #   • DNS fake-ip + 嗅探（HTTP/TLS/QUIC）+ nameserver-policy 救援
 #   • Ruby 阶段做：节点过滤 / 区域分类 / url-test 组生成 / TLS 指纹注入
-# 基线：Clash Party v5.4.20（唯一主线；v5.3.1/v5.3.2 为桌面端 PROCESS-NAME 改动，路由器端不适用）── 任何规则/组/DNS 改动必须先改 Clash Party JS，
+# 基线：Clash Party v5.4.23（唯一主线；v5.3.1/v5.3.2 为桌面端 PROCESS-NAME 改动，路由器端不适用）── 任何规则/组/DNS 改动必须先改 Clash Party JS，
 #       再同步到此文件。参见仓库根目录 CLAUDE.md / AGENTS.md。
 # 变更历史：见 `OpenClash/CHANGELOG.md`（Normal 部分）。
 # ============================================================================
 
 
 
-VERSION_TAG="v5.4.22-oc-normal.1"
+VERSION_TAG="v5.4.23-oc-normal.1"
 CONFIG_FILE="$1"
 LOG_FILE="/tmp/openclash.log"
 
@@ -4342,10 +4342,12 @@ rules:
 - "DOMAIN-SUFFIX,bootcss.com,\U0001F3E0 国内网站"
 - "DOMAIN-SUFFIX,staticfile.org,\U0001F3E0 国内网站"
 - "DOMAIN-SUFFIX,upaiyun.com,\U0001F3E0 国内网站"
+- "DOMAIN-SUFFIX,zhimg.com,\U0001F3E0 国内网站"
 - "RULE-SET,cn,\U0001F3E0 国内网站"
 - "RULE-SET,cn-ip,\U0001F3E0 国内网站,no-resolve"
 - "DOMAIN-SUFFIX,alimama.com,\U0001F3E0 国内网站"
 - "DOMAIN-SUFFIX,zxtdjy.com,\U0001F3E0 国内网站"
+- "DOMAIN-SUFFIX,zhihu.co,\U0001F3E0 国内网站"
 - "RULE-SET,acc-chinamax,\U0001F3E0 国内网站"
 # v5.4.4 FIX#144: bbys.app 视频播放走直连
 - DOMAIN-SUFFIX,bbys.app,DIRECT
