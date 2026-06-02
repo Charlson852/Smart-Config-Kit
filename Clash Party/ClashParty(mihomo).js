@@ -1,7 +1,7 @@
 ﻿// Clash 覆写脚本 - SUB-STORE 多机场精细分流版
-// 版本：v5.4.22-normal.1 (2026-05-31)
+// 版本：v5.4.23-normal.1 (2026-06-02)
 // 架构：22 url-test 区域组（11 全部 + 11 家宽）+ 32 业务策略组 + 385 rule-providers
-// 基线：Clash Party v5.4.22（与同目录 ClashParty(mihomo-smart).js 规则 100% 等价，仅区域组从 smart 改为 url-test）
+// 基线：Clash Party v5.4.23（与同目录 ClashParty(mihomo-smart).js 规则 100% 等价，仅区域组从 smart 改为 url-test）
 // 适用：Mihomo / Clash.Meta 稳定版内核、不支持 smart + LightGBM 的分支；也适用于想完全关闭 ML 评估的用户
 // 变更历史：见 `Clash Party/CHANGELOG.md`
 

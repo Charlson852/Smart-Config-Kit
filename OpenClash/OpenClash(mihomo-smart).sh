@@ -2,10 +2,10 @@
 . /usr/share/openclash/log.sh
 
 # ============================================================================
-# Clash Smart v5.4.22-oc-smart.1 — OpenClash 覆写脚本（与 Clash Party 主线同等规则量）
-# Build: 2026-05-31
+# Clash Smart v5.4.23-oc-smart.1 — OpenClash 覆写脚本（与 Clash Party 主线同等规则量）
+# Build: 2026-06-02
 # ============================================================================
-# 定位：对齐 Clash Party v5.4.22 JS 主线的 OpenClash 全量版本。v5.4.2: P0-FIX#41 小米白名单。
+# 定位：对齐 Clash Party v5.4.23 JS 主线的 OpenClash 全量版本。v5.4.2: P0-FIX#41 小米白名单。
 #       与同目录 OpenClash(mihomo).sh（Normal）互补：
 #         - Normal 面向稳定版 mihomo / 经典 url-test
 #         - full  面向 4GB+ 路由器 / 需要与 Clash Party 桌面端一致的细粒度分流
@@ -4372,7 +4372,7 @@ cat > "$RUBY_SCRIPT" << 'RUBY_EOF'
 require 'yaml'
 require 'digest'
 
-VERSION = "v5.4.22-oc-smart.1"
+VERSION = "v5.4.23-oc-smart.1"
 
 STATUS_LOG = "/tmp/clash_smart_status.log"
 File.open(STATUS_LOG, 'w') { |f| f.puts "[#{VERSION}] start" }
