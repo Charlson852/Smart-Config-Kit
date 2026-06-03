@@ -1,9 +1,5 @@
 # Surge 使用教程（对齐 Clash Party v5.4.23）
 
-## 💖 支持本项目
-
-→ [捐赠 / Star / PR](../docs/donate.md)
-
 > 目录简介：这里维护 Surge iOS/macOS 配置和导入教程，按 Surge 语法对齐 Clash Party 分流策略。
 >
 > 配置文件：`Surge/Surge.conf`

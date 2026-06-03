@@ -1,9 +1,5 @@
 # Clash Meta For Android（CMFA）使用教程
 
-## 💖 支持本项目
-
-→ [捐赠 / Star / PR](../docs/donate.md)
-
 > 目录简介：这里提供 CMFA/mihomo 原生 YAML 配置和 Android/ClashMi 导入教程，用于复用 Clash Party 基线策略的静态版本。
 >
 > 配置文件：`CMFA(mihomo).yaml`

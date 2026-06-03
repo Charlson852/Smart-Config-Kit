@@ -1,9 +1,5 @@
 # Loon 使用教程（对齐 Clash Party v5.4.23）
 
-## 💖 支持本项目
-
-→ [捐赠 / Star / PR](../docs/donate.md)
-
 > 目录简介：这里维护 Loon iOS 配置和使用教程，按 Loon 原生语法对齐 Clash Party 分流策略。
 >
 > 配置文件：`Loon/Loon.conf`

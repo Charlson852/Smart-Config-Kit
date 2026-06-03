@@ -1,9 +1,5 @@
 # Passwall / Passwall2 使用教程（对齐 Clash Party v5.4.22 简化版）
 
-## 💖 支持本项目
-
-→ [捐赠 / Star / PR](../docs/donate.md)
-
 > 目录简介：这里提供 Passwall2 精简分流版的展平 shunt rule 配置和 OpenWrt 使用教程。
 >
 > 配置参考：`Passwall2/` 目录  

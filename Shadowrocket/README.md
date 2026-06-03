@@ -1,9 +1,5 @@
 # Shadowrocket（小火箭）使用教程
 
-## 💖 支持本项目
-
-→ [捐赠 / Star / PR](../docs/donate.md)
-
 > 目录简介：这里维护 Shadowrocket 小火箭配置和使用教程，覆盖 iOS/macOS 私有 conf 语法下的分流实现。
 >
 > 配置文件：`Shadowrocket.conf`

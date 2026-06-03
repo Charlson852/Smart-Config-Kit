@@ -1,9 +1,5 @@
 # Quantumult X 使用教程（对齐 Clash Party v5.4.23）
 
-## 💖 支持本项目
-
-→ [捐赠 / Star / PR](../docs/donate.md)
-
 > 目录简介：这里维护 Quantumult X iOS 配置和导入教程，按 QX 的 policy/filter 语法对齐 Clash Party 基线。
 >
 > 配置文件：`Quantumult X/QuantumultX.conf`
