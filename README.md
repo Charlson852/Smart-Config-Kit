@@ -362,47 +362,13 @@ tcpdump -n -i any port 443       # 应看到持续流量 → DoH 正常
 > ✅ 原生支持 · ⚠️ 部分 / 新版本才有 · ❌ 不支持
 > ¹ 需 v2rayN 切到 mihomo 核心 · ² Surge 5.9+ 才有 · ³ 需 mihomo Smart Alpha + JS 覆写
 
-**🏷️ 客户端列名缩写对照**：
-- **Clash Party** = Clash Party / Clash Verge Rev / Mihomo Party
-- **CMFA** = Clash Meta For Android / mihomo-party-android / **[ClashMi](https://github.com/KaringX/clashmi)**（KaringX 跨平台 Flutter GUI，iOS/macOS/Android/Windows/Linux，同样 bundle MetaCubeX mainline，直接复用 `CMFA(mihomo).yaml`；导入流程与差异点见 [CMFA 子目录 §九](./Clash%20Meta%20For%20Android/README.md#九兼容客户端clashmi跨平台)）
-- **FlClash** = 跨平台 Flutter GUI（Android/Windows/macOS/Linux），推荐使用 [覆写脚本](./FlClash/FlClash(mihomo).js)（动态节点分类 + 家宽识别），也兼容 [CMFA YAML](./Clash%20Meta%20For%20Android/CMFA(mihomo).yaml)。导入前需先在「覆写脚本」创建脚本，再到订阅「更多→覆写」关联
-- **QX** = Quantumult X
-- **sing-box** = sing-box 通用客户端（SFA / SFM / SFI / Hiddify / Karing / HomeProxy；NekoBox 不兼容，详见 [SingBox README §2c](./SingBox/README.md#2c-nekobox--nekoray-用户看这里)）
-- **v2rayN Xray** = v2rayN 默认 Xray 核模式
-- **v2rayN mihomo** = v2rayN 切到 mihomo 或 sing-box 核
-- **Happ** = [Happ Proxy Utility](https://www.happ.su)（Flyfrog LLC，Xray-core 内核，跨平台；路由仅 Direct/Proxy/Block 三出站，复用 `v2rayN(xray).json`，详见 `v2rayN/README.md`）
+**🏷️ 缩写速查**：Clash Party = Clash Party / Clash Verge Rev / Mihomo Party · CMFA = Clash Meta For Android（含 [ClashMi](https://github.com/KaringX/clashmi)）· FlClash = 跨平台 Flutter GUI · QX = Quantumult X · sing-box = SFA / SFM / SFI / Hiddify / Karing / HomeProxy · v2rayN Xray = v2rayN 默认核 · v2rayN mihomo = v2rayN 切 mihomo/sing-box 核
 
-**📁 具体配置文件**（点击上方 📖 列进对应子目录查看）：
-- Clash Party → `ClashParty(mihomo-smart).js`（JS 覆写脚本）
-- CMFA → `CMFA(mihomo).yaml`
-- OpenClash → `OpenClash(mihomo-smart).sh`（Smart） / `OpenClash(mihomo).sh`（Normal） + `OpenClash(mihomo).conf`
-- Shadowrocket → `Shadowrocket.conf`
-- Surge → `Surge.conf`
-- Loon → `Loon.conf`（Loon 原生 `[Remote Rule]` / `[Rule]` 分段，不能把远程 URL 混进本地规则段）
-- Quantumult X → `QuantumultX.conf`
-- SingBox → `SingBox(sing-box)-full.json`
-- v2rayN Xray → `v2rayN(xray).json`
-- v2rayN mihomo/sing-box → 复用 `Clash Meta For Android/CMFA(mihomo).yaml` 或 `SingBox/SingBox(sing-box)-full.json`
+**📁 配置文件**：每个子目录的 `README.md` 内有完整说明，点击上方 📖 列进入。
 
-### 一句话决策树
-- 机场只给 **SS / VMess / Trojan**：任何客户端都行，**按设备+预算挑**
-- 机场主推 **VLESS + REALITY**：Mihomo / sing-box / Shadowrocket / Loon / v2rayN 任选
-- 机场主推 **Hysteria 2 / TUIC**：避开 **Surge (旧版) / QX / Xray**；其它都行
-- 机场是 **Snell 专用**（Surge 机场）：Shadowrocket / Surge / Loon / Mihomo 系
-- 想要 **WireGuard**：除 QX 都行
-- 想要 **LightGBM 自动择优**：**只能走 Clash Party / OpenClash** + Mihomo Smart Alpha 内核 + JS 覆写
-- 协议 + 价格性价比：**iOS 上 Shadowrocket (¥20)** / **Android 上 CMFA (免费)** / **桌面上 Mihomo Party (免费)** / **软路由上 OpenClash (免费)**
-### 软路由用户：已装其它代理插件的对号入座
+**💡 选客户端**：常用协议（SS / VMess / Trojan）→ 按设备挑；VLESS + REALITY → Mihomo / sing-box / SR / Loon / v2rayN；Hysteria 2 / TUIC → 避开 Surge 旧版 / QX / Xray；想要 **LightGBM 自动择优** → 只能走 Clash Party / OpenClash + Smart Alpha 内核。
 
-**对照上面矩阵的列**，按你插件底层内核选：
-
-- **ShellClash**（`juewuy/ShellCrash`，mihomo 核）→ 用 **CMFA 列** 的 `CMFA(mihomo).yaml`
-- **HomeProxy**（sing-box 官方 LuCI 插件，sing-box 核）→ 用 **sing-box 列** 的 `SingBox(sing-box)-full.json`
-- **Passwall / Passwall2**（[`Openwrt-Passwall`](https://github.com/Openwrt-Passwall) 组织并行维护的两款插件——原 `xiaorouji` 个人仓库已迁入该组织，xray + sing-box 双栈，都**不打包** mihomo，都**没有 proxy-groups 嵌套**）→ 首选**迁移到 OpenClash** 拿完整能力；或保留插件用本仓库 `Passwall2/` 目录的 **32 条 shunt rule 展平参考**（同一份 `.list` Passwall 与 Passwall2 通用，规则语法共用 `shunt_rules.lua`）
-- **SSR Plus+**（已停更 + 无 geosite / rule_set 层）→ 直接换 **OpenClash**
-- **Happ**（[Flyfrog LLC](https://www.happ.su)，Xray-core 内核，跨平台）→ Happ 支持导入标准 Xray JSON（原始模式直通内核），可直接加载 `v2rayN/v2rayN(xray).json` 获得 Direct/Proxy/Block 三级分流；或使用 Happ 自带路由生成器 <https://routing.happ.su> 创建等价路由 Profile。Happ 的路由只有三出站，**不能**表达最多 53 组嵌套策略体系，想要完整体验请换 mihomo 系客户端。详见 `v2rayN/README.md`。
-
-> 💡 Passwall 系**能**做 `geosite` / `geoip` / `rule_set` 的规则匹配，**不能**做 mihomo 的「业务组 → 区域组 → 节点」两级 `select` + `url-test` 嵌套。**注意**：Passwall / Passwall2 的 shunt rule **不识别** Clash 的 `DOMAIN-SUFFIX,` / `DOMAIN-KEYWORD,` 前缀，要用 xray/sing-box 原生语法（`domain:` / `full:` / `regexp:` / `geosite:` / `rule-set:remote|local:`）。想要完整的 31+22 架构（11 全部 + 11 家宽）+ LightGBM + 机场换节点自动归位，只有 mihomo 系（OpenClash / CMFA / ShellClash）能原生给。详细差异见 `Passwall2/README.md`。
+**🔌 软路由**：ShellClash（mihomo 核）→ 用 CMFA YAML · HomeProxy（sing-box 核）→ 用 SingBox JSON · Passwall / Passwall2（无 mihomo）→ 首选迁移到 OpenClash，或用 `Passwall2/` 展平参考 · SSR Plus+（已停更）→ 换 OpenClash · Happ（Xray 核）→ 用 v2rayN Xray JSON。详见各子目录 `README.md`。
 
 ---
 
