@@ -1,17 +1,11 @@
 # 🚀 科学上网智能分流配置中心
 
-> [!TIP]
-> 一套以 **Mihomo Smart 内核（Clash Party）JS 覆写脚本** 为基线、同步产出多核心 / 多客户端等价配置的科学上网分流体系，**同一套策略模型覆盖多端**，让同一套分流策略在任何设备、任何代理工具上给出**一致、可解释、可迭代**的结果，降低“设备 A 可用、设备 B 抽风”的割裂感。  
-> - **全核心**：Mihomo (Clash.Meta / Smart) · sing-box · Xray · Shadowrocket / Surge / Loon / Quantumult X 各自私有引擎 
-> - **全客户端**：Clash Party / Clash Verge Rev / Mihomo Party / CMFA / FlClash / mihomo-party-android / ClashMi / OpenClash / PassWall2 / Shadowrocket / Surge / Loon / Quantumult X / sing-box / Hiddify / v2rayN / Happ
-> - **全设备**：Windows / macOS / Linux / Android / iOS / OpenWrt 软路由
-> - 🧩 **精细分流**：按业务语义拆分策略组，避免“大一统代理”带来的误伤与浪费。
-> - ⚡ **内核可切换**：Mihomo 提供 Smart / Normal 双版本（同规则量），按内核能力选择 `smart` 或经典 `url-test` 选路。
-> - 🤖 **AI 原生仓库**：全部脚本与配置由 AI 编写并持续维护迭代——版本演进 / 结构整理 / 文档优化全由 AI 执行，坚持可读性优先（能跑 + 好懂 + 好改 + 好排障）与平台一致性（同类业务在不同客户端表现一致）。
-> - 💬 **Issue 自动回答**：[开 issue](https://github.com/ivansolis1989/Smart-Config-Kit/issues/new/choose) 会触发 AI 自动回答（`/ai-help` 或追问会升级深度推理分析），维护者人工兜底，AI 回复机器人已具备代码调试修改权限。
-> - 💬 **Telegram 交流群**：[Olympus_Habitue](https://t.me/Olympus_Habitue) 可用于使用反馈、排障经验与更新讨论。
-> - ✅ 想要“可追踪”的升级体验，这种 AI 驱动仓库会更适合长期使用。
-> - ⚠️ 除 Mihomo 内核由本人实际使用，其他内核未经实测，请测试后使用并积极反馈。
+> 一套以 **Mihomo Smart 内核 JS 覆写脚本**为基线、同步产出 12 种客户端等价配置的分流体系。同一套策略覆盖 Windows / macOS / Linux / Android / iOS / OpenWrt，避免”设备 A 可用、设备 B 抽风”。
+>
+> - 🧩 **22 区域组 + 32 业务组**：按语义精细分流（AI / 流媒体 / 社交 / 游戏 / 广告拦截 …），385+ rule-provider 全覆盖
+> - ⚡ **Smart / Normal 双内核**：同规则量，按内核能力选 `smart`（LightGBM ML 择路）或经典 `url-test`
+> - 🤖 **AI 全仓维护**：代码 / 规则 / 文档均由 AI 编写迭代；[Issue](https://github.com/ivansolis1989/Smart-Config-Kit/issues/new/choose) 触发 AI 自动回答，[Telegram 群](https://t.me/Olympus_Habitue) 可讨论
+> - ⚠️ Mihomo 内核由本人实测，其他内核请自行验证后使用
 
 <sub>💖 [支持本项目](./docs/donate.md) · ⭐ [Star](https://github.com/ivansolis1989/Smart-Config-Kit) · 🐛 [Issue](https://github.com/ivansolis1989/Smart-Config-Kit/issues)</sub>
 
