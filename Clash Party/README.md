@@ -1,5 +1,9 @@
 # Clash Party / Clash Verge / Mihomo Party 使用教程
 
+## 💖 支持本项目
+
+→ [捐赠 / Star / PR](../docs/donate.md)
+
 > 目录简介：这里是 Mihomo Smart/Normal 覆写脚本的事实基线，面向 Clash Party、Clash Verge Rev、Mihomo Party 等桌面客户端。
 >
 > 覆写脚本：**两份二选一**，规则 100% 等价，仅 22 区域组（11 全部 + 11 家宽）的内核选路算法不同
@@ -208,7 +212,6 @@ DNS：
 <img width="811" height="698" alt="image" src="https://github.com/user-attachments/assets/c6ad3051-17c3-43e2-8dfa-e9721bd305f8" />
 <img width="811" height="698" alt="image" src="https://github.com/user-attachments/assets/d2cbbbb3-ed2c-45d7-86cc-832edfbdb365" />
 
-
 ```yaml
 dns:
   use-hosts: false
@@ -252,7 +255,6 @@ dns:
 Sniffer：
 
 <img width="811" height="698" alt="image" src="https://github.com/user-attachments/assets/76bb6490-3dee-43f5-a863-96bc99546b52" />
-
 
 ```yaml
 sniffer:
@@ -394,4 +396,6 @@ sniffer:
 
 ---
 
-💖 支持本项目 → [捐赠 / Star / PR](../docs/donate.md)
+## 💖 支持本项目
+
+→ [捐赠 / Star / PR](../docs/donate.md)

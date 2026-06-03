@@ -1,5 +1,9 @@
 # Passwall 使用教程（对齐 Clash Party v5.4.22 简化版）
 
+## 💖 支持本项目
+
+→ [捐赠 / Star / PR](../docs/donate.md)
+
 > 目录简介：这里提供 Passwall 全功能版的展平分流参考、shunt rule 列表和 OpenWrt 导入教程。
 >
 > 配置参考：`Passwall/` 目录  
@@ -626,4 +630,6 @@ Passwall 允许 TCP 和 UDP 流量走**不同节点**：
 
 ---
 
-💖 支持本项目 → [捐赠 / Star / PR](../docs/donate.md)
+## 💖 支持本项目
+
+→ [捐赠 / Star / PR](../docs/donate.md)

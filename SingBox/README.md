@@ -1,5 +1,9 @@
 # SingBox 使用教程（对齐 Clash Party v5.4.22 Full 语义）
 
+## 💖 支持本项目
+
+→ [捐赠 / Star / PR](../docs/donate.md)
+
 > 目录简介：这里维护 sing-box Full JSON 生成脚本、生成产物和 Hiddify/HomeProxy 等 sing-box 客户端导入教程。
 >
 > 配置文件：`SingBox/SingBox(sing-box)-full.json`（v5.4.22-sing.1）
@@ -329,7 +333,8 @@ sing-box remote rule-set 的 `source` 格式是 sing-box 自己的 JSON `{versio
 - sing-box Cache File  
   https://sing-box.sagernet.org/configuration/experimental/cache-file/
 
-
 ---
 
-💖 支持本项目 → [捐赠 / Star / PR](../docs/donate.md)
+## 💖 支持本项目
+
+→ [捐赠 / Star / PR](../docs/donate.md)

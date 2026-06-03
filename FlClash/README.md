@@ -1,5 +1,9 @@
 # FlClash 使用教程 — 覆写脚本版
 
+## 💖 支持本项目
+
+→ [捐赠 / Star / PR](../docs/donate.md)
+
 > 目录简介：这里提供 FlClash 专用 JS 覆写脚本和导入教程，用动态节点分类复刻 Clash Party Normal 语义。
 >
 > 覆写脚本：`FlClash(mihomo).js`
@@ -14,7 +18,6 @@
 <td><img width="160" alt="FlClash 截图4" src="https://github.com/user-attachments/assets/be31a91a-259c-47a7-b599-fa08752bef8d"></td>
 <td><img width="160" alt="FlClash 截图5" src="https://github.com/user-attachments/assets/770eb553-86c5-49a7-80f4-4fd68594888b"></td>
 </tr></table>
-
 
 ---
 
@@ -171,4 +174,6 @@ FlClash 内核是标准 Mihomo，不支持 `type: smart` + LightGBM。
 
 ---
 
-💖 支持本项目 → [捐赠 / Star / PR](../docs/donate.md)
+## 💖 支持本项目
+
+→ [捐赠 / Star / PR](../docs/donate.md)
