@@ -103,9 +103,6 @@ flowchart LR
 | 🐟 漏网之鱼 | 以 GEOSITE/GEOIP/FINAL 兜底为主（非单一固定 provider） | MetaCubeX（geo 规则） |
 | 🛑 广告拦截 | `anti-ad` `sukka-phishing` `hagezi-tif` `advertising` `privacy` `acc-unsupportvpn` | DustinWin / SukkaW / Hagezi / blackmatrix7 / Accademia |
 
-> v5.4.12 起持续修复误伤白名单（Paddle / Cloudflare R2 / STUN / RustDesk）+ Surge `DEST-PORT` 兼容 + [GEOSITE 覆盖台账](./docs/GEOSITE_COVERAGE_LEDGER.md)；DNS 自 v5.4.17 起采用 split-bootstrap 加固；v5.4.19 借鉴 Proxy-override 批 A（国内 SDK/CDN 直连前置 + fake-ip-filter 远控/游戏/P2P 补全 + `direct-nameserver-follow-policy`）；v5.4.20 批 B（#6 节点过滤 junk 关键词补充 免费/试用/应急/Sign/Login/Register/Help/FAQ，6 mihomo 产物），详见下方 [DNS 净化](#-dns-净化科学上网的第一道防线)。
->
-> v5.4.23 私有 iOS 引擎兼容说明（#162）：Shadowrocket / Surge / Loon / Quantumult X 已移除失效的 HaGeZi `share/surge-tif-medium.txt` 旧 URL；Mihomo / CMFA / OpenClash / FlClash 仍通过 MiHomo-Hagezi `.mrs` 使用 `hagezi-tif`。SR/Loon/QX 使用 Sukka `List/non_ip/reject.conf`，Surge 使用原生 `List/domainset/reject_phishing.conf`。
 
 ---
 
@@ -291,10 +288,6 @@ flowchart TB
 4. **`proxy-server-nameserver` 必须单独配置**（容易忽略）。这是解决"机场节点 IP 被针对性封"的关键——让机场节点域名的解析也走海外 DoH 而不是默认通道。
 5. **fake-ip 模式强烈推荐**（`enhanced-mode: fake-ip`）。比 redir-host 快 + 无本地缓存污染 + 规则命中更精准。
 6. **别在 `hosts:` 里写业务域名**。`hosts:` 只适合给 bootstrap DoH（例如 `one.one.one.one → 1.1.1.1`）写兜底 IP，用来规避 DNS 冷启动死锁；写业务域名会让本配置的规则命中失效。
-
-### 近期 DNS 加固（v5.4.12+）
-
-> **v5.4.12** RustDesk `rustdesk.com` fake-ip 下返回真实 IP → **v5.4.13** STUN/TURN 端口直连 + 真实 IP → **v5.4.17** split-bootstrap（`default-nameserver` 纯 IP + 其余全部 DoH + `respect-rules: true` + 关闭 `prefer-h3`）。详见 [Clash Party CHANGELOG](./Clash%20Party/CHANGELOG.md)。
 
 ### 怎么验证 DNS 真的净化了
 
