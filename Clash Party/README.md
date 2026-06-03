@@ -391,3 +391,7 @@ sniffer:
 - [clash-verge-rev](https://github.com/clash-verge-rev/clash-verge-rev) - 桌面客户端
 - [sub-store-org/Sub-Store](https://github.com/sub-store-org/Sub-Store) - 多机场融合工具
 - 所有上游规则集维护者（bm7 / MetaCubeX / Loyalsoldier / blackmatrix7 等）
+
+---
+
+💖 支持本项目 → [捐赠 / Star / PR](../docs/donate.md)

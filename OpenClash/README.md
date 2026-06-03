@@ -270,3 +270,7 @@ LuCI → **配置订阅** → 添加订阅链接 → 下载 → **全局设置**
 | `OpenClash(mihomo).sh` | 覆写脚本（Normal 内核） |
 | `OpenClash(mihomo).conf` | OpenClash UI 配置快照（一次性导入） |
 | `CHANGELOG.md` | 两份脚本的变更日志（Smart 段 + Normal 段） |
+
+---
+
+💖 支持本项目 → [捐赠 / Star / PR](../docs/donate.md)

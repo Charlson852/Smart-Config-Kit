@@ -623,3 +623,7 @@ Passwall 允许 TCP 和 UDP 流量走**不同节点**：
 - MetaCubeX geosite.dat（本参考使用的 `geosite:` 分类名称依据）：https://github.com/MetaCubeX/meta-rules-dat
 - 本仓库 Passwall2 目录（精简版参考，UCI key = `passwall2`）：`../Passwall2/README.md`
 - 本仓库完整体验（mihomo proxy-groups 嵌套 + Smart + LightGBM）：`../OpenClash/README.md`
+
+---
+
+💖 支持本项目 → [捐赠 / Star / PR](../docs/donate.md)

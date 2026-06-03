@@ -168,3 +168,7 @@ FlClash 内核是标准 Mihomo，不支持 `type: smart` + LightGBM。
 - [FlClash GitHub](https://github.com/chen08209/FlClash)
 - [覆写脚本源码](./FlClash(mihomo).js)
 - [CMFA YAML（备选方案）](../Clash%20Meta%20For%20Android/CMFA(mihomo).yaml)
+
+---
+
+💖 支持本项目 → [捐赠 / Star / PR](../docs/donate.md)

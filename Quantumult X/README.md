@@ -306,3 +306,7 @@ python3 /tmp/srk_to_qx.py
 - [Koolson/Qure](https://github.com/Koolson/Qure) - policy 图标库
 - [Loyalsoldier/geoip](https://github.com/Loyalsoldier/geoip) - GeoIP MMDB
 - 原版 Clash Party v5.2.3 所有参考作者
+
+---
+
+💖 支持本项目 → [捐赠 / Star / PR](../docs/donate.md)

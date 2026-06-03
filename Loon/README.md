@@ -286,3 +286,7 @@ Parsec / Zoom / Pornhub / Wayback）：
 - [Loyalsoldier/geoip](https://github.com/Loyalsoldier/geoip) - GeoIP MMDB
 - Clash Party v5.2.4 主线基线
 - [YueChan/Loon](https://github.com/YueChan/Loon) / [Loon0x00/LoonExampleConfig](https://github.com/Loon0x00/LoonExampleConfig) / [fmz200/wool_scripts](https://github.com/fmz200/wool_scripts) — 三份 Loon 官方/权威示例，v5.2.4-Loon.2 语法对齐的对照来源
+
+---
+
+💖 支持本项目 → [捐赠 / Star / PR](../docs/donate.md)

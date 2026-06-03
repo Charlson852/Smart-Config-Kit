@@ -329,3 +329,7 @@ sing-box remote rule-set 的 `source` 格式是 sing-box 自己的 JSON `{versio
 - sing-box Cache File  
   https://sing-box.sagernet.org/configuration/experimental/cache-file/
 
+
+---
+
+💖 支持本项目 → [捐赠 / Star / PR](../docs/donate.md)

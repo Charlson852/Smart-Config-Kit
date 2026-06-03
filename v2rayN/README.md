@@ -309,3 +309,7 @@ Happ 有自有的路由 Profile JSON 格式（`happ://routing/...` deep link 下
 - [SagerNet/sing-box](https://github.com/SagerNet/sing-box)
 - [XTLS/Xray-core](https://github.com/XTLS/Xray-core)
 - 所有本仓库上游规则维护者（MetaCubeX / blackmatrix7 / Loyalsoldier / szkane / Accademia 等）
+
+---
+
+💖 支持本项目 → [捐赠 / Star / PR](../docs/donate.md)

@@ -315,3 +315,7 @@ tun-excluded-routes = 10.0.0.0/8, 100.64.0.0/10, 127.0.0.0/8, 169.254.0.0/16, ..
 - [blackmatrix7/ios_rule_script](https://github.com/blackmatrix7/ios_rule_script) - Shadowrocket `.list` 规则源
 - [szkane](https://github.com/szkane) - 补充规则
 - 原版 Clash Party v5.2.2 所有参考作者
+
+---
+
+💖 支持本项目 → [捐赠 / Star / PR](../docs/donate.md)

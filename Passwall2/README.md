@@ -542,3 +542,7 @@ geoip:fastly
 - 社区权威解读（两者定位差异）：https://github.com/Openwrt-Passwall/openwrt-passwall2/discussions/555
 - MetaCubeX geosite.dat（本参考使用的 `geosite:` 分类名称依据）：https://github.com/MetaCubeX/meta-rules-dat
 - 本仓库完整体验（mihomo proxy-groups 嵌套 + Smart + LightGBM）：`OpenClash/README.md`
+
+---
+
+💖 支持本项目 → [捐赠 / Star / PR](../docs/donate.md)
