@@ -106,105 +106,20 @@ flowchart LR
 
 ---
 
-## 🎯 差异化价值：补充 rule-provider 相对 `geosite.dat` + `geoip.dat` 的差异
+## 🎯 差异化价值：为什么在 geosite / geoip 之上还要叠加 300 个 rule-provider
 
-> 本仓库在 MetaCubeX `geosite.dat` + Loyalsoldier `geoip.dat` 基础上叠加了 ~300 个补充 rule-provider。这一节解释**为什么需要它们**——以及**每一条必须回答"我比原生 dat 多解决了什么"**，不是数量游戏。
+> IP 分类（国家码 / 服务标签）直接用原生 Loyalsoldier `geoip.dat`，**零增量**。补充全在域名分类层，且每条 rule-provider 必须回答「比原生 dat 多解决了什么」，否则拒绝加入。
 >
-> 代理组嵌套 / Smart / LightGBM 等架构能力是另一回事，见上一章「🧩 Smart 分流规则」。
->
-> 当前覆盖结论、误伤白名单和新增 provider 的审查流程集中维护在 [docs/GEOSITE_COVERAGE_LEDGER.md](./docs/GEOSITE_COVERAGE_LEDGER.md)。
+> 代理组嵌套 / Smart / LightGBM 等架构能力见上一章。覆盖审查流程见 [docs/GEOSITE_COVERAGE_LEDGER.md](./docs/GEOSITE_COVERAGE_LEDGER.md)。
 
-### 匹配层的两个维度
+| 类型 | geosite 做不到的事 | 本仓库怎么补 | 典型例子 |
+|---|---|---|---|
+| **① 新兴服务** | 新 AI / Web3 上线后 2–4 周才收录 | `szkane-ai` / `acc-grok` + 手工 `DOMAIN-SUFFIX` | cursor.com · character.ai · openrouter.ai · CiciAI |
+| **② 子类拆分** | `geosite:apple` 是一个整体，无法让 AppStore 直连 + TestFlight 走代理 | bm7 拆成 12 个独立 provider | Apple / Google / Microsoft 家族各子服务独立决策 |
+| **③ 安全纵深** | `category-ads-all` 只管广告，不管钓鱼 / 恶意软件 / SDK 埋点 / DNS 劫持 | 9 个来源互补覆盖不同威胁类型 | anti-AD（广告）+ sukka-phishing（13 万钓鱼）+ hagezi-tif（malware/C2） |
+| **④ 地区长尾** | 国际社区不维护中国特有 SDK / 港澳台细分 / IoT ASN | szkane / Accademia 补充 | B 站港澳台版 · 绿米 IoT · 美日住宅 IP 段 |
 
-| 维度 | 裸用 `geosite.dat` + `geoip.dat` | 本仓库 |
-|---|---|---|
-| **域名分类** | ~500 个扁平分类 | 继承全部 + ~300 个补充（填下方 4 类空白） |
-| **IP 分类** | 50+ 国家码 + 15 服务标签（`cloudflare` / `telegram` / `netflix` / `google` / `facebook` / `fastly` …） | **直接用原生 Loyalsoldier，0 增量**——这个维度不造轮子 |
-
-### 300 个补充 rule-provider，分 4 类填空白
-
-每条 rule-provider 必须归入下方 4 类之一，否则拒绝加。
-
----
-
-#### ① 新兴服务：geosite 收录滞后 2–4 周
-
-**问题**：新 AI / Web3 / 冷门工具刚上线时不在 geosite 里，请求 fall through 到 FINAL 走错节点。
-
-**补充**：`szkane-ai` / `acc-grok` / `acc-copilot` + 手工 `domain-suffix:`——
-
-`cursor.com` · `v0.dev` · `character.ai` · `mistral.ai` · `perplexity.ai` · `pi.ai` · `midjourney.com` · `runpod.io` · `openrouter.ai` · CiciAI · 新 Web3 DEX …
-
-**效果**：新服务上线当天就能正确路由，不用等 geosite 更新。
-
----
-
-#### ② 拆 geosite 总类：让子服务独立决策
-
-**问题**：`geosite:apple` 是一个总类，所有 Apple 子服务只能共享同一策略——想做到"AppStore 直连、TestFlight 走美国、AppleMusic 代理解锁"做不到。
-
-**补充**：bm7 的 Apple 家族拆成 12 个独立 rule-provider：
-
-| 子类 | 建议出站 |
-|---|---|
-| `apple` / `icloud` 主类 | 直连 |
-| `appstore` / `applefirmware` | 直连（省带宽，固件几 GB） |
-| `applemusic` / `appletv` / `testflight` | 代理（解锁境外订阅 / beta） |
-| `siri` / `applenews` / `appledev` / `findmy` / `appleproxy` | 代理（国区阉割）|
-
-**效果**：下 Xcode 直连、开 TestFlight 走 US、切 Apple Music 境外歌单——一套配置自动区分。Google / Microsoft 家族同理。
-
----
-
-#### ③ 广告拦截：多源纵深覆盖不同威胁类型
-
-**问题**：`geosite:category-ads-all` 只管「广告」一类，**钓鱼 / 恶意软件 / 隐私追踪 / 国内 SDK 埋点 / DNS 劫持** 全都不在。
-
-**补充**：🛑 广告拦截组下 9 个来源互补（不是重复加码）——
-
-| 来源 | 覆盖威胁 |
-|---|---|
-| `anti-ad`（DustinWin） | 国内外广告联盟（5 万+） |
-| `sukka-phishing`（SukkaW） | 钓鱼域名（13 万+） |
-| `hagezi-tif`（Hagezi） | 威胁情报：malware / C2 / cryptojacking / scam |
-| `acc-hijackingplus`（Accademia） | 运营商 DNS 劫持 + HTTP 302 注入 |
-| `acc-blockhttpdnsplus` | HTTP DNS SDK 绕系统 DNS |
-| `acc-prerepaireasyprivacy` | 隐私追踪：FB Pixel / GA / Mixpanel |
-| `miuiprivacy` / `jiguangtuisong` / `youmengchuangxiang` | 国内 SDK 埋点（小米 / 极光 / 友盟）|
-| `category-ads-all`（geosite） | 兜底 |
-
-**效果**：访问假冒币安登录页 → `sukka-phishing` 拦下；小米手机每天几千条 REJECT 阻止国内 SDK 上报。
-
----
-
-#### ④ 地区长尾 / 特殊 ASN：geosite 不维护的小众
-
-**问题**：geosite 是国际社区维护，不收录中国特有 SDK / 地区细分 / IoT 专用 ASN。
-
-**补充**：
-
-| provider | 用途 |
-|---|---|
-| `szkane-uk` | 英国流媒体细分（geosite:bbc / itv 覆盖不全） |
-| `szkane-bilihmt` | B 站港澳台版（geosite 只有 bilibili + biliintl 两总类） |
-| `acc-aqara-cn` | 绿米 IoT 国内端点（普通 geosite:cn 不含 IoT ASN） |
-| `acc-homeip-us` / `acc-homeip-jp` | 美日住宅 IP 段识别（geoip.dat 只到国家级） |
-
----
-
-### 加法原则：拒绝无脑堆砌
-
-| 场景 | 判定 | 理由 |
-|---|:-:|---|
-| 和 geosite 某分类 > 95% 重叠 | ❌ 拒绝 | 纯冗余。v5.2.5 据此删 `acc-geositecn` / `acc-china` |
-| 和已有 rule-provider 逐条重复但无新条目 | ❌ 拒绝 | 同上 |
-| 填补新兴服务（类 ①） | ✅ 通过 | |
-| 拆 geosite 总类为子类（类 ②） | ✅ 通过 | |
-| 多源互补覆盖不同威胁（类 ③） | ✅ 通过 | |
-| 地区长尾 / 特殊 ASN（类 ④） | ✅ 通过 | |
-| geosite 里叫法不同的别名映射（如 `snap` vs `snapchat`） | ⚠️ 有条件 | 修 bug 不加条目 |
-
-> **小结**：本仓库的匹配层增量 = 新兴服务 + 子类拆分 + 广告多源纵深 + 地区长尾 ASN。原生 geosite / geoip 能覆盖的部分一律不重复造轮子。
+> **加法原则**：和 geosite >95% 重叠 → ❌ 拒绝加入（v5.2.5 据此删 `acc-geositecn` / `acc-china`）。
 
 ---
 
