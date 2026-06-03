@@ -232,27 +232,29 @@ flowchart TB
 
 ---
 
-## 🙏 致谢（上游依赖）
+## 🙏 致谢
 
-本仓库主要做**编排、覆写、适配与维护**——**真正的重活都是下面这些项目做的**，按类别一行列出：
+本仓库做**编排、覆写、适配**，真正的重活靠这些项目：
 
-**🧠 核心代理内核**：[MetaCubeX/mihomo](https://github.com/MetaCubeX/mihomo) / [mihomo Smart Alpha](https://github.com/MetaCubeX/mihomo/tree/Alpha) / [vernesong/LightGBM Model](https://github.com/vernesong/mihomo/releases/download/LightGBM-Model/Model.bin) / [SagerNet/sing-box](https://github.com/SagerNet/sing-box) / [XTLS/Xray-core](https://github.com/XTLS/Xray-core) / [hiddify/hiddify-sing-box](https://github.com/hiddify/hiddify-sing-box)
+**🧠 内核**：[mihomo](https://github.com/MetaCubeX/mihomo) / [Smart Alpha](https://github.com/MetaCubeX/mihomo/tree/Alpha) / [LightGBM](https://github.com/vernesong/mihomo/releases/download/LightGBM-Model/Model.bin) / [sing-box](https://github.com/SagerNet/sing-box) / [Xray](https://github.com/XTLS/Xray-core) / [hiddify-sing-box](https://github.com/hiddify/hiddify-sing-box)
 
-**📱 客户端**：[mihomo-party](https://github.com/mihomo-party-org/mihomo-party) / [clash-verge-rev](https://github.com/clash-verge-rev/clash-verge-rev) / [ClashMetaForAndroid](https://github.com/MetaCubeX/ClashMetaForAndroid) / [FlClash](https://github.com/chen08209/FlClash) / [OpenClash](https://github.com/vernesong/OpenClash) / [HomeProxy](https://github.com/immortalwrt/homeproxy) / [ShellCrash](https://github.com/juewuy/ShellCrash) / [openwrt-passwall2](https://github.com/Openwrt-Passwall/openwrt-passwall2) / [v2rayN](https://github.com/2dust/v2rayN) / [hiddify-app](https://github.com/hiddify/hiddify-app)
+**📱 客户端**：[mihomo-party](https://github.com/mihomo-party-org/mihomo-party) / [Verge Rev](https://github.com/clash-verge-rev/clash-verge-rev) / [CMFA](https://github.com/MetaCubeX/ClashMetaForAndroid) / [FlClash](https://github.com/chen08209/FlClash) / [OpenClash](https://github.com/vernesong/OpenClash) / [HomeProxy](https://github.com/immortalwrt/homeproxy) / [ShellCrash](https://github.com/juewuy/ShellCrash) / [Passwall2](https://github.com/Openwrt-Passwall/openwrt-passwall2) / [v2rayN](https://github.com/2dust/v2rayN) / [Hiddify](https://github.com/hiddify/hiddify-app)
 
-**📚 规则数据库**：[MetaCubeX/meta-rules-dat](https://github.com/MetaCubeX/meta-rules-dat)（geosite） / [Loyalsoldier/geoip](https://github.com/Loyalsoldier/geoip)（geoip + mmdb + asn） / [Loyalsoldier/clash-rules](https://github.com/Loyalsoldier/clash-rules) / [Loyalsoldier/v2ray-rules-dat](https://github.com/Loyalsoldier/v2ray-rules-dat)
+**📚 规则库**：[geosite](https://github.com/MetaCubeX/meta-rules-dat) / [geoip](https://github.com/Loyalsoldier/geoip) / [clash-rules](https://github.com/Loyalsoldier/clash-rules) / [v2ray-rules-dat](https://github.com/Loyalsoldier/v2ray-rules-dat)
 
-**📦 业务规则集**：[blackmatrix7/ios_rule_script](https://github.com/blackmatrix7/ios_rule_script)（主力） / [Accademia/Additional_Rule_For_Clash](https://github.com/Accademia/Additional_Rule_For_Clash) / [DustinWin/ruleset_geodata](https://github.com/DustinWin/ruleset_geodata) / [ACL4SSR](https://github.com/ACL4SSR/ACL4SSR) / [SukkaW/Surge](https://github.com/SukkaW/Surge) / [hagezi/dns-blocklists](https://github.com/hagezi/dns-blocklists) / [MiHomoer/MiHomo-Hagezi](https://github.com/MiHomoer/MiHomo-Hagezi) / [szkane/Rules](https://github.com/szkane/Rules) / [privacy-protection-tools/anti-AD](https://github.com/privacy-protection-tools/anti-AD)
+**📦 规则集**：[bm7](https://github.com/blackmatrix7/ios_rule_script) / [Accademia](https://github.com/Accademia/Additional_Rule_For_Clash) / [DustinWin](https://github.com/DustinWin/ruleset_geodata) / [ACL4SSR](https://github.com/ACL4SSR/ACL4SSR) / [SukkaW](https://github.com/SukkaW/Surge) / [Hagezi](https://github.com/hagezi/dns-blocklists) / [MiHomo-Hagezi](https://github.com/MiHomoer/MiHomo-Hagezi) / [szkane](https://github.com/szkane/Rules) / [anti-AD](https://github.com/privacy-protection-tools/anti-AD)
 
-**🛠️ 辅助工具**：[Sub-Store](https://github.com/sub-store-org/Sub-Store) / [PROCESS-NAME 兼容清单](./docs/process-name-compatibility.md) / [KOP-XIAO/QuantumultX](https://github.com/KOP-XIAO/QuantumultX) / [Koolson/Qure](https://github.com/Koolson/Qure) / [v2fly/domain-list-community](https://github.com/v2fly/domain-list-community)
+**🛠️ 工具**：[Sub-Store](https://github.com/sub-store-org/Sub-Store) / [PROCESS-NAME 兼容清单](./docs/process-name-compatibility.md) / [QX 脚本](https://github.com/KOP-XIAO/QuantumultX) / [Qure 图标](https://github.com/Koolson/Qure) / [domain-list-community](https://github.com/v2fly/domain-list-community)
 
-**💳 商业闭源客户端**：[Shadowrocket](https://apps.apple.com/app/shadowrocket/id932747118) / [Surge](https://nssurge.com/) / [Loon](https://apps.apple.com/app/loon/id1373567447) / [Quantumult X](https://apps.apple.com/app/quantumult-x/id1443988620)
+**💳 闭源客户端**：[Shadowrocket](https://apps.apple.com/app/shadowrocket/id932747118) / [Surge](https://nssurge.com/) / [Loon](https://apps.apple.com/app/loon/id1373567447) / [Quantumult X](https://apps.apple.com/app/quantumult-x/id1443988620)
 
-**⚠️ 未逐项列出但确实贡献的**：所有向 `v2fly/domain-list-community` + `MaxMind / GeoCN` 提交域名 / IP CIDR 的个人贡献者（数据库真正的脊梁）· Issue / PR 里报告过命中错误 / 节点无法识别 / 规则失效的用户。
+> 遗漏了你的项目？欢迎 [开 Issue](https://github.com/ivansolis1989/Smart-Config-Kit/issues) 指出——**所有真正做事的人都值得被点名**。
 
-> 如果本仓库遗漏了你贡献的上游项目，欢迎开 Issue 指出——**所有真正做事的人都值得被点名**。
+---
 
-💖 支持本项目 → [捐赠 / Star / PR](./docs/donate.md)
+## 💖 支持本项目
+
+→ [捐赠 / Star / PR](./docs/donate.md)
 
 ---
 
