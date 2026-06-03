@@ -13,6 +13,8 @@
 > - ✅ 想要“可追踪”的升级体验，这种 AI 驱动仓库会更适合长期使用。
 > - ⚠️ 除 Mihomo 内核由本人实际使用，其他内核未经实测，请测试后使用并积极反馈。
 
+<sub>💖 [支持本项目](./docs/donate.md) · ⭐ [Star](https://github.com/ivansolis1989/Smart-Config-Kit) · 🐛 [Issue](https://github.com/ivansolis1989/Smart-Config-Kit/issues)</sub>
+
 ---
 
 ## 🧭 分流策略设计框架（重点）
