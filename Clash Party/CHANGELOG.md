@@ -1,13 +1,13 @@
 # Clash Party — 变更日志
 
 > 本文件是 `Clash Party/ClashParty(mihomo-smart).js` 的完整变更日志。
-> 本 JS 覆写脚本是仓库的**主线基线**，其它所有产物（CMFA YAML / OpenClash Normal+Smart / Shadowrocket / SingBox / Surge / Loon / Quantumult X / v2rayN）跟随本版本。
+> 本 JS 覆写脚本是仓库的**主线基线**，其它所有产物（CMFA YAML / OpenClash Normal+Smart / Shadowrocket / Surge / Loon / Quantumult X / SingBox / v2rayN / Passwall / Passwall2 / FlClash）跟随本版本。
 >
-> 主版本号 `v5.3.X`；主版本变更必须同步传递到所有 9 份产物的子版本号。
+> 主版本号 `v5.4.X`；主版本变更必须同步传递到所有受影响产物的子版本号。
 
 ---
 
-## v5.4.25 / v5.4.25-normal.1 (2026-06-03)
+## v5.4.25 / v5.4.25-normal.1 (2026-06-04)
 
 - ★ 审查修复：GEOIP 重复规则去重（`GEOIP,netflix` / `GEOIP,google` 各出现 2 次 → 保留 GEOIP 标签路由集中区块，删除散落在业务区块的冗余；延续 v5.4.24 GEOIP,ID 清理）
 - ★ 审查修复：Accademia GeoRouting 34 providers（Domain×17 + IP×17）interval 从 `nextInterval()`（~24h）提升到 7 天（604800s）——区域路由规则变化极慢，减少并发刷新频率

@@ -5,9 +5,9 @@
   },
   "_meta": {
     "name": "SingBox Smart Full",
-    "version": "v5.4.24-sing.2",
-    "build": "2026-06-03",
-    "baseline": "Clash Party v5.4.24",
+    "version": "v5.4.25-sing.1",
+    "build": "2026-06-04",
+    "baseline": "Clash Party v5.4.25",
     "changelog": "见 SingBox/CHANGELOG.md"
   },
   "experimental": {
@@ -3967,13 +3967,6 @@
         "outbound": "🎥 Netflix"
       },
       {
-        "geoip": [
-          "netflix"
-        ],
-        "action": "route",
-        "outbound": "🎥 Netflix"
-      },
-      {
         "domain_suffix": [
           "max.com"
         ],
@@ -5239,13 +5232,6 @@
       {
         "domain_suffix": [
           "vagrantup.com"
-        ],
-        "action": "route",
-        "outbound": "🔧 工具与服务"
-      },
-      {
-        "geoip": [
-          "google"
         ],
         "action": "route",
         "outbound": "🔧 工具与服务"

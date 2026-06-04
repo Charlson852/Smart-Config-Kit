@@ -7,6 +7,10 @@
 
 ---
 
+## v5.4.25-v2n.1 (2026-06-04)
+
+- ★ SYNC：Xray 路由 JSON 元数据对齐 Clash Party v5.4.25；业务/规则类别未变化，路由语义延续 v5.4.23-v2n.1。
+
 ## v5.4.23-v2n.1 (2026-06-02)
 
 - ★ FIX#161：`domain:zhimg.com` + `domain:zhihu.co` 加入 direct 路由规则（知乎图片 CDN + 短链，同步基线）。

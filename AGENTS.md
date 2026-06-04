@@ -61,7 +61,7 @@ Smart-Config-Kit 同时发布 **11 种客户端形态的等价产物**（分属 
    - `v2rayN/v2rayN(xray).json`（仅当业务组/规则类别变化时才需动；纯区域选优/LightGBM 调整可豁免，但需在 PR 里明确说明豁免原因）
    - `Surge/Surge.conf`（跟随 Shadowrocket 的规则变化；DNS/MMDB 字段独立维护）
    - `Loon/Loon.conf`（跟随 Surge；[General] 字段对齐 Loon 原生）
-   - `Quantumult X/QuantumultX.conf`（可由等价脚本 `srk_to_qx.py` 从 Shadowrocket 重新生成）
+   - `Quantumult X/QuantumultX.conf`（独立手工维护的 QX 产物；当前仓库无 `srk_to_qx.py`，恢复自动转换前必须先提交并验证脚本）
    - `Passwall/Passwall(xray+sing-box)-apply.sh` + `Passwall/shunt-rules/*.list`（展平降级参考；仅当业务组/规则类别变化时需同步；与 Passwall2 联动）
    - `Passwall2/Passwall2(xray+sing-box)-apply.sh` + `Passwall2/shunt-rules/*.list`（同上；与 Passwall 联动）
 3. **bump 产物文件头部版本号**（仅版本号 + Build 日期 + 一行摘要，保持轻量）。

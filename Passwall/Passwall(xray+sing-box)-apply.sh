@@ -1,11 +1,12 @@
 #!/bin/sh
 # ═══════════════════════════════════════════════════════════════════════════
 # Smart-Config-Kit for Passwall — UCI batch helper
-# Version: v5.4.24-pw.1 | Build 2026-06-03
+# Version: v5.4.25-pw.1 | Build 2026-06-04 | Baseline: Clash Party v5.4.25
 #
 # 用途：一次性在 Passwall（全功能版）中创建 32 条 shunt rule（含域名列表 + IP 列表），
 #       每条目标节点留空（NEED_CONFIG），用户之后到 LuCI 里手工选节点。
 #
+# 变更：v5.4.25-pw.1 — 修复 CMFA/PW 审查项：KakaoTalk geosite 对齐 + 脚本重复运行保护
 # 变更：v5.4.24-pw.1 — 移除 15-music-streaming.list 中与 rule-set 重复的 domain:tidal/deezer/soundcloud/pandora
 # 变更：v5.4.23-pw.1 — FIX#161：27-cn-site.list 增 zhimg.com / zhihu.co 直连（知乎图片 CDN + 短链）
 # 变更：v5.4.22-pw.1 — N/A#1 QUIC 精细化：Passwall 不承载 QUIC 阻断，仅版本对齐；v5.4.21: #4/#6
@@ -45,12 +46,76 @@
 # ⚠️  警告：
 #   • 本脚本在 ImmortalWrt / OpenWrt 官方源的 Passwall 上测过
 #   • 运行前建议备份: cp /etc/config/passwall /etc/config/passwall.bak
-#   • 运行会 append 32 条新规则，不会删除既有的（重复运行会产生副本）
+#   • 默认 --replace：先删除同名 Smart-Config-Kit 旧规则，再创建 32 条新规则
+#   • 可选 --append：保留既有规则并追加（可能产生副本）
 # ═══════════════════════════════════════════════════════════════════════════
 
 set -e
 
 CONFIG_NAME="passwall"
+MODE="${1:---replace}"
+
+case "${MODE}" in
+  --replace|'')
+    MODE="--replace"
+    ;;
+  --append)
+    ;;
+  *)
+    echo "Usage: $0 [--replace|--append]" >&2
+    exit 2
+    ;;
+esac
+
+is_scki_remark() {
+  printf '%s\n' \
+    '🛑 广告拦截' \
+    '🤖 AI 服务' \
+    '💰 加密货币' \
+    '🏦 金融支付' \
+    '💬 即时通讯' \
+    '📱 社交媒体' \
+    '🎵 TikTok' \
+    '🧑‍💼 会议协作' \
+    '📺 国内流媒体' \
+    '🎥 Netflix' \
+    '🎬 Disney+' \
+    '📡 HBO/Max' \
+    '📺 Hulu' \
+    '🎬 Prime Video' \
+    '📹 YouTube' \
+    '🎵 音乐流媒体' \
+    '🌐 其他国外流媒体' \
+    '🇭🇰 香港流媒体' \
+    '🇹🇼 台湾流媒体' \
+    '🇯🇵 日韩流媒体' \
+    '🇪🇺 欧洲流媒体' \
+    '🕹️ 国内游戏' \
+    '🎮 国外游戏' \
+    'Ⓜ️ 微软服务' \
+    '🍎 苹果服务' \
+    '📥 下载更新' \
+    '🛰️ BT/PT Tracker' \
+    '🏠 国内网站' \
+    '🚫 受限网站' \
+    '🌐 国外网站' \
+    '🔧 工具与服务' \
+    '🐟 漏网之鱼' | grep -Fqx "$1"
+}
+
+cleanup_existing_scki_rules() {
+  removed=0
+  for section in $(uci show "${CONFIG_NAME}" | sed -n "s/^${CONFIG_NAME}\.\([^.=]*\)=shunt_rules$/\1/p"); do
+    remarks="$(uci -q get "${CONFIG_NAME}.${section}.remarks" || true)"
+    if is_scki_remark "${remarks}"; then
+      uci delete "${CONFIG_NAME}.${section}"
+      removed=$((removed + 1))
+    fi
+  done
+  if [ "${removed}" -gt 0 ]; then
+    echo "已删除旧 Smart-Config-Kit shunt rules: ${removed}"
+  fi
+}
 
 if ! command -v uci >/dev/null 2>&1; then
   echo "ERROR: uci 命令不存在，本脚本只能在 OpenWrt 路由器上运行" >&2
@@ -63,8 +128,13 @@ if [ ! -f "/etc/config/${CONFIG_NAME}" ]; then
 fi
 
 echo "建议先备份: cp /etc/config/${CONFIG_NAME} /etc/config/${CONFIG_NAME}.$(date +%s).bak"
+echo "运行模式: ${MODE}（--replace 会删除同名旧规则；--append 会追加）"
 echo "按 Ctrl+C 取消，回车继续..."
 read _
+
+if [ "${MODE}" = "--replace" ]; then
+  cleanup_existing_scki_rules
+fi
 
 echo "开始创建 32 条 shunt rule..."
 
@@ -137,7 +207,10 @@ uci add_list ${CONFIG_NAME}.${SEC}.domain_list='geosite:discord'
 uci add_list ${CONFIG_NAME}.${SEC}.domain_list='geosite:whatsapp'
 uci add_list ${CONFIG_NAME}.${SEC}.domain_list='geosite:line'
 uci add_list ${CONFIG_NAME}.${SEC}.domain_list='geosite:signal'
-uci add_list ${CONFIG_NAME}.${SEC}.domain_list='geosite:kakaotalk'
+uci add_list ${CONFIG_NAME}.${SEC}.domain_list='geosite:kakao'
+uci add_list ${CONFIG_NAME}.${SEC}.domain_list='domain:kakao.com'
+uci add_list ${CONFIG_NAME}.${SEC}.domain_list='domain:kakaocorp.com'
+uci add_list ${CONFIG_NAME}.${SEC}.domain_list='domain:kakaotalk.com'
 uci add_list ${CONFIG_NAME}.${SEC}.ip_list='geoip:telegram'
 uci set ${CONFIG_NAME}.${SEC}.network='tcp,udp'
 # uci set ${CONFIG_NAME}.${SEC}.tcp_node='NEED_CONFIG_IN_LUCI'

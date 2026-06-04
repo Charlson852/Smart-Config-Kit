@@ -7,6 +7,12 @@
 
 ---
 
+## v5.4.25-pw.1 (2026-06-04)
+
+- ★ FIX#PW-KAKAO-P1：将 active Passwall 规则中的无效 `geosite:kakaotalk` 改为 `geosite:kakao`，并补 `domain:kakao.com` / `domain:kakaocorp.com` / `domain:kakaotalk.com` 兜底。
+- ★ FIX#PW-IDEMPOTENT-P3：apply 脚本默认 `--replace`，运行前删除同名 Smart-Config-Kit shunt rules，避免重复运行追加 32 条副本；保留 `--append` 作为显式追加模式。
+- ★ SYNC：版本头和参考 `.conf` 对齐 Clash Party v5.4.25。
+
 ## v5.4.23-pw.1 (2026-06-02)
 
 - ★ FIX#161：`27-cn-site.list` 增 `domain:zhimg.com` + `domain:zhihu.co` → direct shunt（知乎图片 CDN + 短链，同步基线）。

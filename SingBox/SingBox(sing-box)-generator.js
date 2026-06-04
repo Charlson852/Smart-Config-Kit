@@ -123,7 +123,26 @@ const REGION_PLACEHOLDERS = [
 ];
 
 const clashScript = fs.readFileSync('Clash Party/ClashParty(mihomo-smart).js', 'utf8');
-const baseConfig = JSON.parse(fs.readFileSync('SingBox/SingBox(sing-box)-full.json', 'utf8'));
+const baseConfig = {
+  log: {
+    level: 'info',
+    timestamp: true
+  },
+  _meta: {
+    name: 'SingBox Smart Full',
+    version: VERSION,
+    build: BUILD,
+    baseline: BASELINE,
+    changelog: '见 SingBox/CHANGELOG.md'
+  },
+  experimental: {
+    cache_file: {
+      enabled: true,
+      path: 'cache.db',
+      store_fakeip: true
+    }
+  }
+};
 
 const sandbox = { console: { log: function(){}, error: function(){}, warn: function(){} } };
 vm.createContext(sandbox);
@@ -534,14 +553,6 @@ if (redundantDomainSet.size > 0) {
   }
 }
 
-baseConfig._meta = {
-  name: 'SingBox Smart Full',
-  version: VERSION,
-  build: BUILD,
-  baseline: BASELINE,
-  changelog: '见 SingBox/CHANGELOG.md'
-};
-
 baseConfig.dns = {
   servers: [
     // v5.4.21 #4 借鉴 Proxy-override：bootstrap 从 udp://IP:53 升级为 DoH-over-IP（https://IP/dns-query）。
@@ -614,7 +625,25 @@ baseConfig.dns = {
   strategy: 'prefer_ipv4'
 };
 
+baseConfig.inbounds = [
+  {
+    type: 'tun',
+    tag: 'tun-in',
+    address: ['172.19.0.1/30'],
+    mtu: 9000,
+    auto_route: true,
+    strict_route: true,
+    sniff: true,
+    sniff_override_destination: true,
+    stack: 'mixed'
+  }
+];
+
 baseConfig.outbounds = buildOutbounds();
+baseConfig.route = {
+  auto_detect_interface: true,
+  final: BIZ.FINAL
+};
 
 // v5.4.23-sing.2: Remove redundant Google sub-service rule_sets (googlesearch, googledrive,
 // googleearth) — these are fully covered by the unified 'google' rule_set.
@@ -649,7 +678,6 @@ const quicRules = [
   { port: [443], network: 'udp', action: 'reject' },
 ];
 baseConfig.route.rules = [...convertedRules, ...quicRules];
-baseConfig.route.final = BIZ.FINAL;
 
 fs.writeFileSync('SingBox/SingBox(sing-box)-full.json', JSON.stringify(baseConfig, null, 2) + '\n');
 

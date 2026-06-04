@@ -5,6 +5,11 @@
 
 ---
 
+## v5.4.25-cmfa.2 (2026-06-04)
+
+- ★ FIX#CMFA-YAML-P0：修复 `proxy-groups:` 下首个 `url-test` 组缺少列表项缩进导致的 YAML 解析失败。
+- ★ 验证补强：`tools/validate-artifact-contracts.js --strict-ruby` 现在会实际解析 CMFA YAML，并校验 54 组 / 382+ providers / 900+ rules。
+
 ## v5.4.25-cmfa.1 (2026-06-03)
 
 - ★ 审查修复：`GEOIP,CN` 重复规则去重（规则区块末尾出现 2 次 → 保留 1 条）

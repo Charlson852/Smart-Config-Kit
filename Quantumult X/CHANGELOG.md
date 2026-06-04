@@ -2,9 +2,14 @@
 
 > `Quantumult X/QuantumultX.conf` 的变更日志。主版本号跟随 Clash Party 主线；尾段 `-QX.N` 独立递增。
 >
-> 本文件**由 `tools/srk_to_qx.py`（或等价脚本）从 Shadowrocket 自动转换**生成。重新同步时请运行该脚本而不是手工改 `.conf`。
+> 当前仓库无 `tools/srk_to_qx.py`；本产物独立手工维护，并由 `tools/validate-artifact-contracts.js` 做结构和基线验证。
 
 ---
+
+## v5.4.25-QX.1 (2026-06-04)
+
+- ★ SYNC：产物头部版本和基线声明对齐 Clash Party v5.4.25；规则语义延续 v5.4.23-QX.2。
+- ★ DOC#QX-P2：移除不存在的 `tools/srk_to_qx.py` 自动转换声明；恢复自动转换前必须先提交脚本并纳入验证。
 
 ## v5.4.23-QX.2 (2026-06-02)
 

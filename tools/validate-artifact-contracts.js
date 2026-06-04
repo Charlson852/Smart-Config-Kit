@@ -225,6 +225,13 @@ function listFiles(relativeDir) {
     .sort();
 }
 
+function meaningfulRuleLines(relativePath) {
+  return readText(relativePath)
+    .split(/\r?\n/)
+    .map((line) => line.trim())
+    .filter((line) => line && !line.startsWith('#'));
+}
+
 function findRuby() {
   const candidates = [];
   if (process.env.RUBY) candidates.push(process.env.RUBY);
@@ -271,6 +278,28 @@ function rubyOpenClashProbe(yamlText, rubyPath) {
   return JSON.parse(result.stdout);
 }
 
+function rubyYamlFileProbe(relativePath, rubyPath) {
+  const rubyScript = [
+    'require "yaml"',
+    'require "json"',
+    'path = ARGV.fetch(0)',
+    'raw = File.read(path, encoding: "UTF-8")',
+    'data = YAML.load_file(path, permitted_classes: [Symbol], aliases: true)',
+    'puts JSON.generate({',
+    '  top_providers: raw.scan(/^rule-providers:$/).length,',
+    '  top_rules: raw.scan(/^rules:$/).length,',
+    '  providers: (data["rule-providers"] || {}).size,',
+    '  rules: (data["rules"] || []).size,',
+    '  groups: (data["proxy-groups"] || []).size',
+    '})',
+  ].join('\n');
+  const result = childProcess.spawnSync(rubyPath, ['-e', rubyScript, relPath(relativePath)], { encoding: 'utf8' });
+  if (result.status !== 0) {
+    throw new Error((result.stderr || result.stdout || 'Ruby YAML file probe failed').trim());
+  }
+  return JSON.parse(result.stdout);
+}
+
 function makeRecorder() {
   const checks = [];
   const failures = [];
@@ -308,7 +337,7 @@ function validateJsProducts(record) {
   return { baselineVersion, baselinePrefix };
 }
 
-function validateClashYaml(record, baselineVersion) {
+function validateClashYaml(record, baselineVersion, options) {
   const file = 'Clash Meta For Android/CMFA(mihomo).yaml';
   const source = readText(file);
   const providersBlock = extractYamlBlock(source, 'rule-providers');
@@ -324,6 +353,23 @@ function validateClashYaml(record, baselineVersion) {
   record.check('cmfa.baseline-header', hasBaselineHeader, failureMessage(hasBaselineHeader, `missing Clash Party ${baselineVersion}`));
   record.check('cmfa.rule-provider-singleton', countMatches(source, /^rule-providers:$/gm) === 1, { value: countMatches(source, /^rule-providers:$/gm) });
   record.check('cmfa.rules-singleton', countMatches(source, /^rules:$/gm) === 1, { value: countMatches(source, /^rules:$/gm) });
+  const rubyPath = findRuby();
+  if (!rubyPath) {
+    const message = 'Ruby not found; exact CMFA YAML parsing skipped';
+    if (options.strictRuby) record.check('cmfa.ruby-available', false, { message });
+    else record.warn('cmfa.ruby-available', message);
+  } else {
+    try {
+      const parsed = rubyYamlFileProbe(file, rubyPath);
+      record.check('cmfa.ruby-top-provider-singleton', parsed.top_providers === 1, { value: parsed.top_providers });
+      record.check('cmfa.ruby-top-rules-singleton', parsed.top_rules === 1, { value: parsed.top_rules });
+      record.check('cmfa.ruby-group-count', parsed.groups === EXPECTED_GROUPS, { value: parsed.groups });
+      record.check('cmfa.ruby-provider-count', parsed.providers >= MIN_FULL_PROVIDERS, { value: parsed.providers });
+      record.check('cmfa.ruby-rule-count', parsed.rules >= MIN_FULL_RULES, { value: parsed.rules });
+    } catch (error) {
+      record.check('cmfa.ruby-parse', false, { message: error.message });
+    }
+  }
   record.check('cmfa.no-direct-provider-downloads', !/proxy:\s*['"]?DIRECT['"]?/.test(source));
   record.check('cmfa.no-cloud-cdn-provider-downloads', !source.includes(CLOUD_CDN));
   record.check('cmfa.restricted-provider-downloads', countLiteral(source, RESTRICTED_SITE) >= MIN_FULL_PROVIDERS, {
@@ -390,8 +436,8 @@ function validateOpenClash(record, baselineVersion, options) {
   }
 
   for (const spec of [
-    { id: 'normal', file: 'OpenClash/OpenClash(mihomo).sh', minProviders: 130, minRules: MIN_FULL_RULES },
-    { id: 'smart', file: 'OpenClash/OpenClash(mihomo-smart).sh', minProviders: MIN_FULL_PROVIDERS, minRules: MIN_FULL_RULES },
+    { id: 'normal', file: 'OpenClash/OpenClash(mihomo).sh', suffix: 'oc-normal', minProviders: 130, minRules: MIN_FULL_RULES },
+    { id: 'smart', file: 'OpenClash/OpenClash(mihomo-smart).sh', suffix: 'oc-smart', minProviders: MIN_FULL_PROVIDERS, minRules: MIN_FULL_RULES },
   ]) {
     const source = readText(spec.file);
     const yaml = extractOpenClashOverride(spec.file);
@@ -403,6 +449,11 @@ function validateOpenClash(record, baselineVersion, options) {
     record.check(`openclash.${spec.id}.static-business-groups`, staticBizGroups === EXPECTED_BUSINESS_GROUPS, { value: staticBizGroups });
     const hasBaselineHeader = source.includes(`Clash Party ${baselineVersion}`);
     record.check(`openclash.${spec.id}.baseline-header`, hasBaselineHeader, failureMessage(hasBaselineHeader, `missing Clash Party ${baselineVersion}`));
+    const versionPrefixPattern = `${baselineVersion}-${spec.suffix}.`;
+    const hasShellVersionPrefix = source.includes(`VERSION_TAG="${versionPrefixPattern}`);
+    const hasRubyVersionPrefix = source.includes(`VERSION = "${versionPrefixPattern}`);
+    record.check(`openclash.${spec.id}.shell-version-prefix`, hasShellVersionPrefix, failureMessage(hasShellVersionPrefix, `missing VERSION_TAG ${versionPrefixPattern}*`));
+    record.check(`openclash.${spec.id}.ruby-version-prefix`, hasRubyVersionPrefix, failureMessage(hasRubyVersionPrefix, `missing Ruby VERSION ${versionPrefixPattern}*`));
     record.check(`openclash.${spec.id}.rule-provider-singleton`, topProviders === 1, { value: topProviders });
     record.check(`openclash.${spec.id}.rules-singleton`, topRules === 1, { value: topRules });
     record.check(`openclash.${spec.id}.no-direct-provider-downloads`, !/proxy:\s*['"]?DIRECT['"]?/.test(source));
@@ -556,6 +607,10 @@ function validateConfProducts(record, baselineVersion) {
 
 function validateJsonProducts(record, baselineVersion) {
   const singbox = readJson('SingBox/SingBox(sing-box)-full.json');
+  const singboxGenerator = readText('SingBox/SingBox(sing-box)-generator.js');
+  const generatorVersion = (singboxGenerator.match(/const\s+VERSION\s*=\s*'([^']+)'/) || [])[1];
+  const generatorBuild = (singboxGenerator.match(/const\s+BUILD(?:_DATE)?\s*=\s*'([^']+)'/) || [])[1];
+  const generatorBaseline = (singboxGenerator.match(/const\s+BASELINE\s*=\s*'([^']+)'/) || [])[1];
   const selectorCount = (singbox.outbounds || []).filter((outbound) => outbound.type === 'selector' || outbound.type === 'urltest').length;
   const ruleSetCount = ((singbox.route || {}).rule_set || []).length;
   const routeRuleCount = ((singbox.route || {}).rules || []).length;
@@ -563,6 +618,16 @@ function validateJsonProducts(record, baselineVersion) {
   const dnsServers = ((singbox.dns || {}).servers || []);
   const dnsServerByTag = Object.fromEntries(dnsServers.filter((server) => server && server.tag).map((server) => [server.tag, server]));
   record.check('singbox.baseline-meta', singbox._meta && singbox._meta.baseline === `Clash Party ${baselineVersion}`, { value: singbox._meta && singbox._meta.baseline });
+  record.check('singbox.generator-version-meta', singbox._meta && singbox._meta.version === generatorVersion, {
+    value: { meta: singbox._meta && singbox._meta.version, generator: generatorVersion },
+  });
+  record.check('singbox.generator-build-meta', singbox._meta && singbox._meta.build === generatorBuild, {
+    value: { meta: singbox._meta && singbox._meta.build, generator: generatorBuild },
+  });
+  record.check('singbox.generator-baseline-meta', singbox._meta && singbox._meta.baseline === generatorBaseline, {
+    value: { meta: singbox._meta && singbox._meta.baseline, generator: generatorBaseline },
+  });
+  record.check('singbox.generator-clean-base', !/readFileSync\(['"]SingBox\/SingBox\(sing-box\)-full\.json['"]/.test(singboxGenerator));
   record.check('singbox.selector-urltest-count', selectorCount === EXPECTED_SINGBOX_GROUPS, { value: selectorCount });
   record.check('singbox.rule-set-count', ruleSetCount >= 30, { value: ruleSetCount });
   record.check('singbox.route-rule-count', routeRuleCount >= 600, { value: routeRuleCount });
@@ -643,29 +708,56 @@ function validateJsonProducts(record, baselineVersion) {
 }
 
 function validatePasswall(record, baselineVersion) {
-  for (const spec of [
+  const specs = [
     { id: 'passwall', file: 'Passwall/Passwall(xray+sing-box)-apply.sh', reference: 'Passwall/Passwall(xray+sing-box).conf', dir: 'Passwall/shunt-rules' },
     { id: 'passwall2', file: 'Passwall2/Passwall2(xray+sing-box)-apply.sh', reference: 'Passwall2/Passwall2(xray+sing-box).conf', dir: 'Passwall2/shunt-rules' },
-  ]) {
+  ];
+
+  for (const spec of specs) {
     const source = readText(spec.file);
     const reference = readText(spec.reference);
     const shuntFiles = listFiles(spec.dir).filter((file) => file.endsWith('.list'));
+    const activeRuleText = [source, reference, ...shuntFiles.map((file) => readText(file))].join('\n');
     const ruleAdds = countMatches(source, /uci add \$\{CONFIG_NAME\} shunt_rules/g);
     const hasBaselineHeader = source.includes(baselineVersion);
     record.check(`${spec.id}.baseline-header`, hasBaselineHeader, failureMessage(hasBaselineHeader, `missing ${baselineVersion}`));
     record.check(`${spec.id}.script-rule-count`, ruleAdds === EXPECTED_PASSWALL_RULES, { value: ruleAdds });
     record.check(`${spec.id}.list-file-count`, shuntFiles.length === EXPECTED_PASSWALL_RULES, { value: shuntFiles.length });
+    record.check(`${spec.id}.apply-script-replace-mode`, source.includes('MODE="${1:---replace}"') && source.includes('cleanup_existing_scki_rules'), {
+      message: 'apply script must default to --replace and delete existing Smart-Config-Kit shunt rules before recreating them',
+    });
     if (!reference.includes(baselineVersion)) {
       record.warn(`${spec.id}.reference-conf.baseline`, `${spec.reference} does not advertise ${baselineVersion}; apply script plus shunt-rules are authoritative`);
     }
     record.check(`${spec.id}.cloudflarestorage-script-rule`, source.includes("domain_list='domain:cloudflarestorage.com'"));
     record.check(`${spec.id}.cloudflarestorage-reference-rule`, reference.includes('domain:cloudflarestorage.com'));
+    record.check(`${spec.id}.no-legacy-kakaotalk-geosite`, !activeRuleText.includes('geosite:kakaotalk'), {
+      message: 'geosite:kakaotalk is not a valid v2fly/domain-list-community category; use geosite:kakao plus domain fallbacks',
+    });
+    record.check(
+      `${spec.id}.kakao-domain-fallbacks`,
+      activeRuleText.includes('geosite:kakao') && activeRuleText.includes('domain:kakao.com') && activeRuleText.includes('domain:kakaocorp.com') && activeRuleText.includes('domain:kakaotalk.com'),
+      { message: 'KakaoTalk must include geosite:kakao plus explicit kakao.com/kakaocorp.com/kakaotalk.com fallbacks' },
+    );
     for (const file of shuntFiles) {
       const badLine = readText(file).split(/\r?\n/).find((line) => !/^\s*#/.test(line) && /^(DOMAIN|DOMAIN-SUFFIX|DOMAIN-KEYWORD|IP-CIDR|IP-CIDR6|RULE-SET),/.test(line));
       record.check(`${spec.id}.${path.basename(file)}.passwall-syntax`, !badLine, { message: badLine ? `Clash-style prefix: ${badLine}` : undefined });
     }
     const intlSiteList = readText(path.join(spec.dir, '29-intl-site.list'));
     record.check(`${spec.id}.cloudflarestorage-list-rule`, intlSiteList.includes('domain:cloudflarestorage.com'));
+  }
+
+  const passwallLists = listFiles('Passwall/shunt-rules').filter((file) => file.endsWith('.list')).map((file) => path.basename(file)).sort();
+  const passwall2Lists = listFiles('Passwall2/shunt-rules').filter((file) => file.endsWith('.list')).map((file) => path.basename(file)).sort();
+  record.check('passwall2.same-list-names-as-passwall', JSON.stringify(passwall2Lists) === JSON.stringify(passwallLists), {
+    value: { passwall: passwallLists, passwall2: passwall2Lists },
+  });
+  for (const fileName of passwallLists) {
+    const pwRules = meaningfulRuleLines(path.join('Passwall/shunt-rules', fileName));
+    const pw2Rules = meaningfulRuleLines(path.join('Passwall2/shunt-rules', fileName));
+    record.check(`passwall2.${fileName}.same-rules-as-passwall`, JSON.stringify(pw2Rules) === JSON.stringify(pwRules), {
+      message: `${fileName} differs between Passwall and Passwall2`,
+    });
   }
 }
 
@@ -704,7 +796,7 @@ function main() {
   const options = parseArgs(process.argv.slice(2));
   const record = makeRecorder();
   const { baselineVersion } = validateJsProducts(record);
-  validateClashYaml(record, baselineVersion);
+  validateClashYaml(record, baselineVersion, options);
   validateOpenClash(record, baselineVersion, options);
   validateConfProducts(record, baselineVersion);
   validateJsonProducts(record, baselineVersion);

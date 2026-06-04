@@ -5,6 +5,12 @@
 
 ---
 
+## v5.4.25-sing.1 (2026-06-04)
+
+- ★ SYNC：`SingBox(sing-box)-full.json` 重新生成并对齐 Clash Party v5.4.25 元数据。
+- ★ CLEAN：同步基线去重，删除已由 route rule 集中区块覆盖的 `geoip:netflix` / `geoip:google` 重复路由。
+- ★ FIX#SING-GEN-P2：generator 不再读取旧的 `SingBox(sing-box)-full.json` 作为 base，改用干净内置 baseConfig，避免历史生成产物污染后续生成。
+
 ## v5.4.23-sing.1 (2026-06-02)
 
 - ★ FIX#161：generator 自动从主线派生 `domain_suffix: zhimg.com / zhihu.co` → 🏠 国内网站 route rule（知乎图片 CDN + 短链，重新生成 JSON）。

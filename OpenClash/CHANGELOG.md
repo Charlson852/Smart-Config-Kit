@@ -7,9 +7,10 @@
 
 ---
 
-## v5.4.25-oc-normal.1 / v5.4.25-oc-smart.1 (2026-06-03)
+## v5.4.25-oc-normal.1 / v5.4.25-oc-smart.1 (2026-06-04)
 
 - ★ 审查修复：GEOIP 重复规则去重（`GEOIP,netflix` / `GEOIP,google` 各出现 2 次 → 保留 GEOIP 标签路由集中区块）
+- ★ SYNC：`OpenClash(mihomo).conf` 参考快照头部 metadata 对齐 Clash Party v5.4.25；权威运行产物仍为 Normal/Smart 两份 `.sh`。
 
 ## v5.4.23-oc-normal.1 / v5.4.23-oc-smart.1 (2026-06-02)
 

@@ -95,7 +95,7 @@ node "SingBox/SingBox(sing-box)-generator.js"
 > **关于 Surge / Loon / Quantumult X：** 这三款 iOS/macOS 付费客户端各自使用私有 `.conf` 语法，与 Shadowrocket 部分兼容但不完全一致，因此每个都是独立产物。其中：
 > - Surge 与 Shadowrocket 语法最接近（~90% 兼容），从 Shadowrocket 迁移改动最小
 > - Loon 兼容 Surge 的 `[Rule] RULE-SET` 语法，但 [General] DNS 字段和 MMDB 配置方式不同
-> - Quantumult X 使用完全独立的 `[policy]` / `[filter_remote]` / `[filter_local]` 结构，由 `tools/srk_to_qx.py` 或等价脚本从 Shadowrocket 自动转换生成
+> - Quantumult X 使用完全独立的 `[policy]` / `[filter_remote]` / `[filter_local]` 结构；当前作为独立产物手工维护，仓库无 `tools/srk_to_qx.py`，恢复自动转换前必须先提交并验证脚本
 
 ### 0.1 辅助目录（不影响产物同步）
 
@@ -139,7 +139,7 @@ node "SingBox/SingBox(sing-box)-generator.js"
    - `v2rayN/v2rayN(xray).json`（仅当业务组/规则类别发生变化时需同步；Xray 只有 proxy/direct/block 三出站，单纯区域选择/LightGBM 调整可豁免）
    - `Surge/Surge.conf`（与 Shadowrocket 保持 ~1:1 规则行；仅 [General] DNS/MMDB 不同）
    - `Loon/Loon.conf`（从 Surge 迁移；头部 + [General] 不同，[Rule] 段基本同 Surge）
-   - `Quantumult X/QuantumultX.conf`（Shadowrocket → QX 转换；policy / filter_remote / filter_local 三段结构；可由等价脚本重新生成）
+   - `Quantumult X/QuantumultX.conf`（独立 QX 产物；policy / filter_remote / filter_local 三段结构；当前手工维护并由合同验证覆盖）
    - `Passwall/Passwall(xray+sing-box)-apply.sh` + `Passwall/shunt-rules/*.list`（展平降级参考；仅当业务组/规则类别变化时需同步）
    - `Passwall2/Passwall2(xray+sing-box)-apply.sh` + `Passwall2/shunt-rules/*.list`（同上；与 Passwall 同步联动）
    - `FlClash/FlClash(mihomo).js`（Clash Party Normal JS 的 FlClash 移植版；规则/组/DNS 与主线对齐，overwriteGeneral 裁剪 TUN/端口）
@@ -520,9 +520,9 @@ done
 
 ## 4. 发版与版本号规则
 
-- Clash Party JS 顶部 VERSION 注释是**唯一主版本号**（目前 `v5.2.2`）。
-- 其他 5 份产物使用同主版本号 + 平台后缀：
-  - `v5.2.2-cmfa.X`、`v5.3.X-oc-normal`、`v5.2.2-oc-smart`、`v5.2.2-SR.X`、`v5.2.2-sing.X`
+- Clash Party JS 顶部 VERSION 注释是**唯一主版本号**（目前 `v5.4.25`）。
+- 其他产物使用同主版本号 + 平台后缀：
+  - `v5.4.25-cmfa.X`、`v5.4.25-oc-normal.X`、`v5.4.25-oc-smart.X`、`v5.4.25-SR.X`、`v5.4.25-Surge.X`、`v5.4.25-Loon.X`、`v5.4.25-QX.X`、`v5.4.25-sing.X`、`v5.4.25-v2n.X`、`v5.4.25-pw.X`、`v5.4.25-pw2.X`、`v5.4.25-flclash.X`
 - 平台后缀内部可独立递增，但主版本号必须与 Clash Party 对齐；若不对齐，必须在对应子目录 `README.md` 开头标明原因。
 
 ---
@@ -574,8 +574,12 @@ ruby -ryaml -e '
   puts "OC full override yaml: providers=#{d["rule-providers"].size} rules=#{d["rules"].size}"
 '
 
-# 5) YAML 合法性（可选，需 pyyaml 或 node）
-node -e "const yaml=require('yaml'||'js-yaml');console.log('YAML parse: OK')" 2>/dev/null || echo "跳过 YAML 校验（无 yaml 模块）"
+# 5) 产物合同验证（--strict-ruby 会实际解析 CMFA/OpenClash YAML）
+node tools/validate-artifact-contracts.js --strict-ruby
+
+# 6) JS 覆写与 PROCESS-NAME 合同
+node tools/validate-js-overwrites.js
+node tools/validate-process-name-direct.js
 ```
 
 若任一检查失败，PR 不得合入。
@@ -588,7 +592,7 @@ node -e "const yaml=require('yaml'||'js-yaml');console.log('YAML parse: OK')" 2>
 ① 读 Clash Party JS（基线）→ 搞清楚要改什么
 ② 读目标 APP 官方文档 → 确认新字段/新组在每个产物上的等价写法
 ③ 改 Clash Party JS → 主线先落地
-④ 同步 CMFA → OpenClash(Normal+Smart) → Shadowrocket → SingBox Full
+④ 同步 CMFA → OpenClash(Normal+Smart) → Shadowrocket → Surge → Loon → QX → SingBox Full → v2rayN → Passwall/Passwall2 → FlClash（按适用性说明豁免）
 ⑤ 跑 §5 自检命令
 ⑥ 更新根 README.md + 各子目录 README.md
 ⑦ PR 描述里写：改动摘要 / 影响矩阵 / 官方文档链接 / 自检输出

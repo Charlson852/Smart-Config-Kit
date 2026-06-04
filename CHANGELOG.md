@@ -6,6 +6,14 @@
 
 ---
 
+## v5.4.25 (2026-06-04)
+
+- FIX：修复 CMFA `proxy-groups` 顶层 YAML 结构，补上 Ruby YAML 解析验证，防止导入/生成链路再次静默失效。
+- SYNC：SR / Surge / Loon / QX / SingBox / v2rayN / Passwall / Passwall2 元数据对齐 Clash Party v5.4.25。
+- FIX：Passwall active rules 将无效 `geosite:kakaotalk` 改为 `geosite:kakao` + Kakao 显式域名兜底，并让 apply 脚本默认 `--replace` 防重复追加。
+- HARDEN：AI responder 限制 `/ai-help` 写权限触发者，并校验 `AI_PATCH` 路径边界；QX 文档移除不存在的 `srk_to_qx.py` 生成声明。
+- VERIFY：扩展 `tools/validate-artifact-contracts.js` 覆盖 CMFA 解析、SingBox 生成器元数据、Passwall/Passwall2 规则同源性。
+
 ## v5.4.24 (2026-06-03)
 
 - CLEAN：清除全产物 21 条冗余规则 + 3 个未引用 rule-provider（深度审查验证，逐条对比上游原始文件）
