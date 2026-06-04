@@ -514,7 +514,7 @@ const availableRuleSets = new Set(allRouteRuleSets.map((item) => item.tag));
 let convertedRules = rules.map((rule) => toSingRule(rule, availableRuleSets)).filter(Boolean);
 const skippedProviders = Object.keys(providers).length - ruleSet.length;
 // v5.4.22: AND/QUIC rules handled out-of-band (not through toSingRule), don't count as skipped
-const QUIC_AND_RULES = 5;
+const QUIC_AND_RULES = 6;
 const skippedRules = rules.length - convertedRules.length - QUIC_AND_RULES;
 
 // v5.4.23-sing.2: Remove redundant domain_suffix rules that are fully covered by
@@ -670,11 +670,11 @@ convertedRules = convertedRules.filter((rule) => {
 // v5.4.22 #1 借鉴 Proxy-override：QUIC 精细化——sing-box 首命中模型逐条匹配
 // YouTube/Google/MS/Apple QUIC → 走对应业务组；CN QUIC → DIRECT 放行；其余海外 QUIC → REJECT
 const quicRules = [
-  { rule_set: ['geosite-youtube'], port: [443], network: 'udp', action: 'route', outbound: '📹 YouTube' },
-  { rule_set: ['geosite-google'], port: [443], network: 'udp', action: 'route', outbound: '🔧 工具与服务' },
+  { rule_set: ['youtube'], port: [443], network: 'udp', action: 'route', outbound: '📹 YouTube' },
+  { rule_set: ['google'], port: [443], network: 'udp', action: 'route', outbound: '🔧 工具与服务' },
   { rule_set: ['microsoft'], port: [443], network: 'udp', action: 'route', outbound: 'Ⓜ️ 微软服务' },
   { rule_set: ['apple'], port: [443], network: 'udp', action: 'route', outbound: '🍎 苹果服务' },
-  { rule_set: ['geosite-cn'], port: [443], network: 'udp', action: 'route', outbound: 'DIRECT' },
+  { rule_set: ['cn'], port: [443], network: 'udp', action: 'route', outbound: 'DIRECT' },
   { port: [443], network: 'udp', action: 'reject' },
 ];
 baseConfig.route.rules = [...convertedRules, ...quicRules];

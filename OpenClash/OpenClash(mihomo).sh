@@ -15,7 +15,7 @@
 # 架构：
 #   • 22 url-test 区域组（11 全部 + 11 家宽；interval 600s / tolerance 150ms / lazy：与 Smart 版同步延迟参数）
 #   • 32 业务策略组（流媒体按平台拆分：TikTok / Netflix / Disney+ / HBO/Max / Hulu / Prime Video / YouTube / 音乐流媒体 / 其他国外流媒体）
-#   • 384 rule-providers（全部 proxy: "🚫 受限网站"，对齐 Clash Party FIX#17-P0）
+#   • 382 rule-providers（全部 proxy: "🚫 受限网站"，对齐 Clash Party FIX#17-P0）
 #   • ~990 条 rules
 #   • DNS fake-ip + 嗅探（HTTP/TLS/QUIC）+ nameserver-policy 救援
 #   • Ruby 阶段做：节点过滤 / 区域分类 / url-test 组生成 / TLS 指纹注入
@@ -473,7 +473,7 @@ OVERRIDE_EOF
 # 策略：
 #   ✓ 与 Clash Party 主线（BIZ.GFW = '🚫 受限网站'）一致：所有 provider 都走 GFW 组
 #     下载，在中国走代理、在印尼走 DIRECT，规避 jsdelivr/GitHub 冷启动死锁。
-#   ✓ 9 url-test 区域组 + 28 业务组 + 384 rule-providers + ~975 条规则
+#   ✓ 9 url-test 区域组 + 28 业务组 + 382 rule-providers + ~975 条规则
 #   ✓ 区域组统一 type: url-test + include-all-proxies / explicit proxies 分流
 #   ✓ TLS 指纹注入（Ruby 阶段 _simple_hash 分配）
 # ============================================================================
@@ -3284,9 +3284,10 @@ rules:
 - DST-PORT,19302,DIRECT
 - DST-PORT,19305,DIRECT
 - DST-PORT,19307,DIRECT
-- "PROCESS-NAME,QQ.exe,\U0001F3E0 国内网站"
-- "PROCESS-NAME,Weixin.exe,\U0001F3E0 国内网站"
-- "PROCESS-NAME,WeChat.exe,\U0001F3E0 国内网站"
+- PROCESS-NAME,QQ.exe,DIRECT
+- PROCESS-NAME,Weixin.exe,DIRECT
+- PROCESS-NAME,WeChat.exe,DIRECT
+- PROCESS-NAME,WeChatAppEx.exe,DIRECT
 - PROCESS-NAME,Oray.exe,DIRECT
 - PROCESS-NAME,OrayService.exe,DIRECT
 - PROCESS-NAME,SunloginClient.exe,DIRECT

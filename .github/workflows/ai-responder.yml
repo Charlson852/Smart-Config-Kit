@@ -283,9 +283,11 @@ jobs:
           fi
 
           # ── 构造搜索查询 ──────────────────────────────────
-          # 以 issue 标题为主，取正文前 300 字符辅助
+          # D11-06: 净化 ISSUE_BODY（截断 + 脱敏）再送入 Tavily
+          BODY_SANITIZED=$(echo "${ISSUE_BODY}" | head -c 100 | sed -E 's/(sk-[a-zA-Z0-9]{20,})/[REDACTED]/g; s/[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}/[IP]/g')
+          # 以 issue 标题为主，取净化正文前 300 字符辅助
           QUERY="${ISSUE_TITLE}"
-          BODY_PREFIX=$(echo "${ISSUE_BODY}" | head -c 300 | tr '\n' ' ' | tr -s ' ')
+          BODY_PREFIX=$(echo "${BODY_SANITIZED}" | head -c 300 | tr '\n' ' ' | tr -s ' ')
           if [ ${#BODY_PREFIX} -gt 20 ]; then
             QUERY="${QUERY} - ${BODY_PREFIX}"
           fi
@@ -346,10 +348,10 @@ jobs:
           你是 Smart-Config-Kit（科学上网分流配置仓库）的 issue 初筛助手。
 
           【仓库定位】
-          以 Clash Party JS 覆写脚本为基线，同步产出 10 份客户端等价配置：
+          以 Clash Party JS 覆写脚本为基线，同步产出 12 份客户端等价配置：
           CMFA YAML / OpenClash Normal+Smart / Shadowrocket / SingBox Full /
-          Surge / Loon / Quantumult X / v2rayN / Passwall2。
-          架构核心：28 业务组 × 9 区域组 + 多源 rule-providers + LightGBM 智能选路。
+          Surge / Loon / Quantumult X / v2rayN / Passwall / Passwall2 / FlClash。
+          架构核心：32 业务组 × 22 区域组（11 全部 + 11 家宽）+ 多源 rule-providers + LightGBM 智能选路。
           仓库维护契约见 CLAUDE.md（每次改动必须全版本联动）。
 
           【你的角色】
@@ -581,7 +583,16 @@ jobs:
           python3 <<'PY' | tee /tmp/patch_apply.log
           import re
           import sys
+          import os
           from pathlib import Path
+
+          # 白名单：仅允许写入这些目录/文件前缀（D11-01）
+          ALLOWED_PREFIXES = [
+              'Clash Party/', 'Clash Meta For Android/', 'OpenClash/',
+              'Shadowrocket/', 'SingBox/', 'v2rayN/', 'Surge/', 'Loon/',
+              'Quantumult X/', 'Passwall/', 'Passwall2/', 'FlClash/',
+              'CHANGELOG.md', 'README.md', 'docs/'
+          ]
 
           root = Path.cwd().resolve()
           text = Path('/tmp/ai_response.txt').read_text(encoding='utf-8')
@@ -592,25 +603,50 @@ jobs:
               sys.exit(0)
 
           count = 0
+          modified_files = []
+
           for raw_path, content in patches:
               rel = raw_path.strip()
               if not rel or rel.startswith(('/', '\\', '~')) or '\\' in rel:
-                  raise SystemExit(f'Invalid AI_PATCH path: {rel}')
+                  print(f'  ⚠️ Skipped (invalid path): {rel}')
+                  continue
               rel_path = Path(rel)
               if '..' in rel_path.parts or '.git' in rel_path.parts:
-                  raise SystemExit(f'Invalid AI_PATCH path: {rel}')
+                  print(f'  ⚠️ Skipped (path traversal): {rel}')
+                  continue
               target = (root / rel_path).resolve()
               try:
                   target.relative_to(root)
               except ValueError:
-                  raise SystemExit(f'AI_PATCH path escapes repository: {rel}') from None
+                  print(f'  ⚠️ Skipped (escapes repo): {rel}')
+                  continue
+
+              # ── 白名单检查 ──────────────────────────────────────
+              abs_target = os.path.abspath(target)
+              rel_norm = os.path.relpath(abs_target, root).replace('\\', '/')
+              allowed = False
+              for prefix in ALLOWED_PREFIXES:
+                  if rel_norm == prefix or rel_norm.startswith(prefix):
+                      allowed = True
+                      break
+              if not allowed:
+                  print(f'  ⚠️ Skipped (not in allowed prefixes): {rel}')
+                  continue
 
               target.parent.mkdir(parents=True, exist_ok=True)
               normalized = content.rstrip('\n') + '\n'
               target.write_text(normalized, encoding='utf-8')
               line_count = 0 if not content else content.rstrip('\n').count('\n') + 1
               print(f'  ✅ Wrote: {rel} ({line_count} lines)')
+              modified_files.append(rel)
               count += 1
+
+          # ── 写出修改文件列表供 bash 步骤精确 git add ──────────
+          if modified_files:
+              Path('/tmp/modified_files.txt').write_text(
+                  '\n'.join(modified_files) + '\n', encoding='utf-8')
+          else:
+              Path('/tmp/modified_files.txt').write_text('', encoding='utf-8')
 
           print(f'PATCH_COUNT={count}')
           PY
@@ -656,7 +692,12 @@ jobs:
           echo "📝 PR 标题: $PR_TITLE"
 
           # ── 提交并推送 ────────────────────────────────────
-          git add -A
+          # D11-03: 精确暂存，仅添加 AI_PATCH 实际写入的文件
+          if [ -s /tmp/modified_files.txt ]; then
+            xargs -a /tmp/modified_files.txt git add
+          else
+            echo "⚠️ modified_files.txt 为空，跳过 git add"
+          fi
           git commit -m "$PR_TITLE" || { echo "⚠️ 没有变更需要提交"; git checkout - 2>/dev/null || true; echo "pr_url=" >> "$GITHUB_OUTPUT"; exit 0; }
           git push origin "$BRANCH" 2>&1 || { echo "⚠️ Push 失败"; git checkout - 2>/dev/null || true; echo "pr_url=" >> "$GITHUB_OUTPUT"; exit 0; }
 

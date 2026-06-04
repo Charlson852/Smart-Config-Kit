@@ -214,8 +214,8 @@ function classifyNode(name) {
 
 function classifyAllNodes(proxies) {
   var result = {
-    HK: [], TW: [], CN: [], JP: [], KR: [], SG: [], US: [], EU: [], AM: [], AF: [], OTHER: [], ALL: [],
-    HOME_HK: [], HOME_TW: [], HOME_CN: [], HOME_JP: [], HOME_KR: [], HOME_SG: [], HOME_US: [], HOME_EU: [], HOME_AM: [], HOME_AF: [], HOME_OTHER: [], HOME_ALL: [],
+    HK: [], TW: [], CN: [], JP: [], KR: [], SG: [], US: [], EU: [], AM: [], AF: [], APAC_OTHER: [], OTHER: [], ALL: [],
+    HOME_HK: [], HOME_TW: [], HOME_CN: [], HOME_JP: [], HOME_KR: [], HOME_SG: [], HOME_US: [], HOME_EU: [], HOME_AM: [], HOME_AF: [], HOME_APAC_OTHER: [], HOME_OTHER: [], HOME_ALL: [],
     UNCLASSIFIED: [], HOME_UNCLASSIFIED: [],
   }
   for (var i = 0; i < proxies.length; i++) {
@@ -393,7 +393,7 @@ function upsertUrlTestGroup(config, name, proxies) {
 }
 
 // ================================================================
-//  模块 F：业务策略组注入（28组）
+//  模块 F：业务策略组注入（32组）
 // ================================================================
 
 function injectBusinessGroups(config, activeSmartNames) {
@@ -1270,7 +1270,7 @@ function injectRuleProviders(config) {
         type: 'http', behavior: 'domain',
         url: `${ACC}/GeoRouting_For_Domain/GeoRouting_${region}_ccTLD_Domain.yaml`,
         path: `./ruleset/acc-GeoD-${region}.yaml`,
-        interval: nextInterval(),
+        interval: 604800,
         proxy: RP_PROXY
       }
     }
@@ -1281,7 +1281,7 @@ function injectRuleProviders(config) {
         type: 'http', behavior: 'classical',
         url: `${ACC}/GeoRouting_For_IP/GeoRouting_${region}_GeoIP.yaml`,
         path: `./ruleset/acc-GeoIP-${region}.yaml`,
-        interval: nextInterval(),
+        interval: 604800,
         proxy: RP_PROXY
       }
     }
@@ -2419,6 +2419,21 @@ function overwriteGeneral(config) {
     '+.todesk.com', '+.oray.com', '+.sunlogin.com', '+.teamviewer.com', '+.anydesk.com',
     '+.battlenet.com.cn', '+.wotgame.cn', '+.wggames.cn', '+.wowsgame.cn',
     '+.mcdn.bilivideo.cn',
+    '+.n.n.srv.nintendo.net',
+    '+.stun.playstation.net',
+    '+.xboxlive.com',
+    'auth.docker.io',
+    'registry-1.docker.io',
+    'index.docker.io',
+    'hub.docker.com',
+    'production.cloudflare.docker.com',
+    '+.push.apple.com',
+    '+.courier.push.apple.com',
+    '+.miui.com',
+    '+.xiaomi.com',
+    '+.xiaomi.net',
+    '+.mijia.tech',
+    '+.gotui.com',
   ]))
   // v5.4.22 #1 借鉴 Proxy-override：QUIC SNI 嗅探（对齐 CMFA/OpenClash）；force-dns-mapping 使真 IP QUIC（fake-ip-filter 域名如 mcdn.bilivideo.cn）也能 GEOSITE 匹配，避免被 NOT,((GEOSITE,cn)) 误拒。
   config.sniffer = {
@@ -2549,13 +2564,13 @@ function main(config) {
     cleanupSubscription(config)
     injectSmartFingerprint(config)
     var c = classifyAllNodes(config.proxies)
-    log(`[${VERSION}] Classification: ALL=${c.ALL.length} HOME_ALL=${c.HOME_ALL.length} HK=${c.HK.length}/${c.HOME_HK.length} TW=${c.TW.length}/${c.HOME_TW.length} CN=${c.CN.length}/${c.HOME_CN.length} JP=${c.JP.length}/${c.HOME_JP.length} KR=${c.KR.length}/${c.HOME_KR.length} SG=${c.SG.length}/${c.HOME_SG.length} US=${c.US.length}/${c.HOME_US.length} EU=${c.EU.length}/${c.HOME_EU.length} AM=${c.AM.length}/${c.HOME_AM.length} AF=${c.AF.length}/${c.HOME_AF.length} OTHER=${c.OTHER.length}/${c.HOME_OTHER.length}`)
+    log(`[${VERSION}] Classification: ALL=${c.ALL.length} HOME_ALL=${c.HOME_ALL.length} HK=${c.HK.length}/${c.HOME_HK.length} TW=${c.TW.length}/${c.HOME_TW.length} CN=${c.CN.length}/${c.HOME_CN.length} JP=${c.JP.length}/${c.HOME_JP.length} KR=${c.KR.length}/${c.HOME_KR.length} SG=${c.SG.length}/${c.HOME_SG.length} US=${c.US.length}/${c.HOME_US.length} EU=${c.EU.length}/${c.HOME_EU.length} AM=${c.AM.length}/${c.HOME_AM.length} AF=${c.AF.length}/${c.HOME_AF.length} APAC_OTHER=${c.APAC_OTHER.length}/${c.HOME_APAC_OTHER.length} OTHER=${c.OTHER.length}/${c.HOME_OTHER.length}`)
     var jpkrNodes = c.JP.concat(c.KR)
     // v5.4.1 FIX: SG 同时存在于狮城组（独立）和亚太组（对标 US 在 美洲组）
-    var apacNodes = c.HK.concat(c.TW, c.CN, c.JP, c.KR, c.SG)
+    var apacNodes = c.HK.concat(c.TW, c.CN, c.JP, c.KR, c.SG, c.APAC_OTHER)
     var americasNodes = c.US.concat(c.AM)
     var homeJpkrNodes = c.HOME_JP.concat(c.HOME_KR)
-    var homeApacNodes = c.HOME_HK.concat(c.HOME_TW, c.HOME_CN, c.HOME_JP, c.HOME_KR, c.HOME_SG)
+    var homeApacNodes = c.HOME_HK.concat(c.HOME_TW, c.HOME_CN, c.HOME_JP, c.HOME_KR, c.HOME_SG, c.HOME_APAC_OTHER)
     var homeAmericasNodes = c.HOME_US.concat(c.HOME_AM)
     upsertUrlTestGroup(config, SMART.GLOBAL, c.ALL)
     if (c.HOME_ALL.length > 0) upsertUrlTestGroup(config, SMART.GLOBAL_HOME, c.HOME_ALL)

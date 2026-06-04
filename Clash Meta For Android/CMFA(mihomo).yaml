@@ -1,7 +1,7 @@
 # ================================================================
 # Clash Smart v5.4.25-cmfa.2 - CMFA (Clash Meta for Android) 配置
 # Build: 2026-06-04
-# 架构：proxy-providers 订阅 + 22 url-test 区域组（11 全部 + 11 家宽，家宽 filter 新增 IEPL/IPLC/专线识别）+ 32 业务策略组（含 14 流媒体平台组）+ 384+ rule-providers
+# 架构：proxy-providers 订阅 + 22 url-test 区域组（11 全部 + 11 家宽，家宽 filter 新增 IEPL/IPLC/专线识别）+ 32 业务策略组（含 14 流媒体平台组）+ 382 rule-providers
 # 基线：Clash Party v5.4.25（唯一主线）
 # 变更历史：见 `Clash Meta For Android/CHANGELOG.md`
 # ================================================================
@@ -456,30 +456,6 @@ proxy-groups:
   - '🌍 非洲节点'
   - '🏡 非洲家宽'
   - DIRECT
-- name: '🌐 其他国外流媒体'
-  type: select
-  proxies:
-  - '🌍 全球节点'
-  - '🏡 全球家宽'
-  - '🇭🇰 香港节点'
-  - '🏡 香港家宽'
-  - '🇹🇼 台湾节点'
-  - '🏡 台湾家宽'
-  - '🇸🇬 狮城节点'
-  - '🏡 狮城家宽'
-  - '🇯🇵 日韩节点'
-  - '🏡 日韩家宽'
-  - '🌏 亚太节点'
-  - '🏡 亚太家宽'
-  - '🇺🇸 美国节点'
-  - '🏡 美国家宽'
-  - '🇪🇺 欧洲节点'
-  - '🏡 欧洲家宽'
-  - '🌎 美洲节点'
-  - '🏡 美洲家宽'
-  - '🌍 非洲节点'
-  - '🏡 非洲家宽'
-  - DIRECT
 - name: '🇭🇰 香港流媒体'
   type: select
   proxies:
@@ -571,6 +547,30 @@ proxy-groups:
   - '🏡 亚太家宽'
   - '🇺🇸 美国节点'
   - '🏡 美国家宽'
+  - '🌎 美洲节点'
+  - '🏡 美洲家宽'
+  - '🌍 非洲节点'
+  - '🏡 非洲家宽'
+  - DIRECT
+- name: '🌐 其他国外流媒体'
+  type: select
+  proxies:
+  - '🌍 全球节点'
+  - '🏡 全球家宽'
+  - '🇭🇰 香港节点'
+  - '🏡 香港家宽'
+  - '🇹🇼 台湾节点'
+  - '🏡 台湾家宽'
+  - '🇸🇬 狮城节点'
+  - '🏡 狮城家宽'
+  - '🇯🇵 日韩节点'
+  - '🏡 日韩家宽'
+  - '🌏 亚太节点'
+  - '🏡 亚太家宽'
+  - '🇺🇸 美国节点'
+  - '🏡 美国家宽'
+  - '🇪🇺 欧洲节点'
+  - '🏡 欧洲家宽'
   - '🌎 美洲节点'
   - '🏡 美洲家宽'
   - '🌍 非洲节点'
@@ -751,7 +751,7 @@ proxy-groups:
   name: '🇪🇺 欧洲节点'
   use:
   - Subscribe
-  filter: '(?i)(欧洲|Europe|英国|UK|伦敦|London|法国|France|巴黎|Paris|德国|Germany|法兰克福|Frankfurt|荷兰|Netherlands|阿姆斯特丹|Amsterdam|瑞士|Switzerland|俄罗斯|Russia|🇬🇧|🇫🇷|🇩🇪|🇪🇺|(^|[^a-zA-Z])EU([^a-zA-Z]|$))'
+  filter: '(?i)(欧洲|Europe|英国|UK|伦敦|London|法国|France|巴黎|Paris|德国|Germany|法兰克福|Frankfurt|荷兰|Netherlands|阿姆斯特丹|Amsterdam|瑞士|Switzerland|俄罗斯|Russia|🇬🇧|🇫🇷|🇩🇪|🇪🇺|(^|[^a-zA-Z])AD([^a-zA-Z]|$)|(^|[^a-zA-Z])AL([^a-zA-Z]|$)|(^|[^a-zA-Z])AT([^a-zA-Z]|$)|(^|[^a-zA-Z])AX([^a-zA-Z]|$)|(^|[^a-zA-Z])BA([^a-zA-Z]|$)|(^|[^a-zA-Z])BE([^a-zA-Z]|$)|(^|[^a-zA-Z])BG([^a-zA-Z]|$)|(^|[^a-zA-Z])BY([^a-zA-Z]|$)|(^|[^a-zA-Z])CH([^a-zA-Z]|$)|(^|[^a-zA-Z])CY([^a-zA-Z]|$)|(^|[^a-zA-Z])CZ([^a-zA-Z]|$)|(^|[^a-zA-Z])DE([^a-zA-Z]|$)|(^|[^a-zA-Z])DK([^a-zA-Z]|$)|(^|[^a-zA-Z])EE([^a-zA-Z]|$)|(^|[^a-zA-Z])ES([^a-zA-Z]|$)|(^|[^a-zA-Z])EU([^a-zA-Z]|$)|(^|[^a-zA-Z])FI([^a-zA-Z]|$)|(^|[^a-zA-Z])FO([^a-zA-Z]|$)|(^|[^a-zA-Z])FR([^a-zA-Z]|$)|(^|[^a-zA-Z])GB([^a-zA-Z]|$)|(^|[^a-zA-Z])GE([^a-zA-Z]|$)|(^|[^a-zA-Z])GG([^a-zA-Z]|$)|(^|[^a-zA-Z])GI([^a-zA-Z]|$)|(^|[^a-zA-Z])GR([^a-zA-Z]|$)|(^|[^a-zA-Z])HR([^a-zA-Z]|$)|(^|[^a-zA-Z])HU([^a-zA-Z]|$)|(^|[^a-zA-Z])IE([^a-zA-Z]|$)|(^|[^a-zA-Z])IM([^a-zA-Z]|$)|(^|[^a-zA-Z])IS([^a-zA-Z]|$)|(^|[^a-zA-Z])IT([^a-zA-Z]|$)|(^|[^a-zA-Z])JE([^a-zA-Z]|$)|(^|[^a-zA-Z])LI([^a-zA-Z]|$)|(^|[^a-zA-Z])LT([^a-zA-Z]|$)|(^|[^a-zA-Z])LU([^a-zA-Z]|$)|(^|[^a-zA-Z])LV([^a-zA-Z]|$)|(^|[^a-zA-Z])MC([^a-zA-Z]|$)|(^|[^a-zA-Z])MD([^a-zA-Z]|$)|(^|[^a-zA-Z])ME([^a-zA-Z]|$)|(^|[^a-zA-Z])MK([^a-zA-Z]|$)|(^|[^a-zA-Z])MT([^a-zA-Z]|$)|(^|[^a-zA-Z])NL([^a-zA-Z]|$)|(^|[^a-zA-Z])NO([^a-zA-Z]|$)|(^|[^a-zA-Z])PL([^a-zA-Z]|$)|(^|[^a-zA-Z])PT([^a-zA-Z]|$)|(^|[^a-zA-Z])RO([^a-zA-Z]|$)|(^|[^a-zA-Z])RS([^a-zA-Z]|$)|(^|[^a-zA-Z])RU([^a-zA-Z]|$)|(^|[^a-zA-Z])SE([^a-zA-Z]|$)|(^|[^a-zA-Z])SI([^a-zA-Z]|$)|(^|[^a-zA-Z])SK([^a-zA-Z]|$)|(^|[^a-zA-Z])SM([^a-zA-Z]|$)|(^|[^a-zA-Z])UA([^a-zA-Z]|$)|(^|[^a-zA-Z])UK([^a-zA-Z]|$)|(^|[^a-zA-Z])VA([^a-zA-Z]|$)|(^|[^a-zA-Z])XK([^a-zA-Z]|$))'
 - type: url-test
   url: 'https://www.gstatic.com/generate_204'
   interval: 180
@@ -760,7 +760,7 @@ proxy-groups:
   name: '🏡 欧洲家宽'
   use:
   - Subscribe
-  filter: '(?i)((欧洲|Europe|英国|UK|伦敦|London|法国|France|巴黎|Paris|德国|Germany|法兰克福|Frankfurt|荷兰|Netherlands|阿姆斯特丹|Amsterdam|瑞士|Switzerland|俄罗斯|Russia|🇬🇧|🇫🇷|🇩🇪|🇪🇺|(^|[^a-zA-Z])EU([^a-zA-Z]|$)).*(iplc|iepl|专线|resi(dential)?|home[-_ ]?ip|home[-_ ]?broadband|home|broadband|isp|家宽|家庭宽带|家庭住宅|住宅宽带|住宅|宽带)|(iplc|iepl|专线|resi(dential)?|home[-_ ]?ip|home[-_ ]?broadband|home|broadband|isp|家宽|家庭宽带|家庭住宅|住宅宽带|住宅|宽带).*(欧洲|Europe|英国|UK|伦敦|London|法国|France|巴黎|Paris|德国|Germany|法兰克福|Frankfurt|荷兰|Netherlands|阿姆斯特丹|Amsterdam|瑞士|Switzerland|俄罗斯|Russia|🇬🇧|🇫🇷|🇩🇪|🇪🇺|(^|[^a-zA-Z])EU([^a-zA-Z]|$)))'
+  filter: '(?i)((欧洲|Europe|英国|UK|伦敦|London|法国|France|巴黎|Paris|德国|Germany|法兰克福|Frankfurt|荷兰|Netherlands|阿姆斯特丹|Amsterdam|瑞士|Switzerland|俄罗斯|Russia|🇬🇧|🇫🇷|🇩🇪|🇪🇺|(^|[^a-zA-Z])AD([^a-zA-Z]|$)|(^|[^a-zA-Z])AL([^a-zA-Z]|$)|(^|[^a-zA-Z])AT([^a-zA-Z]|$)|(^|[^a-zA-Z])AX([^a-zA-Z]|$)|(^|[^a-zA-Z])BA([^a-zA-Z]|$)|(^|[^a-zA-Z])BE([^a-zA-Z]|$)|(^|[^a-zA-Z])BG([^a-zA-Z]|$)|(^|[^a-zA-Z])BY([^a-zA-Z]|$)|(^|[^a-zA-Z])CH([^a-zA-Z]|$)|(^|[^a-zA-Z])CY([^a-zA-Z]|$)|(^|[^a-zA-Z])CZ([^a-zA-Z]|$)|(^|[^a-zA-Z])DE([^a-zA-Z]|$)|(^|[^a-zA-Z])DK([^a-zA-Z]|$)|(^|[^a-zA-Z])EE([^a-zA-Z]|$)|(^|[^a-zA-Z])ES([^a-zA-Z]|$)|(^|[^a-zA-Z])EU([^a-zA-Z]|$)|(^|[^a-zA-Z])FI([^a-zA-Z]|$)|(^|[^a-zA-Z])FO([^a-zA-Z]|$)|(^|[^a-zA-Z])FR([^a-zA-Z]|$)|(^|[^a-zA-Z])GB([^a-zA-Z]|$)|(^|[^a-zA-Z])GE([^a-zA-Z]|$)|(^|[^a-zA-Z])GG([^a-zA-Z]|$)|(^|[^a-zA-Z])GI([^a-zA-Z]|$)|(^|[^a-zA-Z])GR([^a-zA-Z]|$)|(^|[^a-zA-Z])HR([^a-zA-Z]|$)|(^|[^a-zA-Z])HU([^a-zA-Z]|$)|(^|[^a-zA-Z])IE([^a-zA-Z]|$)|(^|[^a-zA-Z])IM([^a-zA-Z]|$)|(^|[^a-zA-Z])IS([^a-zA-Z]|$)|(^|[^a-zA-Z])IT([^a-zA-Z]|$)|(^|[^a-zA-Z])JE([^a-zA-Z]|$)|(^|[^a-zA-Z])LI([^a-zA-Z]|$)|(^|[^a-zA-Z])LT([^a-zA-Z]|$)|(^|[^a-zA-Z])LU([^a-zA-Z]|$)|(^|[^a-zA-Z])LV([^a-zA-Z]|$)|(^|[^a-zA-Z])MC([^a-zA-Z]|$)|(^|[^a-zA-Z])MD([^a-zA-Z]|$)|(^|[^a-zA-Z])ME([^a-zA-Z]|$)|(^|[^a-zA-Z])MK([^a-zA-Z]|$)|(^|[^a-zA-Z])MT([^a-zA-Z]|$)|(^|[^a-zA-Z])NL([^a-zA-Z]|$)|(^|[^a-zA-Z])NO([^a-zA-Z]|$)|(^|[^a-zA-Z])PL([^a-zA-Z]|$)|(^|[^a-zA-Z])PT([^a-zA-Z]|$)|(^|[^a-zA-Z])RO([^a-zA-Z]|$)|(^|[^a-zA-Z])RS([^a-zA-Z]|$)|(^|[^a-zA-Z])RU([^a-zA-Z]|$)|(^|[^a-zA-Z])SE([^a-zA-Z]|$)|(^|[^a-zA-Z])SI([^a-zA-Z]|$)|(^|[^a-zA-Z])SK([^a-zA-Z]|$)|(^|[^a-zA-Z])SM([^a-zA-Z]|$)|(^|[^a-zA-Z])UA([^a-zA-Z]|$)|(^|[^a-zA-Z])UK([^a-zA-Z]|$)|(^|[^a-zA-Z])VA([^a-zA-Z]|$)|(^|[^a-zA-Z])XK([^a-zA-Z]|$)).*(iplc|iepl|专线|resi(dential)?|home[-_ ]?ip|home[-_ ]?broadband|home|broadband|isp|家宽|家庭宽带|家庭住宅|住宅宽带|住宅|宽带)|(iplc|iepl|专线|resi(dential)?|home[-_ ]?ip|home[-_ ]?broadband|home|broadband|isp|家宽|家庭宽带|家庭住宅|住宅宽带|住宅|宽带).*(欧洲|Europe|英国|UK|伦敦|London|法国|France|巴黎|Paris|德国|Germany|法兰克福|Frankfurt|荷兰|Netherlands|阿姆斯特丹|Amsterdam|瑞士|Switzerland|俄罗斯|Russia|🇬🇧|🇫🇷|🇩🇪|🇪🇺|(^|[^a-zA-Z])AD([^a-zA-Z]|$)|(^|[^a-zA-Z])AL([^a-zA-Z]|$)|(^|[^a-zA-Z])AT([^a-zA-Z]|$)|(^|[^a-zA-Z])AX([^a-zA-Z]|$)|(^|[^a-zA-Z])BA([^a-zA-Z]|$)|(^|[^a-zA-Z])BE([^a-zA-Z]|$)|(^|[^a-zA-Z])BG([^a-zA-Z]|$)|(^|[^a-zA-Z])BY([^a-zA-Z]|$)|(^|[^a-zA-Z])CH([^a-zA-Z]|$)|(^|[^a-zA-Z])CY([^a-zA-Z]|$)|(^|[^a-zA-Z])CZ([^a-zA-Z]|$)|(^|[^a-zA-Z])DE([^a-zA-Z]|$)|(^|[^a-zA-Z])DK([^a-zA-Z]|$)|(^|[^a-zA-Z])EE([^a-zA-Z]|$)|(^|[^a-zA-Z])ES([^a-zA-Z]|$)|(^|[^a-zA-Z])EU([^a-zA-Z]|$)|(^|[^a-zA-Z])FI([^a-zA-Z]|$)|(^|[^a-zA-Z])FO([^a-zA-Z]|$)|(^|[^a-zA-Z])FR([^a-zA-Z]|$)|(^|[^a-zA-Z])GB([^a-zA-Z]|$)|(^|[^a-zA-Z])GE([^a-zA-Z]|$)|(^|[^a-zA-Z])GG([^a-zA-Z]|$)|(^|[^a-zA-Z])GI([^a-zA-Z]|$)|(^|[^a-zA-Z])GR([^a-zA-Z]|$)|(^|[^a-zA-Z])HR([^a-zA-Z]|$)|(^|[^a-zA-Z])HU([^a-zA-Z]|$)|(^|[^a-zA-Z])IE([^a-zA-Z]|$)|(^|[^a-zA-Z])IM([^a-zA-Z]|$)|(^|[^a-zA-Z])IS([^a-zA-Z]|$)|(^|[^a-zA-Z])IT([^a-zA-Z]|$)|(^|[^a-zA-Z])JE([^a-zA-Z]|$)|(^|[^a-zA-Z])LI([^a-zA-Z]|$)|(^|[^a-zA-Z])LT([^a-zA-Z]|$)|(^|[^a-zA-Z])LU([^a-zA-Z]|$)|(^|[^a-zA-Z])LV([^a-zA-Z]|$)|(^|[^a-zA-Z])MC([^a-zA-Z]|$)|(^|[^a-zA-Z])MD([^a-zA-Z]|$)|(^|[^a-zA-Z])ME([^a-zA-Z]|$)|(^|[^a-zA-Z])MK([^a-zA-Z]|$)|(^|[^a-zA-Z])MT([^a-zA-Z]|$)|(^|[^a-zA-Z])NL([^a-zA-Z]|$)|(^|[^a-zA-Z])NO([^a-zA-Z]|$)|(^|[^a-zA-Z])PL([^a-zA-Z]|$)|(^|[^a-zA-Z])PT([^a-zA-Z]|$)|(^|[^a-zA-Z])RO([^a-zA-Z]|$)|(^|[^a-zA-Z])RS([^a-zA-Z]|$)|(^|[^a-zA-Z])RU([^a-zA-Z]|$)|(^|[^a-zA-Z])SE([^a-zA-Z]|$)|(^|[^a-zA-Z])SI([^a-zA-Z]|$)|(^|[^a-zA-Z])SK([^a-zA-Z]|$)|(^|[^a-zA-Z])SM([^a-zA-Z]|$)|(^|[^a-zA-Z])UA([^a-zA-Z]|$)|(^|[^a-zA-Z])UK([^a-zA-Z]|$)|(^|[^a-zA-Z])VA([^a-zA-Z]|$)|(^|[^a-zA-Z])XK([^a-zA-Z]|$)))'
 - type: url-test
   url: 'https://www.gstatic.com/generate_204'
   interval: 180
@@ -787,7 +787,7 @@ proxy-groups:
   name: '🌍 非洲节点'
   use:
   - Subscribe
-  filter: '(?i)(非洲|Africa|南非|South\s*Africa|埃及|Egypt|🇿🇦|🇪🇬|(^|[^a-zA-Z])AF([^a-zA-Z]|$))'
+  filter: '(?i)(非洲|Africa|南非|South\s*Africa|埃及|Egypt|🇿🇦|🇪🇬|(^|[^a-zA-Z])AO([^a-zA-Z]|$)|(^|[^a-zA-Z])BF([^a-zA-Z]|$)|(^|[^a-zA-Z])BJ([^a-zA-Z]|$)|(^|[^a-zA-Z])BW([^a-zA-Z]|$)|(^|[^a-zA-Z])CD([^a-zA-Z]|$)|(^|[^a-zA-Z])CG([^a-zA-Z]|$)|(^|[^a-zA-Z])CI([^a-zA-Z]|$)|(^|[^a-zA-Z])CM([^a-zA-Z]|$)|(^|[^a-zA-Z])CV([^a-zA-Z]|$)|(^|[^a-zA-Z])DZ([^a-zA-Z]|$)|(^|[^a-zA-Z])EG([^a-zA-Z]|$)|(^|[^a-zA-Z])ET([^a-zA-Z]|$)|(^|[^a-zA-Z])GA([^a-zA-Z]|$)|(^|[^a-zA-Z])GH([^a-zA-Z]|$)|(^|[^a-zA-Z])GM([^a-zA-Z]|$)|(^|[^a-zA-Z])GN([^a-zA-Z]|$)|(^|[^a-zA-Z])KE([^a-zA-Z]|$)|(^|[^a-zA-Z])LR([^a-zA-Z]|$)|(^|[^a-zA-Z])LS([^a-zA-Z]|$)|(^|[^a-zA-Z])LY([^a-zA-Z]|$)|(^|[^a-zA-Z])MG([^a-zA-Z]|$)|(^|[^a-zA-Z])ML([^a-zA-Z]|$)|(^|[^a-zA-Z])MR([^a-zA-Z]|$)|(^|[^a-zA-Z])MU([^a-zA-Z]|$)|(^|[^a-zA-Z])MW([^a-zA-Z]|$)|(^|[^a-zA-Z])MZ([^a-zA-Z]|$)|(^|[^a-zA-Z])NE([^a-zA-Z]|$)|(^|[^a-zA-Z])NG([^a-zA-Z]|$)|(^|[^a-zA-Z])RW([^a-zA-Z]|$)|(^|[^a-zA-Z])SD([^a-zA-Z]|$)|(^|[^a-zA-Z])SL([^a-zA-Z]|$)|(^|[^a-zA-Z])SN([^a-zA-Z]|$)|(^|[^a-zA-Z])SS([^a-zA-Z]|$)|(^|[^a-zA-Z])SZ([^a-zA-Z]|$)|(^|[^a-zA-Z])TD([^a-zA-Z]|$)|(^|[^a-zA-Z])TG([^a-zA-Z]|$)|(^|[^a-zA-Z])TN([^a-zA-Z]|$)|(^|[^a-zA-Z])TZ([^a-zA-Z]|$)|(^|[^a-zA-Z])UG([^a-zA-Z]|$)|(^|[^a-zA-Z])ZA([^a-zA-Z]|$)|(^|[^a-zA-Z])ZM([^a-zA-Z]|$)|(^|[^a-zA-Z])ZW([^a-zA-Z]|$))'
 - type: url-test
   url: 'https://www.gstatic.com/generate_204'
   interval: 180
@@ -796,7 +796,7 @@ proxy-groups:
   name: '🏡 非洲家宽'
   use:
   - Subscribe
-  filter: '(?i)((非洲|Africa|南非|South\s*Africa|埃及|Egypt|🇿🇦|🇪🇬|(^|[^a-zA-Z])AF([^a-zA-Z]|$)).*(iplc|iepl|专线|resi(dential)?|home[-_ ]?ip|home[-_ ]?broadband|home|broadband|isp|家宽|家庭宽带|家庭住宅|住宅宽带|住宅|宽带)|(iplc|iepl|专线|resi(dential)?|home[-_ ]?ip|home[-_ ]?broadband|home|broadband|isp|家宽|家庭宽带|家庭住宅|住宅宽带|住宅|宽带).*(非洲|Africa|南非|South\s*Africa|埃及|Egypt|🇿🇦|🇪🇬|(^|[^a-zA-Z])AF([^a-zA-Z]|$)))'
+  filter: '(?i)((非洲|Africa|南非|South\s*Africa|埃及|Egypt|🇿🇦|🇪🇬|(^|[^a-zA-Z])AO([^a-zA-Z]|$)|(^|[^a-zA-Z])BF([^a-zA-Z]|$)|(^|[^a-zA-Z])BJ([^a-zA-Z]|$)|(^|[^a-zA-Z])BW([^a-zA-Z]|$)|(^|[^a-zA-Z])CD([^a-zA-Z]|$)|(^|[^a-zA-Z])CG([^a-zA-Z]|$)|(^|[^a-zA-Z])CI([^a-zA-Z]|$)|(^|[^a-zA-Z])CM([^a-zA-Z]|$)|(^|[^a-zA-Z])CV([^a-zA-Z]|$)|(^|[^a-zA-Z])DZ([^a-zA-Z]|$)|(^|[^a-zA-Z])EG([^a-zA-Z]|$)|(^|[^a-zA-Z])ET([^a-zA-Z]|$)|(^|[^a-zA-Z])GA([^a-zA-Z]|$)|(^|[^a-zA-Z])GH([^a-zA-Z]|$)|(^|[^a-zA-Z])GM([^a-zA-Z]|$)|(^|[^a-zA-Z])GN([^a-zA-Z]|$)|(^|[^a-zA-Z])KE([^a-zA-Z]|$)|(^|[^a-zA-Z])LR([^a-zA-Z]|$)|(^|[^a-zA-Z])LS([^a-zA-Z]|$)|(^|[^a-zA-Z])LY([^a-zA-Z]|$)|(^|[^a-zA-Z])MG([^a-zA-Z]|$)|(^|[^a-zA-Z])ML([^a-zA-Z]|$)|(^|[^a-zA-Z])MR([^a-zA-Z]|$)|(^|[^a-zA-Z])MU([^a-zA-Z]|$)|(^|[^a-zA-Z])MW([^a-zA-Z]|$)|(^|[^a-zA-Z])MZ([^a-zA-Z]|$)|(^|[^a-zA-Z])NE([^a-zA-Z]|$)|(^|[^a-zA-Z])NG([^a-zA-Z]|$)|(^|[^a-zA-Z])RW([^a-zA-Z]|$)|(^|[^a-zA-Z])SD([^a-zA-Z]|$)|(^|[^a-zA-Z])SL([^a-zA-Z]|$)|(^|[^a-zA-Z])SN([^a-zA-Z]|$)|(^|[^a-zA-Z])SS([^a-zA-Z]|$)|(^|[^a-zA-Z])SZ([^a-zA-Z]|$)|(^|[^a-zA-Z])TD([^a-zA-Z]|$)|(^|[^a-zA-Z])TG([^a-zA-Z]|$)|(^|[^a-zA-Z])TN([^a-zA-Z]|$)|(^|[^a-zA-Z])TZ([^a-zA-Z]|$)|(^|[^a-zA-Z])UG([^a-zA-Z]|$)|(^|[^a-zA-Z])ZA([^a-zA-Z]|$)|(^|[^a-zA-Z])ZM([^a-zA-Z]|$)|(^|[^a-zA-Z])ZW([^a-zA-Z]|$)).*(iplc|iepl|专线|resi(dential)?|home[-_ ]?ip|home[-_ ]?broadband|home|broadband|isp|家宽|家庭宽带|家庭住宅|住宅宽带|住宅|宽带)|(iplc|iepl|专线|resi(dential)?|home[-_ ]?ip|home[-_ ]?broadband|home|broadband|isp|家宽|家庭宽带|家庭住宅|住宅宽带|住宅|宽带).*(非洲|Africa|南非|South\s*Africa|埃及|Egypt|🇿🇦|🇪🇬|(^|[^a-zA-Z])AO([^a-zA-Z]|$)|(^|[^a-zA-Z])BF([^a-zA-Z]|$)|(^|[^a-zA-Z])BJ([^a-zA-Z]|$)|(^|[^a-zA-Z])BW([^a-zA-Z]|$)|(^|[^a-zA-Z])CD([^a-zA-Z]|$)|(^|[^a-zA-Z])CG([^a-zA-Z]|$)|(^|[^a-zA-Z])CI([^a-zA-Z]|$)|(^|[^a-zA-Z])CM([^a-zA-Z]|$)|(^|[^a-zA-Z])CV([^a-zA-Z]|$)|(^|[^a-zA-Z])DZ([^a-zA-Z]|$)|(^|[^a-zA-Z])EG([^a-zA-Z]|$)|(^|[^a-zA-Z])ET([^a-zA-Z]|$)|(^|[^a-zA-Z])GA([^a-zA-Z]|$)|(^|[^a-zA-Z])GH([^a-zA-Z]|$)|(^|[^a-zA-Z])GM([^a-zA-Z]|$)|(^|[^a-zA-Z])GN([^a-zA-Z]|$)|(^|[^a-zA-Z])KE([^a-zA-Z]|$)|(^|[^a-zA-Z])LR([^a-zA-Z]|$)|(^|[^a-zA-Z])LS([^a-zA-Z]|$)|(^|[^a-zA-Z])LY([^a-zA-Z]|$)|(^|[^a-zA-Z])MG([^a-zA-Z]|$)|(^|[^a-zA-Z])ML([^a-zA-Z]|$)|(^|[^a-zA-Z])MR([^a-zA-Z]|$)|(^|[^a-zA-Z])MU([^a-zA-Z]|$)|(^|[^a-zA-Z])MW([^a-zA-Z]|$)|(^|[^a-zA-Z])MZ([^a-zA-Z]|$)|(^|[^a-zA-Z])NE([^a-zA-Z]|$)|(^|[^a-zA-Z])NG([^a-zA-Z]|$)|(^|[^a-zA-Z])RW([^a-zA-Z]|$)|(^|[^a-zA-Z])SD([^a-zA-Z]|$)|(^|[^a-zA-Z])SL([^a-zA-Z]|$)|(^|[^a-zA-Z])SN([^a-zA-Z]|$)|(^|[^a-zA-Z])SS([^a-zA-Z]|$)|(^|[^a-zA-Z])SZ([^a-zA-Z]|$)|(^|[^a-zA-Z])TD([^a-zA-Z]|$)|(^|[^a-zA-Z])TG([^a-zA-Z]|$)|(^|[^a-zA-Z])TN([^a-zA-Z]|$)|(^|[^a-zA-Z])TZ([^a-zA-Z]|$)|(^|[^a-zA-Z])UG([^a-zA-Z]|$)|(^|[^a-zA-Z])ZA([^a-zA-Z]|$)|(^|[^a-zA-Z])ZM([^a-zA-Z]|$)|(^|[^a-zA-Z])ZW([^a-zA-Z]|$)))'
 # v5.4.1 P1: 否定式 OTHER——无 filter 的 url-test 组，兜底未分类节点
 - type: url-test
   url: 'https://www.gstatic.com/generate_204'
@@ -3580,6 +3580,13 @@ rules:
 - 'RULE-SET,acc-blockhttpdnsplus,🛑 广告拦截'
 - 'RULE-SET,acc-prerepaireasyprivacy,🛑 广告拦截'
 - 'RULE-SET,acc-unsupportvpn,🛑 广告拦截'
+- 'GEOSITE,category-ads-all,🛑 广告拦截'
+- 'GEOSITE,private,DIRECT'
+- 'GEOIP,private,DIRECT,no-resolve'
+- 'GEOSITE,category-dev,🔧 工具与服务'
+- 'GEOSITE,tracker,🛑 广告拦截'
+- 'GEOSITE,gfw,🚫 受限网站'
+- 'GEOSITE,category-games,🎮 国外游戏'
 - 'RULE-SET,advertising,🛑 广告拦截'
 - 'RULE-SET,advertisingmitv,🛑 广告拦截'
 - 'RULE-SET,adobeactivation,🛑 广告拦截'
@@ -3614,6 +3621,10 @@ rules:
 - 'IP-CIDR6,fc00::/7,DIRECT,no-resolve'
 - 'IP-CIDR6,fe80::/10,DIRECT,no-resolve'
 - DST-PORT,7680,REJECT
+- 'PROCESS-NAME,QQ.exe,DIRECT'
+- 'PROCESS-NAME,Weixin.exe,DIRECT'
+- 'PROCESS-NAME,WeChat.exe,DIRECT'
+- 'PROCESS-NAME,WeChatAppEx.exe,DIRECT'
 - 'PROCESS-NAME,Oray.exe,DIRECT'
 - 'PROCESS-NAME,OrayService.exe,DIRECT'
 - 'PROCESS-NAME,SunloginClient.exe,DIRECT'

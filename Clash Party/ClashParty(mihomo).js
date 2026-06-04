@@ -1,7 +1,7 @@
 ﻿// Clash 覆写脚本 - SUB-STORE 多机场精细分流版
 // 版本：v5.4.25-normal.1 (2026-06-03)
-// 架构：22 url-test 区域组（11 全部 + 11 家宽）+ 32 业务策略组 + 385 rule-providers
-// 基线：Clash Party v5.4.24（与同目录 ClashParty(mihomo-smart).js 规则 100% 等价，仅区域组从 smart 改为 url-test）
+// 架构：22 url-test 区域组（11 全部 + 11 家宽）+ 32 业务策略组 + 382 rule-providers
+// 基线：Clash Party v5.4.25（与同目录 ClashParty(mihomo-smart).js 规则 100% 等价，仅区域组从 smart 改为 url-test）
 // 适用：Mihomo / Clash.Meta 稳定版内核、不支持 smart + LightGBM 的分支；也适用于想完全关闭 ML 评估的用户
 // 变更历史：见 `Clash Party/CHANGELOG.md`
 
@@ -186,9 +186,8 @@ function classifyNode(name) {
 
 function classifyAllNodes(proxies) {
   var result = {
-    HK: [], TW: [], CN: [], JP: [], KR: [], SG: [], US: [], EU: [], AM: [], AF: [], OTHER: [], ALL: [],
-    HOME_HK: [], HOME_TW: [], HOME_CN: [], HOME_JP: [], HOME_KR: [], HOME_SG: [], HOME_US: [], HOME_EU: [], HOME_AM: [], HOME_AF: [], HOME_OTHER: [], HOME_ALL: [],
-    UNCLASSIFIED: [], HOME_UNCLASSIFIED: [],
+    HK: [], TW: [], CN: [], JP: [], KR: [], SG: [], US: [], EU: [], AM: [], AF: [], APAC_OTHER: [], OTHER: [], ALL: [],
+    HOME_HK: [], HOME_TW: [], HOME_CN: [], HOME_JP: [], HOME_KR: [], HOME_SG: [], HOME_US: [], HOME_EU: [], HOME_AM: [], HOME_AF: [], HOME_APAC_OTHER: [], HOME_OTHER: [], HOME_ALL: [],
   }
   for (var i = 0; i < proxies.length; i++) {
     var p = proxies[i]
@@ -1236,13 +1235,14 @@ function injectRuleProviders(config) {
     }
 
     // ── GeoRouting Domain × 17 区域（原 acc-georouting-domain 404 → 按区域拆分，Domain版=作者推荐🔥）──
+    const GEO_INTERVAL = 604800
     for (const region of GEO_REGIONS_ALL) {
       const slug = region.toLowerCase().replace(/_/g, '-')
       config['rule-providers'][`acc-geo-d-${slug}`] = {
         type: 'http', behavior: 'domain',
         url: `${ACC}/GeoRouting_For_Domain/GeoRouting_${region}_ccTLD_Domain.yaml`,
         path: `./ruleset/acc-GeoD-${region}.yaml`,
-        interval: nextInterval(),
+        interval: GEO_INTERVAL,
         proxy: RP_PROXY
       }
     }
@@ -1253,7 +1253,7 @@ function injectRuleProviders(config) {
         type: 'http', behavior: 'classical',
         url: `${ACC}/GeoRouting_For_IP/GeoRouting_${region}_GeoIP.yaml`,
         path: `./ruleset/acc-GeoIP-${region}.yaml`,
-        interval: nextInterval(),
+        interval: GEO_INTERVAL,
         proxy: RP_PROXY
       }
     }
@@ -2286,10 +2286,8 @@ function injectRules(config) {
     `GEOIP,ID,${BIZ.INTL_SITE},no-resolve`,
     `GEOIP,cloudflare,${BIZ.INTL_SITE},no-resolve`,
     `GEOIP,telegram,${BIZ.IM},no-resolve`,
-    `GEOIP,netflix,${BIZ.NFLX},no-resolve`,
     `GEOIP,facebook,${BIZ.SOCIAL},no-resolve`,
     `GEOIP,twitter,${BIZ.SOCIAL},no-resolve`,
-    `GEOIP,google,${BIZ.TOOLS},no-resolve`,
     `GEOIP,CN,${BIZ.CN_SITE},no-resolve`,
 
     `MATCH,${BIZ.FINAL}`,
@@ -2479,13 +2477,13 @@ function main(config) {
     cleanupSubscription(config)
     injectSmartFingerprint(config)
     var c = classifyAllNodes(config.proxies)
-    console.log(`[${VERSION}] Classification: ALL=${c.ALL.length} HOME_ALL=${c.HOME_ALL.length} HK=${c.HK.length}/${c.HOME_HK.length} TW=${c.TW.length}/${c.HOME_TW.length} CN=${c.CN.length}/${c.HOME_CN.length} JP=${c.JP.length}/${c.HOME_JP.length} KR=${c.KR.length}/${c.HOME_KR.length} SG=${c.SG.length}/${c.HOME_SG.length} US=${c.US.length}/${c.HOME_US.length} EU=${c.EU.length}/${c.HOME_EU.length} AM=${c.AM.length}/${c.HOME_AM.length} AF=${c.AF.length}/${c.HOME_AF.length} OTHER=${c.OTHER.length}/${c.HOME_OTHER.length}`)
+    console.log(`[${VERSION}] Classification: ALL=${c.ALL.length} HOME_ALL=${c.HOME_ALL.length} HK=${c.HK.length}/${c.HOME_HK.length} TW=${c.TW.length}/${c.HOME_TW.length} CN=${c.CN.length}/${c.HOME_CN.length} JP=${c.JP.length}/${c.HOME_JP.length} KR=${c.KR.length}/${c.HOME_KR.length} SG=${c.SG.length}/${c.HOME_SG.length} US=${c.US.length}/${c.HOME_US.length} EU=${c.EU.length}/${c.HOME_EU.length} AM=${c.AM.length}/${c.HOME_AM.length} AF=${c.AF.length}/${c.HOME_AF.length} APAC_OTHER=${c.APAC_OTHER.length}/${c.HOME_APAC_OTHER.length} OTHER=${c.OTHER.length}/${c.HOME_OTHER.length}`)
     var jpkrNodes = c.JP.concat(c.KR)
     // v5.4.1 FIX: SG 同时存在于狮城组（独立）和亚太组（对标 US 在 美洲组）
-    var apacNodes = c.HK.concat(c.TW, c.CN, c.JP, c.KR, c.SG)
+    var apacNodes = c.HK.concat(c.TW, c.CN, c.JP, c.KR, c.SG, c.APAC_OTHER)
     var americasNodes = c.US.concat(c.AM)
     var homeJpkrNodes = c.HOME_JP.concat(c.HOME_KR)
-    var homeApacNodes = c.HOME_HK.concat(c.HOME_TW, c.HOME_CN, c.HOME_JP, c.HOME_KR, c.HOME_SG)
+    var homeApacNodes = c.HOME_HK.concat(c.HOME_TW, c.HOME_CN, c.HOME_JP, c.HOME_KR, c.HOME_SG, c.HOME_APAC_OTHER)
     var homeAmericasNodes = c.HOME_US.concat(c.HOME_AM)
     upsertUrlTestGroup(config, SMART.GLOBAL, c.ALL)
     if (c.HOME_ALL.length > 0) upsertUrlTestGroup(config, SMART.GLOBAL_HOME, c.HOME_ALL)

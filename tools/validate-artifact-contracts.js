@@ -718,7 +718,7 @@ function validatePasswall(record, baselineVersion) {
     const reference = readText(spec.reference);
     const shuntFiles = listFiles(spec.dir).filter((file) => file.endsWith('.list'));
     const activeRuleText = [source, reference, ...shuntFiles.map((file) => readText(file))].join('\n');
-    const ruleAdds = countMatches(source, /uci add \$\{CONFIG_NAME\} shunt_rules/g);
+    const ruleAdds = countMatches(source, /uci add "\$\{CONFIG_NAME\}" shunt_rules/g);
     const hasBaselineHeader = source.includes(baselineVersion);
     record.check(`${spec.id}.baseline-header`, hasBaselineHeader, failureMessage(hasBaselineHeader, `missing ${baselineVersion}`));
     record.check(`${spec.id}.script-rule-count`, ruleAdds === EXPECTED_PASSWALL_RULES, { value: ruleAdds });

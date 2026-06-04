@@ -6831,7 +6831,7 @@
       },
       {
         "rule_set": [
-          "geosite-youtube"
+          "youtube"
         ],
         "port": [
           443
@@ -6842,7 +6842,7 @@
       },
       {
         "rule_set": [
-          "geosite-google"
+          "google"
         ],
         "port": [
           443
@@ -6875,7 +6875,7 @@
       },
       {
         "rule_set": [
-          "geosite-cn"
+          "cn"
         ],
         "port": [
           443
