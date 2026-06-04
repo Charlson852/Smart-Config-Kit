@@ -2423,7 +2423,13 @@ function overwriteGeneral(config) {
     '+.todesk.com', '+.oray.com', '+.sunlogin.com', '+.teamviewer.com', '+.anydesk.com',
     '+.battlenet.com.cn', '+.wotgame.cn', '+.wggames.cn', '+.wowsgame.cn',
     '+.mcdn.bilivideo.cn',
-    '+.miwifi.com'
+    '+.miwifi.com',
+    '+.courier.push.apple.com',
+    '+.miui.com',
+    '+.xiaomi.com',
+    '+.xiaomi.net',
+    '+.mijia.tech',
+    '+.gotui.com'
   ]))
   // v5.4.22 #1 借鉴 Proxy-override：QUIC SNI 嗅探（对齐 CMFA/OpenClash 的 sniffer）。
   //   force-dns-mapping 把真实 IP 连接（含 batch A 放进 fake-ip-filter 的域名，如 mcdn.bilivideo.cn）

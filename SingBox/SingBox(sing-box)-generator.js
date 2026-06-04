@@ -514,7 +514,7 @@ const availableRuleSets = new Set(allRouteRuleSets.map((item) => item.tag));
 let convertedRules = rules.map((rule) => toSingRule(rule, availableRuleSets)).filter(Boolean);
 const skippedProviders = Object.keys(providers).length - ruleSet.length;
 // v5.4.22: AND/QUIC rules handled out-of-band (not through toSingRule), don't count as skipped
-const QUIC_AND_RULES = 6;
+const QUIC_AND_RULES = 5;
 const skippedRules = rules.length - convertedRules.length - QUIC_AND_RULES;
 
 // v5.4.23-sing.2: Remove redundant domain_suffix rules that are fully covered by

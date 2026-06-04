@@ -2419,6 +2419,8 @@ function overwriteGeneral(config) {
     '+.todesk.com', '+.oray.com', '+.sunlogin.com', '+.teamviewer.com', '+.anydesk.com',
     '+.battlenet.com.cn', '+.wotgame.cn', '+.wggames.cn', '+.wowsgame.cn',
     '+.mcdn.bilivideo.cn',
+    '+.pub.3gppnetwork.org',
+    '+.bing.com',
     '+.n.n.srv.nintendo.net',
     '+.stun.playstation.net',
     '+.xboxlive.com',
@@ -2434,6 +2436,7 @@ function overwriteGeneral(config) {
     '+.xiaomi.net',
     '+.mijia.tech',
     '+.gotui.com',
+    '+.miwifi.com',
   ]))
   // v5.4.22 #1 借鉴 Proxy-override：QUIC SNI 嗅探（对齐 CMFA/OpenClash）；force-dns-mapping 使真 IP QUIC（fake-ip-filter 域名如 mcdn.bilivideo.cn）也能 GEOSITE 匹配，避免被 NOT,((GEOSITE,cn)) 误拒。
   config.sniffer = {
