@@ -5,6 +5,11 @@
 
 ---
 
+## v5.4.25-cmfa.3 (2026-06-05)
+
+- ★ SYNC#FAKE-IP-FILTER：补齐 `+.courier.push.apple.com` / `+.miui.com` / `+.xiaomi.com` / `+.xiaomi.net` / `+.mijia.tech` / `+.gotui.com`，与 Clash Party Smart/Normal/FlClash 的 57 条 fake-ip-filter 完全对齐。
+- ★ VERIFY：`tools/validate-artifact-contracts.js` 新增 fake-ip-filter 必需条目校验，防止 mihomo 家族再次漏同步。
+
 ## v5.4.25-cmfa.2 (2026-06-04)
 
 - ★ FIX#CMFA-YAML-P0：修复 `proxy-groups:` 下首个 `url-test` 组缺少列表项缩进导致的 YAML 解析失败。

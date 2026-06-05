@@ -1,29 +1,12 @@
 #!/bin/sh
 # ═══════════════════════════════════════════════════════════════════════════
 # Smart-Config-Kit for Passwall / Passwall2 — UCI batch helper
-# Version: v5.4.25-pw2.1 | Build 2026-06-04 | Baseline: Clash Party v5.4.25
+# Version: v5.4.25-pw2.2 | Build 2026-06-05 | Baseline: Clash Party v5.4.25
 #
 # 用途：一次性在 Passwall2 中创建 32 条 shunt rule（含域名列表 + IP 列表），
 #       每条目标节点留空（NEED_CONFIG），用户之后到 LuCI 里手工选节点。
 #
-# 变更：v5.4.25-pw2.1 — 修复 CMFA/PW 审查项：脚本重复运行保护 + 基线对齐
-# 变更：v5.4.23-pw2.2 — 音乐流媒体：移除 tidal/deezer/soundcloud/pandora 冗余 domain 规则（已由 rule-set 覆盖）
-# 变更：v5.4.23-pw2.1 — FIX#161：27-cn-site.list 增 zhimg.com / zhihu.co 直连（知乎图片 CDN + 短链）
-# 变更：v5.4.22-pw2.1 — N/A#1 QUIC 精细化：Passwall2 不承载 QUIC 阻断，仅版本对齐；v5.4.21: #4/#6
-# 变更：v5.4.19-pw2.1 — 借鉴 Proxy-override #2：27-cn-site.list 增国内推送 SDK(jpush/umeng) + 前端 CDN(baomitu/bootcss/staticfile/upaiyun) 直连
-# 变更：v5.4.17-pw2.1 — 跟随 Clash Party v5.4.17 记录 DNS split-bootstrap；Passwall2 shunt_rules 不承载 DNS
-# 变更：v5.4.16-pw2.1 — Paddle 许可/支付链路加入金融支付；Passwall2 不消费 anti-AD 远程源
-# 变更：v5.4.15-pw2.1 — 新增 GEOSITE 覆盖台账；Passwall2 仍为降级参考，不消费 Sukka phishing 源
-# 变更：v5.4.14-pw2.1 — 记录 Cloudflare R2 存储域误拦截修复；Passwall2 不消费 Sukka phishing 源，国外网站列表显式补齐 domain:cloudflarestorage.com
-# 变更：v5.4.13-pw2.1 — 跟随基线记录 STUN/TURN 端口修复；Passwall2 shunt_rules 无端口分流字段，语义不适用
-# 变更：v5.3.0-pw2.4 — 修复流媒体 .list 文件注释（Passwall → Passwall2）
-#   • 8 个流媒体 .list 文件（09~16）第 5 行注释从 "Passwall LuCI" 修正为 "Passwall2 LuCI"
-# 变更：v5.3.0-pw2.3 — 跟随基线将流媒体重组为按平台分组
-#   • 移除 📺 东南亚流媒体（合并到 🌐 其他国外流媒体）
-#   • 移除 🇺🇸 美国流媒体（拆分为 7 个平台组 + 🌐 其他国外流媒体）
-#   • 新增 8 个平台流媒体组：Netflix / Disney+ / HBO/Max / Hulu /
-#     Prime Video / YouTube / 音乐流媒体 / 其他国外流媒体
-#   • 规则数从 25 条扩展为 32 条
+# 变更历史：见 Passwall2/CHANGELOG.md
 #
 # 备注：Passwall 和 Passwall2 是 Openwrt-Passwall 组织（原 xiaorouji 个人仓库迁入）并行维护的两款插件，UCI key 不同
 #       （passwall vs passwall2）。本脚本默认操作 Passwall2；若你用 Passwall，

@@ -5,6 +5,13 @@
 
 ---
 
+## v5.4.25-sing.2 (2026-06-05)
+
+- ★ FIX#SING-QUIC-P0：generator 不再把 Clash `MATCH` 转成无条件 route rule；兜底由 `route.final` 承载，避免遮蔽后续 QUIC 精细化规则。
+- ★ FIX#SING-QUIC-ORDER：6 条 sing-box QUIC 规则插入到主线 5 条 AND/QUIC 规则位置，而不是追加到末尾。
+- ★ SYNC#GROUP-ORDER：业务组顺序调整为与 Clash Party 基线一致（香港/台湾/日韩/欧洲流媒体位于其他国外流媒体之前）。
+- ★ VERIFY：合同验证新增 SingBox 业务组顺序与无条件 FINAL route rule 检查；`SingBox(sing-box)-full.json` 已重新生成。
+
 ## v5.4.25-sing.1 (2026-06-04)
 
 - ★ SYNC：`SingBox(sing-box)-full.json` 重新生成并对齐 Clash Party v5.4.25 元数据。

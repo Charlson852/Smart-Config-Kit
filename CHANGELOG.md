@@ -6,6 +6,12 @@
 
 ---
 
+## v5.4.25-review.1 (2026-06-05)
+
+- REVIEW：全仓代码审查修复 SingBox QUIC 规则不可达、业务组顺序偏差、QX 本地规则误放 `[filter_remote]`、OpenClash 固定 `/tmp` 临时文件风险、PROCESS-NAME 验证盲点与 CI 覆盖缺口。
+- SYNC：CMFA / OpenClash / QX / SingBox / Passwall / Passwall2 按平台尾号递增并补齐 CHANGELOG；SingBox Full 已重新生成。
+- VERIFY：扩展合同验证覆盖 SingBox 业务组顺序、无条件 FINAL 规则、fake-ip-filter 必需条目、QX 分段语法与 PROCESS-NAME CI 校验。
+
 ## v5.4.25 (2026-06-04)
 
 - FIX：修复 CMFA `proxy-groups` 顶层 YAML 结构，补上 Ruby YAML 解析验证，防止导入/生成链路再次静默失效。

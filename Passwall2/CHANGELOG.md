@@ -6,6 +6,10 @@
 
 ---
 
+## v5.4.25-pw2.2 (2026-06-05)
+
+- ★ MAINT#HEADER-LITE：apply 脚本头部移除多版本变更历史，仅保留轻量元信息并指向 `Passwall2/CHANGELOG.md`，对齐仓库 CLAUDE.md §1.3 维护契约。
+
 ## v5.4.25-pw2.1 (2026-06-04)
 
 - ★ FIX#PW2-IDEMPOTENT-P3：apply 脚本默认 `--replace`，运行前删除同名 Smart-Config-Kit shunt rules，避免重复运行追加 32 条副本；保留 `--append` 作为显式追加模式。

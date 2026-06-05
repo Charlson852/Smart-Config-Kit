@@ -1,8 +1,8 @@
 const fs = require('fs');
 const vm = require('vm');
 
-const VERSION = 'v5.4.25-sing.1';
-const BUILD = '2026-06-04';
+const VERSION = 'v5.4.25-sing.2';
+const BUILD = '2026-06-05';
 const BASELINE = 'Clash Party v5.4.25';
 
 const SMART = {
@@ -44,11 +44,11 @@ const BIZ = {
   PRIME: '🎬 Prime Video',
   YT: '📹 YouTube',
   MUSIC: '🎵 音乐流媒体',
-  STREAM_OTHER: '🌐 其他国外流媒体',
   STREAM_HK: '🇭🇰 香港流媒体',
   STREAM_TW: '🇹🇼 台湾流媒体',
   STREAM_JP: '🇯🇵 日韩流媒体',
   STREAM_EU: '🇪🇺 欧洲流媒体',
+  STREAM_OTHER: '🌐 其他国外流媒体',
   GAME_CN: '🕹️ 国内游戏',
   GAME_INTL: '🎮 国外游戏',
   TOOLS: '🔧 工具与服务',
@@ -272,11 +272,11 @@ function buildOutbounds() {
     selector(BIZ.PRIME, buildStandardProxies()),
     selector(BIZ.YT, buildStandardProxies()),
     selector(BIZ.MUSIC, buildStandardProxies()),
-    selector(BIZ.STREAM_OTHER, buildStandardProxies()),
     selector(BIZ.STREAM_HK, buildRegionPreferredProxies('HK')),
     selector(BIZ.STREAM_TW, buildRegionPreferredProxies('TW')),
     selector(BIZ.STREAM_JP, buildRegionPreferredProxies('JPKR')),
     selector(BIZ.STREAM_EU, buildRegionPreferredProxies('EU')),
+    selector(BIZ.STREAM_OTHER, buildStandardProxies()),
     selector(BIZ.GAME_CN, buildDirectFirstProxies()),
     selector(BIZ.GAME_INTL, buildStandardProxies()),
     selector(BIZ.TOOLS, buildStandardProxies()),
@@ -438,7 +438,7 @@ function toSingRule(ruleText, availableRuleSets) {
     return { network: parts[1], action: 'route', outbound: parts[2] };
   }
   if (type === 'MATCH') {
-    return { action: 'route', outbound: parts[1] };
+    return null;
   }
   return null;
 }
@@ -511,11 +511,37 @@ function uniqueRuleSets(items) {
 
 const allRouteRuleSets = uniqueRuleSets([...ruleSet, ...extraGeoSiteTags, ...dnsRouteRuleSets]);
 const availableRuleSets = new Set(allRouteRuleSets.map((item) => item.tag));
-let convertedRules = rules.map((rule) => toSingRule(rule, availableRuleSets)).filter(Boolean);
+// v5.4.22 #1 借鉴 Proxy-override：QUIC 精细化——sing-box 首命中模型逐条匹配。
+// 插入到 Clash 主线 5 条 AND/QUIC 规则所在位置，避免被后续普通规则或 route.final 改变语义。
+// YouTube/Google/MS/Apple QUIC → 走对应业务组；CN QUIC → DIRECT 放行；其余海外 QUIC → REJECT。
+const quicRules = [
+  { rule_set: ['youtube'], port: [443], network: 'udp', action: 'route', outbound: '📹 YouTube' },
+  { rule_set: ['google'], port: [443], network: 'udp', action: 'route', outbound: '🔧 工具与服务' },
+  { rule_set: ['microsoft'], port: [443], network: 'udp', action: 'route', outbound: 'Ⓜ️ 微软服务' },
+  { rule_set: ['apple'], port: [443], network: 'udp', action: 'route', outbound: '🍎 苹果服务' },
+  { rule_set: ['cn'], port: [443], network: 'udp', action: 'route', outbound: 'DIRECT' },
+  { port: [443], network: 'udp', action: 'reject' },
+];
+let convertedRules = [];
+let insertedQuicRules = false;
+for (const rule of rules) {
+  if (String(rule).startsWith('AND,((DST-PORT,443),(NETWORK,UDP),')) {
+    if (!insertedQuicRules) {
+      convertedRules.push(...quicRules);
+      insertedQuicRules = true;
+    }
+    continue;
+  }
+  const converted = toSingRule(rule, availableRuleSets);
+  if (converted) convertedRules.push(converted);
+}
+if (!insertedQuicRules) convertedRules.unshift(...quicRules);
 const skippedProviders = Object.keys(providers).length - ruleSet.length;
-// v5.4.22: AND/QUIC rules handled out-of-band (not through toSingRule), don't count as skipped
+// v5.4.22: AND/QUIC rules handled out-of-band；MATCH fallback is represented by route.final.
 const QUIC_AND_RULES = 5;
-const skippedRules = rules.length - convertedRules.length - QUIC_AND_RULES;
+const MATCH_FALLBACK_RULES = 1;
+const convertedClashRuleCount = convertedRules.length - quicRules.length;
+const skippedRules = rules.length - convertedClashRuleCount - QUIC_AND_RULES - MATCH_FALLBACK_RULES;
 
 // v5.4.23-sing.2: Remove redundant domain_suffix rules that are fully covered by
 // a corresponding rule_set pointing to the same outbound.  The "root" domain suffix
@@ -667,17 +693,7 @@ convertedRules = convertedRules.filter((rule) => {
   return true;
 });
 
-// v5.4.22 #1 借鉴 Proxy-override：QUIC 精细化——sing-box 首命中模型逐条匹配
-// YouTube/Google/MS/Apple QUIC → 走对应业务组；CN QUIC → DIRECT 放行；其余海外 QUIC → REJECT
-const quicRules = [
-  { rule_set: ['youtube'], port: [443], network: 'udp', action: 'route', outbound: '📹 YouTube' },
-  { rule_set: ['google'], port: [443], network: 'udp', action: 'route', outbound: '🔧 工具与服务' },
-  { rule_set: ['microsoft'], port: [443], network: 'udp', action: 'route', outbound: 'Ⓜ️ 微软服务' },
-  { rule_set: ['apple'], port: [443], network: 'udp', action: 'route', outbound: '🍎 苹果服务' },
-  { rule_set: ['cn'], port: [443], network: 'udp', action: 'route', outbound: 'DIRECT' },
-  { port: [443], network: 'udp', action: 'reject' },
-];
-baseConfig.route.rules = [...convertedRules, ...quicRules];
+baseConfig.route.rules = convertedRules;
 
 fs.writeFileSync('SingBox/SingBox(sing-box)-full.json', JSON.stringify(baseConfig, null, 2) + '\n');
 

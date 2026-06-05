@@ -7,6 +7,10 @@
 
 ---
 
+## v5.4.25-pw.2 (2026-06-05)
+
+- ★ MAINT#HEADER-LITE：apply 脚本头部移除多版本变更历史，仅保留轻量元信息并指向 `Passwall/CHANGELOG.md`，对齐仓库 CLAUDE.md §1.3 维护契约。
+
 ## v5.4.25-pw.1 (2026-06-04)
 
 - ★ FIX#PW-KAKAO-P1：将 active Passwall 规则中的无效 `geosite:kakaotalk` 改为 `geosite:kakao`，并补 `domain:kakao.com` / `domain:kakaocorp.com` / `domain:kakaotalk.com` 兜底。

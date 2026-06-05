@@ -2,8 +2,8 @@
 . /usr/share/openclash/log.sh
 
 # ============================================================================
-# Clash Smart v5.4.25-oc-smart.1 — OpenClash 覆写脚本（与 Clash Party 主线同等规则量）
-# Build: 2026-06-04
+# Clash Smart v5.4.25-oc-smart.2 — OpenClash 覆写脚本（与 Clash Party 主线同等规则量）
+# Build: 2026-06-05
 # ============================================================================
 # 定位：对齐 Clash Party v5.4.25 JS 主线的 OpenClash 全量版本。v5.4.2: P0-FIX#41 小米白名单。
 #       与同目录 OpenClash(mihomo).sh（Normal）互补：
@@ -23,9 +23,31 @@
 
 
 
-VERSION_TAG="v5.4.25-oc-smart.1"
+VERSION_TAG="v5.4.25-oc-smart.2"
 CONFIG_FILE="$1"
 LOG_FILE="/tmp/openclash.log"
+
+umask 077
+TMP_DIR="${TMPDIR:-/tmp}"
+make_temp_file() {
+  local prefix="$1"
+  local temp_file=""
+  temp_file="$(mktemp "$TMP_DIR/${prefix}.XXXXXX" 2>/dev/null)" && {
+    printf '%s\n' "$temp_file"
+    return 0
+  }
+  temp_file="$TMP_DIR/${prefix}.$$"
+  ( set -C; : > "$temp_file" ) || exit 1
+  printf '%s\n' "$temp_file"
+}
+
+OVERRIDE_YAML="$(make_temp_file clash_smart_override)"
+RUBY_SCRIPT="$(make_temp_file clash_smart_ruby)"
+STATUS_LOG="$(make_temp_file clash_smart_status)"
+cleanup_temp_files() {
+  rm -f "$OVERRIDE_YAML" "$RUBY_SCRIPT" "$STATUS_LOG"
+}
+trap cleanup_temp_files EXIT INT TERM
 
 LOG_OUT "Info" "[Clash-Smart] $VERSION_TAG overwrite starting..."
 LOG_OUT "Info" "[Clash-Smart] Processing: $CONFIG_FILE"
@@ -34,7 +56,6 @@ LOG_OUT "Info" "[Clash-Smart] Full-rule build (Clash Party parity)"
 # ============================================================================
 # OVERRIDE YAML
 # ============================================================================
-OVERRIDE_YAML="/tmp/clash_smart_override.yaml"
 cat > "$OVERRIDE_YAML" << 'OVERRIDE_EOF'
 hosts:
   one.one.one.one:
@@ -103,6 +124,15 @@ dns:
   - +.wggames.cn
   - +.wowsgame.cn
   - +.mcdn.bilivideo.cn
+  - +.pub.3gppnetwork.org
+  - +.bing.com
+  - +.miwifi.com
+  - +.courier.push.apple.com
+  - +.miui.com
+  - +.xiaomi.com
+  - +.xiaomi.net
+  - +.mijia.tech
+  - +.gotui.com
   cache-algorithm: arc
   # 对齐 Clash Party v5.4.17 基线：default-nameserver 纯 IP，其它 resolver 固定 DoH
   # FIX#HOSTS-ALIGN: use-hosts 改 true（对齐主线启用 hosts 预解析，消除 fake-ip 冷启动循环依赖）
@@ -4329,16 +4359,15 @@ OVERRIDE_EOF
 # Ruby Script — 节点过滤、区域分类、Smart 组生成、TLS 指纹注入
 # ★ 核心架构不变：22 个 Smart 区域组（11 全部 + 11 家宽）全部按需创建；命中后均带 uselightgbm: true + include-all-proxies: true ★
 # ============================================================================
-RUBY_SCRIPT="/tmp/clash_smart_ruby.rb"
 cat > "$RUBY_SCRIPT" << 'RUBY_EOF'
 #!/usr/bin/env ruby
 # encoding: utf-8
 require 'yaml'
 require 'digest'
 
-VERSION = "v5.4.25-oc-smart.1"
+VERSION = "v5.4.25-oc-smart.2"
 
-STATUS_LOG = "/tmp/clash_smart_status.log"
+STATUS_LOG = ARGV[2]
 File.open(STATUS_LOG, 'w') { |f| f.puts "[#{VERSION}] start" }
 def status(msg); File.open(STATUS_LOG, 'a') { |f| f.puts(msg) }; end
 
@@ -4606,17 +4635,17 @@ RUBY_EOF
 LOG_OUT "Info" "[Clash-Smart] Executing Ruby processor..."
 
 # 清理状态日志，准备接收 Ruby 输出
-rm -f /tmp/clash_smart_status.log
+: > "$STATUS_LOG"
 
 # 执行 Ruby 处理脚本
-ruby "$RUBY_SCRIPT" "$CONFIG_FILE" "$OVERRIDE_YAML" 2>> "$LOG_FILE"
+ruby "$RUBY_SCRIPT" "$CONFIG_FILE" "$OVERRIDE_YAML" "$STATUS_LOG" 2>> "$LOG_FILE"
 RC=$?
 
 # 将 Ruby 的状态日志逐行回显到 OpenClash 日志
-if [ -f /tmp/clash_smart_status.log ]; then
+if [ -f "$STATUS_LOG" ]; then
   while IFS= read -r line; do
     LOG_OUT "Info" "[Clash-Smart] $line"
-  done < /tmp/clash_smart_status.log
+  done < "$STATUS_LOG"
 fi
 
 if [ $RC -eq 0 ]; then
@@ -4625,8 +4654,5 @@ else
   LOG_OUT "Error" "[Clash-Smart] $VERSION_TAG overwrite FAILED with exit code $RC."
   LOG_OUT "Error" "[Clash-Smart] Check $LOG_FILE for Ruby traceback."
 fi
-
-# 清理临时文件
-rm -f "$OVERRIDE_YAML" "$RUBY_SCRIPT" /tmp/clash_smart_status.log
 
 exit $RC

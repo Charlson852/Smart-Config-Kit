@@ -7,6 +7,12 @@
 
 ---
 
+## v5.4.25-oc-normal.2 / v5.4.25-oc-smart.2 (2026-06-05)
+
+- ★ SECURITY#OC-TMP：两份覆写脚本改用 `mktemp` 私有临时文件 + `trap` 清理，避免固定 `/tmp/clash_*` 在并发运行时互相覆盖或被符号链接预置。
+- ★ SYNC#FAKE-IP-FILTER：补齐 `+.pub.3gppnetwork.org` / `+.bing.com` / `+.miwifi.com` 以及 Apple Push / 小米 / 个推真实 IP 条目，与 JS 三端 fake-ip-filter 保持 57 条一致。
+- ★ VERIFY：合同验证新增 OpenClash fake-ip-filter 必需条目校验。
+
 ## v5.4.25-oc-normal.1 / v5.4.25-oc-smart.1 (2026-06-04)
 
 - ★ 审查修复：GEOIP 重复规则去重（`GEOIP,netflix` / `GEOIP,google` 各出现 2 次 → 保留 GEOIP 标签路由集中区块）

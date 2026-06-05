@@ -6,6 +6,11 @@
 
 ---
 
+## v5.4.25-QX.2 (2026-06-05)
+
+- ★ FIX#QX-FILTER-SECTION：将小米 / Cloudflare R2 / Paddle / 推送 SDK / RustDesk 本地白名单从 `[filter_remote]` 移到 `[filter_local]`，避免 QX 把本地 `host/host-suffix` 规则当作远程资源声明处理。
+- ★ VERIFY：合同验证新增 `[filter_remote]` 不得包含本地规则、关键白名单必须位于 `[filter_local]` 的检查。
+
 ## v5.4.25-QX.1 (2026-06-04)
 
 - ★ SYNC：产物头部版本和基线声明对齐 Clash Party v5.4.25；规则语义延续 v5.4.23-QX.2。

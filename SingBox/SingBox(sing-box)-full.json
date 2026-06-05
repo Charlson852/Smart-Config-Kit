@@ -5,8 +5,8 @@
   },
   "_meta": {
     "name": "SingBox Smart Full",
-    "version": "v5.4.25-sing.1",
-    "build": "2026-06-04",
+    "version": "v5.4.25-sing.2",
+    "build": "2026-06-05",
     "baseline": "Clash Party v5.4.25",
     "changelog": "见 SingBox/CHANGELOG.md"
   },
@@ -565,34 +565,6 @@
     },
     {
       "type": "selector",
-      "tag": "🌐 其他国外流媒体",
-      "outbounds": [
-        "🌍 全球节点",
-        "🏡 全球家宽",
-        "🇭🇰 香港节点",
-        "🏡 香港家宽",
-        "🇹🇼 台湾节点",
-        "🏡 台湾家宽",
-        "🇯🇵 日韩节点",
-        "🏡 日韩家宽",
-        "🇸🇬 狮城节点",
-        "🏡 狮城家宽",
-        "🌏 亚太节点",
-        "🏡 亚太家宽",
-        "🇺🇸 美国节点",
-        "🏡 美国家宽",
-        "🇪🇺 欧洲节点",
-        "🏡 欧洲家宽",
-        "🌎 美洲节点",
-        "🏡 美洲家宽",
-        "🌍 非洲节点",
-        "🏡 非洲家宽",
-        "DIRECT"
-      ],
-      "default": "🌍 全球节点"
-    },
-    {
-      "type": "selector",
       "tag": "🇭🇰 香港流媒体",
       "outbounds": [
         "🇭🇰 香港节点",
@@ -702,6 +674,34 @@
         "DIRECT"
       ],
       "default": "🇪🇺 欧洲节点"
+    },
+    {
+      "type": "selector",
+      "tag": "🌐 其他国外流媒体",
+      "outbounds": [
+        "🌍 全球节点",
+        "🏡 全球家宽",
+        "🇭🇰 香港节点",
+        "🏡 香港家宽",
+        "🇹🇼 台湾节点",
+        "🏡 台湾家宽",
+        "🇯🇵 日韩节点",
+        "🏡 日韩家宽",
+        "🇸🇬 狮城节点",
+        "🏡 狮城家宽",
+        "🌏 亚太节点",
+        "🏡 亚太家宽",
+        "🇺🇸 美国节点",
+        "🏡 美国家宽",
+        "🇪🇺 欧洲节点",
+        "🏡 欧洲家宽",
+        "🌎 美洲节点",
+        "🏡 美洲家宽",
+        "🌍 非洲节点",
+        "🏡 非洲家宽",
+        "DIRECT"
+      ],
+      "default": "🌍 全球节点"
     },
     {
       "type": "selector",
@@ -1979,6 +1979,68 @@
         "rule_set": [
           "geosite-category-ads-all"
         ],
+        "action": "reject"
+      },
+      {
+        "rule_set": [
+          "youtube"
+        ],
+        "port": [
+          443
+        ],
+        "network": "udp",
+        "action": "route",
+        "outbound": "📹 YouTube"
+      },
+      {
+        "rule_set": [
+          "google"
+        ],
+        "port": [
+          443
+        ],
+        "network": "udp",
+        "action": "route",
+        "outbound": "🔧 工具与服务"
+      },
+      {
+        "rule_set": [
+          "microsoft"
+        ],
+        "port": [
+          443
+        ],
+        "network": "udp",
+        "action": "route",
+        "outbound": "Ⓜ️ 微软服务"
+      },
+      {
+        "rule_set": [
+          "apple"
+        ],
+        "port": [
+          443
+        ],
+        "network": "udp",
+        "action": "route",
+        "outbound": "🍎 苹果服务"
+      },
+      {
+        "rule_set": [
+          "cn"
+        ],
+        "port": [
+          443
+        ],
+        "network": "udp",
+        "action": "route",
+        "outbound": "DIRECT"
+      },
+      {
+        "port": [
+          443
+        ],
+        "network": "udp",
         "action": "reject"
       },
       {
@@ -6824,72 +6886,6 @@
         ],
         "action": "route",
         "outbound": "🏠 国内网站"
-      },
-      {
-        "action": "route",
-        "outbound": "🐟 漏网之鱼"
-      },
-      {
-        "rule_set": [
-          "youtube"
-        ],
-        "port": [
-          443
-        ],
-        "network": "udp",
-        "action": "route",
-        "outbound": "📹 YouTube"
-      },
-      {
-        "rule_set": [
-          "google"
-        ],
-        "port": [
-          443
-        ],
-        "network": "udp",
-        "action": "route",
-        "outbound": "🔧 工具与服务"
-      },
-      {
-        "rule_set": [
-          "microsoft"
-        ],
-        "port": [
-          443
-        ],
-        "network": "udp",
-        "action": "route",
-        "outbound": "Ⓜ️ 微软服务"
-      },
-      {
-        "rule_set": [
-          "apple"
-        ],
-        "port": [
-          443
-        ],
-        "network": "udp",
-        "action": "route",
-        "outbound": "🍎 苹果服务"
-      },
-      {
-        "rule_set": [
-          "cn"
-        ],
-        "port": [
-          443
-        ],
-        "network": "udp",
-        "action": "route",
-        "outbound": "DIRECT"
-      },
-      {
-        "port": [
-          443
-        ],
-        "network": "udp",
-        "action": "reject"
       }
     ]
   }

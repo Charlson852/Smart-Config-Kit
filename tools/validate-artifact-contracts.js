@@ -38,6 +38,51 @@ const STUN_FAKE_IP_FILTER_ENTRIES = [
   'stun4.l.google.com',
   'global.turn.twilio.com',
 ];
+const REQUIRED_FAKE_IP_FILTER_ENTRIES = [
+  '+.pub.3gppnetwork.org',
+  '+.bing.com',
+  '+.miwifi.com',
+  '+.courier.push.apple.com',
+  '+.miui.com',
+  '+.xiaomi.com',
+  '+.xiaomi.net',
+  '+.mijia.tech',
+  '+.gotui.com',
+];
+const SINGBOX_BUSINESS_ORDER = [
+  '🤖 AI 服务',
+  '💰 加密货币',
+  '🏦 金融支付',
+  '💬 即时通讯',
+  '📱 社交媒体',
+  '🧑‍💼 会议协作',
+  '📺 国内流媒体',
+  '🎵 TikTok',
+  '🎥 Netflix',
+  '🎬 Disney+',
+  '📡 HBO/Max',
+  '📺 Hulu',
+  '🎬 Prime Video',
+  '📹 YouTube',
+  '🎵 音乐流媒体',
+  '🇭🇰 香港流媒体',
+  '🇹🇼 台湾流媒体',
+  '🇯🇵 日韩流媒体',
+  '🇪🇺 欧洲流媒体',
+  '🌐 其他国外流媒体',
+  '🕹️ 国内游戏',
+  '🎮 国外游戏',
+  '🔧 工具与服务',
+  'Ⓜ️ 微软服务',
+  '🍎 苹果服务',
+  '📥 下载更新',
+  '🛰️ BT/PT Tracker',
+  '🏠 国内网站',
+  '🚫 受限网站',
+  '🌐 国外网站',
+  '🐟 漏网之鱼',
+  '🛑 广告拦截',
+];
 
 const ARTIFACT_FILES = [
   'Clash Party/ClashParty(mihomo-smart).js',
@@ -211,6 +256,21 @@ function extractYamlListItems(source, key) {
       return match ? match[1].replace(/^['"]|['"]$/g, '') : null;
     })
     .filter(Boolean);
+}
+
+function extractConfSection(source, sectionName) {
+  const lines = source.split(/\r?\n/);
+  const output = [];
+  let inSection = false;
+  for (const line of lines) {
+    if (line.trim() === `[${sectionName}]`) {
+      inSection = true;
+      continue;
+    }
+    if (inSection && /^\s*\[[^\]]+\]\s*$/.test(line)) break;
+    if (inSection) output.push(line);
+  }
+  return output.join('\n');
 }
 
 function checkExactList(record, id, actual, expected) {
@@ -387,6 +447,10 @@ function validateClashYaml(record, baselineVersion, options) {
     const hasEntry = fakeIpFilterBlock.includes(entry);
     record.check(`cmfa.fake-ip-filter.${entry}`, hasEntry, failureMessage(hasEntry, `missing ${entry}`));
   }
+  for (const entry of REQUIRED_FAKE_IP_FILTER_ENTRIES) {
+    const hasEntry = fakeIpFilterBlock.includes(entry);
+    record.check(`cmfa.fake-ip-filter.${entry}`, hasEntry, failureMessage(hasEntry, `missing ${entry}`));
+  }
   for (const entry of ['+.msftconnecttest.com', '+.msftncsi.com', '+.in-addr.arpa', '+.ip6.arpa']) {
     const hasEntry = fakeIpFilterBlock.includes(entry);
     record.check(`cmfa.fake-ip-filter.${entry}`, hasEntry, failureMessage(hasEntry, `missing ${entry}`));
@@ -459,6 +523,10 @@ function validateOpenClash(record, baselineVersion, options) {
     record.check(`openclash.${spec.id}.no-direct-provider-downloads`, !/proxy:\s*['"]?DIRECT['"]?/.test(source));
     record.check(`openclash.${spec.id}.restricted-provider-downloads`, restrictedCount >= spec.minProviders, { value: restrictedCount });
     for (const entry of STUN_FAKE_IP_FILTER_ENTRIES) {
+      const hasEntry = yaml.includes(entry);
+      record.check(`openclash.${spec.id}.fake-ip-filter.${entry}`, hasEntry, failureMessage(hasEntry, `missing ${entry}`));
+    }
+    for (const entry of REQUIRED_FAKE_IP_FILTER_ENTRIES) {
       const hasEntry = yaml.includes(entry);
       record.check(`openclash.${spec.id}.fake-ip-filter.${entry}`, hasEntry, failureMessage(hasEntry, `missing ${entry}`));
     }
@@ -580,6 +648,22 @@ function validateConfProducts(record, baselineVersion) {
     qxHasValidRunningModeTrigger,
     failureMessage(qxHasValidRunningModeTrigger, 'QX running_mode_trigger cannot use filter'),
   );
+  const qxFilterRemote = extractConfSection(qx, 'filter_remote');
+  const qxFilterLocal = extractConfSection(qx, 'filter_local');
+  const qxLocalRuleInRemote = qxFilterRemote.split(/\r?\n/).some((line) => /^\s*(host|host-suffix|host-keyword|ip-cidr|ip6-cidr|dst-port),/i.test(line));
+  record.check(
+    'qx.filter-remote-no-local-rules',
+    !qxLocalRuleInRemote,
+    failureMessage(!qxLocalRuleInRemote, 'QX local filter rules must live in [filter_local], not [filter_remote]'),
+  );
+  for (const line of [
+    'host-suffix, account.xiaomi.com, direct',
+    'host-suffix, cloudflarestorage.com, 🌐 国外网站',
+    'host-suffix, paddle.com, 🏦 金融支付',
+    'host-suffix, rustdesk.com, 🧑‍💼 会议协作',
+  ]) {
+    record.check(`qx.filter-local.${line}`, qxFilterLocal.includes(line), failureMessage(qxFilterLocal.includes(line), `missing ${line}`));
+  }
   checkNeedleBefore(
     record,
     'shadowrocket.cloudflarestorage-before-ads',
@@ -596,12 +680,10 @@ function validateConfProducts(record, baselineVersion) {
   );
   const loonLocalRule = /^DOMAIN-SUFFIX,cloudflarestorage\.com,🌐 国外网站$/m.test(loon);
   record.check('loon.cloudflarestorage-local-rule', loonLocalRule, failureMessage(loonLocalRule, 'missing local Cloudflare R2 override rule'));
-  checkNeedleBefore(
-    record,
-    'qx.cloudflarestorage-before-ads',
-    qx,
-    'host-suffix, cloudflarestorage.com, 🌐 国外网站',
-    'https://fastly.jsdelivr.net/gh/privacy-protection-tools/anti-AD@master/anti-ad-surge.txt, tag=surge, force-policy=🛑 广告拦截',
+  record.check(
+    'qx.cloudflarestorage-local-rule',
+    qxFilterLocal.includes('host-suffix, cloudflarestorage.com, 🌐 国外网站'),
+    failureMessage(qxFilterLocal.includes('host-suffix, cloudflarestorage.com, 🌐 国外网站'), 'missing local Cloudflare R2 override rule in [filter_local]'),
   );
 }
 
@@ -612,8 +694,11 @@ function validateJsonProducts(record, baselineVersion) {
   const generatorBuild = (singboxGenerator.match(/const\s+BUILD(?:_DATE)?\s*=\s*'([^']+)'/) || [])[1];
   const generatorBaseline = (singboxGenerator.match(/const\s+BASELINE\s*=\s*'([^']+)'/) || [])[1];
   const selectorCount = (singbox.outbounds || []).filter((outbound) => outbound.type === 'selector' || outbound.type === 'urltest').length;
+  const outboundTags = (singbox.outbounds || []).map((outbound) => outbound.tag).filter(Boolean);
+  const singboxBusinessOrder = outboundTags.filter((tag) => SINGBOX_BUSINESS_ORDER.includes(tag));
+  const routeRules = ((singbox.route || {}).rules || []);
   const ruleSetCount = ((singbox.route || {}).rule_set || []).length;
-  const routeRuleCount = ((singbox.route || {}).rules || []).length;
+  const routeRuleCount = routeRules.length;
   const dnsRules = ((singbox.dns || {}).rules || []);
   const dnsServers = ((singbox.dns || {}).servers || []);
   const dnsServerByTag = Object.fromEntries(dnsServers.filter((server) => server && server.tag).map((server) => [server.tag, server]));
@@ -629,6 +714,16 @@ function validateJsonProducts(record, baselineVersion) {
   });
   record.check('singbox.generator-clean-base', !/readFileSync\(['"]SingBox\/SingBox\(sing-box\)-full\.json['"]/.test(singboxGenerator));
   record.check('singbox.selector-urltest-count', selectorCount === EXPECTED_SINGBOX_GROUPS, { value: selectorCount });
+  checkExactList(record, 'singbox.business-group-order', singboxBusinessOrder, SINGBOX_BUSINESS_ORDER);
+  const finalAsUnconditionalRule = routeRules.some((rule) => (
+    rule
+      && rule.action === 'route'
+      && rule.outbound === '🐟 漏网之鱼'
+      && Object.keys(rule).every((key) => key === 'action' || key === 'outbound')
+  ));
+  record.check('singbox.no-unconditional-final-route-rule', !finalAsUnconditionalRule, {
+    message: 'SingBox must use route.final for MATCH fallback; an unconditional final rule would shadow later QUIC rules',
+  });
   record.check('singbox.rule-set-count', ruleSetCount >= 30, { value: ruleSetCount });
   record.check('singbox.route-rule-count', routeRuleCount >= 600, { value: routeRuleCount });
   record.check('singbox.dns.bootstrap-doh-over-ip', dnsServerByTag.dns_bootstrap && dnsServerByTag.dns_bootstrap.address === 'https://223.5.5.5/dns-query' && dnsServerByTag.dns_bootstrap.tls && dnsServerByTag.dns_bootstrap.tls.server_name === 'dns.alidns.com', {
