@@ -216,7 +216,6 @@ function classifyAllNodes(proxies) {
   var result = {
     HK: [], TW: [], CN: [], JP: [], KR: [], SG: [], US: [], EU: [], AM: [], AF: [], APAC_OTHER: [], OTHER: [], ALL: [],
     HOME_HK: [], HOME_TW: [], HOME_CN: [], HOME_JP: [], HOME_KR: [], HOME_SG: [], HOME_US: [], HOME_EU: [], HOME_AM: [], HOME_AF: [], HOME_APAC_OTHER: [], HOME_OTHER: [], HOME_ALL: [],
-    UNCLASSIFIED: [], HOME_UNCLASSIFIED: [],
   }
   for (var i = 0; i < proxies.length; i++) {
     var p = proxies[i]

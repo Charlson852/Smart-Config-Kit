@@ -4419,6 +4419,8 @@ status "[filter] raw=#{raw_proxies.size} filtered=#{filtered_proxies.size} home=
 REGIONS = {
   "HK"  => /香港|港|\bHK\b|HKG|Hong\s?Kong|🇭🇰/i,
   "TW"  => /台湾|台灣|\bTW\b|TWN|Taiwan|🇹🇼/i,
+  # v5.4.26 FIX#CN-APAC: 加入 CN 区域（对齐 Clash Party JS 基线 c.CN → apacNodes）
+  "CN"  => /中国|大陸|大陆|国内|回国|\bCN\b|CHN|China|mainland/i,
   "JP"  => /日本|\bJP\b|JPN|Japan|🇯🇵|Tokyo|Osaka/i,
   # v5.2.6-oc-normal.1 FIX#24-P0: 补 KOR（KOR 不是 KR 的子串，原始 /KR/ 无法匹配 "KOR 01"）
   #   HK/TW/JP/KR/SG 使用 \b 防误匹配，显式补充 alpha-3 码 HKG/TWN/JPN/KOR/SGP
@@ -4470,9 +4472,10 @@ REGIONS = {
 #   原实现每个 code 只落入 GROUP_MAP 的首个命中条目（下方 each/break），导致：
 #     • HK/TW/JP/KR 只进香港/台湾/日韩子组，永远进不了 🌏 亚太节点
 #     • US 只进美国子组，永远进不了 🌎 美洲节点
-#   Clash Party JS 主线语义：区域大组 = 子区域并集（SG 已独立为 🇸🇬 狮城节点，不再归入 🌏 亚太节点；
-#   americasNodes = US+AM）。修复：APAC 扩充至涵盖 HK/TW/JP/KR + 原 APAC_OTHER 集；AM 扩充至
+#   Clash Party JS 主线语义：区域大组 = 子区域并集（apacNodes = HK+TW+CN+JP+KR+SG+APAC_OTHER）；
+#   americasNodes = US+AM）。修复：APAC 扩充至涵盖 HK+TW+CN+JP+KR+SG + 原 APAC_OTHER 集；AM 扩充至
 #   包含 US；分类循环移除 break，同一节点可同时进入子区域组与所属大洲组。
+#   v5.4.26 FIX#CN-APAC: APAC 加入 "CN"（对齐 Clash Party JS 基线 apacNodes 包含 c.CN）
 GROUP_MAP = {
   "HK"     => ["HK"],
   "TW"     => ["TW"],
@@ -4482,7 +4485,7 @@ GROUP_MAP = {
   "EU"     => ["UK", "DE", "FR", "NL", "CH", "IT", "ES", "PT", "GR", "AT", "BE", "IE", "DK", "SE", "FI", "NO", "PL", "CZ", "RO", "HU", "RU"],
   "AM"     => ["US", "CA", "MX", "BR", "AR"],
   "AF"     => ["ZA", "EG", "NG"],
-  "APAC"   => ["HK", "TW", "JP", "KR", "SG", "IN", "TH", "VN", "MY", "ID", "PH", "AU", "NZ", "TR", "AE"],
+  "APAC"   => ["HK", "TW", "CN", "JP", "KR", "SG", "IN", "TH", "VN", "MY", "ID", "PH", "AU", "NZ", "TR", "AE"],
   "OTHER"  => ["OTHER"],
 }
 GROUP_NAMES = {
