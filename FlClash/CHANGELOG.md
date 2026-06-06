@@ -5,6 +5,10 @@
 
 ---
 
+## v5.4.26-flclash.1 (2026-06-07)
+
+- ★ FIX#164：腾讯 WorkBuddy `copilot.tencent.com` 国内直连防吞——szkane `AiDomain.list` 的 `DOMAIN-KEYWORD,copilot` 子串会把它误吞到 `🤖 AI 服务`（国外代理）导致对话报错；在所有 AI rule-set 之前前置 `DOMAIN-SUFFIX,copilot.tencent.com,🏠 国内网站`。基线 Clash Party v5.4.26。
+
 ## v5.4.25-flclash.1 (2026-06-03)
 
 - ★ 审查修复：GEOIP 重复规则去重（`GEOIP,netflix` / `GEOIP,google` / `GEOIP,ID` 各出现 2 次 → 保留 GEOIP 标签路由集中区块）

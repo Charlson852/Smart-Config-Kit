@@ -5,9 +5,9 @@
   },
   "_meta": {
     "name": "SingBox Smart Full",
-    "version": "v5.4.25-sing.2",
-    "build": "2026-06-05",
-    "baseline": "Clash Party v5.4.25",
+    "version": "v5.4.26-sing.1",
+    "build": "2026-06-07",
+    "baseline": "Clash Party v5.4.26",
     "changelog": "见 SingBox/CHANGELOG.md"
   },
   "experimental": {
@@ -2844,6 +2844,13 @@
         ],
         "action": "route",
         "outbound": "📹 YouTube"
+      },
+      {
+        "domain_suffix": [
+          "copilot.tencent.com"
+        ],
+        "action": "route",
+        "outbound": "🏠 国内网站"
       },
       {
         "rule_set": [

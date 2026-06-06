@@ -7,6 +7,10 @@
 
 ---
 
+## v5.4.26-oc-normal.1 / v5.4.26-oc-smart.1 (2026-06-07)
+
+- ★ FIX#164：腾讯 WorkBuddy `copilot.tencent.com` 国内直连防吞——szkane `AiDomain.list` 的 `DOMAIN-KEYWORD,copilot` 子串会把它误吞到 `🤖 AI 服务`（国外代理）导致对话报错；两份覆写脚本均在 `RULE-SET,openai` 等 AI rule-set 之前前置 `DOMAIN-SUFFIX,copilot.tencent.com,\U0001F3E0 国内网站`。基线 Clash Party v5.4.26。
+
 ## v5.4.25-oc-normal.2 / v5.4.25-oc-smart.2 (2026-06-05)
 
 - ★ SECURITY#OC-TMP：两份覆写脚本改用 `mktemp` 私有临时文件 + `trap` 清理，避免固定 `/tmp/clash_*` 在并发运行时互相覆盖或被符号链接预置。

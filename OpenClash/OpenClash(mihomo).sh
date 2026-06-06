@@ -2,12 +2,12 @@
 . /usr/share/openclash/log.sh
 
 # ============================================================================
-# Clash Smart v5.4.25-oc-normal.2 — OpenClash 覆写脚本（非 Smart 内核 / url-test 区域组）
-# Build: 2026-06-05
+# Clash Smart v5.4.26-oc-normal.1 — OpenClash 覆写脚本（非 Smart 内核 / url-test 区域组）
+# Build: 2026-06-07
 # ============================================================================
 # 定位：与同目录 OpenClash(mihomo-smart).sh 规则 100% 等价的「非 Smart 内核」版本。
 #       两者唯一区别：22 个区域组（11 全部 + 11 家宽）从 type: smart（uselightgbm）换成 type: url-test。
-#       对齐 Clash Party v5.4.25 JS 基线。
+#       对齐 Clash Party v5.4.26 JS 基线。
 #       适用场景：
 #         - OpenClash 内核选的是 Meta(mihomo 稳定版) 而非 Meta Alpha，不支持 smart + LightGBM
 #         - 或者明确想关闭 LightGBM ML 评估、只靠经典 url-test 延迟选路
@@ -19,14 +19,14 @@
 #   • ~990 条 rules
 #   • DNS fake-ip + 嗅探（HTTP/TLS/QUIC）+ nameserver-policy 救援
 #   • Ruby 阶段做：节点过滤 / 区域分类 / url-test 组生成 / TLS 指纹注入
-# 基线：Clash Party v5.4.25（唯一主线；v5.3.1/v5.3.2 为桌面端 PROCESS-NAME 改动，路由器端不适用）── 任何规则/组/DNS 改动必须先改 Clash Party JS，
+# 基线：Clash Party v5.4.26（唯一主线；v5.3.1/v5.3.2 为桌面端 PROCESS-NAME 改动，路由器端不适用）── 任何规则/组/DNS 改动必须先改 Clash Party JS，
 #       再同步到此文件。参见仓库根目录 CLAUDE.md / AGENTS.md。
 # 变更历史：见 `OpenClash/CHANGELOG.md`（Normal 部分）。
 # ============================================================================
 
 
 
-VERSION_TAG="v5.4.25-oc-normal.2"
+VERSION_TAG="v5.4.26-oc-normal.1"
 CONFIG_FILE="$1"
 LOG_FILE="/tmp/openclash.log"
 
@@ -3409,6 +3409,8 @@ rules:
 - "DOMAIN-SUFFIX,ggpht.com,\U0001F4F9 YouTube"
 - "DOMAIN-SUFFIX,youtube-nocookie.com,\U0001F4F9 YouTube"
 - "DOMAIN-SUFFIX,youtubekids.com,\U0001F4F9 YouTube"
+# v5.4.26 FIX#164: 腾讯 WorkBuddy copilot.tencent.com 国内直连防吞——szkane AiDomain.list 的 DOMAIN-KEYWORD,copilot 子串会误吞到 AI 服务（国外代理）；前置精准国内规则
+- "DOMAIN-SUFFIX,copilot.tencent.com,\U0001F3E0 国内网站"
 - "RULE-SET,openai,\U0001F916 AI 服务"
 - "RULE-SET,claude,\U0001F916 AI 服务"
 - "RULE-SET,gemini,\U0001F916 AI 服务"
@@ -4368,7 +4370,7 @@ cat > "$RUBY_SCRIPT" << 'RUBY_EOF'
 require 'yaml'
 require 'digest'
 
-VERSION = "v5.4.25-oc-normal.2"
+VERSION = "v5.4.26-oc-normal.1"
 
 STATUS_LOG = ARGV[2]
 File.open(STATUS_LOG, 'w') { |f| f.puts "[#{VERSION}] start" }

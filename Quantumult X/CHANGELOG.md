@@ -6,6 +6,10 @@
 
 ---
 
+## v5.4.26-QX.1 (2026-06-07)
+
+- ★ FIX#164：腾讯 WorkBuddy `copilot.tencent.com` 国内直连防吞——szkane `AiDomain.list`（`[filter_remote]` tag=aidomain，force-policy=🤖 AI 服务）含 `DOMAIN-KEYWORD,copilot` 子串会把它误吞到国外代理导致对话报错；在 `[filter_local]` 前置 `host-suffix, copilot.tencent.com, 🏠 国内网站`（与既有 RustDesk 防吞守卫并置，本地规则优先于远程资源匹配）。基线 Clash Party v5.4.26。
+
 ## v5.4.25-QX.2 (2026-06-05)
 
 - ★ FIX#QX-FILTER-SECTION：将小米 / Cloudflare R2 / Paddle / 推送 SDK / RustDesk 本地白名单从 `[filter_remote]` 移到 `[filter_local]`，避免 QX 把本地 `host/host-suffix` 规则当作远程资源声明处理。

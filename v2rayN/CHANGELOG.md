@@ -7,6 +7,10 @@
 
 ---
 
+## v5.4.26-v2n.1 (2026-06-07)
+
+- 对齐基线 v5.4.26（FIX#164）。本产物**不受** `copilot.tencent.com` 误吞影响：Xray 路由 AI 类用 `geosite:copilot`（仅含微软/GitHub Copilot 精确域名，无 copilot 子串关键词），`copilot.tencent.com` 顺流到 `geosite:cn`（含 `tencent.com`）→ direct，无需规则改动。仅 bump 元数据版本。
+
 ## v5.4.25-v2n.1 (2026-06-04)
 
 - ★ SYNC：Xray 路由 JSON 元数据对齐 Clash Party v5.4.25；业务/规则类别未变化，路由语义延续 v5.4.23-v2n.1。

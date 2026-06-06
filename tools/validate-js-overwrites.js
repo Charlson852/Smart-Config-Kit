@@ -499,6 +499,15 @@ function validateRulesAndProviders(output, record, target) {
     rustDeskGuardIndex !== -1 && copilotIndex !== -1 && rustDeskGuardIndex < copilotIndex,
     'RustDesk domain guard is evaluated before RuleSet/copilot',
   );
+  // v5.4.26 FIX#164: 腾讯 WorkBuddy copilot.tencent.com 必须在 szkane AiDomain.list
+  // （含 DOMAIN-KEYWORD,copilot 子串）之前锁定国内直连，否则被误吞到 🤖 AI 服务（国外代理）。
+  const copilotTencentGuardIndex = rules.indexOf('DOMAIN-SUFFIX,copilot.tencent.com,🏠 国内网站');
+  const szkaneAiIndex = rules.indexOf('RULE-SET,szkane-ai,🤖 AI 服务');
+  record.expect(copilotTencentGuardIndex !== -1, 'copilot.tencent.com domestic guard exists (FIX#164)');
+  record.expect(
+    copilotTencentGuardIndex !== -1 && szkaneAiIndex !== -1 && copilotTencentGuardIndex < szkaneAiIndex,
+    'copilot.tencent.com domestic guard is evaluated before RuleSet/szkane-ai (FIX#164)',
+  );
 
   if (target.requireTunExcludes) {
     const excludes = output.tun && output.tun['exclude-process'];

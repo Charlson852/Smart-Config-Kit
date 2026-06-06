@@ -6,6 +6,12 @@
 
 ---
 
+## v5.4.26 (2026-06-07)
+
+- FIX#164：腾讯 WorkBuddy `copilot.tencent.com` 被 szkane `AiDomain.list` 的 `DOMAIN-KEYWORD,copilot` 子串误吞到 `🤖 AI 服务`（国外代理）导致对话报错；在所有 AI rule-set 之前前置 `copilot.tencent.com → 🏠 国内网站` 防吞规则。详见各子目录 CHANGELOG。
+- SYNC：Clash Party(Smart+Normal) / CMFA / OpenClash(Normal+Smart) / Shadowrocket / Surge / Loon / Quantumult X / FlClash 同步前置规则并 bump 至 `v5.4.26-*`；SingBox / v2rayN / Passwall / Passwall2 经核实不受影响（geosite 路径无 copilot 子串关键词，顺流 `geosite:cn` 直连），仅对齐版本号。
+- VERIFY：`tools/validate-js-overwrites.js` 新增 FIX#164 回归守卫。
+
 ## v5.4.25-review.1 (2026-06-05)
 
 - REVIEW：全仓代码审查修复 SingBox QUIC 规则不可达、业务组顺序偏差、QX 本地规则误放 `[filter_remote]`、OpenClash 固定 `/tmp` 临时文件风险、PROCESS-NAME 验证盲点与 CI 覆盖缺口。

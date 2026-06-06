@@ -4,6 +4,10 @@
 
 ---
 
+## v5.4.26-Surge.1 (2026-06-07)
+
+- ★ FIX#164：腾讯 WorkBuddy `copilot.tencent.com` 国内直连防吞——szkane `AiDomain.list` 的 `DOMAIN-KEYWORD,copilot` 子串会把它误吞到 `🤖 AI 服务`（国外代理）导致对话报错；在 szkane AiDomain RULE-SET 之前前置 `DOMAIN-SUFFIX,copilot.tencent.com,🏠 国内网站`（与既有 RustDesk 防吞守卫并置）。基线 Clash Party v5.4.26。
+
 ## v5.4.25-Surge.1 (2026-06-04)
 
 - ★ SYNC：产物头部版本和基线声明对齐 Clash Party v5.4.25；规则语义延续 v5.4.23-Surge.2，无新增 Surge 专属规则变更。

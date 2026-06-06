@@ -1,7 +1,8 @@
 // FlClash 覆写脚本 — 标准 Mihomo 内核动态分流版
-// 版本：v5.4.25-flclash.1 (2026-06-03)
+// 版本：v5.4.26-flclash.1 (2026-06-07)
 // 架构：22 url-test 区域组（11 全部 + 11 家宽）+ 32 业务策略组（含 14 流媒体平台组）+ 382 rule-providers 100%+ 服务覆盖
-// 基线：Clash Party v5.4.25（规则 100% 等价；区域组为 url-test — FlClash 内核为标准 Mihomo，不支持 smart + LightGBM）
+// 基线：Clash Party v5.4.26（规则 100% 等价；区域组为 url-test — FlClash 内核为标准 Mihomo，不支持 smart + LightGBM）
+// v5.4.26: FIX#164 copilot.tencent.com（腾讯 WorkBuddy）国内直连防吞
 // 适用：FlClash >= v0.8.85（覆盖脚本功能自该版本引入）；其他使用标准 Mihomo 内核的客户端
 // 变更历史：见 `FlClash/CHANGELOG.md`
 //
@@ -35,7 +36,7 @@
 //  版本常量
 // ================================================================
 
-const VERSION = 'v5.4.25-flclash.1'
+const VERSION = 'v5.4.26-flclash.1'
 
 // v5.4.9 FEAT#LOCAL-TOOLS: desktop local-tool direct whitelist.
 const LOCAL_TOOL_DIRECT_PROCESS_NAMES = [
@@ -1389,6 +1390,11 @@ function injectRules(config) {
     `DOMAIN-SUFFIX,ggpht.com,${BIZ.YT}`,
     `DOMAIN-SUFFIX,youtube-nocookie.com,${BIZ.YT}`,
     `DOMAIN-SUFFIX,youtubekids.com,${BIZ.YT}`,
+    // v5.4.26 FIX#164: 腾讯 WorkBuddy/智能助手 copilot.tencent.com 属国内 AI 服务，但
+    //   szkane AiDomain.list 含 `DOMAIN-KEYWORD,copilot`（子串匹配，见下方 RULE-SET,szkane-ai），
+    //   会把它误吞到 🤖 AI 服务（国外代理）→ WorkBuddy 对话报错（issue #164）。
+    //   前置精准规则锁定国内直连；置于所有 AI rule-set 之前以防任何宽规则抢匹配。
+    `DOMAIN-SUFFIX,copilot.tencent.com,${BIZ.CN_SITE}`,
     `RULE-SET,openai,${BIZ.AI}`,
     `RULE-SET,claude,${BIZ.AI}`,
     `RULE-SET,gemini,${BIZ.AI}`,

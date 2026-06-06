@@ -1,9 +1,9 @@
-# Surge 使用教程（对齐 Clash Party v5.4.25）
+# Surge 使用教程（对齐 Clash Party v5.4.26）
 
 > 目录简介：这里维护 Surge iOS/macOS 配置和导入教程，按 Surge 语法对齐 Clash Party 分流策略。
 >
 > 配置文件：`Surge/Surge.conf`
-> 版本：**v5.4.25-Surge.1**（Build 2026-06-04，详见 `Surge/CHANGELOG.md`；跟随 Clash Party v5.4.25 基线）
+> 版本：**v5.4.26-Surge.1**（Build 2026-06-07，详见 `Surge/CHANGELOG.md`；跟随 Clash Party v5.4.26 基线）
 > 目标：**Surge 5 / Surge Mac**（付费正版；iOS + macOS 通用）
 > 架构：22 区域 url-test 组（11 全部 + 11 家宽，include-all-proxies + policy-regex-filter 自动按地区聚合）+ 32 业务策略组 + 286 RULE-SET
 

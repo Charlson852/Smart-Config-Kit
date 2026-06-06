@@ -5,6 +5,10 @@
 
 ---
 
+## v5.4.26-cmfa.1 (2026-06-07)
+
+- ★ FIX#164：腾讯 WorkBuddy `copilot.tencent.com` 国内直连防吞——szkane `AiDomain.list` 的 `DOMAIN-KEYWORD,copilot` 子串会把它误吞到 `🤖 AI 服务`（国外代理）导致对话报错；在 `RULE-SET,openai` 等所有 AI rule-set 之前前置 `DOMAIN-SUFFIX,copilot.tencent.com,🏠 国内网站`。基线 Clash Party v5.4.26。
+
 ## v5.4.25-cmfa.3 (2026-06-05)
 
 - ★ SYNC#FAKE-IP-FILTER：补齐 `+.courier.push.apple.com` / `+.miui.com` / `+.xiaomi.com` / `+.xiaomi.net` / `+.mijia.tech` / `+.gotui.com`，与 Clash Party Smart/Normal/FlClash 的 57 条 fake-ip-filter 完全对齐。

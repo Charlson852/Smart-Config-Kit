@@ -7,6 +7,15 @@
 
 ---
 
+## v5.4.26 / v5.4.26-normal.1 (2026-06-07)
+
+- ★ FIX#164：腾讯 WorkBuddy/智能助手 `copilot.tencent.com` 国内直连防吞（issue [#164](https://github.com/IvanSolis1989/Smart-Config-Kit/issues/164)）
+  - **根因**：szkane `AiDomain.list` 含 `DOMAIN-KEYWORD,copilot`（子串匹配），`copilot.tencent.com` 含 "copilot" 子串被 `RULE-SET,szkane-ai` 误吞到 `🤖 AI 服务`（国外代理）；该 AI rule-set 在 `RULE-SET,cn`（国内）之前 → WorkBuddy 对话报错，关闭系统代理即恢复。
+  - **修复**：在所有 AI rule-set 之前前置 `DOMAIN-SUFFIX,copilot.tencent.com,🏠 国内网站`（与既有 `deepseek.com → 国内网站` 国内 AI 惯例一致；置于段首以防任何宽规则抢匹配）。
+  - **回归守卫**：`tools/validate-js-overwrites.js` 新增断言——guard 存在且排在 `RULE-SET,szkane-ai` 之前（覆盖 Smart/Normal/FlClash 三个 JS 产物）。
+  - **同构核查**（CLAUDE.md §1）：blackmatrix7 `Copilot.list` / Accademia `Copilot.yaml` 经核实均无 copilot 子串关键词（仅精确域名 `copilot.microsoft.com`），不会误伤；唯一元凶是 szkane AiDomain.list。
+  - **全产物联动**：CMFA / OpenClash Normal+Smart / Shadowrocket / Surge / Loon / Quantumult X / FlClash 同步前置防吞规则；SingBox / v2rayN / Passwall / Passwall2 经核实不受影响（`geosite:copilot`/`geosite:openai` 均无 copilot 子串关键词，`copilot.tencent.com` 顺流到 `geosite:cn`（含 `+.tencent.com`）→ 国内直连），仅对齐版本号。
+
 ## v5.4.25 / v5.4.25-normal.1 (2026-06-04)
 
 - ★ 审查修复：GEOIP 重复规则去重（`GEOIP,netflix` / `GEOIP,google` 各出现 2 次 → 保留 GEOIP 标签路由集中区块，删除散落在业务区块的冗余；延续 v5.4.24 GEOIP,ID 清理）

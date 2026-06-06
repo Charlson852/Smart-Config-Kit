@@ -2,7 +2,7 @@
     {
       "id": "scki-000-meta",
       "enabled": false,
-      "remarks": "Smart-Config-Kit v5.4.25-v2n.1 | Build 2026-06-04 | Baseline Clash Party v5.4.25 | changelog: v2rayN/CHANGELOG.md | CMFA/PW 修复与基线对齐",
+      "remarks": "Smart-Config-Kit v5.4.26-v2n.1 | Build 2026-06-07 | Baseline Clash Party v5.4.26 | changelog: v2rayN/CHANGELOG.md | 对齐基线 v5.4.26（FIX#164 仅影响 mihomo szkane 链路，Xray geosite:copilot 不匹配 copilot.tencent.com）",
       "outboundTag": "direct",
       "domain": [
         "domain:smart-config-kit.invalid"

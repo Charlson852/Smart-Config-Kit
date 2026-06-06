@@ -1,14 +1,14 @@
 ﻿// Clash Smart 内核覆写脚本 - SUB-STORE 多机场精细分流版
-// 版本：v5.4.25 (2026-06-04)
+// 版本：v5.4.26 (2026-06-07)
 // 架构：SUB-STORE 多机场融合 + 22 Smart 区域组（11 全部 + 11 家宽）+ 32 业务策略组（含 14 流媒体平台组）+ 382 rule-providers 100%+ 服务覆盖
-// v5.4.25: 代码审查修复（分类器防御初始化 + 静态数组提升 + AND 规则校验 + GEOIP 去重 + GeoRouting interval 7d）· v5.4.24: CLEAN 冗余规则
+// v5.4.26: FIX#164 copilot.tencent.com（腾讯 WorkBuddy）国内直连防吞——szkane AiDomain.list 的 DOMAIN-KEYWORD,copilot 子串误吞 · v5.4.25: 代码审查修复（分类器防御初始化 + 静态数组提升 + AND 规则校验 + GEOIP 去重 + GeoRouting interval 7d）
 // 变更历史：见 `Clash Party/CHANGELOG.md`
 
 // ================================================================
 //  版本常量
 // ================================================================
 
-const VERSION = 'v5.4.25'
+const VERSION = 'v5.4.26'
 
 // v5.4.9 FEAT#LOCAL-TOOLS:
 // Desktop-capable local tools that should not be routed through proxy nodes.
@@ -1368,6 +1368,11 @@ function injectRules(config) {
     `DOMAIN-SUFFIX,ggpht.com,${BIZ.YT}`,
     `DOMAIN-SUFFIX,youtube-nocookie.com,${BIZ.YT}`,
     `DOMAIN-SUFFIX,youtubekids.com,${BIZ.YT}`,
+    // v5.4.26 FIX#164: 腾讯 WorkBuddy/智能助手 copilot.tencent.com 属国内 AI 服务，但
+    //   szkane AiDomain.list 含 `DOMAIN-KEYWORD,copilot`（子串匹配，见下方 RULE-SET,szkane-ai），
+    //   会把它误吞到 🤖 AI 服务（国外代理）→ WorkBuddy 对话报错（issue #164）。
+    //   前置精准规则锁定国内直连；置于所有 AI rule-set 之前以防任何宽规则抢匹配。
+    `DOMAIN-SUFFIX,copilot.tencent.com,${BIZ.CN_SITE}`,
     `RULE-SET,openai,${BIZ.AI}`,
     `RULE-SET,claude,${BIZ.AI}`,
     `RULE-SET,gemini,${BIZ.AI}`,

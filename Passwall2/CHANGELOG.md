@@ -6,6 +6,10 @@
 
 ---
 
+## v5.4.26-pw2.1 (2026-06-07)
+
+- 对齐基线 v5.4.26（FIX#164）。本产物**不受** `copilot.tencent.com` 误吞影响：Passwall2 AI 分流用 `geosite:copilot`（无 copilot 子串关键词），且不消费 szkane `AiDomain.list`；`copilot.tencent.com` 顺流到国内直连规则，无需 `.list`/`.sh` 改动。仅 bump 版本。
+
 ## v5.4.25-pw2.2 (2026-06-05)
 
 - ★ MAINT#HEADER-LITE：apply 脚本头部移除多版本变更历史，仅保留轻量元信息并指向 `Passwall2/CHANGELOG.md`，对齐仓库 CLAUDE.md §1.3 维护契约。
