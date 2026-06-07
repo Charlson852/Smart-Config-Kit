@@ -7,9 +7,22 @@
 
 ---
 
+## v5.4.28 / v5.4.28-normal.1 (2026-06-07)
+
+- ★ CLEAN#165 P2：大规模清理已被上游同策略规则集覆盖的流媒体/游戏直写域名（-38 行，6 段）：
+  - **🇭🇰 香港流媒体** (4): `mytvsuper.com`/`nowe.com`/`rthk.hk`/`cabletv.com.hk` → 各对应 RULE-SET
+  - **🇹🇼 台湾流媒体** (5): `litv.tv`/`friday.tw`/`linetv.tw`/`hamivideo.hinet.net` → 各对应 RULE-SET
+  - **🇯🇵 日韩流媒体** (6): `tver.jp`/`dmm.com`/`dmm.co.jp`/`nicovideo.jp`/`nicovideo.me`/`dmc.nico` → 各对应 RULE-SET
+  - **🇪🇺 欧洲流媒体** (3): `itv.com`/`itvstatic.com`/`britbox.com` → 各对应 RULE-SET
+  - **🌐 其他国外流媒体** (6): `wetv.vip`/`wetvinfo.com`/`viki.com`/`viki.io`/`mewatch.sg`/`discoveryplus.com` → 各对应 RULE-SET
+  - **🎮 国外游戏** (12): `ubisoft.com`/`ubi.com`/`riotgames.com`/`leagueoflegends.com`/`valorant.com`/`rockstargames.com`/`gog.com`/`gogalaxy.com`/`supercell.com`/`garena.com`/`hoyoverse.com`/`hoyolab.com` → 各对应 RULE-SET
+- **审计排除**：`viu.com/.tv`（RULE-SET,viu 目标 STREAM_OTHER ≠ 直写 STREAM_HK）、`appletv.com`（RULE-SET,appletv 目标 APPLE ≠ 直写 STREAM_OTHER）、163/126/126.net（geosite:cn 为宽泛 geo 规则集，非服务专属 RULE-SET，语义不同），以上均保留直写。
+- **跨产物联动**：FlClash JS / CMFA YAML / OpenClash Normal+Smart / Shadowrocket / Surge / Loon / Quantumult X 同步清理（SingBox 为生成产物需修改生成器，本轮豁免；v2rayN 无此冗余；Passwall/Passwall2 规则语法不同，不适用）。
+- **规则数变动**：Clash Party ~1020 → ~982；CMFA ~1400+ → ~1360+；Shadowrocket ~1200+ → ~1160+；QX [filter_local] 568 → 513
+
 ## v5.4.27 / v5.4.27-normal.1 (2026-06-07)
 
-- ★ CLEAN#165：清理已被上游同策略规则集覆盖的 7 条直写域名：
+- ★ CLEAN#165 P1：清理已被上游同策略规则集覆盖的 7 条直写域名：
   - `anthropic.com` → `RULE-SET,claude`
   - `braintreegateway.com` / `venmo.com` → `RULE-SET,paypal`
   - `max.com` → `RULE-SET,hbo`

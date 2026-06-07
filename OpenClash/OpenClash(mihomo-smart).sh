@@ -2,10 +2,11 @@
 . /usr/share/openclash/log.sh
 
 # ============================================================================
-# Clash Smart v5.4.27-oc-smart.1 — OpenClash 覆写脚本（与 Clash Party 主线同等规则量）
+# Clash Smart v5.4.28-oc-smart.1 — OpenClash 覆写脚本（与 Clash Party 主线同等规则量）
 # Build: 2026-06-07
 # ============================================================================
-# 定位：对齐 Clash Party v5.4.27 JS 主线的 OpenClash 全量版本。v5.4.2: P0-FIX#41 小米白名单。
+# v5.4.28: CLEAN#165 清理已被上游同策略规则集覆盖的直写域名（-38行）
+# 定位：对齐 Clash Party v5.4.28 JS 主线的 OpenClash 全量版本。v5.4.2: P0-FIX#41 小米白名单。
 #       与同目录 OpenClash(mihomo).sh（Normal）互补：
 #         - Normal 面向稳定版 mihomo / 经典 url-test
 #         - full  面向 4GB+ 路由器 / 需要与 Clash Party 桌面端一致的细粒度分流
@@ -16,14 +17,14 @@
 #   • 1050+ 条 rules
 #   • DNS fake-ip + 嗅探（HTTP/TLS/QUIC）+ nameserver-policy 救援
 #   • Ruby 阶段做：节点过滤 / 区域分类 / Smart 组生成 / TLS 指纹注入
-# 基线：Clash Party v5.4.27（唯一主线；v5.3.1/v5.3.2 为桌面端 PROCESS-NAME 改动，路由器端不适用）── 任何规则/组/DNS 改动必须先改 Clash Party JS，
+# 基线：Clash Party v5.4.28（唯一主线；v5.3.1/v5.3.2 为桌面端 PROCESS-NAME 改动，路由器端不适用）── 任何规则/组/DNS 改动必须先改 Clash Party JS，
 #       再同步到此文件。参见仓库根目录 CLAUDE.md / AGENTS.md。
 # 变更历史：见 `OpenClash/CHANGELOG.md`（Full 部分）。
 # ============================================================================
 
 
 
-VERSION_TAG="v5.4.27-oc-smart.1"
+VERSION_TAG="v5.4.28-oc-smart.1"
 CONFIG_FILE="$1"
 LOG_FILE="/tmp/openclash.log"
 
@@ -3671,18 +3672,15 @@ rules:
 - "RULE-SET,lastfm,\U0001F3B5 音乐流媒体"
 
   # ============ 🇭🇰 香港流媒体 ============
+  # CLEAN#165: mytvsuper.com / nowe.com / rthk.hk / cabletv.com.hk 已被同策略 RULE-SET 覆盖
 - "RULE-SET,szkane-bilihmt,\U0001F1ED\U0001F1F0 香港流媒体"
-- "DOMAIN-SUFFIX,mytvsuper.com,\U0001F1ED\U0001F1F0 香港流媒体"
 - "DOMAIN-SUFFIX,mytv.com.hk,\U0001F1ED\U0001F1F0 香港流媒体"
 - "DOMAIN-SUFFIX,viu.com,\U0001F1ED\U0001F1F0 香港流媒体"
 - "DOMAIN-SUFFIX,viu.tv,\U0001F1ED\U0001F1F0 香港流媒体"
 - "DOMAIN-SUFFIX,hktv.com.hk,\U0001F1ED\U0001F1F0 香港流媒体"
 - "DOMAIN-SUFFIX,hktvmall.com,\U0001F1ED\U0001F1F0 香港流媒体"
 - "DOMAIN-SUFFIX,nowtv.com,\U0001F1ED\U0001F1F0 香港流媒体"
-- "DOMAIN-SUFFIX,nowe.com,\U0001F1ED\U0001F1F0 香港流媒体"
-- "DOMAIN-SUFFIX,rthk.hk,\U0001F1ED\U0001F1F0 香港流媒体"
 - "DOMAIN-SUFFIX,icable.com,\U0001F1ED\U0001F1F0 香港流媒体"
-- "DOMAIN-SUFFIX,cabletv.com.hk,\U0001F1ED\U0001F1F0 香港流媒体"
 - "DOMAIN-SUFFIX,hmvod.com.hk,\U0001F1ED\U0001F1F0 香港流媒体"
 - "RULE-SET,mytvsuper,\U0001F1ED\U0001F1F0 香港流媒体"
 - "RULE-SET,tvb,\U0001F1ED\U0001F1F0 香港流媒体"
@@ -3692,15 +3690,11 @@ rules:
 - "RULE-SET,cabletv,\U0001F1ED\U0001F1F0 香港流媒体"
 - "RULE-SET,moov,\U0001F1ED\U0001F1F0 香港流媒体"
   # ============ 🇹🇼 台湾流媒体 ============
+  # CLEAN#165: litv.tv / video.friday.tw / friday.tw / linetv.tw / hamivideo.hinet.net 已被同策略 RULE-SET 覆盖
 - "RULE-SET,bahamut,\U0001F1F9\U0001F1FC 台湾流媒体"
 - "RULE-SET,kktv,\U0001F1F9\U0001F1FC 台湾流媒体"
-- "DOMAIN-SUFFIX,litv.tv,\U0001F1F9\U0001F1FC 台湾流媒体"
-- "DOMAIN-SUFFIX,video.friday.tw,\U0001F1F9\U0001F1FC 台湾流媒体"
-- "DOMAIN-SUFFIX,friday.tw,\U0001F1F9\U0001F1FC 台湾流媒体"
-- "DOMAIN-SUFFIX,linetv.tw,\U0001F1F9\U0001F1FC 台湾流媒体"
 - "DOMAIN-SUFFIX,elta.tv,\U0001F1F9\U0001F1FC 台湾流媒体"
 - "DOMAIN-SUFFIX,mod.cht.com.tw,\U0001F1F9\U0001F1FC 台湾流媒体"
-- "DOMAIN-SUFFIX,hamivideo.hinet.net,\U0001F1F9\U0001F1FC 台湾流媒体"
 - "DOMAIN-SUFFIX,ofiii.com,\U0001F1F9\U0001F1FC 台湾流媒体"
 - "DOMAIN-SUFFIX,pts.org.tw,\U0001F1F9\U0001F1FC 台湾流媒体"
 - "DOMAIN-SUFFIX,4gtv.tv,\U0001F1F9\U0001F1FC 台湾流媒体"
@@ -3712,24 +3706,19 @@ rules:
 - "RULE-SET,taiwangood,\U0001F1F9\U0001F1FC 台湾流媒体"
 - "RULE-SET,cht,\U0001F1F9\U0001F1FC 台湾流媒体"
   # ============ 🇯🇵 日韩流媒体 ============
+  # CLEAN#165: tver.jp / dmm.com / dmm.co.jp / nicovideo.jp / nicovideo.me / dmc.nico 已被同策略 RULE-SET 覆盖
 - "RULE-SET,abema,\U0001F1EF\U0001F1F5 日韩流媒体"
 - "RULE-SET,dazn,\U0001F1EF\U0001F1F5 日韩流媒体"
-- "DOMAIN-SUFFIX,tver.jp,\U0001F1EF\U0001F1F5 日韩流媒体"
 - "DOMAIN-SUFFIX,unext.jp,\U0001F1EF\U0001F1F5 日韩流媒体"
 - "DOMAIN-SUFFIX,video.unext.jp,\U0001F1EF\U0001F1F5 日韩流媒体"
 - "DOMAIN-SUFFIX,nhk.jp,\U0001F1EF\U0001F1F5 日韩流媒体"
 - "DOMAIN-SUFFIX,nhk.or.jp,\U0001F1EF\U0001F1F5 日韩流媒体"
-- "DOMAIN-SUFFIX,dmm.com,\U0001F1EF\U0001F1F5 日韩流媒体"
-- "DOMAIN-SUFFIX,dmm.co.jp,\U0001F1EF\U0001F1F5 日韩流媒体"
 - "DOMAIN-SUFFIX,dtv.jp,\U0001F1EF\U0001F1F5 日韩流媒体"
 - "DOMAIN-SUFFIX,paravi.jp,\U0001F1EF\U0001F1F5 日韩流媒体"
 - "DOMAIN-SUFFIX,videomarket.jp,\U0001F1EF\U0001F1F5 日韩流媒体"
 - "DOMAIN-SUFFIX,fod.fujitv.co.jp,\U0001F1EF\U0001F1F5 日韩流媒体"
 - "DOMAIN-SUFFIX,gyao.yahoo.co.jp,\U0001F1EF\U0001F1F5 日韩流媒体"
 - "DOMAIN-SUFFIX,music.jp,\U0001F1EF\U0001F1F5 日韩流媒体"
-- "DOMAIN-SUFFIX,nicovideo.jp,\U0001F1EF\U0001F1F5 日韩流媒体"
-- "DOMAIN-SUFFIX,nicovideo.me,\U0001F1EF\U0001F1F5 日韩流媒体"
-- "DOMAIN-SUFFIX,dmc.nico,\U0001F1EF\U0001F1F5 日韩流媒体"
 - "DOMAIN-SUFFIX,radiko.jp,\U0001F1EF\U0001F1F5 日韩流媒体"
 - "DOMAIN-SUFFIX,lemino.docomo.ne.jp,\U0001F1EF\U0001F1F5 日韩流媒体"
 - "DOMAIN-SUFFIX,wowow.co.jp,\U0001F1EF\U0001F1F5 日韩流媒体"
@@ -3757,14 +3746,12 @@ rules:
 - "RULE-SET,nikkei,\U0001F1EF\U0001F1F5 日韩流媒体"
 
   # ============ 欧洲流媒体 ============
+  # CLEAN#165: itv.com / itvstatic.com / britbox.com 已被同策略 RULE-SET 覆盖
 - "RULE-SET,bbc,\U0001F1EA\U0001F1FA 欧洲流媒体"
-- "DOMAIN-SUFFIX,itv.com,\U0001F1EA\U0001F1FA 欧洲流媒体"
-- "DOMAIN-SUFFIX,itvstatic.com,\U0001F1EA\U0001F1FA 欧洲流媒体"
 - "DOMAIN-SUFFIX,channel4.com,\U0001F1EA\U0001F1FA 欧洲流媒体"
 - "DOMAIN-SUFFIX,channel5.com,\U0001F1EA\U0001F1FA 欧洲流媒体"
 - "DOMAIN-SUFFIX,sky.com,\U0001F1EA\U0001F1FA 欧洲流媒体"
 - "DOMAIN-SUFFIX,nowtv.co.uk,\U0001F1EA\U0001F1FA 欧洲流媒体"
-- "DOMAIN-SUFFIX,britbox.com,\U0001F1EA\U0001F1FA 欧洲流媒体"
 - "DOMAIN-SUFFIX,canalplus.com,\U0001F1EA\U0001F1FA 欧洲流媒体"
 - "DOMAIN-SUFFIX,mycanal.fr,\U0001F1EA\U0001F1FA 欧洲流媒体"
 - "DOMAIN-SUFFIX,france.tv,\U0001F1EA\U0001F1FA 欧洲流媒体"
@@ -3797,9 +3784,8 @@ rules:
 - "RULE-SET,szkane-uk,\U0001F1EA\U0001F1FA 欧洲流媒体"
 
   # ============ 其他国外流媒体 ============
+  # CLEAN#165: wetv.vip / wetvinfo.com / viki.com / viki.io / mewatch.sg / discoveryplus.com 已被同策略 RULE-SET 覆盖
 - "RULE-SET,viu,\U0001F310 其他国外流媒体"
-- "DOMAIN-SUFFIX,wetv.vip,\U0001F310 其他国外流媒体"
-- "DOMAIN-SUFFIX,wetvinfo.com,\U0001F310 其他国外流媒体"
 - "DOMAIN-SUFFIX,iq.com,\U0001F310 其他国外流媒体"
 - "DOMAIN-SUFFIX,vidio.com,\U0001F310 其他国外流媒体"
 - "DOMAIN-SUFFIX,vidio.static6.com,\U0001F310 其他国外流媒体"
@@ -3809,11 +3795,8 @@ rules:
 - "DOMAIN-SUFFIX,goplay.co.id,\U0001F310 其他国外流媒体"
 - "DOMAIN-SUFFIX,maxstream.tv,\U0001F310 其他国外流媒体"
 - "RULE-SET,biliintl,\U0001F310 其他国外流媒体"
-- "DOMAIN-SUFFIX,viki.com,\U0001F310 其他国外流媒体"
-- "DOMAIN-SUFFIX,viki.io,\U0001F310 其他国外流媒体"
 - "DOMAIN-SUFFIX,iflix.com,\U0001F310 其他国外流媒体"
 - "DOMAIN-SUFFIX,catchplay.com,\U0001F310 其他国外流媒体"
-- "DOMAIN-SUFFIX,mewatch.sg,\U0001F310 其他国外流媒体"
 - "DOMAIN-SUFFIX,trueid.net,\U0001F310 其他国外流媒体"
 - "DOMAIN-SUFFIX,dimsum.my,\U0001F310 其他国外流媒体"
 - "RULE-SET,asianmedia,\U0001F310 其他国外流媒体"
@@ -3832,7 +3815,6 @@ rules:
 - "DOMAIN-SUFFIX,pluto.tv,\U0001F310 其他国外流媒体"
 - "DOMAIN-SUFFIX,tubi.tv,\U0001F310 其他国外流媒体"
 - "DOMAIN-SUFFIX,fubo.tv,\U0001F310 其他国外流媒体"
-- "DOMAIN-SUFFIX,discoveryplus.com,\U0001F310 其他国外流媒体"
 - "DOMAIN-SUFFIX,appletv.com,\U0001F310 其他国外流媒体"
 - "RULE-SET,cbs,\U0001F310 其他国外流媒体"
 - "RULE-SET,nbc,\U0001F310 其他国外流媒体"
@@ -4010,6 +3992,7 @@ rules:
 - "RULE-SET,szkane-proxygfw,\U0001F6AB 受限网站"
 
   # ============ 国外游戏 ============
+  # CLEAN#165: ubisoft.com / ubi.com / riotgames.com / leagueoflegends.com / valorant.com / rockstargames.com / gog.com / gogalaxy.com / supercell.com / garena.com / hoyoverse.com / hoyolab.com 已被同策略 RULE-SET 覆盖
 - "RULE-SET,steam,\U0001F3AE 国外游戏"
 - "RULE-SET,epic,\U0001F3AE 国外游戏"
 - "RULE-SET,playstation,\U0001F3AE 国外游戏"
@@ -4018,18 +4001,6 @@ rules:
 - "RULE-SET,ea,\U0001F3AE 国外游戏"
 - "RULE-SET,blizzard,\U0001F3AE 国外游戏"
 - "GEOSITE,category-games,\U0001F3AE 国外游戏"
-- "DOMAIN-SUFFIX,ubisoft.com,\U0001F3AE 国外游戏"
-- "DOMAIN-SUFFIX,ubi.com,\U0001F3AE 国外游戏"
-- "DOMAIN-SUFFIX,riotgames.com,\U0001F3AE 国外游戏"
-- "DOMAIN-SUFFIX,leagueoflegends.com,\U0001F3AE 国外游戏"
-- "DOMAIN-SUFFIX,valorant.com,\U0001F3AE 国外游戏"
-- "DOMAIN-SUFFIX,rockstargames.com,\U0001F3AE 国外游戏"
-- "DOMAIN-SUFFIX,gog.com,\U0001F3AE 国外游戏"
-- "DOMAIN-SUFFIX,gogalaxy.com,\U0001F3AE 国外游戏"
-- "DOMAIN-SUFFIX,supercell.com,\U0001F3AE 国外游戏"
-- "DOMAIN-SUFFIX,garena.com,\U0001F3AE 国外游戏"
-- "DOMAIN-SUFFIX,hoyoverse.com,\U0001F3AE 国外游戏"
-- "DOMAIN-SUFFIX,hoyolab.com,\U0001F3AE 国外游戏"
 - "RULE-SET,rockstar,\U0001F3AE 国外游戏"
 - "RULE-SET,riot,\U0001F3AE 国外游戏"
 - "RULE-SET,gog,\U0001F3AE 国外游戏"
@@ -4359,7 +4330,7 @@ cat > "$RUBY_SCRIPT" << 'RUBY_EOF'
 require 'yaml'
 require 'digest'
 
-VERSION = "v5.4.27-oc-smart.1"
+VERSION = "v5.4.28-oc-smart.1"
 
 STATUS_LOG = ARGV[2]
 File.open(STATUS_LOG, 'w') { |f| f.puts "[#{VERSION}] start" }

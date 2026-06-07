@@ -1,8 +1,8 @@
 ﻿// Clash 覆写脚本 - SUB-STORE 多机场精细分流版
-// 版本：v5.4.27-normal.1 (2026-06-07)
+// 版本：v5.4.28-normal.1 (2026-06-07)
 // 架构：22 url-test 区域组（11 全部 + 11 家宽）+ 32 业务策略组 + 382 rule-providers
-// 基线：Clash Party v5.4.27（与同目录 ClashParty(mihomo-smart).js 规则 100% 等价，仅区域组从 smart 改为 url-test）
-// v5.4.27: CLEAN#165 清理已被上游同策略规则集覆盖的直写域名
+// 基线：Clash Party v5.4.28（与同目录 ClashParty(mihomo-smart).js 规则 100% 等价，仅区域组从 smart 改为 url-test）
+// v5.4.28: CLEAN#165 清理已被上游同策略规则集覆盖的直写域名（-36行）
 // 适用：Mihomo / Clash.Meta 稳定版内核、不支持 smart + LightGBM 的分支；也适用于想完全关闭 ML 评估的用户
 // 变更历史：见 `Clash Party/CHANGELOG.md`
 
@@ -10,7 +10,7 @@
 //  版本常量
 // ================================================================
 
-const VERSION = 'v5.4.27-normal.1'
+const VERSION = 'v5.4.28-normal.1'
 
 // v5.4.9 FEAT#LOCAL-TOOLS: desktop local-tool direct whitelist.
 const LOCAL_TOOL_DIRECT_PROCESS_NAMES = [
@@ -1650,18 +1650,15 @@ function injectRules(config) {
     `RULE-SET,qobuz,${BIZ.MUSIC}`,
 
     // ============ 🇭🇰 香港流媒体 ============
+    // CLEAN#165: mytvsuper.com, nowe.com, rthk.hk, cabletv.com.hk 已被同策略 RULE-SET 覆盖
     `RULE-SET,szkane-bilihmt,${BIZ.STREAM_HK}`,
-    `DOMAIN-SUFFIX,mytvsuper.com,${BIZ.STREAM_HK}`,
     `DOMAIN-SUFFIX,mytv.com.hk,${BIZ.STREAM_HK}`,
     `DOMAIN-SUFFIX,viu.com,${BIZ.STREAM_HK}`,
     `DOMAIN-SUFFIX,viu.tv,${BIZ.STREAM_HK}`,
     `DOMAIN-SUFFIX,hktv.com.hk,${BIZ.STREAM_HK}`,
     `DOMAIN-SUFFIX,hktvmall.com,${BIZ.STREAM_HK}`,
     `DOMAIN-SUFFIX,nowtv.com,${BIZ.STREAM_HK}`,
-    `DOMAIN-SUFFIX,nowe.com,${BIZ.STREAM_HK}`,
-    `DOMAIN-SUFFIX,rthk.hk,${BIZ.STREAM_HK}`,
     `DOMAIN-SUFFIX,icable.com,${BIZ.STREAM_HK}`,
-    `DOMAIN-SUFFIX,cabletv.com.hk,${BIZ.STREAM_HK}`,
     `DOMAIN-SUFFIX,hmvod.com.hk,${BIZ.STREAM_HK}`,
     `RULE-SET,mytvsuper,${BIZ.STREAM_HK}`,
     `RULE-SET,tvb,${BIZ.STREAM_HK}`,
@@ -1672,15 +1669,11 @@ function injectRules(config) {
     `RULE-SET,moov,${BIZ.STREAM_HK}`,
 
     // ============ 🇹🇼 台湾流媒体 ============
+    // CLEAN#165: litv.tv, video.friday.tw, friday.tw, linetv.tw, hamivideo.hinet.net 已被同策略 RULE-SET 覆盖
     `RULE-SET,bahamut,${BIZ.STREAM_TW}`,
     `RULE-SET,kktv,${BIZ.STREAM_TW}`,
-    `DOMAIN-SUFFIX,litv.tv,${BIZ.STREAM_TW}`,
-    `DOMAIN-SUFFIX,video.friday.tw,${BIZ.STREAM_TW}`,
-    `DOMAIN-SUFFIX,friday.tw,${BIZ.STREAM_TW}`,
-    `DOMAIN-SUFFIX,linetv.tw,${BIZ.STREAM_TW}`,
     `DOMAIN-SUFFIX,elta.tv,${BIZ.STREAM_TW}`,
     `DOMAIN-SUFFIX,mod.cht.com.tw,${BIZ.STREAM_TW}`,
-    `DOMAIN-SUFFIX,hamivideo.hinet.net,${BIZ.STREAM_TW}`,
     `DOMAIN-SUFFIX,ofiii.com,${BIZ.STREAM_TW}`,
     `DOMAIN-SUFFIX,pts.org.tw,${BIZ.STREAM_TW}`,
     `DOMAIN-SUFFIX,4gtv.tv,${BIZ.STREAM_TW}`,
@@ -1693,24 +1686,19 @@ function injectRules(config) {
     `RULE-SET,cht,${BIZ.STREAM_TW}`,
 
     // ============ 🇯🇵 日韩流媒体 ============
+    // CLEAN#165: tver.jp, dmm.com, dmm.co.jp, nicovideo.jp, nicovideo.me, dmc.nico 已被同策略 RULE-SET 覆盖
     `RULE-SET,abema,${BIZ.STREAM_JP}`,
     `RULE-SET,dazn,${BIZ.STREAM_JP}`,
-    `DOMAIN-SUFFIX,tver.jp,${BIZ.STREAM_JP}`,
     `DOMAIN-SUFFIX,unext.jp,${BIZ.STREAM_JP}`,
     `DOMAIN-SUFFIX,video.unext.jp,${BIZ.STREAM_JP}`,
     `DOMAIN-SUFFIX,nhk.jp,${BIZ.STREAM_JP}`,
     `DOMAIN-SUFFIX,nhk.or.jp,${BIZ.STREAM_JP}`,
-    `DOMAIN-SUFFIX,dmm.com,${BIZ.STREAM_JP}`,
-    `DOMAIN-SUFFIX,dmm.co.jp,${BIZ.STREAM_JP}`,
     `DOMAIN-SUFFIX,dtv.jp,${BIZ.STREAM_JP}`,
     `DOMAIN-SUFFIX,paravi.jp,${BIZ.STREAM_JP}`,
     `DOMAIN-SUFFIX,videomarket.jp,${BIZ.STREAM_JP}`,
     `DOMAIN-SUFFIX,fod.fujitv.co.jp,${BIZ.STREAM_JP}`,
     `DOMAIN-SUFFIX,gyao.yahoo.co.jp,${BIZ.STREAM_JP}`,
     `DOMAIN-SUFFIX,music.jp,${BIZ.STREAM_JP}`,
-    `DOMAIN-SUFFIX,nicovideo.jp,${BIZ.STREAM_JP}`,
-    `DOMAIN-SUFFIX,nicovideo.me,${BIZ.STREAM_JP}`,
-    `DOMAIN-SUFFIX,dmc.nico,${BIZ.STREAM_JP}`,
     `DOMAIN-SUFFIX,radiko.jp,${BIZ.STREAM_JP}`,
     `DOMAIN-SUFFIX,lemino.docomo.ne.jp,${BIZ.STREAM_JP}`,
     `DOMAIN-SUFFIX,wowow.co.jp,${BIZ.STREAM_JP}`,
@@ -1738,14 +1726,12 @@ function injectRules(config) {
     `RULE-SET,nikkei,${BIZ.STREAM_JP}`,
 
     // ============ 🇪🇺 欧洲流媒体 ============
+    // CLEAN#165: itv.com, itvstatic.com, britbox.com 已被同策略 RULE-SET 覆盖
     `RULE-SET,bbc,${BIZ.STREAM_EU}`,
-    `DOMAIN-SUFFIX,itv.com,${BIZ.STREAM_EU}`,
-    `DOMAIN-SUFFIX,itvstatic.com,${BIZ.STREAM_EU}`,
     `DOMAIN-SUFFIX,channel4.com,${BIZ.STREAM_EU}`,
     `DOMAIN-SUFFIX,channel5.com,${BIZ.STREAM_EU}`,
     `DOMAIN-SUFFIX,sky.com,${BIZ.STREAM_EU}`,
     `DOMAIN-SUFFIX,nowtv.co.uk,${BIZ.STREAM_EU}`,
-    `DOMAIN-SUFFIX,britbox.com,${BIZ.STREAM_EU}`,
     `DOMAIN-SUFFIX,canalplus.com,${BIZ.STREAM_EU}`,
     `DOMAIN-SUFFIX,mycanal.fr,${BIZ.STREAM_EU}`,
     `DOMAIN-SUFFIX,france.tv,${BIZ.STREAM_EU}`,
@@ -1777,9 +1763,8 @@ function injectRules(config) {
     `RULE-SET,szkane-uk,${BIZ.STREAM_EU}`,
 
     // ============ 🌐 其他国外流媒体 ============
+    // CLEAN#165: wetv.vip, wetvinfo.com, viki.com, viki.io, mewatch.sg, discoveryplus.com 已被同策略 RULE-SET 覆盖
     `RULE-SET,viu,${BIZ.STREAM_OTHER}`,
-    `DOMAIN-SUFFIX,wetv.vip,${BIZ.STREAM_OTHER}`,
-    `DOMAIN-SUFFIX,wetvinfo.com,${BIZ.STREAM_OTHER}`,
     `DOMAIN-SUFFIX,iq.com,${BIZ.STREAM_OTHER}`,
     `DOMAIN-SUFFIX,vidio.com,${BIZ.STREAM_OTHER}`,
     `DOMAIN-SUFFIX,vidio.static6.com,${BIZ.STREAM_OTHER}`,
@@ -1789,11 +1774,8 @@ function injectRules(config) {
     `DOMAIN-SUFFIX,goplay.co.id,${BIZ.STREAM_OTHER}`,
     `DOMAIN-SUFFIX,maxstream.tv,${BIZ.STREAM_OTHER}`,
     `RULE-SET,biliintl,${BIZ.STREAM_OTHER}`,
-    `DOMAIN-SUFFIX,viki.com,${BIZ.STREAM_OTHER}`,
-    `DOMAIN-SUFFIX,viki.io,${BIZ.STREAM_OTHER}`,
     `DOMAIN-SUFFIX,iflix.com,${BIZ.STREAM_OTHER}`,
     `DOMAIN-SUFFIX,catchplay.com,${BIZ.STREAM_OTHER}`,
-    `DOMAIN-SUFFIX,mewatch.sg,${BIZ.STREAM_OTHER}`,
     `DOMAIN-SUFFIX,trueid.net,${BIZ.STREAM_OTHER}`,
     `DOMAIN-SUFFIX,dimsum.my,${BIZ.STREAM_OTHER}`,
     `RULE-SET,asianmedia,${BIZ.STREAM_OTHER}`,
@@ -1812,7 +1794,6 @@ function injectRules(config) {
     `DOMAIN-SUFFIX,pluto.tv,${BIZ.STREAM_OTHER}`,
     `DOMAIN-SUFFIX,tubi.tv,${BIZ.STREAM_OTHER}`,
     `DOMAIN-SUFFIX,fubo.tv,${BIZ.STREAM_OTHER}`,
-    `DOMAIN-SUFFIX,discoveryplus.com,${BIZ.STREAM_OTHER}`,
     `DOMAIN-SUFFIX,appletv.com,${BIZ.STREAM_OTHER}`,
     `RULE-SET,cbs,${BIZ.STREAM_OTHER}`,
     `RULE-SET,nbc,${BIZ.STREAM_OTHER}`,
@@ -1991,6 +1972,7 @@ function injectRules(config) {
     `RULE-SET,szkane-proxygfw,${BIZ.GFW}`,
 
     // ============ 🎮 国外游戏 ============
+    // CLEAN#165: ubisoft.com, ubi.com, riotgames.com, leagueoflegends.com, valorant.com, rockstargames.com, gog.com, gogalaxy.com, supercell.com, garena.com, hoyoverse.com, hoyolab.com 已被同策略 RULE-SET 覆盖
     `RULE-SET,steam,${BIZ.GAME_INTL}`,
     `RULE-SET,epic,${BIZ.GAME_INTL}`,
     `RULE-SET,playstation,${BIZ.GAME_INTL}`,
@@ -1999,18 +1981,6 @@ function injectRules(config) {
     `RULE-SET,ea,${BIZ.GAME_INTL}`,
     `RULE-SET,blizzard,${BIZ.GAME_INTL}`,
     `GEOSITE,category-games,${BIZ.GAME_INTL}`,
-    `DOMAIN-SUFFIX,ubisoft.com,${BIZ.GAME_INTL}`,
-    `DOMAIN-SUFFIX,ubi.com,${BIZ.GAME_INTL}`,
-    `DOMAIN-SUFFIX,riotgames.com,${BIZ.GAME_INTL}`,
-    `DOMAIN-SUFFIX,leagueoflegends.com,${BIZ.GAME_INTL}`,
-    `DOMAIN-SUFFIX,valorant.com,${BIZ.GAME_INTL}`,
-    `DOMAIN-SUFFIX,rockstargames.com,${BIZ.GAME_INTL}`,
-    `DOMAIN-SUFFIX,gog.com,${BIZ.GAME_INTL}`,
-    `DOMAIN-SUFFIX,gogalaxy.com,${BIZ.GAME_INTL}`,
-    `DOMAIN-SUFFIX,supercell.com,${BIZ.GAME_INTL}`,
-    `DOMAIN-SUFFIX,garena.com,${BIZ.GAME_INTL}`,
-    `DOMAIN-SUFFIX,hoyoverse.com,${BIZ.GAME_INTL}`,
-    `DOMAIN-SUFFIX,hoyolab.com,${BIZ.GAME_INTL}`,
     `RULE-SET,rockstar,${BIZ.GAME_INTL}`,
     `RULE-SET,riot,${BIZ.GAME_INTL}`,
     `RULE-SET,gog,${BIZ.GAME_INTL}`,

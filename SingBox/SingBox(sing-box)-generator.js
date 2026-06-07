@@ -1,9 +1,9 @@
 const fs = require('fs');
 const vm = require('vm');
 
-const VERSION = 'v5.4.27-sing.1';
+const VERSION = 'v5.4.28-sing.1';
 const BUILD = '2026-06-07';
-const BASELINE = 'Clash Party v5.4.27';
+const BASELINE = 'Clash Party v5.4.28';
 
 const SMART = {
   GLOBAL: '🌍 全球节点',

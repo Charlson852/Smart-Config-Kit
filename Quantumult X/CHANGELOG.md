@@ -6,9 +6,20 @@
 
 ---
 
+## v5.4.28-QX.1 (2026-06-07)
+
+- ★ CLEAN#165（续）：`[filter_local]` 移除 35 行已被同策略 `[filter_remote]` 规则集覆盖的直写域名
+  - 🇭🇰 香港流媒体：mytvsuper.com, nowe.com, rthk.hk, cabletv.com.hk（覆盖：myTVSUPER/NowE/RTHK/CableTV）
+  - 🇹🇼 台湾流媒体：litv.tv, video.friday.tw, friday.tw, linetv.tw, hamivideo.hinet.net（覆盖：LiTV/friDay/LineTV/HamiVideo）
+  - 🇯🇵 日韩流媒体：tver.jp, dmm.com, dmm.co.jp, nicovideo.jp, nicovideo.me（覆盖：TVer/DMM/Niconico）
+  - 🇪🇺 欧洲流媒体：itv.com, itvstatic.com, britbox.com（覆盖：ITV/BritboxUK）
+  - 🌐 其他国外流媒体：discoveryplus.com, wetv.vip, wetvinfo.com, viki.com, viki.io, mewatch.sg（覆盖：DiscoveryPlus/WeTV/Viki/MeWatch）
+  - 🎮 国外游戏：ubisoft.com, ubi.com, riotgames.com, leagueoflegends.com, valorant.com, rockstargames.com, gog.com, gogalaxy.com, supercell.com, garena.com, hoyoverse.com, hoyolab.com（覆盖：UBI/Riot/Rockstar/Gog/Supercell/Garena/HoYoverse）
+  - 每处移除位置保留 `# CLEAN#165:` 注释标注覆盖来源
+
 ## v5.4.27-QX.1 (2026-06-07)
 
-- ★ CLEAN#165：同步清理 7 条已由 `[filter_remote]` 覆盖的 `[filter_local]` 直写域名（Claude / PayPal / HBO / Hulu / Xbox）；删除后仍命中同策略组。
+- ★ CLEAN#165（第 1 批）：同步清理 7 条已由 `[filter_remote]` 覆盖的 `[filter_local]` 直写域名（Claude / PayPal / HBO / Hulu / Xbox）；删除后仍命中同策略组。第 2 批见 v5.4.28-QX.1。
 
 ## v5.4.26-QX.1 (2026-06-07)
 

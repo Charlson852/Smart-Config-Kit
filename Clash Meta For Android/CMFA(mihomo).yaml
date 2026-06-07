@@ -1,8 +1,9 @@
 # ================================================================
-# Clash Smart v5.4.27-cmfa.1 - CMFA (Clash Meta for Android) 配置
+# Clash Smart v5.4.28-cmfa.1 - CMFA (Clash Meta for Android) 配置
 # Build: 2026-06-07
 # 架构：proxy-providers 订阅 + 22 url-test 区域组（11 全部 + 11 家宽，家宽 filter 新增 IEPL/IPLC/专线识别）+ 32 业务策略组（含 14 流媒体平台组）+ 382 rule-providers
-# 基线：Clash Party v5.4.27（唯一主线）
+# 基线：Clash Party v5.4.28（唯一主线）
+# v5.4.28: CLEAN#165 清理已被上游同策略规则集覆盖的直写域名（-38行）
 # 变更历史：见 `Clash Meta For Android/CHANGELOG.md`
 # ================================================================
 # ★ 快速上手：
@@ -3991,18 +3992,15 @@ rules:
 - 'RULE-SET,qobuz,🎵 音乐流媒体'
 
   # ============ 🇭🇰 香港流媒体 ============
+# CLEAN#165: mytvsuper.com,nowe.com,rthk.hk,cabletv.com.hk 已被同策略 RULE-SET 覆盖
 - 'RULE-SET,szkane-bilihmt,🇭🇰 香港流媒体'
-- 'DOMAIN-SUFFIX,mytvsuper.com,🇭🇰 香港流媒体'
 - 'DOMAIN-SUFFIX,mytv.com.hk,🇭🇰 香港流媒体'
 - 'DOMAIN-SUFFIX,viu.com,🇭🇰 香港流媒体'
 - 'DOMAIN-SUFFIX,viu.tv,🇭🇰 香港流媒体'
 - 'DOMAIN-SUFFIX,hktv.com.hk,🇭🇰 香港流媒体'
 - 'DOMAIN-SUFFIX,hktvmall.com,🇭🇰 香港流媒体'
 - 'DOMAIN-SUFFIX,nowtv.com,🇭🇰 香港流媒体'
-- 'DOMAIN-SUFFIX,nowe.com,🇭🇰 香港流媒体'
-- 'DOMAIN-SUFFIX,rthk.hk,🇭🇰 香港流媒体'
 - 'DOMAIN-SUFFIX,icable.com,🇭🇰 香港流媒体'
-- 'DOMAIN-SUFFIX,cabletv.com.hk,🇭🇰 香港流媒体'
 - 'DOMAIN-SUFFIX,hmvod.com.hk,🇭🇰 香港流媒体'
 - 'RULE-SET,mytvsuper,🇭🇰 香港流媒体'
 - 'RULE-SET,tvb,🇭🇰 香港流媒体'
@@ -4013,15 +4011,11 @@ rules:
 - 'RULE-SET,moov,🇭🇰 香港流媒体'
 
   # ============ 🇹🇼 台湾流媒体 ============
+# CLEAN#165: litv.tv,video.friday.tw,friday.tw,linetv.tw,hamivideo.hinet.net 已被同策略 RULE-SET 覆盖
 - 'RULE-SET,bahamut,🇹🇼 台湾流媒体'
 - 'RULE-SET,kktv,🇹🇼 台湾流媒体'
-- 'DOMAIN-SUFFIX,litv.tv,🇹🇼 台湾流媒体'
-- 'DOMAIN-SUFFIX,video.friday.tw,🇹🇼 台湾流媒体'
-- 'DOMAIN-SUFFIX,friday.tw,🇹🇼 台湾流媒体'
-- 'DOMAIN-SUFFIX,linetv.tw,🇹🇼 台湾流媒体'
 - 'DOMAIN-SUFFIX,elta.tv,🇹🇼 台湾流媒体'
 - 'DOMAIN-SUFFIX,mod.cht.com.tw,🇹🇼 台湾流媒体'
-- 'DOMAIN-SUFFIX,hamivideo.hinet.net,🇹🇼 台湾流媒体'
 - 'DOMAIN-SUFFIX,ofiii.com,🇹🇼 台湾流媒体'
 - 'DOMAIN-SUFFIX,pts.org.tw,🇹🇼 台湾流媒体'
 - 'DOMAIN-SUFFIX,4gtv.tv,🇹🇼 台湾流媒体'
@@ -4034,24 +4028,19 @@ rules:
 - 'RULE-SET,cht,🇹🇼 台湾流媒体'
 
   # ============ 🇯🇵 日韩流媒体 ============
+# CLEAN#165: tver.jp,dmm.com,dmm.co.jp,nicovideo.jp,nicovideo.me,dmc.nico 已被同策略 RULE-SET 覆盖
 - 'RULE-SET,abema,🇯🇵 日韩流媒体'
 - 'RULE-SET,dazn,🇯🇵 日韩流媒体'
-- 'DOMAIN-SUFFIX,tver.jp,🇯🇵 日韩流媒体'
 - 'DOMAIN-SUFFIX,unext.jp,🇯🇵 日韩流媒体'
 - 'DOMAIN-SUFFIX,video.unext.jp,🇯🇵 日韩流媒体'
 - 'DOMAIN-SUFFIX,nhk.jp,🇯🇵 日韩流媒体'
 - 'DOMAIN-SUFFIX,nhk.or.jp,🇯🇵 日韩流媒体'
-- 'DOMAIN-SUFFIX,dmm.com,🇯🇵 日韩流媒体'
-- 'DOMAIN-SUFFIX,dmm.co.jp,🇯🇵 日韩流媒体'
 - 'DOMAIN-SUFFIX,dtv.jp,🇯🇵 日韩流媒体'
 - 'DOMAIN-SUFFIX,paravi.jp,🇯🇵 日韩流媒体'
 - 'DOMAIN-SUFFIX,videomarket.jp,🇯🇵 日韩流媒体'
 - 'DOMAIN-SUFFIX,fod.fujitv.co.jp,🇯🇵 日韩流媒体'
 - 'DOMAIN-SUFFIX,gyao.yahoo.co.jp,🇯🇵 日韩流媒体'
 - 'DOMAIN-SUFFIX,music.jp,🇯🇵 日韩流媒体'
-- 'DOMAIN-SUFFIX,nicovideo.jp,🇯🇵 日韩流媒体'
-- 'DOMAIN-SUFFIX,nicovideo.me,🇯🇵 日韩流媒体'
-- 'DOMAIN-SUFFIX,dmc.nico,🇯🇵 日韩流媒体'
 - 'DOMAIN-SUFFIX,radiko.jp,🇯🇵 日韩流媒体'
 - 'DOMAIN-SUFFIX,lemino.docomo.ne.jp,🇯🇵 日韩流媒体'
 - 'DOMAIN-SUFFIX,wowow.co.jp,🇯🇵 日韩流媒体'
@@ -4079,14 +4068,12 @@ rules:
 - 'RULE-SET,nikkei,🇯🇵 日韩流媒体'
 
   # ============ 🇪🇺 欧洲流媒体 ============
+# CLEAN#165: itv.com,itvstatic.com,britbox.com 已被同策略 RULE-SET 覆盖
 - 'RULE-SET,bbc,🇪🇺 欧洲流媒体'
-- 'DOMAIN-SUFFIX,itv.com,🇪🇺 欧洲流媒体'
-- 'DOMAIN-SUFFIX,itvstatic.com,🇪🇺 欧洲流媒体'
 - 'DOMAIN-SUFFIX,channel4.com,🇪🇺 欧洲流媒体'
 - 'DOMAIN-SUFFIX,channel5.com,🇪🇺 欧洲流媒体'
 - 'DOMAIN-SUFFIX,sky.com,🇪🇺 欧洲流媒体'
 - 'DOMAIN-SUFFIX,nowtv.co.uk,🇪🇺 欧洲流媒体'
-- 'DOMAIN-SUFFIX,britbox.com,🇪🇺 欧洲流媒体'
 - 'DOMAIN-SUFFIX,canalplus.com,🇪🇺 欧洲流媒体'
 - 'DOMAIN-SUFFIX,mycanal.fr,🇪🇺 欧洲流媒体'
 - 'DOMAIN-SUFFIX,france.tv,🇪🇺 欧洲流媒体'
@@ -4118,9 +4105,8 @@ rules:
 - 'RULE-SET,szkane-uk,🇪🇺 欧洲流媒体'
 
   # ============ 🌐 其他国外流媒体 ============
+# CLEAN#165: wetv.vip,wetvinfo.com,viki.com,viki.io,mewatch.sg,discoveryplus.com 已被同策略 RULE-SET 覆盖
 - 'RULE-SET,viu,🌐 其他国外流媒体'
-- 'DOMAIN-SUFFIX,wetv.vip,🌐 其他国外流媒体'
-- 'DOMAIN-SUFFIX,wetvinfo.com,🌐 其他国外流媒体'
 - 'DOMAIN-SUFFIX,iq.com,🌐 其他国外流媒体'
 - 'DOMAIN-SUFFIX,vidio.com,🌐 其他国外流媒体'
 - 'DOMAIN-SUFFIX,vidio.static6.com,🌐 其他国外流媒体'
@@ -4130,11 +4116,8 @@ rules:
 - 'DOMAIN-SUFFIX,goplay.co.id,🌐 其他国外流媒体'
 - 'DOMAIN-SUFFIX,maxstream.tv,🌐 其他国外流媒体'
 - 'RULE-SET,biliintl,🌐 其他国外流媒体'
-- 'DOMAIN-SUFFIX,viki.com,🌐 其他国外流媒体'
-- 'DOMAIN-SUFFIX,viki.io,🌐 其他国外流媒体'
 - 'DOMAIN-SUFFIX,iflix.com,🌐 其他国外流媒体'
 - 'DOMAIN-SUFFIX,catchplay.com,🌐 其他国外流媒体'
-- 'DOMAIN-SUFFIX,mewatch.sg,🌐 其他国外流媒体'
 - 'DOMAIN-SUFFIX,trueid.net,🌐 其他国外流媒体'
 - 'DOMAIN-SUFFIX,dimsum.my,🌐 其他国外流媒体'
 - 'RULE-SET,asianmedia,🌐 其他国外流媒体'
@@ -4154,7 +4137,6 @@ rules:
 - 'DOMAIN-SUFFIX,pluto.tv,🌐 其他国外流媒体'
 - 'DOMAIN-SUFFIX,tubi.tv,🌐 其他国外流媒体'
 - 'DOMAIN-SUFFIX,fubo.tv,🌐 其他国外流媒体'
-- 'DOMAIN-SUFFIX,discoveryplus.com,🌐 其他国外流媒体'
 - 'DOMAIN-SUFFIX,appletv.com,🌐 其他国外流媒体'
 - 'RULE-SET,cbs,🌐 其他国外流媒体'
 - 'RULE-SET,nbc,🌐 其他国外流媒体'
@@ -4338,18 +4320,7 @@ rules:
 - 'RULE-SET,xbox,🎮 国外游戏'
 - 'RULE-SET,ea,🎮 国外游戏'
 - 'RULE-SET,blizzard,🎮 国外游戏'
-- 'DOMAIN-SUFFIX,ubisoft.com,🎮 国外游戏'
-- 'DOMAIN-SUFFIX,ubi.com,🎮 国外游戏'
-- 'DOMAIN-SUFFIX,riotgames.com,🎮 国外游戏'
-- 'DOMAIN-SUFFIX,leagueoflegends.com,🎮 国外游戏'
-- 'DOMAIN-SUFFIX,valorant.com,🎮 国外游戏'
-- 'DOMAIN-SUFFIX,rockstargames.com,🎮 国外游戏'
-- 'DOMAIN-SUFFIX,gog.com,🎮 国外游戏'
-- 'DOMAIN-SUFFIX,gogalaxy.com,🎮 国外游戏'
-- 'DOMAIN-SUFFIX,supercell.com,🎮 国外游戏'
-- 'DOMAIN-SUFFIX,garena.com,🎮 国外游戏'
-- 'DOMAIN-SUFFIX,hoyoverse.com,🎮 国外游戏'
-- 'DOMAIN-SUFFIX,hoyolab.com,🎮 国外游戏'
+# CLEAN#165: ubisoft.com,ubi.com,riotgames.com,leagueoflegends.com,valorant.com,rockstargames.com,gog.com,gogalaxy.com,supercell.com,garena.com,hoyoverse.com,hoyolab.com 已被同策略 RULE-SET 覆盖
 - 'RULE-SET,rockstar,🎮 国外游戏'
 - 'RULE-SET,riot,🎮 国外游戏'
 - 'RULE-SET,gog,🎮 国外游戏'

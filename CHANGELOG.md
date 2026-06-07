@@ -6,10 +6,22 @@
 
 ---
 
+## v5.4.28 (2026-06-07)
+
+- ★ CLEAN#165 P2：全产物联动清理已被上游同策略规则集覆盖的直写域名（基线 -38 行，6 段）：
+  - **🇭🇰 香港流媒体** (4): mytvsuper.com/nowe.com/rthk.hk/cabletv.com.hk
+  - **🇹🇼 台湾流媒体** (5): litv.tv/friday.tw/linetv.tw/hamivideo.hinet.net
+  - **🇯🇵 日韩流媒体** (6): tver.jp/dmm.com/dmm.co.jp/nicovideo.jp/nicovideo.me/dmc.nico
+  - **🇪🇺 欧洲流媒体** (3): itv.com/itvstatic.com/britbox.com
+  - **🌐 其他国外流媒体** (6): wetv.vip/wetvinfo.com/viki.com/viki.io/mewatch.sg/discoveryplus.com
+  - **🎮 国外游戏** (12): ubisoft.com/ubi.com/riotgames.com/leagueoflegends.com/valorant.com/rockstargames.com/gog.com/gogalaxy.com/supercell.com/garena.com/hoyoverse.com/hoyolab.com
+- **全产物联动**：Clash Party / FlClash / CMFA / OpenClash Normal+Smart / Shadowrocket / Surge / Loon / Quantumult X 同步清理；SingBox（需修改生成器，本轮豁免）/ v2rayN（无此冗余）/ Passwall/Passwall2（规则语法不同，不适用）。
+- 详见 `Clash Party/CHANGELOG.md`。
+
 ## v5.4.27 (2026-06-07)
 
 - CLEAN#165：全量下载 348 个可文本解析的上游规则集（`.mrs` 二进制仅计入覆盖来源、不作为删除证据），解析 244,417 条上游规则；发现 365 条直写域名/IP 与上游存在重叠。
-- 本轮只删除“移除后首个命中仍为同策略上游规则集”的冗余项：Clash/mihomo 家族 7 条直写域名（Claude/PayPal/HBO/Hulu/Xbox 覆盖）+ Passwall/Passwall2 2 条 HBO/Max `geosite:hbo` 本地兜底。
+- 本轮只删除”移除后首个命中仍为同策略上游规则集”的冗余项：Clash/mihomo 家族 7 条直写域名（Claude/PayPal/HBO/Hulu/Xbox 覆盖）+ Passwall/Passwall2 2 条 HBO/Max `geosite:hbo` 本地兜底。
 - SYNC：Clash Party(Smart+Normal) / CMFA / OpenClash(Normal+Smart) / Shadowrocket / Surge / Loon / Quantumult X / FlClash 同步删除；SingBox Full 已由 generator 重新生成；v2rayN Xray 路由无本轮直写候选，仅元数据对齐。
 
 ## v5.4.26 (2026-06-07)
