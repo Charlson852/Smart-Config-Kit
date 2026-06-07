@@ -6,6 +6,10 @@
 
 ---
 
+## v5.4.27-pw2.1 (2026-06-07)
+
+- ★ CLEAN#165：`11-hbo-max.list` / apply 脚本删除已被 `geosite:hbo` 覆盖的 `domain:max.com` 与 `domain:hbomax.com` 本地兜底；与 Passwall 继续保持 `.list` 互通。
+
 ## v5.4.26-pw2.1 (2026-06-07)
 
 - 对齐基线 v5.4.26（FIX#164）。本产物**不受** `copilot.tencent.com` 误吞影响：Passwall2 AI 分流用 `geosite:copilot`（无 copilot 子串关键词），且不消费 szkane `AiDomain.list`；`copilot.tencent.com` 顺流到国内直连规则，无需 `.list`/`.sh` 改动。仅 bump 版本。

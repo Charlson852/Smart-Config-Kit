@@ -7,6 +7,16 @@
 
 ---
 
+## v5.4.27 / v5.4.27-normal.1 (2026-06-07)
+
+- ★ CLEAN#165：清理已被上游同策略规则集覆盖的 7 条直写域名：
+  - `anthropic.com` → `RULE-SET,claude`
+  - `braintreegateway.com` / `venmo.com` → `RULE-SET,paypal`
+  - `max.com` → `RULE-SET,hbo`
+  - `hulu.jp` / `happyon.jp` → `RULE-SET,hulu`
+  - `bethesda.net` → `RULE-SET,xbox`
+- 审计边界：`archive.org` 虽与上游重叠，但删除后首个命中会变成其他策略，保留；`video.unext.jp` 仅被本地 `unext.jp` 覆盖，不属于上游规则集重复，本轮保留。
+
 ## v5.4.26 / v5.4.26-normal.1 (2026-06-07)
 
 - ★ FIX#164：腾讯 WorkBuddy/智能助手 `copilot.tencent.com` 国内直连防吞（issue [#164](https://github.com/IvanSolis1989/Smart-Config-Kit/issues/164)）

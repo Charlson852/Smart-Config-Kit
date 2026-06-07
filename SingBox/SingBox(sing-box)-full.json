@@ -5,9 +5,9 @@
   },
   "_meta": {
     "name": "SingBox Smart Full",
-    "version": "v5.4.26-sing.1",
+    "version": "v5.4.27-sing.1",
     "build": "2026-06-07",
-    "baseline": "Clash Party v5.4.26",
+    "baseline": "Clash Party v5.4.27",
     "changelog": "见 SingBox/CHANGELOG.md"
   },
   "experimental": {
@@ -2952,13 +2952,6 @@
       },
       {
         "domain_suffix": [
-          "anthropic.com"
-        ],
-        "action": "route",
-        "outbound": "🤖 AI 服务"
-      },
-      {
-        "domain_suffix": [
           "cursor.com"
         ],
         "action": "route",
@@ -3274,21 +3267,7 @@
       },
       {
         "domain_suffix": [
-          "braintreegateway.com"
-        ],
-        "action": "route",
-        "outbound": "🏦 金融支付"
-      },
-      {
-        "domain_suffix": [
           "braintree-api.com"
-        ],
-        "action": "route",
-        "outbound": "🏦 金融支付"
-      },
-      {
-        "domain_suffix": [
-          "venmo.com"
         ],
         "action": "route",
         "outbound": "🏦 金融支付"
@@ -4034,27 +4013,6 @@
         ],
         "action": "route",
         "outbound": "🎥 Netflix"
-      },
-      {
-        "domain_suffix": [
-          "max.com"
-        ],
-        "action": "route",
-        "outbound": "📡 HBO/Max"
-      },
-      {
-        "domain_suffix": [
-          "hulu.jp"
-        ],
-        "action": "route",
-        "outbound": "📺 Hulu"
-      },
-      {
-        "domain_suffix": [
-          "happyon.jp"
-        ],
-        "action": "route",
-        "outbound": "📺 Hulu"
       },
       {
         "rule_set": [
@@ -5658,13 +5616,6 @@
       {
         "domain_suffix": [
           "gogalaxy.com"
-        ],
-        "action": "route",
-        "outbound": "🎮 国外游戏"
-      },
-      {
-        "domain_suffix": [
-          "bethesda.net"
         ],
         "action": "route",
         "outbound": "🎮 国外游戏"

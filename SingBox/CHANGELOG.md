@@ -5,6 +5,10 @@
 
 ---
 
+## v5.4.27-sing.1 (2026-06-07)
+
+- ★ CLEAN#165：由 `SingBox(sing-box)-generator.js` 重新生成 Full JSON，同步基线去掉 Claude / PayPal / HBO / Hulu / Xbox 上游规则集已覆盖的直写域名 route rules。
+
 ## v5.4.26-sing.1 (2026-06-07)
 
 - ★ FIX#164：腾讯 WorkBuddy `copilot.tencent.com` 国内直连防吞。SingBox Full 由 `SingBox(sing-box)-generator.js` 执行基线 Clash Party JS 自动生成——基线在所有 AI rule-set 之前新增的 `DOMAIN-SUFFIX,copilot.tencent.com,🏠 国内网站` 已随重新生成自动转译进 `route.rules`（`domain_suffix:["copilot.tencent.com"] → outbound:"🏠 国内网站"`，位于 `geosite:openai` rule_set 之前）。基线 Clash Party v5.4.26。

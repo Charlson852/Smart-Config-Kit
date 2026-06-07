@@ -1,8 +1,8 @@
 # ================================================================
-# Clash Smart v5.4.26-cmfa.1 - CMFA (Clash Meta for Android) 配置
+# Clash Smart v5.4.27-cmfa.1 - CMFA (Clash Meta for Android) 配置
 # Build: 2026-06-07
 # 架构：proxy-providers 订阅 + 22 url-test 区域组（11 全部 + 11 家宽，家宽 filter 新增 IEPL/IPLC/专线识别）+ 32 业务策略组（含 14 流媒体平台组）+ 382 rule-providers
-# 基线：Clash Party v5.4.26（唯一主线）
+# 基线：Clash Party v5.4.27（唯一主线）
 # 变更历史：见 `Clash Meta For Android/CHANGELOG.md`
 # ================================================================
 # ★ 快速上手：
@@ -3749,7 +3749,6 @@ rules:
 - 'DOMAIN-SUFFIX,cohere.com,🤖 AI 服务'
 - 'DOMAIN-SUFFIX,midjourney.com,🤖 AI 服务'
 - 'DOMAIN-SUFFIX,stability.ai,🤖 AI 服务'
-- 'DOMAIN-SUFFIX,anthropic.com,🤖 AI 服务'
 - 'DOMAIN-SUFFIX,cursor.com,🤖 AI 服务'
 - 'DOMAIN-SUFFIX,cursor.sh,🤖 AI 服务'
 - 'DOMAIN-SUFFIX,v0.dev,🤖 AI 服务'
@@ -3808,9 +3807,7 @@ rules:
 - 'DOMAIN-SUFFIX,transferwise.com,🏦 金融支付'
 - 'DOMAIN-SUFFIX,revolut.com,🏦 金融支付'
 - 'DOMAIN-SUFFIX,revolut.me,🏦 金融支付'
-- 'DOMAIN-SUFFIX,braintreegateway.com,🏦 金融支付'
 - 'DOMAIN-SUFFIX,braintree-api.com,🏦 金融支付'
-- 'DOMAIN-SUFFIX,venmo.com,🏦 金融支付'
 - 'DOMAIN-SUFFIX,cash.app,🏦 金融支付'
 - 'DOMAIN-SUFFIX,squareup.com,🏦 金融支付'
 - 'DOMAIN-SUFFIX,square.com,🏦 金融支付'
@@ -3983,10 +3980,7 @@ rules:
 - 'RULE-SET,szkane-netflixip,🎥 Netflix,no-resolve'
 - 'RULE-SET,disney,🎬 Disney+'
 - 'RULE-SET,hbo,📡 HBO/Max'
-- 'DOMAIN-SUFFIX,max.com,📡 HBO/Max'
 - 'RULE-SET,hulu,📺 Hulu'
-- 'DOMAIN-SUFFIX,hulu.jp,📺 Hulu'
-- 'DOMAIN-SUFFIX,happyon.jp,📺 Hulu'
 - 'RULE-SET,primevideo,🎬 Prime Video'
 - 'RULE-SET,spotify,🎵 音乐流媒体'
 - 'RULE-SET,soundcloud,🎵 音乐流媒体'
@@ -4352,7 +4346,6 @@ rules:
 - 'DOMAIN-SUFFIX,rockstargames.com,🎮 国外游戏'
 - 'DOMAIN-SUFFIX,gog.com,🎮 国外游戏'
 - 'DOMAIN-SUFFIX,gogalaxy.com,🎮 国外游戏'
-- 'DOMAIN-SUFFIX,bethesda.net,🎮 国外游戏'
 - 'DOMAIN-SUFFIX,supercell.com,🎮 国外游戏'
 - 'DOMAIN-SUFFIX,garena.com,🎮 国外游戏'
 - 'DOMAIN-SUFFIX,hoyoverse.com,🎮 国外游戏'

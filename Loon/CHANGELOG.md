@@ -4,6 +4,10 @@
 
 ---
 
+## v5.4.27-Loon.1 (2026-06-07)
+
+- ★ CLEAN#165：同步清理 7 条已由 `[Remote Rule]` 覆盖的本地直写域名（Claude / PayPal / HBO / Hulu / Xbox）；删除后仍命中同策略组。
+
 ## v5.4.26-Loon.1 (2026-06-07)
 
 - ★ FIX#164：腾讯 WorkBuddy `copilot.tencent.com` 国内直连防吞——szkane `AiDomain.list` 的 `DOMAIN-KEYWORD,copilot` 子串会把它误吞到 `🤖 AI 服务`（国外代理）导致对话报错；在 [Rule] 段 szkane AiDomain 规则集之前前置 `DOMAIN-SUFFIX,copilot.tencent.com,🏠 国内网站`（与既有 RustDesk 防吞守卫并置）。基线 Clash Party v5.4.26。

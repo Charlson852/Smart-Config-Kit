@@ -6,6 +6,10 @@
 
 ---
 
+## v5.4.27-QX.1 (2026-06-07)
+
+- ★ CLEAN#165：同步清理 7 条已由 `[filter_remote]` 覆盖的 `[filter_local]` 直写域名（Claude / PayPal / HBO / Hulu / Xbox）；删除后仍命中同策略组。
+
 ## v5.4.26-QX.1 (2026-06-07)
 
 - ★ FIX#164：腾讯 WorkBuddy `copilot.tencent.com` 国内直连防吞——szkane `AiDomain.list`（`[filter_remote]` tag=aidomain，force-policy=🤖 AI 服务）含 `DOMAIN-KEYWORD,copilot` 子串会把它误吞到国外代理导致对话报错；在 `[filter_local]` 前置 `host-suffix, copilot.tencent.com, 🏠 国内网站`（与既有 RustDesk 防吞守卫并置，本地规则优先于远程资源匹配）。基线 Clash Party v5.4.26。

@@ -1,8 +1,8 @@
 // FlClash 覆写脚本 — 标准 Mihomo 内核动态分流版
-// 版本：v5.4.26-flclash.1 (2026-06-07)
+// 版本：v5.4.27-flclash.1 (2026-06-07)
 // 架构：22 url-test 区域组（11 全部 + 11 家宽）+ 32 业务策略组（含 14 流媒体平台组）+ 382 rule-providers 100%+ 服务覆盖
-// 基线：Clash Party v5.4.26（规则 100% 等价；区域组为 url-test — FlClash 内核为标准 Mihomo，不支持 smart + LightGBM）
-// v5.4.26: FIX#164 copilot.tencent.com（腾讯 WorkBuddy）国内直连防吞
+// 基线：Clash Party v5.4.27（规则 100% 等价；区域组为 url-test — FlClash 内核为标准 Mihomo，不支持 smart + LightGBM）
+// v5.4.27: CLEAN#165 清理已被上游同策略规则集覆盖的直写域名
 // 适用：FlClash >= v0.8.85（覆盖脚本功能自该版本引入）；其他使用标准 Mihomo 内核的客户端
 // 变更历史：见 `FlClash/CHANGELOG.md`
 //
@@ -36,7 +36,7 @@
 //  版本常量
 // ================================================================
 
-const VERSION = 'v5.4.26-flclash.1'
+const VERSION = 'v5.4.27-flclash.1'
 
 // v5.4.9 FEAT#LOCAL-TOOLS: desktop local-tool direct whitelist.
 const LOCAL_TOOL_DIRECT_PROCESS_NAMES = [
@@ -1414,7 +1414,6 @@ function injectRules(config) {
     `DOMAIN-SUFFIX,cohere.com,${BIZ.AI}`,
     `DOMAIN-SUFFIX,midjourney.com,${BIZ.AI}`,
     `DOMAIN-SUFFIX,stability.ai,${BIZ.AI}`,
-    `DOMAIN-SUFFIX,anthropic.com,${BIZ.AI}`,
     `DOMAIN-SUFFIX,cursor.com,${BIZ.AI}`,
     `DOMAIN-SUFFIX,cursor.sh,${BIZ.AI}`,
     `DOMAIN-SUFFIX,v0.dev,${BIZ.AI}`,
@@ -1491,9 +1490,7 @@ function injectRules(config) {
     `DOMAIN-SUFFIX,transferwise.com,${BIZ.PAYMENTS}`,
     `DOMAIN-SUFFIX,revolut.com,${BIZ.PAYMENTS}`,
     `DOMAIN-SUFFIX,revolut.me,${BIZ.PAYMENTS}`,
-    `DOMAIN-SUFFIX,braintreegateway.com,${BIZ.PAYMENTS}`,
     `DOMAIN-SUFFIX,braintree-api.com,${BIZ.PAYMENTS}`,
-    `DOMAIN-SUFFIX,venmo.com,${BIZ.PAYMENTS}`,
     `DOMAIN-SUFFIX,cash.app,${BIZ.PAYMENTS}`,
     `DOMAIN-SUFFIX,squareup.com,${BIZ.PAYMENTS}`,
     `DOMAIN-SUFFIX,square.com,${BIZ.PAYMENTS}`,
@@ -1664,10 +1661,7 @@ function injectRules(config) {
     // ── Disney+/HBO/Hulu/Prime Video ──
     `RULE-SET,disney,${BIZ.DSNP}`,
     `RULE-SET,hbo,${BIZ.HBO}`,
-    `DOMAIN-SUFFIX,max.com,${BIZ.HBO}`,
     `RULE-SET,hulu,${BIZ.HULU}`,
-    `DOMAIN-SUFFIX,hulu.jp,${BIZ.HULU}`,
-    `DOMAIN-SUFFIX,happyon.jp,${BIZ.HULU}`,
     `RULE-SET,primevideo,${BIZ.PRIME}`,
     `RULE-SET,amazon,${BIZ.PRIME}`,
     // ── 音乐流媒体 ──
@@ -2038,7 +2032,6 @@ function injectRules(config) {
     `DOMAIN-SUFFIX,rockstargames.com,${BIZ.GAME_INTL}`,
     `DOMAIN-SUFFIX,gog.com,${BIZ.GAME_INTL}`,
     `DOMAIN-SUFFIX,gogalaxy.com,${BIZ.GAME_INTL}`,
-    `DOMAIN-SUFFIX,bethesda.net,${BIZ.GAME_INTL}`,
     `DOMAIN-SUFFIX,supercell.com,${BIZ.GAME_INTL}`,
     `DOMAIN-SUFFIX,garena.com,${BIZ.GAME_INTL}`,
     `DOMAIN-SUFFIX,hoyoverse.com,${BIZ.GAME_INTL}`,

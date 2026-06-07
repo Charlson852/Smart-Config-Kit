@@ -7,6 +7,10 @@
 
 ---
 
+## v5.4.27-pw.1 (2026-06-07)
+
+- ★ CLEAN#165：`11-hbo-max.list` / apply 脚本删除已被 `geosite:hbo` 覆盖的 `domain:max.com` 与 `domain:hbomax.com` 本地兜底；v2fly domain-list-community 与 MetaCubeX geosite hbo 当前均包含这两个域名。
+
 ## v5.4.26-pw.1 (2026-06-07)
 
 - 对齐基线 v5.4.26（FIX#164）。本产物**不受** `copilot.tencent.com` 误吞影响：Passwall AI 分流用 `geosite:copilot`（无 copilot 子串关键词，不会命中 `copilot.tencent.com`），且不消费 szkane `AiDomain.list`；`copilot.tencent.com` 顺流到国内直连规则，无需 `.list`/`.sh` 改动。仅 bump 版本。

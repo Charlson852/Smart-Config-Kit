@@ -1,7 +1,7 @@
 #!/bin/sh
 # ═══════════════════════════════════════════════════════════════════════════
 # Smart-Config-Kit for Passwall — UCI batch helper
-# Version: v5.4.26-pw.1 | Build 2026-06-07 | Baseline: Clash Party v5.4.26
+# Version: v5.4.27-pw.1 | Build 2026-06-07 | Baseline: Clash Party v5.4.27
 #
 # 用途：一次性在 Passwall（全功能版）中创建 32 条 shunt rule（含域名列表 + IP 列表），
 #       每条目标节点留空（NEED_CONFIG），用户之后到 LuCI 里手工选节点。
@@ -256,8 +256,6 @@ uci set "${CONFIG_NAME}".${SEC}.network='tcp,udp'
 SEC="$(uci add "${CONFIG_NAME}" shunt_rules)"
 uci set "${CONFIG_NAME}".${SEC}.remarks='📡 HBO/Max'
 uci add_list "${CONFIG_NAME}".${SEC}.domain_list='geosite:hbo'
-uci add_list "${CONFIG_NAME}".${SEC}.domain_list='domain:max.com'
-uci add_list "${CONFIG_NAME}".${SEC}.domain_list='domain:hbomax.com'
 uci set "${CONFIG_NAME}".${SEC}.network='tcp,udp'
 # uci set "${CONFIG_NAME}".${SEC}.tcp_node='NEED_CONFIG_IN_LUCI'
 

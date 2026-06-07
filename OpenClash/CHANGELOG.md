@@ -7,6 +7,11 @@
 
 ---
 
+## v5.4.27-oc-normal.1 / v5.4.27-oc-smart.1 (2026-06-07)
+
+- ★ CLEAN#165：两份覆写脚本同步基线清理 Claude / PayPal / HBO / Hulu / Xbox 上游 rule-provider 已覆盖的直写域名。
+- 额外修正：删除此前 OpenClash 中位于 `RULE-SET,hulu` 之后、实际不可达的 `hulu.jp` / `happyon.jp` 日韩流媒体兜底；删除后首个命中仍为 `RULE-SET,hulu → 📺 Hulu`。
+
 ## v5.4.26-oc-normal.1 / v5.4.26-oc-smart.1 (2026-06-07)
 
 - ★ FIX#164：腾讯 WorkBuddy `copilot.tencent.com` 国内直连防吞——szkane `AiDomain.list` 的 `DOMAIN-KEYWORD,copilot` 子串会把它误吞到 `🤖 AI 服务`（国外代理）导致对话报错；两份覆写脚本均在 `RULE-SET,openai` 等 AI rule-set 之前前置 `DOMAIN-SUFFIX,copilot.tencent.com,\U0001F3E0 国内网站`。基线 Clash Party v5.4.26。

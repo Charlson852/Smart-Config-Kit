@@ -2,10 +2,10 @@
 . /usr/share/openclash/log.sh
 
 # ============================================================================
-# Clash Smart v5.4.26-oc-smart.1 — OpenClash 覆写脚本（与 Clash Party 主线同等规则量）
+# Clash Smart v5.4.27-oc-smart.1 — OpenClash 覆写脚本（与 Clash Party 主线同等规则量）
 # Build: 2026-06-07
 # ============================================================================
-# 定位：对齐 Clash Party v5.4.26 JS 主线的 OpenClash 全量版本。v5.4.2: P0-FIX#41 小米白名单。
+# 定位：对齐 Clash Party v5.4.27 JS 主线的 OpenClash 全量版本。v5.4.2: P0-FIX#41 小米白名单。
 #       与同目录 OpenClash(mihomo).sh（Normal）互补：
 #         - Normal 面向稳定版 mihomo / 经典 url-test
 #         - full  面向 4GB+ 路由器 / 需要与 Clash Party 桌面端一致的细粒度分流
@@ -13,17 +13,17 @@
 #   • 22 Smart 区域组（11 全部 + 11 家宽；全部 uselightgbm: true）
 #   • 32 业务策略组（流媒体按平台拆分：TikTok / Netflix / Disney+ / HBO/Max / Hulu / Prime Video / YouTube / 音乐流媒体 / 其他国外流媒体）
 #   • 382 rule-providers（全部 proxy: "🚫 受限网站"，对齐 Clash Party FIX#17-P0）
-#   • ~990 条 rules
+#   • 1050+ 条 rules
 #   • DNS fake-ip + 嗅探（HTTP/TLS/QUIC）+ nameserver-policy 救援
 #   • Ruby 阶段做：节点过滤 / 区域分类 / Smart 组生成 / TLS 指纹注入
-# 基线：Clash Party v5.4.26（唯一主线；v5.3.1/v5.3.2 为桌面端 PROCESS-NAME 改动，路由器端不适用）── 任何规则/组/DNS 改动必须先改 Clash Party JS，
+# 基线：Clash Party v5.4.27（唯一主线；v5.3.1/v5.3.2 为桌面端 PROCESS-NAME 改动，路由器端不适用）── 任何规则/组/DNS 改动必须先改 Clash Party JS，
 #       再同步到此文件。参见仓库根目录 CLAUDE.md / AGENTS.md。
 # 变更历史：见 `OpenClash/CHANGELOG.md`（Full 部分）。
 # ============================================================================
 
 
 
-VERSION_TAG="v5.4.26-oc-smart.1"
+VERSION_TAG="v5.4.27-oc-smart.1"
 CONFIG_FILE="$1"
 LOG_FILE="/tmp/openclash.log"
 
@@ -3426,7 +3426,6 @@ rules:
 - "DOMAIN-SUFFIX,cohere.com,\U0001F916 AI 服务"
 - "DOMAIN-SUFFIX,midjourney.com,\U0001F916 AI 服务"
 - "DOMAIN-SUFFIX,stability.ai,\U0001F916 AI 服务"
-- "DOMAIN-SUFFIX,anthropic.com,\U0001F916 AI 服务"
 - "DOMAIN-SUFFIX,cursor.com,\U0001F916 AI 服务"
 - "DOMAIN-SUFFIX,cursor.sh,\U0001F916 AI 服务"
 - "DOMAIN-SUFFIX,v0.dev,\U0001F916 AI 服务"
@@ -3485,9 +3484,7 @@ rules:
 - "DOMAIN-SUFFIX,transferwise.com,\U0001F3E6 金融支付"
 - "DOMAIN-SUFFIX,revolut.com,\U0001F3E6 金融支付"
 - "DOMAIN-SUFFIX,revolut.me,\U0001F3E6 金融支付"
-- "DOMAIN-SUFFIX,braintreegateway.com,\U0001F3E6 金融支付"
 - "DOMAIN-SUFFIX,braintree-api.com,\U0001F3E6 金融支付"
-- "DOMAIN-SUFFIX,venmo.com,\U0001F3E6 金融支付"
 - "DOMAIN-SUFFIX,cash.app,\U0001F3E6 金融支付"
 - "DOMAIN-SUFFIX,squareup.com,\U0001F3E6 金融支付"
 - "DOMAIN-SUFFIX,square.com,\U0001F3E6 金融支付"
@@ -3661,9 +3658,7 @@ rules:
 - "RULE-SET,szkane-netflixip,\U0001F3A5 Netflix,no-resolve"
 - "RULE-SET,disney,\U0001F3AC Disney+"
 - "RULE-SET,hbo,\U0001F4E1 HBO/Max"
-- "DOMAIN-SUFFIX,max.com,\U0001F4E1 HBO/Max"
 - "RULE-SET,hulu,\U0001F4FA Hulu"
-- "DOMAIN-SUFFIX,hulu.jp,\U0001F1EF\U0001F1F5 日韩流媒体"
 - "RULE-SET,primevideo,\U0001F3AC Prime Video"
 - "RULE-SET,amazon,\U0001F3AC Prime Video"
 - "RULE-SET,spotify,\U0001F3B5 音乐流媒体"
@@ -3730,8 +3725,6 @@ rules:
 - "DOMAIN-SUFFIX,paravi.jp,\U0001F1EF\U0001F1F5 日韩流媒体"
 - "DOMAIN-SUFFIX,videomarket.jp,\U0001F1EF\U0001F1F5 日韩流媒体"
 - "DOMAIN-SUFFIX,fod.fujitv.co.jp,\U0001F1EF\U0001F1F5 日韩流媒体"
-- "DOMAIN-SUFFIX,hulu.jp,\U0001F1EF\U0001F1F5 日韩流媒体"
-- "DOMAIN-SUFFIX,happyon.jp,\U0001F1EF\U0001F1F5 日韩流媒体"
 - "DOMAIN-SUFFIX,gyao.yahoo.co.jp,\U0001F1EF\U0001F1F5 日韩流媒体"
 - "DOMAIN-SUFFIX,music.jp,\U0001F1EF\U0001F1F5 日韩流媒体"
 - "DOMAIN-SUFFIX,nicovideo.jp,\U0001F1EF\U0001F1F5 日韩流媒体"
@@ -4033,7 +4026,6 @@ rules:
 - "DOMAIN-SUFFIX,rockstargames.com,\U0001F3AE 国外游戏"
 - "DOMAIN-SUFFIX,gog.com,\U0001F3AE 国外游戏"
 - "DOMAIN-SUFFIX,gogalaxy.com,\U0001F3AE 国外游戏"
-- "DOMAIN-SUFFIX,bethesda.net,\U0001F3AE 国外游戏"
 - "DOMAIN-SUFFIX,supercell.com,\U0001F3AE 国外游戏"
 - "DOMAIN-SUFFIX,garena.com,\U0001F3AE 国外游戏"
 - "DOMAIN-SUFFIX,hoyoverse.com,\U0001F3AE 国外游戏"
@@ -4367,7 +4359,7 @@ cat > "$RUBY_SCRIPT" << 'RUBY_EOF'
 require 'yaml'
 require 'digest'
 
-VERSION = "v5.4.26-oc-smart.1"
+VERSION = "v5.4.27-oc-smart.1"
 
 STATUS_LOG = ARGV[2]
 File.open(STATUS_LOG, 'w') { |f| f.puts "[#{VERSION}] start" }

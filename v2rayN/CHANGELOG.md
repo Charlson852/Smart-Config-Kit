@@ -7,6 +7,10 @@
 
 ---
 
+## v5.4.27-v2n.1 (2026-06-07)
+
+- 对齐基线 v5.4.27（CLEAN#165）。Xray 路由使用 `geosite:anthropic` / `geosite:paypal` / `geosite:hbo` / `geosite:hulu` / `geosite:xbox` 聚合项，未包含本轮可删除的直写域名；仅更新元数据版本。
+
 ## v5.4.26-v2n.1 (2026-06-07)
 
 - 对齐基线 v5.4.26（FIX#164）。本产物**不受** `copilot.tencent.com` 误吞影响：Xray 路由 AI 类用 `geosite:copilot`（仅含微软/GitHub Copilot 精确域名，无 copilot 子串关键词），`copilot.tencent.com` 顺流到 `geosite:cn`（含 `tencent.com`）→ direct，无需规则改动。仅 bump 元数据版本。
