@@ -1,8 +1,8 @@
 // FlClash 覆写脚本 — 标准 Mihomo 内核动态分流版
-// 版本：v5.4.28-flclash.1 (2026-06-07)
+// 版本：v5.4.29-flclash.1 (2026-06-10)
 // 架构：22 url-test 区域组（11 全部 + 11 家宽）+ 32 业务策略组（含 14 流媒体平台组）+ 382 rule-providers 100%+ 服务覆盖
-// 基线：Clash Party v5.4.28（规则 100% 等价；区域组为 url-test — FlClash 内核为标准 Mihomo，不支持 smart + LightGBM）
-// v5.4.28: CLEAN#165 清理已被上游同策略规则集覆盖的直写域名（-36行）
+// 基线：Clash Party v5.4.29（规则 100% 等价；区域组为 url-test — FlClash 内核为标准 Mihomo，不支持 smart + LightGBM）
+// v5.4.29: PERF#165-LATENCY 区域 url-test 自动测速统一 300s；v5.4.28: CLEAN#165 清理已被上游同策略规则集覆盖的直写域名（-36行）
 // 适用：FlClash >= v0.8.85（覆盖脚本功能自该版本引入）；其他使用标准 Mihomo 内核的客户端
 // 变更历史：见 `FlClash/CHANGELOG.md`
 //
@@ -36,7 +36,7 @@
 //  版本常量
 // ================================================================
 
-const VERSION = 'v5.4.28-flclash.1'
+const VERSION = 'v5.4.29-flclash.1'
 
 // v5.4.9 FEAT#LOCAL-TOOLS: desktop local-tool direct whitelist.
 const LOCAL_TOOL_DIRECT_PROCESS_NAMES = [
@@ -386,7 +386,7 @@ const GEO_REGIONS_INTL = GEO_REGIONS_ALL.filter(r => r !== 'Asia_China')
 // ================================================================
 
 function upsertUrlTestGroup(config, name, proxies) {
-  var group = { name: name, type: 'url-test', url: 'https://www.gstatic.com/generate_204', interval: 180, tolerance: 10, lazy: false, proxies: proxies.slice() }
+  var group = { name: name, type: 'url-test', url: 'https://www.gstatic.com/generate_204', interval: 300, tolerance: 10, lazy: false, proxies: proxies.slice() }
   var idx = config['proxy-groups'].findIndex(function(g) { return g && g.name === name })
   if (idx !== -1) { config['proxy-groups'][idx] = group } else { config['proxy-groups'].push(group) }
   log(`[${VERSION}] url-test: "${name}" -> ${proxies.length} nodes`)

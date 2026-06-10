@@ -4,6 +4,12 @@
 
 ---
 
+## v5.4.29-Loon.1 (2026-06-10)
+
+- ★ PERF#165-LATENCY：22 个区域 `url-test` 组 `interval=180 -> interval=300`。
+- README 的 Loon 区域组示例同步改为 `interval=300,tolerance=50`。
+- 规则、Remote Filter 与业务组候选不变。
+
 ## v5.4.27-Loon.1 (2026-06-07)
 
 - ★ CLEAN#165：同步清理 7 条已由 `[Remote Rule]` 覆盖的本地直写域名（Claude / PayPal / HBO / Hulu / Xbox）；删除后仍命中同策略组。

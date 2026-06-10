@@ -5,6 +5,12 @@
 
 ---
 
+## v5.4.29-SR.1 (2026-06-10)
+
+- ★ PERF#165-LATENCY：22 个区域 `url-test` 组 `interval=180 -> interval=300`，降低订阅节点测速频率。
+- 规则与策略组语义不变；FINAL 仍走 `🐟 漏网之鱼`。
+- README 与文件头对齐 Clash Party v5.4.29。
+
 ## v5.4.27-SR.1 (2026-06-07)
 
 - ★ CLEAN#165：同步清理 7 条已由前置远程规则集覆盖的本地直写域名（Claude / PayPal / HBO / Hulu / Xbox）；删除后仍命中同策略组。

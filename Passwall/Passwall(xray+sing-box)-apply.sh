@@ -1,7 +1,7 @@
 #!/bin/sh
 # ═══════════════════════════════════════════════════════════════════════════
 # Smart-Config-Kit for Passwall — UCI batch helper
-# Version: v5.4.28-pw.1 | Build 2026-06-07 | Baseline: Clash Party v5.4.28
+# Version: v5.4.29-pw.1 | Build 2026-06-10 | Baseline: Clash Party v5.4.29
 #
 # 用途：一次性在 Passwall（全功能版）中创建 32 条 shunt rule（含域名列表 + IP 列表），
 #       每条目标节点留空（NEED_CONFIG），用户之后到 LuCI 里手工选节点。

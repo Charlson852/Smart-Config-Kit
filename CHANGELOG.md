@@ -6,6 +6,13 @@
 
 ---
 
+## v5.4.29 (2026-06-10)
+
+- PERF#165-LATENCY：全端统一区域自动测速间隔为 300s，降低高频测速对机场订阅与低端设备的压力。
+- SYNC：Clash Party Smart `120s -> 300s`；Mihomo/url-test 家族、iOS 四件套与 OpenClash `180s -> 300s`；SingBox urltest `3m -> 5m`；CMFA proxy-provider health-check 保持/确认 300s。
+- N/A：v2rayN Xray、Passwall、Passwall2 不承载自动区域测速字段，仅元数据对齐 v5.4.29 基线。
+- VERIFY：新增 300s interval 合同守卫，防止后续产物回退到 120/180s。
+
 ## v5.4.28 (2026-06-07)
 
 - ★ CLEAN#165 P2：全产物联动清理已被上游同策略规则集覆盖的直写域名（基线 -38 行，6 段）：

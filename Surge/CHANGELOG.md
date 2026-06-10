@@ -4,6 +4,12 @@
 
 ---
 
+## v5.4.29-Surge.1 (2026-06-10)
+
+- ★ PERF#165-LATENCY：22 个区域 `url-test` 组 `interval=180 -> interval=300`。
+- README 的区域组说明同步改为 300s / 5 分钟；业务策略、DNS 与 RULE-SET 不变。
+- 文件头对齐 Clash Party v5.4.29。
+
 ## v5.4.27-Surge.1 (2026-06-07)
 
 - ★ CLEAN#165：同步清理 7 条已由前置远程规则集覆盖的本地直写域名（Claude / PayPal / HBO / Hulu / Xbox）；删除后仍命中同策略组。

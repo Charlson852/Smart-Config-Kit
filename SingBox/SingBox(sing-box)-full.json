@@ -5,9 +5,9 @@
   },
   "_meta": {
     "name": "SingBox Smart Full",
-    "version": "v5.4.28-sing.1",
-    "build": "2026-06-07",
-    "baseline": "Clash Party v5.4.28",
+    "version": "v5.4.29-sing.1",
+    "build": "2026-06-10",
+    "baseline": "Clash Party v5.4.29",
     "changelog": "见 SingBox/CHANGELOG.md"
   },
   "experimental": {
@@ -140,7 +140,7 @@
         "🌎 美洲节点",
         "🌍 非洲节点"
       ],
-      "interval": "3m",
+      "interval": "5m",
       "tolerance": 10
     },
     {
@@ -1023,7 +1023,7 @@
         "🏡 美洲家宽",
         "🏡 非洲家宽"
       ],
-      "interval": "3m",
+      "interval": "5m",
       "tolerance": 10
     },
     {
@@ -4054,13 +4054,6 @@
       },
       {
         "domain_suffix": [
-          "mytvsuper.com"
-        ],
-        "action": "route",
-        "outbound": "🇭🇰 香港流媒体"
-      },
-      {
-        "domain_suffix": [
           "mytv.com.hk"
         ],
         "action": "route",
@@ -4103,28 +4096,7 @@
       },
       {
         "domain_suffix": [
-          "nowe.com"
-        ],
-        "action": "route",
-        "outbound": "🇭🇰 香港流媒体"
-      },
-      {
-        "domain_suffix": [
-          "rthk.hk"
-        ],
-        "action": "route",
-        "outbound": "🇭🇰 香港流媒体"
-      },
-      {
-        "domain_suffix": [
           "icable.com"
-        ],
-        "action": "route",
-        "outbound": "🇭🇰 香港流媒体"
-      },
-      {
-        "domain_suffix": [
-          "cabletv.com.hk"
         ],
         "action": "route",
         "outbound": "🇭🇰 香港流媒体"
@@ -4145,34 +4117,6 @@
       },
       {
         "domain_suffix": [
-          "litv.tv"
-        ],
-        "action": "route",
-        "outbound": "🇹🇼 台湾流媒体"
-      },
-      {
-        "domain_suffix": [
-          "video.friday.tw"
-        ],
-        "action": "route",
-        "outbound": "🇹🇼 台湾流媒体"
-      },
-      {
-        "domain_suffix": [
-          "friday.tw"
-        ],
-        "action": "route",
-        "outbound": "🇹🇼 台湾流媒体"
-      },
-      {
-        "domain_suffix": [
-          "linetv.tw"
-        ],
-        "action": "route",
-        "outbound": "🇹🇼 台湾流媒体"
-      },
-      {
-        "domain_suffix": [
           "elta.tv"
         ],
         "action": "route",
@@ -4181,13 +4125,6 @@
       {
         "domain_suffix": [
           "mod.cht.com.tw"
-        ],
-        "action": "route",
-        "outbound": "🇹🇼 台湾流媒体"
-      },
-      {
-        "domain_suffix": [
-          "hamivideo.hinet.net"
         ],
         "action": "route",
         "outbound": "🇹🇼 台湾流媒体"
@@ -4222,13 +4159,6 @@
       },
       {
         "domain_suffix": [
-          "tver.jp"
-        ],
-        "action": "route",
-        "outbound": "🇯🇵 日韩流媒体"
-      },
-      {
-        "domain_suffix": [
           "unext.jp"
         ],
         "action": "route",
@@ -4251,20 +4181,6 @@
       {
         "domain_suffix": [
           "nhk.or.jp"
-        ],
-        "action": "route",
-        "outbound": "🇯🇵 日韩流媒体"
-      },
-      {
-        "domain_suffix": [
-          "dmm.com"
-        ],
-        "action": "route",
-        "outbound": "🇯🇵 日韩流媒体"
-      },
-      {
-        "domain_suffix": [
-          "dmm.co.jp"
         ],
         "action": "route",
         "outbound": "🇯🇵 日韩流媒体"
@@ -4307,27 +4223,6 @@
       {
         "domain_suffix": [
           "music.jp"
-        ],
-        "action": "route",
-        "outbound": "🇯🇵 日韩流媒体"
-      },
-      {
-        "domain_suffix": [
-          "nicovideo.jp"
-        ],
-        "action": "route",
-        "outbound": "🇯🇵 日韩流媒体"
-      },
-      {
-        "domain_suffix": [
-          "nicovideo.me"
-        ],
-        "action": "route",
-        "outbound": "🇯🇵 日韩流媒体"
-      },
-      {
-        "domain_suffix": [
-          "dmc.nico"
         ],
         "action": "route",
         "outbound": "🇯🇵 日韩流媒体"
@@ -4474,20 +4369,6 @@
       },
       {
         "domain_suffix": [
-          "itv.com"
-        ],
-        "action": "route",
-        "outbound": "🇪🇺 欧洲流媒体"
-      },
-      {
-        "domain_suffix": [
-          "itvstatic.com"
-        ],
-        "action": "route",
-        "outbound": "🇪🇺 欧洲流媒体"
-      },
-      {
-        "domain_suffix": [
           "channel4.com"
         ],
         "action": "route",
@@ -4510,13 +4391,6 @@
       {
         "domain_suffix": [
           "nowtv.co.uk"
-        ],
-        "action": "route",
-        "outbound": "🇪🇺 欧洲流媒体"
-      },
-      {
-        "domain_suffix": [
-          "britbox.com"
         ],
         "action": "route",
         "outbound": "🇪🇺 欧洲流媒体"
@@ -4677,20 +4551,6 @@
       },
       {
         "domain_suffix": [
-          "wetv.vip"
-        ],
-        "action": "route",
-        "outbound": "🌐 其他国外流媒体"
-      },
-      {
-        "domain_suffix": [
-          "wetvinfo.com"
-        ],
-        "action": "route",
-        "outbound": "🌐 其他国外流媒体"
-      },
-      {
-        "domain_suffix": [
           "iq.com"
         ],
         "action": "route",
@@ -4754,20 +4614,6 @@
       },
       {
         "domain_suffix": [
-          "viki.com"
-        ],
-        "action": "route",
-        "outbound": "🌐 其他国外流媒体"
-      },
-      {
-        "domain_suffix": [
-          "viki.io"
-        ],
-        "action": "route",
-        "outbound": "🌐 其他国外流媒体"
-      },
-      {
-        "domain_suffix": [
           "iflix.com"
         ],
         "action": "route",
@@ -4776,13 +4622,6 @@
       {
         "domain_suffix": [
           "catchplay.com"
-        ],
-        "action": "route",
-        "outbound": "🌐 其他国外流媒体"
-      },
-      {
-        "domain_suffix": [
-          "mewatch.sg"
         ],
         "action": "route",
         "outbound": "🌐 其他国外流媒体"
@@ -4832,13 +4671,6 @@
       {
         "domain_suffix": [
           "fubo.tv"
-        ],
-        "action": "route",
-        "outbound": "🌐 其他国外流媒体"
-      },
-      {
-        "domain_suffix": [
-          "discoveryplus.com"
         ],
         "action": "route",
         "outbound": "🌐 其他国外流媒体"
@@ -5560,90 +5392,6 @@
       {
         "rule_set": [
           "geosite-category-games"
-        ],
-        "action": "route",
-        "outbound": "🎮 国外游戏"
-      },
-      {
-        "domain_suffix": [
-          "ubisoft.com"
-        ],
-        "action": "route",
-        "outbound": "🎮 国外游戏"
-      },
-      {
-        "domain_suffix": [
-          "ubi.com"
-        ],
-        "action": "route",
-        "outbound": "🎮 国外游戏"
-      },
-      {
-        "domain_suffix": [
-          "riotgames.com"
-        ],
-        "action": "route",
-        "outbound": "🎮 国外游戏"
-      },
-      {
-        "domain_suffix": [
-          "leagueoflegends.com"
-        ],
-        "action": "route",
-        "outbound": "🎮 国外游戏"
-      },
-      {
-        "domain_suffix": [
-          "valorant.com"
-        ],
-        "action": "route",
-        "outbound": "🎮 国外游戏"
-      },
-      {
-        "domain_suffix": [
-          "rockstargames.com"
-        ],
-        "action": "route",
-        "outbound": "🎮 国外游戏"
-      },
-      {
-        "domain_suffix": [
-          "gog.com"
-        ],
-        "action": "route",
-        "outbound": "🎮 国外游戏"
-      },
-      {
-        "domain_suffix": [
-          "gogalaxy.com"
-        ],
-        "action": "route",
-        "outbound": "🎮 国外游戏"
-      },
-      {
-        "domain_suffix": [
-          "supercell.com"
-        ],
-        "action": "route",
-        "outbound": "🎮 国外游戏"
-      },
-      {
-        "domain_suffix": [
-          "garena.com"
-        ],
-        "action": "route",
-        "outbound": "🎮 国外游戏"
-      },
-      {
-        "domain_suffix": [
-          "hoyoverse.com"
-        ],
-        "action": "route",
-        "outbound": "🎮 国外游戏"
-      },
-      {
-        "domain_suffix": [
-          "hoyolab.com"
         ],
         "action": "route",
         "outbound": "🎮 国外游戏"

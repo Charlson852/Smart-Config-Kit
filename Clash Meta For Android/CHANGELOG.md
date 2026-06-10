@@ -5,6 +5,12 @@
 
 ---
 
+## v5.4.29-cmfa.1 (2026-06-10)
+
+- ★ PERF#165-LATENCY：22 个区域 `url-test` 组统一使用 `interval: 300`，替代原 `180`。
+- 订阅 `proxy-providers.Subscribe.health-check.interval` 确认维持 `300`，避免 provider 与区域组出现不同测速节奏。
+- 版本头与 README 对齐 Clash Party v5.4.29。
+
 ## v5.4.28-cmfa.1 (2026-06-07)
 
 - ★ CLEAN#165 P2：清理 6 个流媒体/游戏段中已被同策略 RULE-SET 覆盖的 38 条直写 `DOMAIN-SUFFIX` 规则。

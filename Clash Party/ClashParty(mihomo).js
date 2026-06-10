@@ -1,8 +1,8 @@
 ﻿// Clash 覆写脚本 - SUB-STORE 多机场精细分流版
-// 版本：v5.4.28-normal.1 (2026-06-07)
+// 版本：v5.4.29-normal.1 (2026-06-10)
 // 架构：22 url-test 区域组（11 全部 + 11 家宽）+ 32 业务策略组 + 382 rule-providers
-// 基线：Clash Party v5.4.28（与同目录 ClashParty(mihomo-smart).js 规则 100% 等价，仅区域组从 smart 改为 url-test）
-// v5.4.28: CLEAN#165 清理已被上游同策略规则集覆盖的直写域名（-36行）
+// 基线：Clash Party v5.4.29（与同目录 ClashParty(mihomo-smart).js 规则 100% 等价，仅区域组从 smart 改为 url-test）
+// v5.4.29: PERF#165-LATENCY 区域 url-test 自动测速统一 300s；v5.4.28: CLEAN#165 清理已被上游同策略规则集覆盖的直写域名（-36行）
 // 适用：Mihomo / Clash.Meta 稳定版内核、不支持 smart + LightGBM 的分支；也适用于想完全关闭 ML 评估的用户
 // 变更历史：见 `Clash Party/CHANGELOG.md`
 
@@ -10,7 +10,7 @@
 //  版本常量
 // ================================================================
 
-const VERSION = 'v5.4.28-normal.1'
+const VERSION = 'v5.4.29-normal.1'
 
 // v5.4.9 FEAT#LOCAL-TOOLS: desktop local-tool direct whitelist.
 const LOCAL_TOOL_DIRECT_PROCESS_NAMES = [
@@ -358,7 +358,7 @@ const GEO_REGIONS_INTL = GEO_REGIONS_ALL.filter(r => r !== 'Asia_China')
 // ================================================================
 
 function upsertUrlTestGroup(config, name, proxies) {
-  var group = { name: name, type: 'url-test', url: 'https://www.gstatic.com/generate_204', interval: 180, tolerance: 10, lazy: false, proxies: proxies.slice() }
+  var group = { name: name, type: 'url-test', url: 'https://www.gstatic.com/generate_204', interval: 300, tolerance: 10, lazy: false, proxies: proxies.slice() }
   var idx = config['proxy-groups'].findIndex(function(g) { return g && g.name === name })
   if (idx !== -1) { config['proxy-groups'][idx] = group } else { config['proxy-groups'].push(group) }
   console.log(`[${VERSION}] url-test: "${name}" -> ${proxies.length} nodes`)

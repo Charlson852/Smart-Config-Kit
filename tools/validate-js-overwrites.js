@@ -7,6 +7,7 @@ const vm = require('node:vm');
 
 const REPO_ROOT = path.resolve(__dirname, '..');
 const RESTRICTED_SITE = '🚫 受限网站';
+const EXPECTED_REGION_TEST_INTERVAL_SECONDS = 300;
 
 const TARGETS = [
   {
@@ -382,6 +383,7 @@ function validateGroups(target, output, record) {
     const group = groupsByName.get(name);
     record.expect(!!group, `region group exists: ${name}`);
     if (group) record.expectEqual(group.type, target.regionType, `region group type is ${target.regionType}: ${name}`);
+    if (group) record.expectEqual(group.interval, EXPECTED_REGION_TEST_INTERVAL_SECONDS, `region group interval is 300s: ${name}`);
   }
 
   record.expect(!groupsByName.has('机场自动选择'), 'subscription-native proxy-groups are removed');

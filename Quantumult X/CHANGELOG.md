@@ -6,6 +6,12 @@
 
 ---
 
+## v5.4.29-QX.1 (2026-06-10)
+
+- ★ PERF#165-LATENCY：22 个区域 `url-latency-benchmark` 组 `check-interval=180 -> check-interval=300`。
+- README 的测速说明同步改为 300s / 5 分钟；`filter_remote` / `filter_local` 规则内容不变。
+- 文件头对齐 Clash Party v5.4.29。
+
 ## v5.4.28-QX.1 (2026-06-07)
 
 - ★ CLEAN#165（续）：`[filter_local]` 移除 35 行已被同策略 `[filter_remote]` 规则集覆盖的直写域名

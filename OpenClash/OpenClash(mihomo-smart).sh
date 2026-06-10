@@ -2,11 +2,11 @@
 . /usr/share/openclash/log.sh
 
 # ============================================================================
-# Clash Smart v5.4.28-oc-smart.1 — OpenClash 覆写脚本（与 Clash Party 主线同等规则量）
-# Build: 2026-06-07
+# Clash Smart v5.4.29-oc-smart.1 — OpenClash 覆写脚本（与 Clash Party 主线同等规则量）
+# Build: 2026-06-10
 # ============================================================================
-# v5.4.28: CLEAN#165 清理已被上游同策略规则集覆盖的直写域名（-38行）
-# 定位：对齐 Clash Party v5.4.28 JS 主线的 OpenClash 全量版本。v5.4.2: P0-FIX#41 小米白名单。
+# v5.4.29: PERF#165-LATENCY 区域自动测速统一 300s；v5.4.28: CLEAN#165 清理已被上游同策略规则集覆盖的直写域名（-38行）
+# 定位：对齐 Clash Party v5.4.29 JS 主线的 OpenClash 全量版本。v5.4.2: P0-FIX#41 小米白名单。
 #       与同目录 OpenClash(mihomo).sh（Normal）互补：
 #         - Normal 面向稳定版 mihomo / 经典 url-test
 #         - full  面向 4GB+ 路由器 / 需要与 Clash Party 桌面端一致的细粒度分流
@@ -17,14 +17,14 @@
 #   • 1050+ 条 rules
 #   • DNS fake-ip + 嗅探（HTTP/TLS/QUIC）+ nameserver-policy 救援
 #   • Ruby 阶段做：节点过滤 / 区域分类 / Smart 组生成 / TLS 指纹注入
-# 基线：Clash Party v5.4.28（唯一主线；v5.3.1/v5.3.2 为桌面端 PROCESS-NAME 改动，路由器端不适用）── 任何规则/组/DNS 改动必须先改 Clash Party JS，
+# 基线：Clash Party v5.4.29（唯一主线；v5.3.1/v5.3.2 为桌面端 PROCESS-NAME 改动，路由器端不适用）── 任何规则/组/DNS 改动必须先改 Clash Party JS，
 #       再同步到此文件。参见仓库根目录 CLAUDE.md / AGENTS.md。
 # 变更历史：见 `OpenClash/CHANGELOG.md`（Full 部分）。
 # ============================================================================
 
 
 
-VERSION_TAG="v5.4.28-oc-smart.1"
+VERSION_TAG="v5.4.29-oc-smart.1"
 CONFIG_FILE="$1"
 LOG_FILE="/tmp/openclash.log"
 
@@ -4330,7 +4330,7 @@ cat > "$RUBY_SCRIPT" << 'RUBY_EOF'
 require 'yaml'
 require 'digest'
 
-VERSION = "v5.4.28-oc-smart.1"
+VERSION = "v5.4.29-oc-smart.1"
 
 STATUS_LOG = ARGV[2]
 File.open(STATUS_LOG, 'w') { |f| f.puts "[#{VERSION}] start" }
@@ -4515,7 +4515,7 @@ def make_smart_group(name, proxies_filter_mode:, explicit_proxies: nil)
     "collectdata"        => false,
     "strategy"           => "sticky-sessions",
     "url"                => "https://cp.cloudflare.com/generate_204",
-    "interval"           => 180,
+    "interval"           => 300,
     "tolerance"          => 10,
     "lazy"               => false,
   }

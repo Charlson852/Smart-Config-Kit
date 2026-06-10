@@ -6,6 +6,10 @@
 
 ---
 
+## v5.4.29-pw2.1 (2026-06-10)
+
+- N/A#165-LATENCY：Passwall2 降级参考使用展平 shunt rules，不承载区域自动测速/健康检查字段；本轮仅元数据与 README 对齐 Clash Party v5.4.29。
+
 ## v5.4.27-pw2.1 (2026-06-07)
 
 - ★ CLEAN#165：`11-hbo-max.list` / apply 脚本删除已被 `geosite:hbo` 覆盖的 `domain:max.com` 与 `domain:hbomax.com` 本地兜底；与 Passwall 继续保持 `.list` 互通。

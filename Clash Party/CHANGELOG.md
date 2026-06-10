@@ -7,6 +7,13 @@
 
 ---
 
+## v5.4.29 / v5.4.29-normal.1 (2026-06-10)
+
+- ★ PERF#165-LATENCY：区域自动测速间隔统一到 300s。
+  - Smart 主线：22 个 `type: smart` 区域组 `interval: 120 -> 300`，减少 LightGBM/健康检查触发频率。
+  - Normal 版：22 个 `type: url-test` 区域组 `interval: 180 -> 300`，与 CMFA/OpenClash/iOS 端对齐。
+- FINAL 兜底策略保持 `🐟 漏网之鱼`，不改为 DIRECT；本轮只处理 issue #165 的测速频率问题。
+
 ## v5.4.28 / v5.4.28-normal.1 (2026-06-07)
 
 - ★ CLEAN#165 P2：大规模清理已被上游同策略规则集覆盖的流媒体/游戏直写域名（-38 行，6 段）：

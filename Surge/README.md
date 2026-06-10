@@ -1,9 +1,9 @@
-# Surge 使用教程（对齐 Clash Party v5.4.27）
+# Surge 使用教程（对齐 Clash Party v5.4.29）
 
 > 目录简介：这里维护 Surge iOS/macOS 配置和导入教程，按 Surge 语法对齐 Clash Party 分流策略。
 >
 > 配置文件：`Surge/Surge.conf`
-> 版本：**v5.4.27-Surge.1**（Build 2026-06-07，详见 `Surge/CHANGELOG.md`；跟随 Clash Party v5.4.27 基线）
+> 版本：**v5.4.29-Surge.1**（Build 2026-06-10，详见 `Surge/CHANGELOG.md`；跟随 Clash Party v5.4.29 基线）
 > 目标：**Surge 5 / Surge Mac**（付费正版；iOS + macOS 通用）
 > 架构：22 区域 url-test 组（11 全部 + 11 家宽，include-all-proxies + policy-regex-filter 自动按地区聚合）+ 32 业务策略组 + 286 RULE-SET
 
@@ -155,7 +155,7 @@ Surge 的节点来源有两种方式，任选其一：
 - 🇭🇰 香港节点、🇹🇼 台湾节点、🇯🇵 日韩节点（JP+KR 合并）、🌏 亚太节点
 - 🇺🇸 美国节点、🇪🇺 欧洲节点、🌎 美洲节点、🌍 非洲节点
 
-测速间隔 **600s**（10 分钟），tolerance **50ms**（防抖动）。
+测速间隔 **300s**（5 分钟），tolerance **50ms**（防抖动）。
 
 ### 业务策略组（select 手动）
 31 个业务组，首次导入后建议为每个组手动指定一个首选区域：
@@ -244,7 +244,7 @@ Surge 的节点来源有两种方式，任选其一：
 
 ## 九、验证
 
-1. Surge → **首页** → **已启用的配置**：应显示 `Surge Smart v5.4.27-Surge.1`。
+1. Surge → **首页** → **已启用的配置**：应显示 `Surge Smart v5.4.29-Surge.1`。
 2. **策略组** 面板应出现 22 区域 + 32 业务共 54 组（不得少于 50 组）。
 3. 访问以下网站做功能验证：
    - `https://chat.openai.com` → 命中「🤖 AI 服务」

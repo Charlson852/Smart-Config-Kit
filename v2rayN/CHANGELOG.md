@@ -7,6 +7,10 @@
 
 ---
 
+## v5.4.29-v2n.1 (2026-06-10)
+
+- N/A#165-LATENCY：v2rayN Xray 路由 JSON 不承载区域自动测速/健康检查字段；本轮仅元数据与 README 对齐 Clash Party v5.4.29。
+
 ## v5.4.27-v2n.1 (2026-06-07)
 
 - 对齐基线 v5.4.27（CLEAN#165）。Xray 路由使用 `geosite:anthropic` / `geosite:paypal` / `geosite:hbo` / `geosite:hulu` / `geosite:xbox` 聚合项，未包含本轮可删除的直写域名；仅更新元数据版本。

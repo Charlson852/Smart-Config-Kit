@@ -5,6 +5,11 @@
 
 ---
 
+## v5.4.29-sing.1 (2026-06-10)
+
+- ★ PERF#165-LATENCY：`SingBox(sing-box)-generator.js` 将所有 `urltest` 出站组（当前 2 个聚合组）`interval` 从官方默认/既有 `3m` 调整为 `5m`，对应 300s 全端统一。
+- `SingBox(sing-box)-full.json` 由 generator 重新生成，元数据对齐 Clash Party v5.4.29。
+
 ## v5.4.27-sing.1 (2026-06-07)
 
 - ★ CLEAN#165：由 `SingBox(sing-box)-generator.js` 重新生成 Full JSON，同步基线去掉 Claude / PayPal / HBO / Hulu / Xbox 上游规则集已覆盖的直写域名 route rules。

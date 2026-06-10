@@ -5,6 +5,11 @@
 
 ---
 
+## v5.4.29-flclash.1 (2026-06-10)
+
+- ★ PERF#165-LATENCY：22 个区域 `url-test` 组 `interval: 180 -> 300`，与 Clash Party Normal / CMFA 对齐。
+- 规则、DNS、节点过滤与业务策略组语义不变。
+
 ## v5.4.27-flclash.1 (2026-06-07)
 
 - ★ CLEAN#165：同步 Clash Party Normal 清理 7 条已由 `claude` / `paypal` / `hbo` / `hulu` / `xbox` rule-provider 先行覆盖的直写域名，规则命中策略不变。

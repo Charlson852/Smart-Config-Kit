@@ -1,9 +1,9 @@
 const fs = require('fs');
 const vm = require('vm');
 
-const VERSION = 'v5.4.28-sing.1';
-const BUILD = '2026-06-07';
-const BASELINE = 'Clash Party v5.4.28';
+const VERSION = 'v5.4.29-sing.1';
+const BUILD = '2026-06-10';
+const BASELINE = 'Clash Party v5.4.29';
 
 const SMART = {
   GLOBAL: '🌍 全球节点',
@@ -236,7 +236,7 @@ function urltest(tag, outbounds) {
     type: 'urltest',
     tag,
     outbounds,
-    interval: '3m',
+    interval: '5m',
     tolerance: 10
   };
 }

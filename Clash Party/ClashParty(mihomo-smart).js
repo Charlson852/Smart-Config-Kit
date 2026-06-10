@@ -1,14 +1,14 @@
 ﻿// Clash Smart 内核覆写脚本 - SUB-STORE 多机场精细分流版
-// 版本：v5.4.28 (2026-06-07)
+// 版本：v5.4.29 (2026-06-10)
 // 架构：SUB-STORE 多机场融合 + 22 Smart 区域组（11 全部 + 11 家宽）+ 32 业务策略组（含 14 流媒体平台组）+ 382 rule-providers 100%+ 服务覆盖
-// v5.4.28: CLEAN#165 清理已被上游同策略规则集覆盖的直写域名（-38行） · v5.4.27: FIX#164 copilot.tencent.com（腾讯 WorkBuddy）国内直连防吞
+// v5.4.29: PERF#165-LATENCY 区域自动测速统一 300s，降低订阅节点健康检查频率 · v5.4.28: CLEAN#165 清理已被上游同策略规则集覆盖的直写域名（-38行）
 // 变更历史：见 `Clash Party/CHANGELOG.md`
 
 // ================================================================
 //  版本常量
 // ================================================================
 
-const VERSION = 'v5.4.28'
+const VERSION = 'v5.4.29'
 
 // v5.4.9 FEAT#LOCAL-TOOLS:
 // Desktop-capable local tools that should not be routed through proxy nodes.
@@ -363,7 +363,7 @@ const GEO_REGIONS_INTL_IP_RULES = GEO_REGIONS_INTL.map(function(r) { return 'RUL
 // ================================================================
 
 function upsertSmartGroup(config, name, proxies) {
-  var group = { name: name, type: 'smart', uselightgbm: true, collectdata: false, strategy: 'sticky-sessions', interval: 120, tolerance: 30, proxies: proxies.slice() }
+  var group = { name: name, type: 'smart', uselightgbm: true, collectdata: false, strategy: 'sticky-sessions', interval: 300, tolerance: 30, proxies: proxies.slice() }
   var idx = config['proxy-groups'].findIndex(function(g) { return g && g.name === name })
   if (idx !== -1) { config['proxy-groups'][idx] = group } else { config['proxy-groups'].push(group) }
   console.log(`[${VERSION}] Smart: "${name}" -> ${proxies.length} nodes`)

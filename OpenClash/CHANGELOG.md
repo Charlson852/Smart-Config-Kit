@@ -7,6 +7,12 @@
 
 ---
 
+## v5.4.29-oc-normal.1 / v5.4.29-oc-smart.1 (2026-06-10)
+
+- ★ PERF#165-LATENCY：OpenClash Normal / Smart 两份 Ruby 覆写生成逻辑统一把区域自动测速 `interval` 设为 300s。
+- 保持 rule-provider 下载代理为 `🚫 受限网站`；本轮不改变 FINAL 兜底语义。
+- `OpenClash(mihomo).conf` 参考快照元数据对齐 v5.4.29。
+
 ## v5.4.27-oc-normal.1 / v5.4.27-oc-smart.1 (2026-06-07)
 
 - ★ CLEAN#165：两份覆写脚本同步基线清理 Claude / PayPal / HBO / Hulu / Xbox 上游 rule-provider 已覆盖的直写域名。

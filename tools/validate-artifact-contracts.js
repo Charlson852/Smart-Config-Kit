@@ -11,8 +11,12 @@ const vm = require('node:vm');
 const REPO_ROOT = path.resolve(__dirname, '..');
 const EXPECTED_GROUPS = 54;
 const EXPECTED_BUSINESS_GROUPS = 32;
+const EXPECTED_REGION_GROUPS = EXPECTED_GROUPS - EXPECTED_BUSINESS_GROUPS;
 const EXPECTED_SINGBOX_GROUPS = 53;
+const EXPECTED_SINGBOX_URLTEST_GROUPS = 2;
 const EXPECTED_PASSWALL_RULES = 32;
+const EXPECTED_REGION_TEST_INTERVAL_SECONDS = 300;
+const EXPECTED_SINGBOX_URLTEST_INTERVAL = '5m';
 const MIN_FULL_PROVIDERS = 380;
 const MIN_FULL_RULES = 900;
 const RESTRICTED_SITE = '\u{1F6AB} \u53D7\u9650\u7F51\u7AD9';
@@ -394,6 +398,18 @@ function validateJsProducts(record) {
   record.check('js.smart.version', /^v\d+\.\d+\.\d+$/.test(String(baselineVersion)), { value: baselineVersion, message: `got ${baselineVersion}` });
   record.check('js.normal.version-prefix', Boolean(baselinePrefix && normalVersion && normalVersion.startsWith(`${baselinePrefix}-normal`)), { value: normalVersion });
   record.check('js.flclash.version-prefix', Boolean(baselinePrefix && flclashVersion && flclashVersion.startsWith(`${baselinePrefix}-flclash`)), { value: flclashVersion });
+  record.check('js.smart.region-interval-300', smart.includes(`interval: ${EXPECTED_REGION_TEST_INTERVAL_SECONDS}, tolerance: 30`), {
+    message: 'Smart region groups must use 300s health-test interval',
+  });
+  record.check('js.normal.region-interval-300', normal.includes(`interval: ${EXPECTED_REGION_TEST_INTERVAL_SECONDS}, tolerance: 10`), {
+    message: 'Normal region url-test groups must use 300s interval',
+  });
+  record.check('js.flclash.region-interval-300', flclash.includes(`interval: ${EXPECTED_REGION_TEST_INTERVAL_SECONDS}, tolerance: 10`), {
+    message: 'FlClash region url-test groups must use 300s interval',
+  });
+  record.check('js.no-legacy-fast-region-interval', !/interval:\s*(120|180),\s*tolerance:/.test(`${smart}\n${normal}\n${flclash}`), {
+    message: 'JS region interval must not regress to 120s/180s',
+  });
   return { baselineVersion, baselinePrefix };
 }
 
@@ -413,6 +429,16 @@ function validateClashYaml(record, baselineVersion, options) {
   record.check('cmfa.baseline-header', hasBaselineHeader, failureMessage(hasBaselineHeader, `missing Clash Party ${baselineVersion}`));
   record.check('cmfa.rule-provider-singleton', countMatches(source, /^rule-providers:$/gm) === 1, { value: countMatches(source, /^rule-providers:$/gm) });
   record.check('cmfa.rules-singleton', countMatches(source, /^rules:$/gm) === 1, { value: countMatches(source, /^rules:$/gm) });
+  const cmfaInterval300Count = countMatches(source, /^\s+interval:\s*300\s*$/gm);
+  const cmfaLegacyRegionIntervals = (source.match(/^\s+interval:\s*(120|180)\s*$/gm) || []).length;
+  record.check('cmfa.region-test-interval-300', cmfaInterval300Count >= EXPECTED_REGION_GROUPS + 1, {
+    value: cmfaInterval300Count,
+    message: 'CMFA region url-test groups plus provider health-check must use 300s',
+  });
+  record.check('cmfa.no-legacy-fast-region-interval', cmfaLegacyRegionIntervals === 0, {
+    value: cmfaLegacyRegionIntervals,
+    message: 'CMFA must not use 120s/180s region test intervals',
+  });
   const rubyPath = findRuby();
   if (!rubyPath) {
     const message = 'Ruby not found; exact CMFA YAML parsing skipped';
@@ -518,6 +544,12 @@ function validateOpenClash(record, baselineVersion, options) {
     const hasRubyVersionPrefix = source.includes(`VERSION = "${versionPrefixPattern}`);
     record.check(`openclash.${spec.id}.shell-version-prefix`, hasShellVersionPrefix, failureMessage(hasShellVersionPrefix, `missing VERSION_TAG ${versionPrefixPattern}*`));
     record.check(`openclash.${spec.id}.ruby-version-prefix`, hasRubyVersionPrefix, failureMessage(hasRubyVersionPrefix, `missing Ruby VERSION ${versionPrefixPattern}*`));
+    record.check(`openclash.${spec.id}.region-test-interval-300`, source.includes(`"interval"           => ${EXPECTED_REGION_TEST_INTERVAL_SECONDS}`), {
+      message: 'OpenClash generated region groups must use 300s interval',
+    });
+    record.check(`openclash.${spec.id}.no-legacy-fast-region-interval`, !/"interval"\s*=>\s*(120|180)\b/.test(source), {
+      message: 'OpenClash interval must not regress to 120s/180s',
+    });
     record.check(`openclash.${spec.id}.rule-provider-singleton`, topProviders === 1, { value: topProviders });
     record.check(`openclash.${spec.id}.rules-singleton`, topRules === 1, { value: topRules });
     record.check(`openclash.${spec.id}.no-direct-provider-downloads`, !/proxy:\s*['"]?DIRECT['"]?/.test(source));
@@ -592,6 +624,16 @@ function validateConfProducts(record, baselineVersion) {
     const hasBaselineHeader = source.includes(`Clash Party ${baselineVersion}`);
     record.check(`${spec.id}.baseline-header`, hasBaselineHeader, failureMessage(hasBaselineHeader, `missing Clash Party ${baselineVersion}`));
     record.check(`${spec.id}.changelog-reference`, source.includes('CHANGELOG.md'));
+    const intervalToken = spec.id === 'qx' ? 'check-interval=300' : 'interval=300';
+    const legacyIntervalPattern = spec.id === 'qx' ? /check-interval=(120|180)\b/ : /interval=(120|180)\b/;
+    const intervalCount = countLiteral(source, intervalToken);
+    record.check(`${spec.id}.region-test-interval-300`, intervalCount === EXPECTED_REGION_GROUPS, {
+      value: intervalCount,
+      message: `${spec.id} must emit ${EXPECTED_REGION_GROUPS} region test intervals at 300s`,
+    });
+    record.check(`${spec.id}.no-legacy-fast-region-interval`, !legacyIntervalPattern.test(source), {
+      message: `${spec.id} must not regress to 120s/180s interval`,
+    });
   }
 
   const shadowrocket = readText('Shadowrocket/Shadowrocket.conf');
@@ -694,6 +736,7 @@ function validateJsonProducts(record, baselineVersion) {
   const generatorBuild = (singboxGenerator.match(/const\s+BUILD(?:_DATE)?\s*=\s*'([^']+)'/) || [])[1];
   const generatorBaseline = (singboxGenerator.match(/const\s+BASELINE\s*=\s*'([^']+)'/) || [])[1];
   const selectorCount = (singbox.outbounds || []).filter((outbound) => outbound.type === 'selector' || outbound.type === 'urltest').length;
+  const singboxUrltests = (singbox.outbounds || []).filter((outbound) => outbound.type === 'urltest');
   const outboundTags = (singbox.outbounds || []).map((outbound) => outbound.tag).filter(Boolean);
   const singboxBusinessOrder = outboundTags.filter((tag) => SINGBOX_BUSINESS_ORDER.includes(tag));
   const routeRules = ((singbox.route || {}).rules || []);
@@ -714,6 +757,13 @@ function validateJsonProducts(record, baselineVersion) {
   });
   record.check('singbox.generator-clean-base', !/readFileSync\(['"]SingBox\/SingBox\(sing-box\)-full\.json['"]/.test(singboxGenerator));
   record.check('singbox.selector-urltest-count', selectorCount === EXPECTED_SINGBOX_GROUPS, { value: selectorCount });
+  record.check('singbox.urltest-interval-5m', singboxUrltests.length === EXPECTED_SINGBOX_URLTEST_GROUPS && singboxUrltests.every((outbound) => outbound.interval === EXPECTED_SINGBOX_URLTEST_INTERVAL), {
+    value: Array.from(new Set(singboxUrltests.map((outbound) => outbound.interval))).sort(),
+    message: 'SingBox urltest outbounds must use 5m interval (300s)',
+  });
+  record.check('singbox.generator-urltest-interval-5m', singboxGenerator.includes(`interval: '${EXPECTED_SINGBOX_URLTEST_INTERVAL}'`) && !singboxGenerator.includes("interval: '3m'"), {
+    message: 'SingBox generator must emit 5m urltest intervals',
+  });
   checkExactList(record, 'singbox.business-group-order', singboxBusinessOrder, SINGBOX_BUSINESS_ORDER);
   const finalAsUnconditionalRule = routeRules.some((rule) => (
     rule
