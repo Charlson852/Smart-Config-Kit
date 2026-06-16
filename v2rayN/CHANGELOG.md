@@ -7,6 +7,11 @@
 
 ---
 
+## v5.4.30-v2n.1 (2026-06-17)
+
+- ★ FEAT#166-GOOGLE：Xray 降级参考新增 `scki-027-google`，承载 `geosite:google` / `geoip:google` / `domain:scholar.google.com`。
+- 原搜索引擎参考拆为 `scki-027b-search`，仅保留 Bing / DuckDuckGo / Yandex 等非 Google 搜索。
+
 ## v5.4.29-v2n.1 (2026-06-10)
 
 - N/A#165-LATENCY：v2rayN Xray 路由 JSON 不承载区域自动测速/健康检查字段；本轮仅元数据与 README 对齐 Clash Party v5.4.29。

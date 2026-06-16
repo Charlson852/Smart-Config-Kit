@@ -5,6 +5,11 @@
 
 ---
 
+## v5.4.30-flclash.1 (2026-06-17)
+
+- ★ FEAT#166-GOOGLE：同步 Clash Party v5.4.30，新增 `🔍 Google 服务` 业务组并置于 `🔧 工具与服务` 之前。
+- Google 基础服务、Scholar、Google IP 与 Google QUIC 规则从工具组拆出；业务组数量调整为 33。
+
 ## v5.4.29-flclash.1 (2026-06-10)
 
 - ★ PERF#165-LATENCY：22 个区域 `url-test` 组 `interval: 180 -> 300`，与 Clash Party Normal / CMFA 对齐。

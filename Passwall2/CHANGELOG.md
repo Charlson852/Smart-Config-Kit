@@ -1,10 +1,15 @@
 # Passwall / Passwall2 — 变更日志
 
 > `Passwall2/` 目录的变更日志（目录名保留历史命名，实际产物同时适用 Passwall 全功能版 + Passwall2 精简分流版——两者共用 `shunt_rules.lua` 解析器，同一份 `.list` 互通）。
-> 本目录提供把 Clash Party 两层结构（业务组 → 区域组）**手工展平**为 32 条 shunt rule 的降级参考。
+> 本目录提供把 Clash Party 两层结构（业务组 → 区域组）**手工展平**为 33 条 shunt rule 的降级参考。
 > 主版本号跟随 Clash Party 主线；尾段 `-pw2.N` 独立递增。
 
 ---
+
+## v5.4.30-pw2.1 (2026-06-17)
+
+- ★ FEAT#166-GOOGLE：新增 `30-google.list` 与第 20 条 `🔍 Google 服务` shunt rule，承载 `geosite:google` / `geoip:google` / `domain:scholar.google.com`。
+- 工具组重命名为 `31-tools.list`，仅保留非 Google 搜索和开发者服务；兜底列表顺延为 `32-final.list`，展平 shunt rules 总数调整为 33。
 
 ## v5.4.29-pw2.1 (2026-06-10)
 

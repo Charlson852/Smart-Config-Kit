@@ -6,6 +6,11 @@
 
 ---
 
+## v5.4.30-QX.1 (2026-06-17)
+
+- ★ FEAT#166-GOOGLE：新增 `static=🔍 Google 服务`，插入在 `🔧 工具与服务` 之前。
+- Google / Scholar 远程规则改投新组；工具组保留 Bing / Yandex / GitHub / Docker / GitLab / Python / developer 等非 Google 规则。
+
 ## v5.4.29-QX.1 (2026-06-10)
 
 - ★ PERF#165-LATENCY：22 个区域 `url-latency-benchmark` 组 `check-interval=180 -> check-interval=300`。

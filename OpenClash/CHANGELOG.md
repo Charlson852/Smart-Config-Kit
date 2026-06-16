@@ -7,6 +7,11 @@
 
 ---
 
+## v5.4.30-oc-normal.1 / v5.4.30-oc-smart.1 (2026-06-17)
+
+- ★ FEAT#166-GOOGLE：Normal 与 Smart 同步新增 `🔍 Google 服务` 业务组，位置在 `🔧 工具与服务` 之前。
+- Scholar、Google 基础服务、Google IP 与 Google QUIC 规则改投新组；Ruby/静态片段的业务组计数同步为 33。
+
 ## v5.4.29-oc-normal.1 / v5.4.29-oc-smart.1 (2026-06-10)
 
 - ★ PERF#165-LATENCY：OpenClash Normal / Smart 两份 Ruby 覆写生成逻辑统一把区域自动测速 `interval` 设为 300s。

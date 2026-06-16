@@ -1,7 +1,7 @@
 // FlClash 覆写脚本 — 标准 Mihomo 内核动态分流版
-// 版本：v5.4.29-flclash.1 (2026-06-10)
-// 架构：22 url-test 区域组（11 全部 + 11 家宽）+ 32 业务策略组（含 14 流媒体平台组）+ 382 rule-providers 100%+ 服务覆盖
-// 基线：Clash Party v5.4.29（规则 100% 等价；区域组为 url-test — FlClash 内核为标准 Mihomo，不支持 smart + LightGBM）
+// 版本：v5.4.30-flclash.1 (2026-06-17)
+// 架构：22 url-test 区域组（11 全部 + 11 家宽）+ 33 业务策略组（含 14 流媒体平台组）+ 382 rule-providers 100%+ 服务覆盖
+// 基线：Clash Party v5.4.30（规则 100% 等价；区域组为 url-test — FlClash 内核为标准 Mihomo，不支持 smart + LightGBM）
 // v5.4.29: PERF#165-LATENCY 区域 url-test 自动测速统一 300s；v5.4.28: CLEAN#165 清理已被上游同策略规则集覆盖的直写域名（-36行）
 // 适用：FlClash >= v0.8.85（覆盖脚本功能自该版本引入）；其他使用标准 Mihomo 内核的客户端
 // 变更历史：见 `FlClash/CHANGELOG.md`
@@ -36,7 +36,7 @@
 //  版本常量
 // ================================================================
 
-const VERSION = 'v5.4.29-flclash.1'
+const VERSION = 'v5.4.30-flclash.1'
 
 // v5.4.9 FEAT#LOCAL-TOOLS: desktop local-tool direct whitelist.
 const LOCAL_TOOL_DIRECT_PROCESS_NAMES = [
@@ -268,6 +268,7 @@ const BIZ = {
   STREAM_JP: '🇯🇵 日韩流媒体', STREAM_EU: '🇪🇺 欧洲流媒体',
   STREAM_OTHER: '🌐 其他国外流媒体',
   GAME_CN: '🕹️ 国内游戏', GAME_INTL: '🎮 国外游戏',
+  GOOGLE: '🔍 Google 服务',
   TOOLS: '🔧 工具与服务', MS: 'Ⓜ️ 微软服务', APPLE: '🍎 苹果服务',
   DOWNLOAD: '📥 下载更新', TRACKER: '🛰️ BT/PT Tracker',
   CN_SITE: '🏠 国内网站',
@@ -393,7 +394,7 @@ function upsertUrlTestGroup(config, name, proxies) {
 }
 
 // ================================================================
-//  模块 F：业务策略组注入（32组）
+//  模块 F：业务策略组注入（33组）
 // ================================================================
 
 function injectBusinessGroups(config, activeSmartNames) {
@@ -434,6 +435,7 @@ function injectBusinessGroups(config, activeSmartNames) {
     { name: BIZ.STREAM_OTHER, type: 'select', proxies: standardProxies.slice() },
     { name: BIZ.GAME_CN, type: 'select', proxies: directFirstProxies.slice() },
     { name: BIZ.GAME_INTL, type: 'select', proxies: standardProxies.slice() },
+    { name: BIZ.GOOGLE, type: 'select', proxies: standardProxies.slice() },
     { name: BIZ.TOOLS, type: 'select', proxies: standardProxies.slice() },
     { name: BIZ.MS, type: 'select', proxies: standardProxies.slice() },
     { name: BIZ.APPLE, type: 'select', proxies: directFirstProxies.slice() },
@@ -1324,7 +1326,7 @@ function injectRules(config) {
     `RULE-SET,youmengchuangxiang,${BIZ.AD}`,
     // v5.4.22 #1 借鉴 Proxy-override：QUIC 精细化——YouTube/Google/MS/Apple 白名单豁免，其余海外 QUIC REJECT
     "AND,((DST-PORT,443),(NETWORK,UDP),(GEOSITE,youtube)),📹 YouTube",
-    "AND,((DST-PORT,443),(NETWORK,UDP),(GEOSITE,google)),🔧 工具与服务",
+    "AND,((DST-PORT,443),(NETWORK,UDP),(GEOSITE,google)),🔍 Google 服务",
     "AND,((DST-PORT,443),(NETWORK,UDP),(RULE-SET,microsoft)),Ⓜ️ 微软服务",
     "AND,((DST-PORT,443),(NETWORK,UDP),(RULE-SET,apple)),🍎 苹果服务",
     "AND,((DST-PORT,443),(NETWORK,UDP),(NOT,((GEOSITE,cn)))),REJECT",
@@ -1456,9 +1458,9 @@ function injectRules(config) {
     `DOMAIN-SUFFIX,play.googleapis.com,${BIZ.DOWNLOAD}`,
     `DOMAIN-SUFFIX,android.clients.google.com,${BIZ.DOWNLOAD}`,
     `RULE-SET,googlefcm,${BIZ.DOWNLOAD}`,
-    // ── Google 搜索引擎（兜底：MetaCubeX geosite:google 覆盖 google.com/co.*/com.*）──
-    `RULE-SET,google,${BIZ.TOOLS}`,
-    `RULE-SET,google-ip,${BIZ.TOOLS},no-resolve`,
+    // ── Google 基础服务（兜底：MetaCubeX geosite:google 覆盖 google.com/co.*/com.*）──
+    `RULE-SET,google,${BIZ.GOOGLE}`,
+    `RULE-SET,google-ip,${BIZ.GOOGLE},no-resolve`,
     // ════════════════════════════════════════════════════════════════
     // v5.1: szkane AI 综合 + Accademia AI 补充
     `RULE-SET,szkane-ai,${BIZ.AI}`,
@@ -1851,7 +1853,7 @@ function injectRules(config) {
     `DOMAIN-SUFFIX,startpage.com,${BIZ.TOOLS}`,
     `DOMAIN-SUFFIX,you.com,${BIZ.TOOLS}`,
     `DOMAIN-SUFFIX,search.naver.com,${BIZ.TOOLS}`,
-    `RULE-SET,scholar,${BIZ.TOOLS}`,
+    `RULE-SET,scholar,${BIZ.GOOGLE}`,
     `RULE-SET,yandex,${BIZ.TOOLS}`,
     `RULE-SET,github,${BIZ.TOOLS}`,
     `RULE-SET,docker,${BIZ.TOOLS}`,
@@ -2283,7 +2285,7 @@ function injectRules(config) {
     `GEOIP,netflix,${BIZ.NFLX},no-resolve`,
     `GEOIP,facebook,${BIZ.SOCIAL},no-resolve`,
     `GEOIP,twitter,${BIZ.SOCIAL},no-resolve`,
-    `GEOIP,google,${BIZ.TOOLS},no-resolve`,
+    `GEOIP,google,${BIZ.GOOGLE},no-resolve`,
     `GEOIP,CN,${BIZ.CN_SITE},no-resolve`,
 
     `MATCH,${BIZ.FINAL}`,

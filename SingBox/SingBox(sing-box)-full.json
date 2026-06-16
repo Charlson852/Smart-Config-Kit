@@ -5,9 +5,9 @@
   },
   "_meta": {
     "name": "SingBox Smart Full",
-    "version": "v5.4.29-sing.1",
-    "build": "2026-06-10",
-    "baseline": "Clash Party v5.4.29",
+    "version": "v5.4.30-sing.1",
+    "build": "2026-06-17",
+    "baseline": "Clash Party v5.4.30",
     "changelog": "见 SingBox/CHANGELOG.md"
   },
   "experimental": {
@@ -734,6 +734,34 @@
     {
       "type": "selector",
       "tag": "🎮 国外游戏",
+      "outbounds": [
+        "🌍 全球节点",
+        "🏡 全球家宽",
+        "🇭🇰 香港节点",
+        "🏡 香港家宽",
+        "🇹🇼 台湾节点",
+        "🏡 台湾家宽",
+        "🇯🇵 日韩节点",
+        "🏡 日韩家宽",
+        "🇸🇬 狮城节点",
+        "🏡 狮城家宽",
+        "🌏 亚太节点",
+        "🏡 亚太家宽",
+        "🇺🇸 美国节点",
+        "🏡 美国家宽",
+        "🇪🇺 欧洲节点",
+        "🏡 欧洲家宽",
+        "🌎 美洲节点",
+        "🏡 美洲家宽",
+        "🌍 非洲节点",
+        "🏡 非洲家宽",
+        "DIRECT"
+      ],
+      "default": "🌍 全球节点"
+    },
+    {
+      "type": "selector",
+      "tag": "🔍 Google 服务",
       "outbounds": [
         "🌍 全球节点",
         "🏡 全球家宽",
@@ -2001,7 +2029,7 @@
         ],
         "network": "udp",
         "action": "route",
-        "outbound": "🔧 工具与服务"
+        "outbound": "🔍 Google 服务"
       },
       {
         "rule_set": [
@@ -3144,14 +3172,14 @@
           "google"
         ],
         "action": "route",
-        "outbound": "🔧 工具与服务"
+        "outbound": "🔍 Google 服务"
       },
       {
         "rule_set": [
           "google-ip"
         ],
         "action": "route",
-        "outbound": "🔧 工具与服务"
+        "outbound": "🔍 Google 服务"
       },
       {
         "domain_suffix": [
@@ -4772,6 +4800,13 @@
         ],
         "action": "route",
         "outbound": "🔧 工具与服务"
+      },
+      {
+        "domain": [
+          "scholar.google.com"
+        ],
+        "action": "route",
+        "outbound": "🔍 Google 服务"
       },
       {
         "rule_set": [
@@ -6584,7 +6619,7 @@
           "google"
         ],
         "action": "route",
-        "outbound": "🔧 工具与服务"
+        "outbound": "🔍 Google 服务"
       },
       {
         "geoip": [

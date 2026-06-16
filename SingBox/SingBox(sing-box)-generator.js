@@ -1,9 +1,9 @@
 const fs = require('fs');
 const vm = require('vm');
 
-const VERSION = 'v5.4.29-sing.1';
-const BUILD = '2026-06-10';
-const BASELINE = 'Clash Party v5.4.29';
+const VERSION = 'v5.4.30-sing.1';
+const BUILD = '2026-06-17';
+const BASELINE = 'Clash Party v5.4.30';
 
 const SMART = {
   GLOBAL: '🌍 全球节点',
@@ -51,6 +51,7 @@ const BIZ = {
   STREAM_OTHER: '🌐 其他国外流媒体',
   GAME_CN: '🕹️ 国内游戏',
   GAME_INTL: '🎮 国外游戏',
+  GOOGLE: '🔍 Google 服务',
   TOOLS: '🔧 工具与服务',
   MS: 'Ⓜ️ 微软服务',
   APPLE: '🍎 苹果服务',
@@ -279,6 +280,7 @@ function buildOutbounds() {
     selector(BIZ.STREAM_OTHER, buildStandardProxies()),
     selector(BIZ.GAME_CN, buildDirectFirstProxies()),
     selector(BIZ.GAME_INTL, buildStandardProxies()),
+    selector(BIZ.GOOGLE, buildStandardProxies()),
     selector(BIZ.TOOLS, buildStandardProxies()),
     selector(BIZ.MS, buildStandardProxies()),
     selector(BIZ.APPLE, buildDirectFirstProxies()),
@@ -389,6 +391,12 @@ function toSingRule(ruleText, availableRuleSets) {
         return { ...SZKANE_BILIHMT_RULE, action: 'reject' };
       }
       return { ...SZKANE_BILIHMT_RULE, action: 'route', outbound: parts[2] };
+    }
+    // blackmatrix7 Scholar is not published as sing-box .srs here; keep parity
+    // with Passwall/v2rayN by carrying the Google Scholar domain directly.
+    if (parts[1] === 'scholar') {
+      if (isRejectTarget(parts[2])) return { domain: ['scholar.google.com'], action: 'reject' };
+      return { domain: ['scholar.google.com'], action: 'route', outbound: parts[2] };
     }
     if (!availableRuleSets.has(parts[1])) return null;
     if (isRejectTarget(parts[2])) return { rule_set: [parts[1]], action: 'reject' };
@@ -516,7 +524,7 @@ const availableRuleSets = new Set(allRouteRuleSets.map((item) => item.tag));
 // YouTube/Google/MS/Apple QUIC → 走对应业务组；CN QUIC → DIRECT 放行；其余海外 QUIC → REJECT。
 const quicRules = [
   { rule_set: ['youtube'], port: [443], network: 'udp', action: 'route', outbound: '📹 YouTube' },
-  { rule_set: ['google'], port: [443], network: 'udp', action: 'route', outbound: '🔧 工具与服务' },
+  { rule_set: ['google'], port: [443], network: 'udp', action: 'route', outbound: '🔍 Google 服务' },
   { rule_set: ['microsoft'], port: [443], network: 'udp', action: 'route', outbound: 'Ⓜ️ 微软服务' },
   { rule_set: ['apple'], port: [443], network: 'udp', action: 'route', outbound: '🍎 苹果服务' },
   { rule_set: ['cn'], port: [443], network: 'udp', action: 'route', outbound: 'DIRECT' },

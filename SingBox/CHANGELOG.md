@@ -5,6 +5,11 @@
 
 ---
 
+## v5.4.30-sing.1 (2026-06-17)
+
+- ★ FEAT#166-GOOGLE：`SingBox(sing-box)-generator.js` 新增 `🔍 Google 服务` selector，位置在 `🔧 工具与服务` 之前。
+- Scholar、Google 基础服务、Google IP 与 Google QUIC route 改投新组；`SingBox(sing-box)-full.json` 已由 generator 重新生成。
+
 ## v5.4.29-sing.1 (2026-06-10)
 
 - ★ PERF#165-LATENCY：`SingBox(sing-box)-generator.js` 将所有 `urltest` 出站组（当前 2 个聚合组）`interval` 从官方默认/既有 `3m` 调整为 `5m`，对应 300s 全端统一。

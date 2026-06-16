@@ -84,6 +84,7 @@ const BIZ_GROUPS = [
   '🌐 其他国外流媒体',
   '🕹️ 国内游戏',
   '🎮 国外游戏',
+  '🔍 Google 服务',
   '🔧 工具与服务',
   'Ⓜ️ 微软服务',
   '🍎 苹果服务',
@@ -463,6 +464,14 @@ function validateRulesAndProviders(output, record, target) {
     rules.some((rule) => /^RULE-SET,tiktok,🎵 TikTok/.test(String(rule))),
     'TikTok has its dedicated rule target',
   );
+  record.expect(
+    rules.includes('RULE-SET,scholar,🔍 Google 服务'),
+    'Google Scholar is split from tools into Google service target',
+  );
+  record.expect(
+    !rules.includes('RULE-SET,scholar,🔧 工具与服务'),
+    'Google Scholar does not regress to tools target',
+  );
   for (const processName of DIRECT_PROCESS_RULES) {
     record.expect(
       rules.includes(`PROCESS-NAME,${processName},DIRECT`),
@@ -490,7 +499,7 @@ function validateRulesAndProviders(output, record, target) {
   const quicAndRules = rules.filter(function(r) { return String(r).startsWith('AND,((DST-PORT,443),(NETWORK,UDP),'); });
   record.expectEqual(quicAndRules.length, 5, 'exactly 5 QUIC AND rules exist');
   record.expect(quicAndRules.some(function(r) { return String(r).includes('GEOSITE,youtube') && String(r).endsWith('📹 YouTube'); }), 'QUIC AND: YouTube whitelist intact');
-  record.expect(quicAndRules.some(function(r) { return String(r).includes('GEOSITE,google') && String(r).endsWith('🔧 工具与服务'); }), 'QUIC AND: Google whitelist intact');
+  record.expect(quicAndRules.some(function(r) { return String(r).includes('GEOSITE,google') && String(r).endsWith('🔍 Google 服务'); }), 'QUIC AND: Google service whitelist intact');
   record.expect(quicAndRules.some(function(r) { return String(r).includes('RULE-SET,microsoft') && String(r).endsWith('Ⓜ️ 微软服务'); }), 'QUIC AND: Microsoft whitelist intact');
   record.expect(quicAndRules.some(function(r) { return String(r).includes('RULE-SET,apple') && String(r).endsWith('🍎 苹果服务'); }), 'QUIC AND: Apple whitelist intact');
   record.expect(quicAndRules.some(function(r) { return String(r).includes('NOT,((GEOSITE,cn))') && String(r).endsWith('REJECT'); }), 'QUIC AND: non-CN REJECT fallback intact');

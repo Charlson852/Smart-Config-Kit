@@ -1,9 +1,9 @@
 #!/bin/sh
 # ═══════════════════════════════════════════════════════════════════════════
 # Smart-Config-Kit for Passwall — UCI batch helper
-# Version: v5.4.29-pw.1 | Build 2026-06-10 | Baseline: Clash Party v5.4.29
+# Version: v5.4.30-pw.1 | Build 2026-06-17 | Baseline: Clash Party v5.4.30
 #
-# 用途：一次性在 Passwall（全功能版）中创建 32 条 shunt rule（含域名列表 + IP 列表），
+# 用途：一次性在 Passwall（全功能版）中创建 33 条 shunt rule（含域名列表 + IP 列表），
 #       每条目标节点留空（NEED_CONFIG），用户之后到 LuCI 里手工选节点。
 #
 # 变更历史：见 Passwall/CHANGELOG.md
@@ -31,7 +31,7 @@
 # ⚠️  警告：
 #   • 本脚本在 ImmortalWrt / OpenWrt 官方源的 Passwall 上测过
 #   • 运行前建议备份: cp /etc/config/passwall /etc/config/passwall.bak
-#   • 默认 --replace：先删除同名 Smart-Config-Kit 旧规则，再创建 32 条新规则
+#   • 默认 --replace：先删除同名 Smart-Config-Kit 旧规则，再创建 33 条新规则
 #   • 可选 --append：保留既有规则并追加（可能产生副本）
 # ═══════════════════════════════════════════════════════════════════════════
 
@@ -84,6 +84,7 @@ is_scki_remark() {
     '🏠 国内网站' \
     '🚫 受限网站' \
     '🌐 国外网站' \
+    '🔍 Google 服务' \
     '🔧 工具与服务' \
     '🐟 漏网之鱼' | grep -Fqx "$1"
 }
@@ -123,7 +124,7 @@ if [ "${MODE}" = "--replace" ]; then
   cleanup_existing_scki_rules
 fi
 
-echo "开始创建 32 条 shunt rule..."
+echo "开始创建 33 条 shunt rule..."
 
 # [01] 🛑 广告拦截
 SEC="$(uci add "${CONFIG_NAME}" shunt_rules)"
@@ -356,16 +357,22 @@ uci add_list "${CONFIG_NAME}".${SEC}.domain_list='domain:vrv.co'
 uci set "${CONFIG_NAME}".${SEC}.network='tcp,udp'
 # uci set "${CONFIG_NAME}".${SEC}.tcp_node='NEED_CONFIG_IN_LUCI'
 
-# [20] 🔧 工具与服务（新设，合并自原搜索引擎 + 开发者服务）
+# [20] 🔍 Google 服务
+SEC="$(uci add "${CONFIG_NAME}" shunt_rules)"
+uci set "${CONFIG_NAME}".${SEC}.remarks='🔍 Google 服务'
+uci add_list "${CONFIG_NAME}".${SEC}.domain_list='geosite:google'
+uci add_list "${CONFIG_NAME}".${SEC}.domain_list='domain:scholar.google.com'
+uci add_list "${CONFIG_NAME}".${SEC}.ip_list='geoip:google'
+uci set "${CONFIG_NAME}".${SEC}.network='tcp,udp'
+# uci set "${CONFIG_NAME}".${SEC}.tcp_node='NEED_CONFIG_IN_LUCI'
+
+# [21] 🔧 工具与服务（非 Google 搜索引擎 + 开发者服务）
 SEC="$(uci add "${CONFIG_NAME}" shunt_rules)"
 uci set "${CONFIG_NAME}".${SEC}.remarks='🔧 工具与服务'
-# 原 🔍 搜索引擎
-uci add_list "${CONFIG_NAME}".${SEC}.domain_list='geosite:google'
+# 非 Google 搜索引擎
 uci add_list "${CONFIG_NAME}".${SEC}.domain_list='geosite:bing'
 uci add_list "${CONFIG_NAME}".${SEC}.domain_list='geosite:duckduckgo'
 uci add_list "${CONFIG_NAME}".${SEC}.domain_list='geosite:yandex'
-uci add_list "${CONFIG_NAME}".${SEC}.domain_list='domain:scholar.google.com'
-uci add_list "${CONFIG_NAME}".${SEC}.ip_list='geoip:google'
 # 原 📟 开发者服务
 uci add_list "${CONFIG_NAME}".${SEC}.domain_list='geosite:github'
 uci add_list "${CONFIG_NAME}".${SEC}.domain_list='geosite:gitlab'
@@ -379,7 +386,8 @@ uci add_list "${CONFIG_NAME}".${SEC}.domain_list='domain:stackexchange.com'
 uci set "${CONFIG_NAME}".${SEC}.network='tcp,udp'
 # uci set "${CONFIG_NAME}".${SEC}.tcp_node='NEED_CONFIG_IN_LUCI'
 
-# [21] Ⓜ️ 微软服务
+
+# [22] Ⓜ️ 微软服务
 SEC="$(uci add "${CONFIG_NAME}" shunt_rules)"
 uci set "${CONFIG_NAME}".${SEC}.remarks='Ⓜ️ 微软服务'
 uci add_list "${CONFIG_NAME}".${SEC}.domain_list='geosite:microsoft'
@@ -390,7 +398,7 @@ uci add_list "${CONFIG_NAME}".${SEC}.domain_list='domain:microsoftedge.com'
 uci set "${CONFIG_NAME}".${SEC}.network='tcp,udp'
 # uci set "${CONFIG_NAME}".${SEC}.tcp_node='NEED_CONFIG_IN_LUCI'
 
-# [22] 🍎 苹果服务
+# [23] 🍎 苹果服务
 SEC="$(uci add "${CONFIG_NAME}" shunt_rules)"
 uci set "${CONFIG_NAME}".${SEC}.remarks='🍎 苹果服务'
 uci add_list "${CONFIG_NAME}".${SEC}.domain_list='geosite:apple'
@@ -403,7 +411,7 @@ uci add_list "${CONFIG_NAME}".${SEC}.domain_list='domain:apple-dns.net'
 uci set "${CONFIG_NAME}".${SEC}.network='tcp,udp'
 # uci set "${CONFIG_NAME}".${SEC}.tcp_node='NEED_CONFIG_IN_LUCI'
 
-# [23] 📥 下载更新
+# [24] 📥 下载更新
 SEC="$(uci add "${CONFIG_NAME}" shunt_rules)"
 uci set "${CONFIG_NAME}".${SEC}.remarks='📥 下载更新'
 uci add_list "${CONFIG_NAME}".${SEC}.domain_list='domain:dl.google.com'
@@ -417,7 +425,7 @@ uci add_list "${CONFIG_NAME}".${SEC}.domain_list='domain:apkpure.com'
 uci set "${CONFIG_NAME}".${SEC}.network='tcp,udp'
 # uci set "${CONFIG_NAME}".${SEC}.tcp_node='NEED_CONFIG_IN_LUCI'
 
-# [24] 🛰️ BT/PT Tracker
+# [25] 🛰️ BT/PT Tracker
 SEC="$(uci add "${CONFIG_NAME}" shunt_rules)"
 uci set "${CONFIG_NAME}".${SEC}.remarks='🛰️ BT/PT Tracker'
 uci add_list "${CONFIG_NAME}".${SEC}.domain_list='geosite:private-tracker'
@@ -427,7 +435,7 @@ uci add_list "${CONFIG_NAME}".${SEC}.domain_list='domain:nyaa.si'
 uci set "${CONFIG_NAME}".${SEC}.network='tcp,udp'
 # uci set "${CONFIG_NAME}".${SEC}.tcp_node='NEED_CONFIG_IN_LUCI'
 
-# [25] 🚫 受限网站
+# [26] 🚫 受限网站
 SEC="$(uci add "${CONFIG_NAME}" shunt_rules)"
 uci set "${CONFIG_NAME}".${SEC}.remarks='🚫 受限网站'
 uci add_list "${CONFIG_NAME}".${SEC}.domain_list='geosite:gfw'
@@ -435,7 +443,7 @@ uci add_list "${CONFIG_NAME}".${SEC}.domain_list='geosite:greatfire'
 uci set "${CONFIG_NAME}".${SEC}.network='tcp,udp'
 # uci set "${CONFIG_NAME}".${SEC}.tcp_node='NEED_CONFIG_IN_LUCI'
 
-# [26] 🎮 国外游戏
+# [27] 🎮 国外游戏
 SEC="$(uci add "${CONFIG_NAME}" shunt_rules)"
 uci set "${CONFIG_NAME}".${SEC}.remarks='🎮 国外游戏'
 uci add_list "${CONFIG_NAME}".${SEC}.domain_list='geosite:steam'
@@ -451,7 +459,7 @@ uci add_list "${CONFIG_NAME}".${SEC}.domain_list='domain:mihoyo.com'
 uci set "${CONFIG_NAME}".${SEC}.network='tcp,udp'
 # uci set "${CONFIG_NAME}".${SEC}.tcp_node='NEED_CONFIG_IN_LUCI'
 
-# [27] 🌐 国外网站（合并自原邮件服务 + 云与CDN）
+# [28] 🌐 国外网站（合并自原邮件服务 + 云与CDN）
 SEC="$(uci add "${CONFIG_NAME}" shunt_rules)"
 uci set "${CONFIG_NAME}".${SEC}.remarks='🌐 国外网站'
 uci add_list "${CONFIG_NAME}".${SEC}.domain_list='geosite:geolocation-!cn'
@@ -478,7 +486,7 @@ uci add_list "${CONFIG_NAME}".${SEC}.ip_list='geoip:fastly'
 uci set "${CONFIG_NAME}".${SEC}.network='tcp,udp'
 # uci set "${CONFIG_NAME}".${SEC}.tcp_node='NEED_CONFIG_IN_LUCI'
 
-# [28] 🕹️ 国内游戏
+# [29] 🕹️ 国内游戏
 SEC="$(uci add "${CONFIG_NAME}" shunt_rules)"
 uci set "${CONFIG_NAME}".${SEC}.remarks='🕹️ 国内游戏'
 uci add_list "${CONFIG_NAME}".${SEC}.domain_list='geosite:steamcn'
@@ -488,7 +496,7 @@ uci add_list "${CONFIG_NAME}".${SEC}.domain_list='domain:battlenet.com.cn'
 uci set "${CONFIG_NAME}".${SEC}.network='tcp,udp'
 # uci set "${CONFIG_NAME}".${SEC}.tcp_node='NEED_CONFIG_IN_LUCI'
 
-# [29] 📺 国内流媒体
+# [30] 📺 国内流媒体
 SEC="$(uci add "${CONFIG_NAME}" shunt_rules)"
 uci set "${CONFIG_NAME}".${SEC}.remarks='📺 国内流媒体'
 uci add_list "${CONFIG_NAME}".${SEC}.domain_list='geosite:bilibili'
@@ -502,7 +510,7 @@ uci add_list "${CONFIG_NAME}".${SEC}.domain_list='geosite:qqmusic'
 uci set "${CONFIG_NAME}".${SEC}.network='tcp,udp'
 # uci set "${CONFIG_NAME}".${SEC}.tcp_node='NEED_CONFIG_IN_LUCI'
 
-# [30] 🏠 国内网站
+# [31] 🏠 国内网站
 SEC="$(uci add "${CONFIG_NAME}" shunt_rules)"
 uci set "${CONFIG_NAME}".${SEC}.remarks='🏠 国内网站'
 uci add_list "${CONFIG_NAME}".${SEC}.domain_list='geosite:cn'
@@ -511,7 +519,7 @@ uci add_list "${CONFIG_NAME}".${SEC}.ip_list='geoip:private'
 uci set "${CONFIG_NAME}".${SEC}.network='tcp,udp'
 # uci set "${CONFIG_NAME}".${SEC}.tcp_node='NEED_CONFIG_IN_LUCI'
 
-# [31] 🐟 漏网之鱼
+# [32] 🐟 漏网之鱼
 SEC="$(uci add "${CONFIG_NAME}" shunt_rules)"
 uci set "${CONFIG_NAME}".${SEC}.remarks='🐟 漏网之鱼'
 uci set "${CONFIG_NAME}".${SEC}.network='tcp,udp'
@@ -519,7 +527,7 @@ uci set "${CONFIG_NAME}".${SEC}.network='tcp,udp'
 
 uci commit "${CONFIG_NAME}"
 
-echo "✓ 32 条 shunt rule 创建完成。"
+echo "✓ 33 条 shunt rule 创建完成。"
 echo "下一步："
 echo "  1. LuCI → Passwall → 节点列表 → 按区域创建 TCP 节点 + 负载均衡组"
 echo "  2. LuCI → Passwall → 分流控制 → 逐条为每个 rule 指定 tcp_node"

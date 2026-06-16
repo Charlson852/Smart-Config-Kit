@@ -5,6 +5,11 @@
 
 ---
 
+## v5.4.30-cmfa.1 (2026-06-17)
+
+- ★ FEAT#166-GOOGLE：新增 `🔍 Google 服务` 业务组，插入在 `🔧 工具与服务` 之前。
+- `scholar` / `google` / `google-ip` 规则与 Google QUIC 规则改投新组；`🔧 工具与服务` 仅保留非 Google 搜索和开发者服务。
+
 ## v5.4.29-cmfa.1 (2026-06-10)
 
 - ★ PERF#165-LATENCY：22 个区域 `url-test` 组统一使用 `interval: 300`，替代原 `180`。

@@ -2,32 +2,32 @@
 . /usr/share/openclash/log.sh
 
 # ============================================================================
-# Clash Smart v5.4.29-oc-normal.1 — OpenClash 覆写脚本（非 Smart 内核 / url-test 区域组）
-# Build: 2026-06-10
+# Clash Smart v5.4.30-oc-normal.1 — OpenClash 覆写脚本（非 Smart 内核 / url-test 区域组）
+# Build: 2026-06-17
 # ============================================================================
-# v5.4.29: PERF#165-LATENCY 区域自动测速统一 300s；v5.4.28: CLEAN#165 清理已被上游同策略规则集覆盖的直写域名（-38行）
+# v5.4.30: FEAT#166-GOOGLE 新增 🔍 Google 服务，从 🔧 工具与服务 拆分 Google 基础服务
 # 定位：与同目录 OpenClash(mihomo-smart).sh 规则 100% 等价的「非 Smart 内核」版本。
 #       两者唯一区别：22 个区域组（11 全部 + 11 家宽）从 type: smart（uselightgbm）换成 type: url-test。
-#       对齐 Clash Party v5.4.29 JS 基线。
+#       对齐 Clash Party v5.4.30 JS 基线。
 #       适用场景：
 #         - OpenClash 内核选的是 Meta(mihomo 稳定版) 而非 Meta Alpha，不支持 smart + LightGBM
 #         - 或者明确想关闭 LightGBM ML 评估、只靠经典 url-test 延迟选路
 #       需要 LightGBM 智能评估请改用 OpenClash(mihomo-smart).sh（Smart 版）。
 # 架构：
 #   • 22 url-test 区域组（11 全部 + 11 家宽；interval 600s / tolerance 150ms / lazy：与 Smart 版同步延迟参数）
-#   • 32 业务策略组（流媒体按平台拆分：TikTok / Netflix / Disney+ / HBO/Max / Hulu / Prime Video / YouTube / 音乐流媒体 / 其他国外流媒体）
+#   • 33 业务策略组（流媒体按平台拆分：TikTok / Netflix / Disney+ / HBO/Max / Hulu / Prime Video / YouTube / 音乐流媒体 / 其他国外流媒体）
 #   • 382 rule-providers（全部 proxy: "🚫 受限网站"，对齐 Clash Party FIX#17-P0）
 #   • 1050+ 条 rules
 #   • DNS fake-ip + 嗅探（HTTP/TLS/QUIC）+ nameserver-policy 救援
 #   • Ruby 阶段做：节点过滤 / 区域分类 / url-test 组生成 / TLS 指纹注入
-# 基线：Clash Party v5.4.29（唯一主线；v5.3.1/v5.3.2 为桌面端 PROCESS-NAME 改动，路由器端不适用）── 任何规则/组/DNS 改动必须先改 Clash Party JS，
+# 基线：Clash Party v5.4.30（唯一主线；v5.3.1/v5.3.2 为桌面端 PROCESS-NAME 改动，路由器端不适用）── 任何规则/组/DNS 改动必须先改 Clash Party JS，
 #       再同步到此文件。参见仓库根目录 CLAUDE.md / AGENTS.md。
 # 变更历史：见 `OpenClash/CHANGELOG.md`（Normal 部分）。
 # ============================================================================
 
 
 
-VERSION_TAG="v5.4.29-oc-normal.1"
+VERSION_TAG="v5.4.30-oc-normal.1"
 CONFIG_FILE="$1"
 LOG_FILE="/tmp/openclash.log"
 
@@ -455,6 +455,9 @@ proxy-groups:
   type: select
   proxies: *id003
 - name: 🎮 国外游戏
+  type: select
+  proxies: *id002
+- name: 🔍 Google 服务
   type: select
   proxies: *id002
 - name: 🔧 工具与服务
@@ -3286,7 +3289,7 @@ rules:
 - "RULE-SET,youmengchuangxiang,\U0001F6D1 广告拦截"
   # v5.4.22 #1 借鉴 Proxy-override：QUIC 精细化——YouTube/Google/MS/Apple 白名单豁免，其余海外 QUIC REJECT
 - "AND,((DST-PORT,443),(NETWORK,UDP),(GEOSITE,youtube)),\U0001F4F9 YouTube"
-- "AND,((DST-PORT,443),(NETWORK,UDP),(GEOSITE,google)),\U0001F527 工具与服务"
+- "AND,((DST-PORT,443),(NETWORK,UDP),(GEOSITE,google)),\U0001F50D Google 服务"
 - "AND,((DST-PORT,443),(NETWORK,UDP),(RULE-SET,microsoft)),Ⓜ️ 微软服务"
 - "AND,((DST-PORT,443),(NETWORK,UDP),(RULE-SET,apple)),\U0001F34E 苹果服务"
 - "AND,((DST-PORT,443),(NETWORK,UDP),(NOT,((GEOSITE,cn)))),REJECT"
@@ -3460,8 +3463,8 @@ rules:
 - "DOMAIN-SUFFIX,play.googleapis.com,\U0001F4E5 下载更新"
 - "DOMAIN-SUFFIX,android.clients.google.com,\U0001F4E5 下载更新"
 - "RULE-SET,googlefcm,\U0001F4E5 下载更新"
-- "RULE-SET,google,\U0001F527 工具与服务"
-- "RULE-SET,google-ip,\U0001F527 工具与服务,no-resolve"
+- "RULE-SET,google,\U0001F50D Google 服务"
+- "RULE-SET,google-ip,\U0001F50D Google 服务,no-resolve"
 - "RULE-SET,szkane-ai,\U0001F916 AI 服务"
 - "RULE-SET,szkane-ciciai,\U0001F916 AI 服务"
 - "RULE-SET,acc-appleai,\U0001F916 AI 服务"
@@ -3849,7 +3852,7 @@ rules:
 - "DOMAIN-SUFFIX,startpage.com,\U0001F527 工具与服务"
 - "DOMAIN-SUFFIX,you.com,\U0001F527 工具与服务"
 - "DOMAIN-SUFFIX,search.naver.com,\U0001F527 工具与服务"
-- "RULE-SET,scholar,\U0001F527 工具与服务"
+- "RULE-SET,scholar,\U0001F50D Google 服务"
 - "RULE-SET,yandex,\U0001F527 工具与服务"
 - "RULE-SET,github,\U0001F527 工具与服务"
 - "RULE-SET,docker,\U0001F527 工具与服务"
@@ -4318,7 +4321,7 @@ rules:
 - "GEOIP,netflix,\U0001F3A5 Netflix,no-resolve"
 - "GEOIP,facebook,\U0001F4F1 社交媒体,no-resolve"
 - "GEOIP,twitter,\U0001F4F1 社交媒体,no-resolve"
-- "GEOIP,google,\U0001F527 工具与服务,no-resolve"
+- "GEOIP,google,\U0001F50D Google 服务,no-resolve"
 - "MATCH,\U0001F41F 漏网之鱼"
 OVERRIDE_EOF
 
@@ -4333,7 +4336,7 @@ cat > "$RUBY_SCRIPT" << 'RUBY_EOF'
 require 'yaml'
 require 'digest'
 
-VERSION = "v5.4.29-oc-normal.1"
+VERSION = "v5.4.30-oc-normal.1"
 
 STATUS_LOG = ARGV[2]
 File.open(STATUS_LOG, 'w') { |f| f.puts "[#{VERSION}] start" }

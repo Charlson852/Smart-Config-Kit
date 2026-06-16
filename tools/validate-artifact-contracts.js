@@ -9,12 +9,12 @@ const path = require('node:path');
 const vm = require('node:vm');
 
 const REPO_ROOT = path.resolve(__dirname, '..');
-const EXPECTED_GROUPS = 54;
-const EXPECTED_BUSINESS_GROUPS = 32;
+const EXPECTED_GROUPS = 55;
+const EXPECTED_BUSINESS_GROUPS = 33;
 const EXPECTED_REGION_GROUPS = EXPECTED_GROUPS - EXPECTED_BUSINESS_GROUPS;
-const EXPECTED_SINGBOX_GROUPS = 53;
+const EXPECTED_SINGBOX_GROUPS = 54;
 const EXPECTED_SINGBOX_URLTEST_GROUPS = 2;
-const EXPECTED_PASSWALL_RULES = 32;
+const EXPECTED_PASSWALL_RULES = 33;
 const EXPECTED_REGION_TEST_INTERVAL_SECONDS = 300;
 const EXPECTED_SINGBOX_URLTEST_INTERVAL = '5m';
 const MIN_FULL_PROVIDERS = 380;
@@ -76,6 +76,7 @@ const SINGBOX_BUSINESS_ORDER = [
   '🌐 其他国外流媒体',
   '🕹️ 国内游戏',
   '🎮 国外游戏',
+  '🔍 Google 服务',
   '🔧 工具与服务',
   'Ⓜ️ 微软服务',
   '🍎 苹果服务',
@@ -461,6 +462,8 @@ function validateClashYaml(record, baselineVersion, options) {
   record.check('cmfa.restricted-provider-downloads', countLiteral(source, RESTRICTED_SITE) >= MIN_FULL_PROVIDERS, {
     value: countLiteral(source, RESTRICTED_SITE),
   });
+  record.check('cmfa.scholar-target-google', source.includes("'RULE-SET,scholar,🔍 Google 服务'"));
+  record.check('cmfa.scholar-not-tools', !source.includes("'RULE-SET,scholar,🔧 工具与服务'"));
   const fakeIpFilterBlock = extractIndentedListBlock(source, 'fake-ip-filter');
   record.check('cmfa.fake-ip-filter-blacklist-mode', /fake-ip-filter-mode:\s*blacklist/.test(source));
   const hasNoFakeIpRuleSetRefs = !/RULE-SET,/.test(fakeIpFilterBlock);
@@ -554,6 +557,8 @@ function validateOpenClash(record, baselineVersion, options) {
     record.check(`openclash.${spec.id}.rules-singleton`, topRules === 1, { value: topRules });
     record.check(`openclash.${spec.id}.no-direct-provider-downloads`, !/proxy:\s*['"]?DIRECT['"]?/.test(source));
     record.check(`openclash.${spec.id}.restricted-provider-downloads`, restrictedCount >= spec.minProviders, { value: restrictedCount });
+    record.check(`openclash.${spec.id}.scholar-target-google`, source.includes('RULE-SET,scholar,\\U0001F50D Google 服务'));
+    record.check(`openclash.${spec.id}.scholar-not-tools`, !source.includes('RULE-SET,scholar,\\U0001F527 工具与服务'));
     for (const entry of STUN_FAKE_IP_FILTER_ENTRIES) {
       const hasEntry = yaml.includes(entry);
       record.check(`openclash.${spec.id}.fake-ip-filter.${entry}`, hasEntry, failureMessage(hasEntry, `missing ${entry}`));
@@ -640,6 +645,14 @@ function validateConfProducts(record, baselineVersion) {
   const surge = readText('Surge/Surge.conf');
   const loon = readText('Loon/Loon.conf');
   const qx = readText('Quantumult X/QuantumultX.conf');
+  record.check('shadowrocket.scholar-target-google', shadowrocket.includes('Shadowrocket/Scholar/Scholar.list,🔍 Google 服务'));
+  record.check('shadowrocket.scholar-not-tools', !shadowrocket.includes('Shadowrocket/Scholar/Scholar.list,🔧 工具与服务'));
+  record.check('surge.scholar-target-google', surge.includes('Surge/Scholar/Scholar.list,🔍 Google 服务'));
+  record.check('surge.scholar-not-tools', !surge.includes('Surge/Scholar/Scholar.list,🔧 工具与服务'));
+  record.check('loon.scholar-target-google', loon.includes('Loon/Scholar/Scholar.list, policy=🔍 Google 服务'));
+  record.check('loon.scholar-not-tools', !loon.includes('Loon/Scholar/Scholar.list, policy=🔧 工具与服务'));
+  record.check('qx.scholar-target-google', qx.includes('QuantumultX/Scholar/Scholar.list, tag=scholar, force-policy=🔍 Google 服务'));
+  record.check('qx.scholar-not-tools', !qx.includes('QuantumultX/Scholar/Scholar.list, tag=scholar, force-policy=🔧 工具与服务'));
   // v5.4.18: normalize whitespace around commas to avoid false failures on cosmetic formatting changes
   const srNorm = (s) => s.replace(/\s*,\s*/g, ',');
   // v5.4.21 #4: DoH-over-IP — all DoH URLs use IP host to eliminate bootstrap leak
@@ -776,6 +789,10 @@ function validateJsonProducts(record, baselineVersion) {
   });
   record.check('singbox.rule-set-count', ruleSetCount >= 30, { value: ruleSetCount });
   record.check('singbox.route-rule-count', routeRuleCount >= 600, { value: routeRuleCount });
+  const singboxScholarGoogle = routeRules.some((rule) => (
+    Array.isArray(rule.domain) && rule.domain.includes('scholar.google.com') && rule.outbound === '🔍 Google 服务'
+  ));
+  record.check('singbox.scholar-target-google', singboxScholarGoogle, failureMessage(singboxScholarGoogle, 'scholar.google.com must route to Google service'));
   record.check('singbox.dns.bootstrap-doh-over-ip', dnsServerByTag.dns_bootstrap && dnsServerByTag.dns_bootstrap.address === 'https://223.5.5.5/dns-query' && dnsServerByTag.dns_bootstrap.tls && dnsServerByTag.dns_bootstrap.tls.server_name === 'dns.alidns.com', {
     value: dnsServerByTag.dns_bootstrap && dnsServerByTag.dns_bootstrap.address,
   });
@@ -847,6 +864,10 @@ function validateJsonProducts(record, baselineVersion) {
     rule.outboundTag === 'proxy' && Array.isArray(rule.domain) && rule.domain.includes('domain:cloudflarestorage.com')
   )) : -1;
   const v2AdsIndex = Array.isArray(v2rayn) ? v2rayn.findIndex((rule) => rule.id === 'scki-001-ads') : -1;
+  const v2ScholarGoogle = Array.isArray(v2rayn) && v2rayn.some((rule) => (
+    rule.id === 'scki-027-google' && rule.outboundTag === 'proxy' && Array.isArray(rule.domain) && rule.domain.includes('domain:scholar.google.com')
+  ));
+  record.check('v2rayn.scholar-target-google', v2ScholarGoogle, failureMessage(v2ScholarGoogle, 'scki-027-google must include domain:scholar.google.com'));
   record.check('v2rayn.cloudflarestorage-before-ads', v2CloudflareR2Index !== -1 && v2AdsIndex !== -1 && v2CloudflareR2Index < v2AdsIndex, {
     value: { cloudflarestorage: v2CloudflareR2Index, ads: v2AdsIndex },
   });
@@ -876,6 +897,9 @@ function validatePasswall(record, baselineVersion) {
     }
     record.check(`${spec.id}.cloudflarestorage-script-rule`, source.includes("domain_list='domain:cloudflarestorage.com'"));
     record.check(`${spec.id}.cloudflarestorage-reference-rule`, reference.includes('domain:cloudflarestorage.com'));
+    record.check(`${spec.id}.scholar-target-google`, activeRuleText.includes('domain:scholar.google.com'), {
+      message: 'Google shunt rule must include domain:scholar.google.com',
+    });
     record.check(`${spec.id}.no-legacy-kakaotalk-geosite`, !activeRuleText.includes('geosite:kakaotalk'), {
       message: 'geosite:kakaotalk is not a valid v2fly/domain-list-community category; use geosite:kakao plus domain fallbacks',
     });

@@ -4,6 +4,11 @@
 
 ---
 
+## v5.4.30-Surge.1 (2026-06-17)
+
+- ★ FEAT#166-GOOGLE：新增 `🔍 Google 服务` 策略组，位置在 `🔧 工具与服务` 之前。
+- Google Search / Drive / Earth / Google / Scholar 规则集改投新组；工具组只承载非 Google 搜索和开发者服务。
+
 ## v5.4.29-Surge.1 (2026-06-10)
 
 - ★ PERF#165-LATENCY：22 个区域 `url-test` 组 `interval=180 -> interval=300`。

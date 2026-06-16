@@ -1,9 +1,9 @@
 # ================================================================
-# Clash Smart v5.4.29-cmfa.1 - CMFA (Clash Meta for Android) 配置
-# Build: 2026-06-10
-# 架构：proxy-providers 订阅 + 22 url-test 区域组（11 全部 + 11 家宽，家宽 filter 新增 IEPL/IPLC/专线识别）+ 32 业务策略组（含 14 流媒体平台组）+ 382 rule-providers
-# 基线：Clash Party v5.4.29（唯一主线）
-# v5.4.29: PERF#165-LATENCY 区域 url-test 与 provider health-check 统一 300s
+# Clash Smart v5.4.30-cmfa.1 - CMFA (Clash Meta for Android) 配置
+# Build: 2026-06-17
+# 架构：proxy-providers 订阅 + 22 url-test 区域组（11 全部 + 11 家宽，家宽 filter 新增 IEPL/IPLC/专线识别）+ 33 业务策略组（含 14 流媒体平台组）+ 382 rule-providers
+# 基线：Clash Party v5.4.30（唯一主线）
+# v5.4.30: FEAT#166-GOOGLE 新增 🔍 Google 服务，从 🔧 工具与服务 拆分 Google 基础服务
 # 变更历史：见 `Clash Meta For Android/CHANGELOG.md`
 # ================================================================
 # ★ 快速上手：
@@ -587,6 +587,9 @@ proxy-groups:
   type: select
   proxies: *id003
 - name: '🎮 国外游戏'
+  type: select
+  proxies: *id002
+- name: '🔍 Google 服务'
   type: select
   proxies: *id002
 - name: '🔧 工具与服务'
@@ -3607,7 +3610,7 @@ rules:
 - 'RULE-SET,youmengchuangxiang,🛑 广告拦截'
   # v5.4.22 #1 借鉴 Proxy-override：QUIC 精细化——YouTube/Google/MS/Apple 白名单豁免（QUIC 走对应业务组），其余海外 QUIC REJECT 强制回退 HTTP/2
 - 'AND,((DST-PORT,443),(NETWORK,UDP),(GEOSITE,youtube)),📹 YouTube'
-- 'AND,((DST-PORT,443),(NETWORK,UDP),(GEOSITE,google)),🔧 工具与服务'
+- 'AND,((DST-PORT,443),(NETWORK,UDP),(GEOSITE,google)),🔍 Google 服务'
 - 'AND,((DST-PORT,443),(NETWORK,UDP),(RULE-SET,microsoft)),Ⓜ️ 微软服务'
 - 'AND,((DST-PORT,443),(NETWORK,UDP),(RULE-SET,apple)),🍎 苹果服务'
 - 'AND,((DST-PORT,443),(NETWORK,UDP),(NOT,((GEOSITE,cn)))),REJECT'
@@ -3780,8 +3783,8 @@ rules:
 - 'DOMAIN-SUFFIX,play.googleapis.com,📥 下载更新'
 - 'DOMAIN-SUFFIX,android.clients.google.com,📥 下载更新'
 - 'RULE-SET,googlefcm,📥 下载更新'
-- 'RULE-SET,google,🔧 工具与服务'
-- 'RULE-SET,google-ip,🔧 工具与服务,no-resolve'
+- 'RULE-SET,google,🔍 Google 服务'
+- 'RULE-SET,google-ip,🔍 Google 服务,no-resolve'
 - 'RULE-SET,szkane-ai,🤖 AI 服务'
 - 'RULE-SET,szkane-ciciai,🤖 AI 服务'
 - 'RULE-SET,acc-appleai,🤖 AI 服务'
@@ -4170,7 +4173,7 @@ rules:
 - 'DOMAIN-SUFFIX,startpage.com,🔧 工具与服务'
 - 'DOMAIN-SUFFIX,you.com,🔧 工具与服务'
 - 'DOMAIN-SUFFIX,search.naver.com,🔧 工具与服务'
-- 'RULE-SET,scholar,🔧 工具与服务'
+- 'RULE-SET,scholar,🔍 Google 服务'
 - 'RULE-SET,yandex,🔧 工具与服务'
 - 'RULE-SET,github,🔧 工具与服务'
 - 'RULE-SET,docker,🔧 工具与服务'

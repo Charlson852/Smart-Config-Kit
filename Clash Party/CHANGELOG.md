@@ -7,6 +7,12 @@
 
 ---
 
+## v5.4.30 / v5.4.30-normal.1 (2026-06-17)
+
+- ★ FEAT#166-GOOGLE：新增 `🔍 Google 服务` 业务组，位于 `🔧 工具与服务` 之前，语义为从工具组拆出的独立平台服务。
+- Google 基础服务、`RULE-SET,scholar`、`RULE-SET,google`、`RULE-SET,google-ip`、`GEOIP,google` 与 Google QUIC 规则改投 `🔍 Google 服务`。
+- `🔧 工具与服务` 保留 Bing / Yandex / GitHub / Docker / GitLab / Python / developer 等非 Google 搜索和开发者服务。
+
 ## v5.4.29 / v5.4.29-normal.1 (2026-06-10)
 
 - ★ PERF#165-LATENCY：区域自动测速间隔统一到 300s。

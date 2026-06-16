@@ -2,29 +2,29 @@
 . /usr/share/openclash/log.sh
 
 # ============================================================================
-# Clash Smart v5.4.29-oc-smart.1 — OpenClash 覆写脚本（与 Clash Party 主线同等规则量）
-# Build: 2026-06-10
+# Clash Smart v5.4.30-oc-smart.1 — OpenClash 覆写脚本（与 Clash Party 主线同等规则量）
+# Build: 2026-06-17
 # ============================================================================
-# v5.4.29: PERF#165-LATENCY 区域自动测速统一 300s；v5.4.28: CLEAN#165 清理已被上游同策略规则集覆盖的直写域名（-38行）
-# 定位：对齐 Clash Party v5.4.29 JS 主线的 OpenClash 全量版本。v5.4.2: P0-FIX#41 小米白名单。
+# v5.4.30: FEAT#166-GOOGLE 新增 🔍 Google 服务，从 🔧 工具与服务 拆分 Google 基础服务
+# 定位：对齐 Clash Party v5.4.30 JS 主线的 OpenClash 全量版本。v5.4.2: P0-FIX#41 小米白名单。
 #       与同目录 OpenClash(mihomo).sh（Normal）互补：
 #         - Normal 面向稳定版 mihomo / 经典 url-test
 #         - full  面向 4GB+ 路由器 / 需要与 Clash Party 桌面端一致的细粒度分流
 # 架构：
 #   • 22 Smart 区域组（11 全部 + 11 家宽；全部 uselightgbm: true）
-#   • 32 业务策略组（流媒体按平台拆分：TikTok / Netflix / Disney+ / HBO/Max / Hulu / Prime Video / YouTube / 音乐流媒体 / 其他国外流媒体）
+#   • 33 业务策略组（流媒体按平台拆分：TikTok / Netflix / Disney+ / HBO/Max / Hulu / Prime Video / YouTube / 音乐流媒体 / 其他国外流媒体）
 #   • 382 rule-providers（全部 proxy: "🚫 受限网站"，对齐 Clash Party FIX#17-P0）
 #   • 1050+ 条 rules
 #   • DNS fake-ip + 嗅探（HTTP/TLS/QUIC）+ nameserver-policy 救援
 #   • Ruby 阶段做：节点过滤 / 区域分类 / Smart 组生成 / TLS 指纹注入
-# 基线：Clash Party v5.4.29（唯一主线；v5.3.1/v5.3.2 为桌面端 PROCESS-NAME 改动，路由器端不适用）── 任何规则/组/DNS 改动必须先改 Clash Party JS，
+# 基线：Clash Party v5.4.30（唯一主线；v5.3.1/v5.3.2 为桌面端 PROCESS-NAME 改动，路由器端不适用）── 任何规则/组/DNS 改动必须先改 Clash Party JS，
 #       再同步到此文件。参见仓库根目录 CLAUDE.md / AGENTS.md。
 # 变更历史：见 `OpenClash/CHANGELOG.md`（Full 部分）。
 # ============================================================================
 
 
 
-VERSION_TAG="v5.4.29-oc-smart.1"
+VERSION_TAG="v5.4.30-oc-smart.1"
 CONFIG_FILE="$1"
 LOG_FILE="/tmp/openclash.log"
 
@@ -452,6 +452,9 @@ proxy-groups:
   type: select
   proxies: *id003
 - name: 🎮 国外游戏
+  type: select
+  proxies: *id002
+- name: 🔍 Google 服务
   type: select
   proxies: *id002
 - name: 🔧 工具与服务
@@ -3283,7 +3286,7 @@ rules:
 - "RULE-SET,youmengchuangxiang,\U0001F6D1 广告拦截"
   # v5.4.22 #1 借鉴 Proxy-override：QUIC 精细化——YouTube/Google/MS/Apple 白名单豁免，其余海外 QUIC REJECT
 - "AND,((DST-PORT,443),(NETWORK,UDP),(GEOSITE,youtube)),\U0001F4F9 YouTube"
-- "AND,((DST-PORT,443),(NETWORK,UDP),(GEOSITE,google)),\U0001F527 工具与服务"
+- "AND,((DST-PORT,443),(NETWORK,UDP),(GEOSITE,google)),\U0001F50D Google 服务"
 - "AND,((DST-PORT,443),(NETWORK,UDP),(RULE-SET,microsoft)),Ⓜ️ 微软服务"
 - "AND,((DST-PORT,443),(NETWORK,UDP),(RULE-SET,apple)),\U0001F34E 苹果服务"
 - "AND,((DST-PORT,443),(NETWORK,UDP),(NOT,((GEOSITE,cn)))),REJECT"
@@ -3457,8 +3460,8 @@ rules:
 - "DOMAIN-SUFFIX,play.googleapis.com,\U0001F4E5 下载更新"
 - "DOMAIN-SUFFIX,android.clients.google.com,\U0001F4E5 下载更新"
 - "RULE-SET,googlefcm,\U0001F4E5 下载更新"
-- "RULE-SET,google,\U0001F527 工具与服务"
-- "RULE-SET,google-ip,\U0001F527 工具与服务,no-resolve"
+- "RULE-SET,google,\U0001F50D Google 服务"
+- "RULE-SET,google-ip,\U0001F50D Google 服务,no-resolve"
 - "RULE-SET,szkane-ai,\U0001F916 AI 服务"
 - "RULE-SET,szkane-ciciai,\U0001F916 AI 服务"
 - "RULE-SET,acc-appleai,\U0001F916 AI 服务"
@@ -3846,7 +3849,7 @@ rules:
 - "DOMAIN-SUFFIX,startpage.com,\U0001F527 工具与服务"
 - "DOMAIN-SUFFIX,you.com,\U0001F527 工具与服务"
 - "DOMAIN-SUFFIX,search.naver.com,\U0001F527 工具与服务"
-- "RULE-SET,scholar,\U0001F527 工具与服务"
+- "RULE-SET,scholar,\U0001F50D Google 服务"
 - "RULE-SET,yandex,\U0001F527 工具与服务"
 - "RULE-SET,github,\U0001F527 工具与服务"
 - "RULE-SET,docker,\U0001F527 工具与服务"
@@ -4315,7 +4318,7 @@ rules:
 - "GEOIP,netflix,\U0001F3A5 Netflix,no-resolve"
 - "GEOIP,facebook,\U0001F4F1 社交媒体,no-resolve"
 - "GEOIP,twitter,\U0001F4F1 社交媒体,no-resolve"
-- "GEOIP,google,\U0001F527 工具与服务,no-resolve"
+- "GEOIP,google,\U0001F50D Google 服务,no-resolve"
 - "MATCH,\U0001F41F 漏网之鱼"
 OVERRIDE_EOF
 
@@ -4330,7 +4333,7 @@ cat > "$RUBY_SCRIPT" << 'RUBY_EOF'
 require 'yaml'
 require 'digest'
 
-VERSION = "v5.4.29-oc-smart.1"
+VERSION = "v5.4.30-oc-smart.1"
 
 STATUS_LOG = ARGV[2]
 File.open(STATUS_LOG, 'w') { |f| f.puts "[#{VERSION}] start" }

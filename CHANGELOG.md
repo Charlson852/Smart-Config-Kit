@@ -6,6 +6,12 @@
 
 ---
 
+## v5.4.30 (2026-06-17)
+
+- FEAT#166-GOOGLE：新增 `🔍 Google 服务` 业务组，插入在 `🔧 工具与服务` 之前；Google 基础服务、Scholar、Google IP 与 Google QUIC 从工具组拆出。
+- SYNC：业务组从 32 调整为 33，总组数从 54 调整为 55；SingBox selector/urltest 计数为 54；Passwall/Passwall2 展平 shunt rules 调整为 33 条。
+- SCOPE：YouTube、Gemini/NotebookLM、Gmail、Google Voice、Meet、FCM、下载更新等既有专属归属保持不变。
+
 ## v5.4.29 (2026-06-10)
 
 - PERF#165-LATENCY：全端统一区域自动测速间隔为 300s，降低高频测速对机场订阅与低端设备的压力。

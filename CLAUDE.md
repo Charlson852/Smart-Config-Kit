@@ -117,7 +117,7 @@ node "SingBox/SingBox(sing-box)-generator.js"
 
 ### 1.1 触发条件（任一满足即必须全版本联动）
 
-- 新增/删除/重命名**任何代理组**（含 22 个区域组〔11 全部 + 11 家宽〕与 32 个业务组）
+- 新增/删除/重命名**任何代理组**（含 22 个区域组〔11 全部 + 11 家宽〕与 33 个业务组）
 - 新增/删除/修改**任何 rule-provider**（含 URL、behavior、format、interval、proxy 字段）
 - 修改**规则条目的目标组**（例如把 `RULE-SET,tiktok` 从 `📱 社交媒体` 改到其他组）
 - 修改**规则顺序**中影响命中优先级的段（特别是广告拦截、GFW、FINAL 前置关系）
@@ -169,7 +169,7 @@ node "SingBox/SingBox(sing-box)-generator.js"
 
 1. 产物名称 + 版本号（与 Clash Party 主版本对齐，加平台后缀）
 2. Build 日期（YYYY-MM-DD）
-3. 架构一句话（例如「22 区域〔11 全部 + 11 家宽〕 + 32 业务（含 14 流媒体平台组）+ 385+ RULE-SET」）
+3. 架构一句话（例如「22 区域〔11 全部 + 11 家宽〕 + 33 业务（含 14 流媒体平台组）+ 385+ RULE-SET」）
 4. 基线声明（「基线：Clash Party vX.Y.Z（唯一主线）」）
 5. 指向 CHANGELOG：「变更历史：见 `<子目录>/CHANGELOG.md`」
 6. 若有风险或代价，一行标注（OOM / 首次延迟 / iOS 限制）
@@ -394,7 +394,7 @@ done
 
 ## 3. 跨平台一致性矩阵（强制对齐项）
 
-### 3.1 代理组命名（22 区域〔11 全部 + 11 家宽〕 + 32 业务，共 54 组）
+### 3.1 代理组命名（22 区域〔11 全部 + 11 家宽〕 + 33 业务，共 55 组）
 
 区域组名称（emoji 必须逐字节一致，包含 RGI 旗帜序列）：
 
@@ -415,12 +415,12 @@ done
 📹 YouTube · 🎵 音乐流媒体
 🇭🇰 香港流媒体 · 🇹🇼 台湾流媒体 · 🇯🇵 日韩流媒体 · 🇪🇺 欧洲流媒体
 🌐 其他国外流媒体
-🕹️ 国内游戏 · 🎮 国外游戏 · 🔧 工具与服务
+🕹️ 国内游戏 · 🎮 国外游戏 · 🔍 Google 服务 · 🔧 工具与服务
 Ⓜ️ 微软服务 · 🍎 苹果服务 · 📥 下载更新 · 🛰️ BT/PT Tracker
 🏠 国内网站 · 🚫 受限网站 · 🌐 国外网站 · 🐟 漏网之鱼 · 🛑 广告拦截
 ```
 
-**禁止**新增/删除/改名这 54 个组；若业务确有需要，必须先在 PR 描述里说明并先改 Clash Party 基线。
+**禁止**新增/删除/改名这 55 个组；若业务确有需要，必须先在 PR 描述里说明并先改 Clash Party 基线。
 
 ### 3.2 Rule-provider 下载代理（`RP_PROXY`）
 
@@ -530,17 +530,17 @@ done
 ## 5. 自检脚本（提交前必须本地跑一遍）
 
 ```bash
-# 1) 数代理组数（必须为 32 业务组 + 22 区域组；sing-box 另加 1 个顶层节点选择）
+# 1) 数代理组数（必须为 33 业务组 + 22 区域组；sing-box 另加 1 个顶层节点选择）
 #    CMFA：业务组用 "- name:"、区域组用 "- type: url-test" + 缩进 "  name:"，需两种模式
-grep -cE "^- name: |^  name: " "Clash Meta For Android/CMFA(mihomo).yaml"  # 期望 54
-#    OpenClash：32 业务组是静态 "- name:"；22 区域组由 Ruby make_smart_group() 动态生成，静态 grep 只能数到 32
-grep -cE "^- name: " "OpenClash/OpenClash(mihomo).sh"                  # 期望 32（静态业务组）
-grep -cE "^- name: " "OpenClash/OpenClash(mihomo-smart).sh"             # 期望 32（静态业务组）
-grep -cE " = select,|= url-test," "Shadowrocket/Shadowrocket.conf"        # 期望 54
-grep -cE " = select,|= url-test," "Surge/Surge.conf"                      # 期望 54
-grep -cE " = select,|= url-test," "Loon/Loon.conf"                        # 期望 54
-grep -cE "^(url-latency-benchmark|static)=" "Quantumult X/QuantumultX.conf"        # 期望 54
-node -e "const d=JSON.parse(require('fs').readFileSync('SingBox/SingBox(sing-box)-full.json','utf8'));const n=d.outbounds.filter(o=>o.type==='selector'||o.type==='urltest').length;console.log(n);process.exit(n===53?0:1)"  # 期望 53（无「其他」区域组）
+grep -cE "^- name: |^  name: " "Clash Meta For Android/CMFA(mihomo).yaml"  # 期望 55
+#    OpenClash：33 业务组是静态 "- name:"；22 区域组由 Ruby make_smart_group() 动态生成，静态 grep 只能数到 33
+grep -cE "^- name: " "OpenClash/OpenClash(mihomo).sh"                  # 期望 33（静态业务组）
+grep -cE "^- name: " "OpenClash/OpenClash(mihomo-smart).sh"             # 期望 33（静态业务组）
+grep -cE " = select,|= url-test," "Shadowrocket/Shadowrocket.conf"        # 期望 55
+grep -cE " = select,|= url-test," "Surge/Surge.conf"                      # 期望 55
+grep -cE " = select,|= url-test," "Loon/Loon.conf"                        # 期望 55
+grep -cE "^(url-latency-benchmark|static)=" "Quantumult X/QuantumultX.conf"        # 期望 55
+node -e "const d=JSON.parse(require('fs').readFileSync('SingBox/SingBox(sing-box)-full.json','utf8'));const n=d.outbounds.filter(o=>o.type==='selector'||o.type==='urltest').length;console.log(n);process.exit(n===54?0:1)"  # 期望 54（无「其他」区域组）
 
 # 2) RP 代理字段
 grep -c "proxy: DIRECT" "OpenClash/OpenClash(mihomo).sh"                    # 期望 0
