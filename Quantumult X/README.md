@@ -1,11 +1,11 @@
-# Quantumult X 使用教程（对齐 Clash Party v5.4.30）
+# Quantumult X 使用教程（对齐 Clash Party v5.4.31）
 
 > 目录简介：这里维护 Quantumult X iOS 配置和导入教程，按 QX 的 policy/filter 语法对齐 Clash Party 基线。
 >
 > 配置文件：`Quantumult X/QuantumultX.conf`
-> 版本：**v5.4.30-QX.1**（Build 2026-06-17，详见 `Quantumult X/CHANGELOG.md`；跟随 Clash Party v5.4.30 基线）
+> 版本：**v5.4.31-QX.1**（Build 2026-06-20，详见 `Quantumult X/CHANGELOG.md`；跟随 Clash Party v5.4.31 基线）
 > 目标：**Quantumult X iOS（App Store 付费正版）**
-> 架构：22 区域 `url-latency-benchmark` 组（11 全部 + 11 家宽）+ 33 业务 `static` 组 + 286 filter_remote + 513 filter_local 规则
+> 架构：22 区域 `url-latency-benchmark` 组（11 全部 + 11 家宽）+ 33 业务 `static` 组 + 286 filter_remote + 523 filter_local 规则
 
 <sub>💖 [支持本项目](../docs/donate.md) · ⭐ [Star](https://github.com/ivansolis1989/Smart-Config-Kit) · 🐛 [Issue](https://github.com/ivansolis1989/Smart-Config-Kit/issues)</sub>
 
@@ -235,7 +235,7 @@ QX 的真正优势是 **`resource_parser_url`（通用资源解析器）+ `rewri
 
 ## 八、验证
 
-1. QX → **设置** → **配置** → 查看当前配置名称，应显示 `Quantumult X Smart v5.4.30-QX.1`。
+1. QX → **设置** → **配置** → 查看当前配置名称，应显示 `Quantumult X Smart v5.4.31-QX.1`。
 2. **策略（Policy）** 面板应出现 55 组（22 `url-latency-benchmark` + 32 `static`）。
 3. **日志（Log）** 查看 filter_remote 下载状态，无 404 / timeout 即成功。
 4. 访问测试：

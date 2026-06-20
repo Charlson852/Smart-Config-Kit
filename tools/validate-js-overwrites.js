@@ -123,6 +123,10 @@ const STUN_FAKE_IP_FILTER_ENTRIES = [
   'stun4.l.google.com',
   'global.turn.twilio.com',
 ];
+const DOUYIN_CNMEDIA_GUARD_RULES = [
+  'DOMAIN-SUFFIX,douyin.com,📺 国内流媒体',
+  'DOMAIN-SUFFIX,zjcdn.com,📺 国内流媒体',
+];
 
 const CLASSIFICATION_CASES = [
   ['HKG 01 IEPL x1', 'HK'],
@@ -439,6 +443,20 @@ function validateRulesAndProviders(output, record, target) {
     cloudflareR2Index !== -1 && antiAdIndex !== -1 && cloudflareR2Index < antiAdIndex,
     'Cloudflare R2 storage domain is evaluated before ad/phishing reject rules',
   );
+  const tiktokIndex = rules.indexOf('RULE-SET,tiktok,🎵 TikTok');
+  const proxyIndex = rules.indexOf('RULE-SET,proxy,🌐 国外网站');
+  for (const guardRule of DOUYIN_CNMEDIA_GUARD_RULES) {
+    const guardIndex = rules.indexOf(guardRule);
+    record.expect(guardIndex !== -1, `Douyin Web CN media guard exists: ${guardRule}`);
+    record.expect(
+      guardIndex !== -1 && tiktokIndex !== -1 && guardIndex < tiktokIndex,
+      `Douyin Web CN media guard is evaluated before TikTok: ${guardRule}`,
+    );
+    record.expect(
+      guardIndex !== -1 && proxyIndex !== -1 && guardIndex < proxyIndex,
+      `Douyin Web CN media guard is evaluated before foreign-site tail: ${guardRule}`,
+    );
+  }
 
   for (const [providerName, provider] of Object.entries(providers)) {
     if (provider && provider.type === 'http') {

@@ -7,6 +7,11 @@
 
 ---
 
+## v5.4.31-v2n.1 (2026-06-20)
+
+- ★ FIX#167-DOUYIN：Xray 降级参考新增 `scki-000d-douyin-web-cnmedia`，将抖音 Web / `zjcdn.com` 视频 CDN 明确前置直连。
+- 元数据对齐 Clash Party v5.4.31；mihomo / sing-box 路径继续复用对应主产物。
+
 ## v5.4.30-v2n.1 (2026-06-17)
 
 - ★ FEAT#166-GOOGLE：Xray 降级参考新增 `scki-027-google`，承载 `geosite:google` / `geoip:google` / `domain:scholar.google.com`。

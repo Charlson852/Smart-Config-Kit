@@ -5,6 +5,11 @@
 
 ---
 
+## v5.4.31-cmfa.1 (2026-06-20)
+
+- ★ FIX#167-DOUYIN：在广告/TikTok/国外尾部规则前增加抖音 Web 国内流媒体守卫，覆盖 `douyin.com` 与 `zjcdn.com` 等视频 CDN 域名。
+- 版本头与 README 对齐 Clash Party v5.4.31，并补跨端合同断言。
+
 ## v5.4.30-cmfa.1 (2026-06-17)
 
 - ★ FEAT#166-GOOGLE：新增 `🔍 Google 服务` 业务组，插入在 `🔧 工具与服务` 之前。

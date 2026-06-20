@@ -4,6 +4,11 @@
 
 ---
 
+## v5.4.31-Surge.1 (2026-06-20)
+
+- ★ FIX#167-DOUYIN：新增抖音 Web 国内流媒体前置规则，`douyin.com` / `zjcdn.com` 等域名先于 TikTok 和国外规则集命中 `📺 国内流媒体`。
+- 文件头与 README 对齐 Clash Party v5.4.31。
+
 ## v5.4.30-Surge.1 (2026-06-17)
 
 - ★ FEAT#166-GOOGLE：新增 `🔍 Google 服务` 策略组，位置在 `🔧 工具与服务` 之前。

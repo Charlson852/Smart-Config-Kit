@@ -42,7 +42,7 @@ flowchart TB
 
 ---
 
-## 🧩 Smart 分流规则：32 代理组速览（含 14 流媒体平台组）
+## 🧩 Smart 分流规则：33 业务组速览（含 14 流媒体平台组）
 
 为了让结构更清晰，下面用”**分层卡片 + 关系图**”展示 32 个代理组，而不是单一大表。
 
@@ -72,7 +72,7 @@ flowchart LR
 | 💬 即时通讯 | `telegram` `telegram-ip` `discord` `whatsapp` `line` `kakaotalk` `acc-signal` | MetaCubeX / blackmatrix7 / Accademia |
 | 📱 社交媒体 | `twitter` `twitter-ip` `tiktok` `facebook` `instagram` `snapchat` `reddit` | MetaCubeX / blackmatrix7 |
 | 🧑‍💼 会议协作 | `zoom` `slack` `teams` `atlassian` `notion` `remotedesktop` `acc-rustdesk` `domain-suffix:rustdesk.com` | ACL4SSR / blackmatrix7 / Accademia |
-| 📺 国内流媒体 | `bilibili` `iqiyi` `youku` `tencentvideo` `douyin` `neteasemusic` | blackmatrix7 |
+| 📺 国内流媒体 | `bilibili` `iqiyi` `youku` `tencentvideo` `douyin` `zjcdn.com` `neteasemusic` | blackmatrix7 / 本地前置守卫 |
 | 🎵 TikTok | `tiktok` | MetaCubeX |
 | 🎥 Netflix | `netflix` `netflix-ip` `szkane-netflixip` | MetaCubeX / szkane |
 | 🎬 Disney+ | `disney` | blackmatrix7 |

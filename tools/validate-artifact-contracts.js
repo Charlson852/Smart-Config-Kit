@@ -53,6 +53,18 @@ const REQUIRED_FAKE_IP_FILTER_ENTRIES = [
   '+.mijia.tech',
   '+.gotui.com',
 ];
+const DOUYIN_CNMEDIA_DOMAINS = [
+  'douyin.com',
+  'douyincdn.com',
+  'douyinpic.com',
+  'douyinstatic.com',
+  'douyinvod.com',
+  'idouyinvod.com',
+  'iesdouyin.com',
+  'iesdouyin.net',
+  'amemv.com',
+  'zjcdn.com',
+];
 const SINGBOX_BUSINESS_ORDER = [
   '🤖 AI 服务',
   '💰 加密货币',
@@ -511,6 +523,22 @@ function validateClashYaml(record, baselineVersion, options) {
     "'DOMAIN-SUFFIX,cloudflarestorage.com,🌐 国外网站'",
     "'RULE-SET,anti-ad,🛑 广告拦截'",
   );
+  for (const domain of ['douyin.com', 'zjcdn.com']) {
+    checkNeedleBefore(
+      record,
+      `cmfa.douyin-guard.${domain}.before-tiktok`,
+      source,
+      `'DOMAIN-SUFFIX,${domain},📺 国内流媒体'`,
+      "'RULE-SET,tiktok,🎵 TikTok'",
+    );
+    checkNeedleBefore(
+      record,
+      `cmfa.douyin-guard.${domain}.before-foreign-tail`,
+      source,
+      `'DOMAIN-SUFFIX,${domain},📺 国内流媒体'`,
+      "'RULE-SET,proxy,🌐 国外网站'",
+    );
+  }
 }
 
 function validateOpenClash(record, baselineVersion, options) {
@@ -599,6 +627,22 @@ function validateOpenClash(record, baselineVersion, options) {
       'DOMAIN-SUFFIX,cloudflarestorage.com,🌐 国外网站',
       'RULE-SET,anti-ad,\\U0001F6D1 广告拦截',
     );
+    for (const domain of ['douyin.com', 'zjcdn.com']) {
+      checkNeedleBefore(
+        record,
+        `openclash.${spec.id}.douyin-guard.${domain}.before-tiktok`,
+        source,
+        `DOMAIN-SUFFIX,${domain},\\U0001F4FA 国内流媒体`,
+        'RULE-SET,tiktok,\\U0001F3B5 TikTok',
+      );
+      checkNeedleBefore(
+        record,
+        `openclash.${spec.id}.douyin-guard.${domain}.before-foreign-tail`,
+        source,
+        `DOMAIN-SUFFIX,${domain},\\U0001F4FA 国内流媒体`,
+        'RULE-SET,proxy,\\U0001F310 国外网站',
+      );
+    }
 
     if (rubyPath) {
       try {
@@ -653,6 +697,16 @@ function validateConfProducts(record, baselineVersion) {
   record.check('loon.scholar-not-tools', !loon.includes('Loon/Scholar/Scholar.list, policy=🔧 工具与服务'));
   record.check('qx.scholar-target-google', qx.includes('QuantumultX/Scholar/Scholar.list, tag=scholar, force-policy=🔍 Google 服务'));
   record.check('qx.scholar-not-tools', !qx.includes('QuantumultX/Scholar/Scholar.list, tag=scholar, force-policy=🔧 工具与服务'));
+  const confGuardSpecs = [
+    { id: 'shadowrocket', source: shadowrocket, guard: 'DOMAIN-SUFFIX,zjcdn.com,📺 国内流媒体', tiktok: 'Shadowrocket/TikTok/TikTok.list,🎵 TikTok', foreign: 'Shadowrocket/CNN/CNN.list,🌐 国外网站' },
+    { id: 'surge', source: surge, guard: 'DOMAIN-SUFFIX,zjcdn.com,📺 国内流媒体', tiktok: 'Surge/TikTok/TikTok.list,🎵 TikTok', foreign: 'Surge/CNN/CNN.list,🌐 国外网站' },
+  ];
+  for (const spec of confGuardSpecs) {
+    checkNeedleBefore(record, `${spec.id}.douyin-zjcdn-before-tiktok`, spec.source, spec.guard, spec.tiktok);
+    checkNeedleBefore(record, `${spec.id}.douyin-zjcdn-before-foreign-tail`, spec.source, spec.guard, spec.foreign);
+  }
+  record.check('loon.douyin-zjcdn-cnmedia', loon.includes('DOMAIN-SUFFIX,zjcdn.com,📺 国内流媒体'), failureMessage(loon.includes('DOMAIN-SUFFIX,zjcdn.com,📺 国内流媒体'), 'missing Loon zjcdn.com CN media guard'));
+  checkNeedleBefore(record, 'loon.douyin-zjcdn-before-local-foreign-tail', loon, 'DOMAIN-SUFFIX,zjcdn.com,📺 国内流媒体', 'DOMAIN-SUFFIX,archive.org,🌐 国外网站');
   // v5.4.18: normalize whitespace around commas to avoid false failures on cosmetic formatting changes
   const srNorm = (s) => s.replace(/\s*,\s*/g, ',');
   // v5.4.21 #4: DoH-over-IP — all DoH URLs use IP host to eliminate bootstrap leak
@@ -715,6 +769,8 @@ function validateConfProducts(record, baselineVersion) {
     'host-suffix, account.xiaomi.com, direct',
     'host-suffix, cloudflarestorage.com, 🌐 国外网站',
     'host-suffix, paddle.com, 🏦 金融支付',
+    'host-suffix, douyin.com, 📺 国内流媒体',
+    'host-suffix, zjcdn.com, 📺 国内流媒体',
     'host-suffix, rustdesk.com, 🧑‍💼 会议协作',
   ]) {
     record.check(`qx.filter-local.${line}`, qxFilterLocal.includes(line), failureMessage(qxFilterLocal.includes(line), `missing ${line}`));
@@ -845,6 +901,22 @@ function validateJsonProducts(record, baselineVersion) {
   record.check('singbox.cloudflarestorage-before-ads', singboxCloudflareR2Index !== -1 && singboxAntiAdIndex !== -1 && singboxCloudflareR2Index < singboxAntiAdIndex, {
     value: { cloudflarestorage: singboxCloudflareR2Index, antiAd: singboxAntiAdIndex },
   });
+  const singboxDouyinIndex = singboxRules.findIndex((rule) => (
+    Array.isArray(rule.domain_suffix) && rule.domain_suffix.includes('zjcdn.com') && rule.outbound === '📺 国内流媒体'
+  ));
+  const singboxTikTokIndex = singboxRules.findIndex((rule) => (
+    Array.isArray(rule.rule_set) && rule.rule_set.includes('tiktok') && rule.outbound === '🎵 TikTok'
+  ));
+  const singboxForeignTailIndex = singboxRules.findIndex((rule) => (
+    Array.isArray(rule.rule_set) && rule.rule_set.includes('proxy') && rule.outbound === '🌐 国外网站'
+  ));
+  record.check('singbox.douyin-zjcdn-cnmedia', singboxDouyinIndex !== -1, failureMessage(singboxDouyinIndex !== -1, 'zjcdn.com must route to CN media'));
+  record.check('singbox.douyin-zjcdn-before-tiktok', singboxDouyinIndex !== -1 && singboxTikTokIndex !== -1 && singboxDouyinIndex < singboxTikTokIndex, {
+    value: { douyin: singboxDouyinIndex, tiktok: singboxTikTokIndex },
+  });
+  record.check('singbox.douyin-zjcdn-before-foreign-tail', singboxDouyinIndex !== -1 && singboxForeignTailIndex !== -1 && singboxDouyinIndex < singboxForeignTailIndex, {
+    value: { douyin: singboxDouyinIndex, foreignTail: singboxForeignTailIndex },
+  });
 
   const v2rayn = readJson('v2rayN/v2rayN(xray).json');
   const allowedTags = new Set(['proxy', 'direct', 'block']);
@@ -864,9 +936,19 @@ function validateJsonProducts(record, baselineVersion) {
     rule.outboundTag === 'proxy' && Array.isArray(rule.domain) && rule.domain.includes('domain:cloudflarestorage.com')
   )) : -1;
   const v2AdsIndex = Array.isArray(v2rayn) ? v2rayn.findIndex((rule) => rule.id === 'scki-001-ads') : -1;
+  const v2DouyinIndex = Array.isArray(v2rayn) ? v2rayn.findIndex((rule) => (
+    rule.id === 'scki-000d-douyin-web-cnmedia'
+      && rule.outboundTag === 'direct'
+      && Array.isArray(rule.domain)
+      && DOUYIN_CNMEDIA_DOMAINS.every((domain) => rule.domain.includes(`domain:${domain}`))
+  )) : -1;
   const v2ScholarGoogle = Array.isArray(v2rayn) && v2rayn.some((rule) => (
     rule.id === 'scki-027-google' && rule.outboundTag === 'proxy' && Array.isArray(rule.domain) && rule.domain.includes('domain:scholar.google.com')
   ));
+  record.check('v2rayn.douyin-web-direct-guard', v2DouyinIndex !== -1, failureMessage(v2DouyinIndex !== -1, 'scki-000d must direct all Douyin Web guard domains'));
+  record.check('v2rayn.douyin-web-before-ads', v2DouyinIndex !== -1 && v2AdsIndex !== -1 && v2DouyinIndex < v2AdsIndex, {
+    value: { douyin: v2DouyinIndex, ads: v2AdsIndex },
+  });
   record.check('v2rayn.scholar-target-google', v2ScholarGoogle, failureMessage(v2ScholarGoogle, 'scki-027-google must include domain:scholar.google.com'));
   record.check('v2rayn.cloudflarestorage-before-ads', v2CloudflareR2Index !== -1 && v2AdsIndex !== -1 && v2CloudflareR2Index < v2AdsIndex, {
     value: { cloudflarestorage: v2CloudflareR2Index, ads: v2AdsIndex },
@@ -900,6 +982,11 @@ function validatePasswall(record, baselineVersion) {
     record.check(`${spec.id}.scholar-target-google`, activeRuleText.includes('domain:scholar.google.com'), {
       message: 'Google shunt rule must include domain:scholar.google.com',
     });
+    record.check(
+      `${spec.id}.douyin-web-domain-fallbacks`,
+      DOUYIN_CNMEDIA_DOMAINS.every((domain) => activeRuleText.includes(`domain:${domain}`)),
+      { message: 'CN media shunt rule must include explicit Douyin Web / zjcdn.com domain fallbacks' },
+    );
     record.check(`${spec.id}.no-legacy-kakaotalk-geosite`, !activeRuleText.includes('geosite:kakaotalk'), {
       message: 'geosite:kakaotalk is not a valid v2fly/domain-list-community category; use geosite:kakao plus domain fallbacks',
     });

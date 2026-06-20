@@ -2,7 +2,7 @@
     {
       "id": "scki-000-meta",
       "enabled": false,
-      "remarks": "Smart-Config-Kit v5.4.30-v2n.1 | Build 2026-06-17 | Baseline Clash Party v5.4.30 | changelog: v2rayN/CHANGELOG.md | FEAT#166-GOOGLE: Xray 降级路由将 Google 基础服务从工具组拆出",
+      "remarks": "Smart-Config-Kit v5.4.31-v2n.1 | Build 2026-06-20 | Baseline Clash Party v5.4.31 | changelog: v2rayN/CHANGELOG.md | FIX#167-DOUYIN: 抖音 Web / zjcdn.com 视频 CDN 前置直连",
       "outboundTag": "direct",
       "domain": [
         "domain:smart-config-kit.invalid"
@@ -59,6 +59,29 @@
         "domain:upaiyun.com",
         "domain:zhimg.com",
         "domain:zhihu.co"
+      ],
+      "ip": [],
+      "port": "",
+      "protocol": [],
+      "inboundTag": [],
+      "network": "tcp,udp"
+    },
+    {
+      "id": "scki-000d-douyin-web-cnmedia",
+      "enabled": true,
+      "remarks": "FIX#167-DOUYIN：抖音 Web / zjcdn.com 视频 CDN 前置直连，避免被海外兜底抢先命中",
+      "outboundTag": "direct",
+      "domain": [
+        "domain:douyin.com",
+        "domain:douyincdn.com",
+        "domain:douyinpic.com",
+        "domain:douyinstatic.com",
+        "domain:douyinvod.com",
+        "domain:idouyinvod.com",
+        "domain:iesdouyin.com",
+        "domain:iesdouyin.net",
+        "domain:amemv.com",
+        "domain:zjcdn.com"
       ],
       "ip": [],
       "port": "",

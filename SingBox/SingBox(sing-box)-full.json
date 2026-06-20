@@ -5,9 +5,9 @@
   },
   "_meta": {
     "name": "SingBox Smart Full",
-    "version": "v5.4.30-sing.1",
-    "build": "2026-06-17",
-    "baseline": "Clash Party v5.4.30",
+    "version": "v5.4.31-sing.1",
+    "build": "2026-06-20",
+    "baseline": "Clash Party v5.4.31",
     "changelog": "见 SingBox/CHANGELOG.md"
   },
   "experimental": {
@@ -1996,6 +1996,76 @@
         ],
         "action": "route",
         "outbound": "DIRECT"
+      },
+      {
+        "domain_suffix": [
+          "douyin.com"
+        ],
+        "action": "route",
+        "outbound": "📺 国内流媒体"
+      },
+      {
+        "domain_suffix": [
+          "douyincdn.com"
+        ],
+        "action": "route",
+        "outbound": "📺 国内流媒体"
+      },
+      {
+        "domain_suffix": [
+          "douyinpic.com"
+        ],
+        "action": "route",
+        "outbound": "📺 国内流媒体"
+      },
+      {
+        "domain_suffix": [
+          "douyinstatic.com"
+        ],
+        "action": "route",
+        "outbound": "📺 国内流媒体"
+      },
+      {
+        "domain_suffix": [
+          "douyinvod.com"
+        ],
+        "action": "route",
+        "outbound": "📺 国内流媒体"
+      },
+      {
+        "domain_suffix": [
+          "idouyinvod.com"
+        ],
+        "action": "route",
+        "outbound": "📺 国内流媒体"
+      },
+      {
+        "domain_suffix": [
+          "iesdouyin.com"
+        ],
+        "action": "route",
+        "outbound": "📺 国内流媒体"
+      },
+      {
+        "domain_suffix": [
+          "iesdouyin.net"
+        ],
+        "action": "route",
+        "outbound": "📺 国内流媒体"
+      },
+      {
+        "domain_suffix": [
+          "amemv.com"
+        ],
+        "action": "route",
+        "outbound": "📺 国内流媒体"
+      },
+      {
+        "domain_suffix": [
+          "zjcdn.com"
+        ],
+        "action": "route",
+        "outbound": "📺 国内流媒体"
       },
       {
         "rule_set": [

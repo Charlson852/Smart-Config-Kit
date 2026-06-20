@@ -1,14 +1,14 @@
 ﻿// Clash Smart 内核覆写脚本 - SUB-STORE 多机场精细分流版
-// 版本：v5.4.30 (2026-06-17)
+// 版本：v5.4.31 (2026-06-20)
 // 架构：SUB-STORE 多机场融合 + 22 Smart 区域组（11 全部 + 11 家宽）+ 33 业务策略组（含 14 流媒体平台组）+ 382 rule-providers 100%+ 服务覆盖
-// v5.4.30: FEAT#166-GOOGLE 新增 🔍 Google 服务，从 🔧 工具与服务 拆分 Google 基础服务 · v5.4.29: PERF#165-LATENCY 区域自动测速统一 300s，降低订阅节点健康检查频率
+// v5.4.31: FIX#167-DOUYIN 抖音 Web / zjcdn.com 前置到 📺 国内流媒体，避免被 TikTok 或国外兜底抢先命中 · v5.4.30: FEAT#166-GOOGLE 新增 🔍 Google 服务
 // 变更历史：见 `Clash Party/CHANGELOG.md`
 
 // ================================================================
 //  版本常量
 // ================================================================
 
-const VERSION = 'v5.4.30'
+const VERSION = 'v5.4.31'
 
 // v5.4.9 FEAT#LOCAL-TOOLS:
 // Desktop-capable local tools that should not be routed through proxy nodes.
@@ -288,6 +288,20 @@ const AD_FALSE_POSITIVE_ALLOWLIST = [
   `DOMAIN-SUFFIX,getui.com,DIRECT`,
   `DOMAIN-SUFFIX,getui.net,DIRECT`,
   `DOMAIN-SUFFIX,gepush.com,DIRECT`,
+]
+const DOUYIN_CNMEDIA_GUARD_RULES = [
+  // v5.4.31 FIX#167-DOUYIN: Douyin Web 视频域名会被 TikTok / geolocation-!cn
+  // 等前置宽规则抢先命中；先锁到国内流媒体，确保 www.douyin.com 与 v5-dy-*.zjcdn.com 走国内链路。
+  `DOMAIN-SUFFIX,douyin.com,${BIZ.CNMEDIA}`,
+  `DOMAIN-SUFFIX,douyincdn.com,${BIZ.CNMEDIA}`,
+  `DOMAIN-SUFFIX,douyinpic.com,${BIZ.CNMEDIA}`,
+  `DOMAIN-SUFFIX,douyinstatic.com,${BIZ.CNMEDIA}`,
+  `DOMAIN-SUFFIX,douyinvod.com,${BIZ.CNMEDIA}`,
+  `DOMAIN-SUFFIX,idouyinvod.com,${BIZ.CNMEDIA}`,
+  `DOMAIN-SUFFIX,iesdouyin.com,${BIZ.CNMEDIA}`,
+  `DOMAIN-SUFFIX,iesdouyin.net,${BIZ.CNMEDIA}`,
+  `DOMAIN-SUFFIX,amemv.com,${BIZ.CNMEDIA}`,
+  `DOMAIN-SUFFIX,zjcdn.com,${BIZ.CNMEDIA}`,
 ]
 
 const REGION_ORDER = ['GLOBAL', 'HK', 'TW', 'SG', 'JPKR', 'APAC', 'US', 'EU', 'AMERICAS', 'AFRICA', 'OTHER']
@@ -1279,6 +1293,7 @@ function injectRules(config) {
     // Anti-ad false-positive allowlist: keep before all ad/phishing/TIF providers.
     // See docs/GEOSITE_COVERAGE_LEDGER.md for ownership and update rules.
     ...AD_FALSE_POSITIVE_ALLOWLIST,
+    ...DOUYIN_CNMEDIA_GUARD_RULES,
     `RULE-SET,anti-ad,${BIZ.AD}`,
     // v5.1: P0 安全 - 钓鱼域名拦截（13万条，SukkaW）
     `RULE-SET,sukka-phishing,${BIZ.AD}`,

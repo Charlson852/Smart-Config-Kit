@@ -7,6 +7,12 @@
 
 ---
 
+## v5.4.31 / v5.4.31-normal.1 (2026-06-20)
+
+- ★ FIX#167-DOUYIN：新增抖音 Web 国内流媒体前置守卫，`douyin.com` / `zjcdn.com` 等视频 CDN 域名在 TikTok、广告和国外兜底规则前命中 `📺 国内流媒体`。
+- 覆盖样例：`www.douyin.com`、`v5-dy-o.zjcdn.com`、`v5-dy-ov-experiment.zjcdn.com`。
+- FlClash 同步同构修复；新增 JS 覆写回归断言防止后续顺序回退。
+
 ## v5.4.30 / v5.4.30-normal.1 (2026-06-17)
 
 - ★ FEAT#166-GOOGLE：新增 `🔍 Google 服务` 业务组，位于 `🔧 工具与服务` 之前，语义为从工具组拆出的独立平台服务。

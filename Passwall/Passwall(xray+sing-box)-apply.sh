@@ -1,7 +1,7 @@
 #!/bin/sh
 # ═══════════════════════════════════════════════════════════════════════════
 # Smart-Config-Kit for Passwall — UCI batch helper
-# Version: v5.4.30-pw.1 | Build 2026-06-17 | Baseline: Clash Party v5.4.30
+# Version: v5.4.31-pw.1 | Build 2026-06-20 | Baseline: Clash Party v5.4.31
 #
 # 用途：一次性在 Passwall（全功能版）中创建 33 条 shunt rule（含域名列表 + IP 列表），
 #       每条目标节点留空（NEED_CONFIG），用户之后到 LuCI 里手工选节点。
@@ -505,6 +505,16 @@ uci add_list "${CONFIG_NAME}".${SEC}.domain_list='geosite:youku'
 uci add_list "${CONFIG_NAME}".${SEC}.domain_list='geosite:tencentvideo'
 uci add_list "${CONFIG_NAME}".${SEC}.domain_list='geosite:mgtv'
 uci add_list "${CONFIG_NAME}".${SEC}.domain_list='geosite:douyin'
+uci add_list "${CONFIG_NAME}".${SEC}.domain_list='domain:douyin.com'
+uci add_list "${CONFIG_NAME}".${SEC}.domain_list='domain:douyincdn.com'
+uci add_list "${CONFIG_NAME}".${SEC}.domain_list='domain:douyinpic.com'
+uci add_list "${CONFIG_NAME}".${SEC}.domain_list='domain:douyinstatic.com'
+uci add_list "${CONFIG_NAME}".${SEC}.domain_list='domain:douyinvod.com'
+uci add_list "${CONFIG_NAME}".${SEC}.domain_list='domain:idouyinvod.com'
+uci add_list "${CONFIG_NAME}".${SEC}.domain_list='domain:iesdouyin.com'
+uci add_list "${CONFIG_NAME}".${SEC}.domain_list='domain:iesdouyin.net'
+uci add_list "${CONFIG_NAME}".${SEC}.domain_list='domain:amemv.com'
+uci add_list "${CONFIG_NAME}".${SEC}.domain_list='domain:zjcdn.com'
 uci add_list "${CONFIG_NAME}".${SEC}.domain_list='geosite:netease-music'
 uci add_list "${CONFIG_NAME}".${SEC}.domain_list='geosite:qqmusic'
 uci set "${CONFIG_NAME}".${SEC}.network='tcp,udp'

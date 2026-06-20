@@ -7,6 +7,11 @@
 
 ---
 
+## v5.4.31-oc-normal.1 / v5.4.31-oc-smart.1 (2026-06-20)
+
+- ★ FIX#167-DOUYIN：Normal 与 Smart 同步在广告/TikTok/国外尾部规则前增加抖音 Web 国内流媒体守卫，覆盖 `douyin.com` 与 `zjcdn.com` 等视频 CDN 域名。
+- `OpenClash(mihomo).conf` 参考快照元数据对齐 v5.4.31。
+
 ## v5.4.30-oc-normal.1 / v5.4.30-oc-smart.1 (2026-06-17)
 
 - ★ FEAT#166-GOOGLE：Normal 与 Smart 同步新增 `🔍 Google 服务` 业务组，位置在 `🔧 工具与服务` 之前。

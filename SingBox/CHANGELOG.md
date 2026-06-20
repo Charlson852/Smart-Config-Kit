@@ -5,6 +5,11 @@
 
 ---
 
+## v5.4.31-sing.1 (2026-06-20)
+
+- ★ FIX#167-DOUYIN：`SingBox(sing-box)-generator.js` 跟随 Clash Party v5.4.31 生成抖音 Web 国内流媒体前置 route，`zjcdn.com` 等域名在 TikTok / 国外尾部前命中 `📺 国内流媒体`。
+- `SingBox(sing-box)-full.json` 已由 generator 重新生成。
+
 ## v5.4.30-sing.1 (2026-06-17)
 
 - ★ FEAT#166-GOOGLE：`SingBox(sing-box)-generator.js` 新增 `🔍 Google 服务` selector，位置在 `🔧 工具与服务` 之前。

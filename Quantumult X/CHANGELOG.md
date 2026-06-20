@@ -6,6 +6,11 @@
 
 ---
 
+## v5.4.31-QX.1 (2026-06-20)
+
+- ★ FIX#167-DOUYIN：在 `[filter_local]` 首段增加抖音 Web 国内流媒体守卫，`douyin.com` / `zjcdn.com` 等域名命中 `📺 国内流媒体`。
+- `filter_local` 计数随新增 10 条前置规则更新，文件头与 README 对齐 Clash Party v5.4.31。
+
 ## v5.4.30-QX.1 (2026-06-17)
 
 - ★ FEAT#166-GOOGLE：新增 `static=🔍 Google 服务`，插入在 `🔧 工具与服务` 之前。

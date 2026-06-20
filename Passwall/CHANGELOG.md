@@ -7,6 +7,11 @@
 
 ---
 
+## v5.4.31-pw.1 (2026-06-20)
+
+- ★ FIX#167-DOUYIN：`08-cn-media.list`、apply 脚本与参考 `.conf` 补齐抖音 Web / `zjcdn.com` 视频 CDN 明确 `domain:` 兜底。
+- Passwall 降级参考继续使用展平 shunt rules，不承载客户端规则顺序；本轮只补国内流媒体域名覆盖。
+
 ## v5.4.30-pw.1 (2026-06-17)
 
 - ★ FEAT#166-GOOGLE：新增 `30-google.list` 与第 20 条 `🔍 Google 服务` shunt rule，承载 `geosite:google` / `geoip:google` / `domain:scholar.google.com`。

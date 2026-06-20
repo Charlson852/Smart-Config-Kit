@@ -5,6 +5,11 @@
 
 ---
 
+## v5.4.31-flclash.1 (2026-06-20)
+
+- ★ FIX#167-DOUYIN：同步 Clash Party Normal v5.4.31，新增抖音 Web 国内流媒体前置守卫，`douyin.com` / `zjcdn.com` 等域名先于 TikTok 和国外兜底规则命中 `📺 国内流媒体`。
+- 新增 JS 覆写回归断言，防止前置顺序回退。
+
 ## v5.4.30-flclash.1 (2026-06-17)
 
 - ★ FEAT#166-GOOGLE：同步 Clash Party v5.4.30，新增 `🔍 Google 服务` 业务组并置于 `🔧 工具与服务` 之前。

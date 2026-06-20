@@ -6,6 +6,12 @@
 
 ---
 
+## v5.4.31 (2026-06-20)
+
+- FIX#167-DOUYIN：抖音 Web / `zjcdn.com` 视频 CDN 前置到 `📺 国内流媒体`，避免被 TikTok、广告或国外兜底规则抢先命中。
+- SYNC：Clash Party Smart/Normal、CMFA、OpenClash Normal/Smart、Shadowrocket、Surge、Loon、Quantumult X、SingBox、v2rayN、Passwall、Passwall2、FlClash 同步；SingBox Full 由 generator 重新生成。
+- VERIFY：新增 Douyin Web guard 回归断言，覆盖 `www.douyin.com`、`v5-dy-o.zjcdn.com`、`v5-dy-ov-experiment.zjcdn.com` 这类首匹配路径。
+
 ## v5.4.30 (2026-06-17)
 
 - FEAT#166-GOOGLE：新增 `🔍 Google 服务` 业务组，插入在 `🔧 工具与服务` 之前；Google 基础服务、Scholar、Google IP 与 Google QUIC 从工具组拆出。
