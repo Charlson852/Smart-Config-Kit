@@ -7,6 +7,12 @@
 
 ---
 
+## v5.4.32 / v5.4.32-normal.1 (2026-06-25)
+
+- ★ FIX#168-CN-GAME：将 `🕹️ 国内游戏` 块提升到 `🎮 国外游戏` 块之前，确保 `yuanshen.com` / `mihoyo.com` / 网易 / WeGame / SteamCN 等国内游戏域名先于 `RULE-SET,hoyoverse`、`RULE-SET,game`、`GEOSITE,category-games` 命中直连策略。
+- 覆盖样例：`www.yuanshen.com`、`api-takumi.mihoyo.com`、`game.163.com`。
+- FlClash 同步同构修复；新增 JS 覆写回归断言防止后续顺序回退。
+
 ## v5.4.31 / v5.4.31-normal.1 (2026-06-20)
 
 - ★ FIX#167-DOUYIN：新增抖音 Web 国内流媒体前置守卫，`douyin.com` / `zjcdn.com` 等视频 CDN 域名在 TikTok、广告和国外兜底规则前命中 `📺 国内流媒体`。

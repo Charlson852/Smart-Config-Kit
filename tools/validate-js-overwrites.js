@@ -127,6 +127,15 @@ const DOUYIN_CNMEDIA_GUARD_RULES = [
   'DOMAIN-SUFFIX,douyin.com,📺 国内流媒体',
   'DOMAIN-SUFFIX,zjcdn.com,📺 国内流媒体',
 ];
+const CN_GAME_GUARD_RULES = [
+  'DOMAIN-SUFFIX,mihoyo.com,🕹️ 国内游戏',
+  'DOMAIN-SUFFIX,yuanshen.com,🕹️ 国内游戏',
+  'DOMAIN,game.163.com,🕹️ 国内游戏',
+];
+const INTL_GAME_WIDE_RULES = [
+  'GEOSITE,category-games,🎮 国外游戏',
+  'RULE-SET,hoyoverse,🎮 国外游戏',
+];
 
 const CLASSIFICATION_CASES = [
   ['HKG 01 IEPL x1', 'HK'],
@@ -456,6 +465,18 @@ function validateRulesAndProviders(output, record, target) {
       guardIndex !== -1 && proxyIndex !== -1 && guardIndex < proxyIndex,
       `Douyin Web CN media guard is evaluated before foreign-site tail: ${guardRule}`,
     );
+  }
+  for (const guardRule of CN_GAME_GUARD_RULES) {
+    const guardIndex = rules.indexOf(guardRule);
+    record.expect(guardIndex !== -1, `CN game guard exists: ${guardRule}`);
+    for (const wideRule of INTL_GAME_WIDE_RULES) {
+      const wideIndex = rules.indexOf(wideRule);
+      record.expect(wideIndex !== -1, `wide intl game rule exists: ${wideRule}`);
+      record.expect(
+        guardIndex !== -1 && wideIndex !== -1 && guardIndex < wideIndex,
+        `CN game guard is evaluated before wide intl game rule: ${guardRule} before ${wideRule}`,
+      );
+    }
   }
 
   for (const [providerName, provider] of Object.entries(providers)) {

@@ -65,6 +65,17 @@ const DOUYIN_CNMEDIA_DOMAINS = [
   'amemv.com',
   'zjcdn.com',
 ];
+const CN_GAME_PRIORITY_DOMAINS = ['mihoyo.com', 'yuanshen.com'];
+const PASSWALL_CN_GAME_REQUIRED = [
+  'domain:mihoyo.com',
+  'domain:miyoushe.com',
+  'domain:yuanshen.com',
+  'domain:game.163.com',
+  'domain:netease.com',
+  'domain:wegame.com',
+  'domain:wanmei.com',
+  'domain:battlenet.com.cn',
+];
 const SINGBOX_BUSINESS_ORDER = [
   '🤖 AI 服务',
   '💰 加密货币',
@@ -539,6 +550,11 @@ function validateClashYaml(record, baselineVersion, options) {
       "'RULE-SET,proxy,🌐 国外网站'",
     );
   }
+  for (const domain of CN_GAME_PRIORITY_DOMAINS) {
+    const guard = `'DOMAIN-SUFFIX,${domain},🕹️ 国内游戏'`;
+    checkNeedleBefore(record, `cmfa.cn-game.${domain}.before-hoyoverse`, rulesBlock, guard, "'RULE-SET,hoyoverse,🎮 国外游戏'");
+    checkNeedleBefore(record, `cmfa.cn-game.${domain}.before-category-games`, rulesBlock, guard, "'GEOSITE,category-games,🎮 国外游戏'");
+  }
 }
 
 function validateOpenClash(record, baselineVersion, options) {
@@ -562,6 +578,7 @@ function validateOpenClash(record, baselineVersion, options) {
   ]) {
     const source = readText(spec.file);
     const yaml = extractOpenClashOverride(spec.file);
+    const rulesOnly = extractYamlBlock(yaml, 'rules');
     const staticBizGroups = countMatches(source, /^- name: /gm);
     const topProviders = countMatches(yaml, /^rule-providers:$/gm);
     const topRules = countMatches(yaml, /^rules:$/gm);
@@ -643,6 +660,22 @@ function validateOpenClash(record, baselineVersion, options) {
         'RULE-SET,proxy,\\U0001F310 国外网站',
       );
     }
+    for (const domain of CN_GAME_PRIORITY_DOMAINS) {
+      checkNeedleBefore(
+        record,
+        `openclash.${spec.id}.cn-game.${domain}.before-hoyoverse`,
+        rulesOnly,
+        `DOMAIN-SUFFIX,${domain}`,
+        'RULE-SET,hoyoverse',
+      );
+      checkNeedleBefore(
+        record,
+        `openclash.${spec.id}.cn-game.${domain}.before-category-games`,
+        rulesOnly,
+        `DOMAIN-SUFFIX,${domain}`,
+        'GEOSITE,category-games',
+      );
+    }
 
     if (rubyPath) {
       try {
@@ -689,6 +722,8 @@ function validateConfProducts(record, baselineVersion) {
   const surge = readText('Surge/Surge.conf');
   const loon = readText('Loon/Loon.conf');
   const qx = readText('Quantumult X/QuantumultX.conf');
+  const loonRemoteRule = extractConfSection(loon, 'Remote Rule');
+  const loonRuleSection = extractConfSection(loon, 'Rule');
   record.check('shadowrocket.scholar-target-google', shadowrocket.includes('Shadowrocket/Scholar/Scholar.list,🔍 Google 服务'));
   record.check('shadowrocket.scholar-not-tools', !shadowrocket.includes('Shadowrocket/Scholar/Scholar.list,🔧 工具与服务'));
   record.check('surge.scholar-target-google', surge.includes('Surge/Scholar/Scholar.list,🔍 Google 服务'));
@@ -705,6 +740,40 @@ function validateConfProducts(record, baselineVersion) {
     checkNeedleBefore(record, `${spec.id}.douyin-zjcdn-before-tiktok`, spec.source, spec.guard, spec.tiktok);
     checkNeedleBefore(record, `${spec.id}.douyin-zjcdn-before-foreign-tail`, spec.source, spec.guard, spec.foreign);
   }
+  for (const spec of [
+    {
+      id: 'shadowrocket',
+      source: shadowrocket,
+      game: 'Shadowrocket/Game/Game.list,🎮 国外游戏',
+      hoyoverse: 'Shadowrocket/HoYoverse/HoYoverse.list,🎮 国外游戏',
+    },
+    {
+      id: 'surge',
+      source: surge,
+      game: 'Surge/Game/Game.list,🎮 国外游戏',
+      hoyoverse: 'Surge/HoYoverse/HoYoverse.list,🎮 国外游戏',
+    },
+  ]) {
+    for (const domain of CN_GAME_PRIORITY_DOMAINS) {
+      const guard = `DOMAIN-SUFFIX,${domain},🕹️ 国内游戏`;
+      checkNeedleBefore(record, `${spec.id}.cn-game.${domain}.before-game-list`, spec.source, guard, spec.game);
+      checkNeedleBefore(record, `${spec.id}.cn-game.${domain}.before-hoyoverse`, spec.source, guard, spec.hoyoverse);
+    }
+  }
+  checkNeedleBefore(
+    record,
+    'loon.cn-game.remote-steamcn-before-hoyoverse',
+    loonRemoteRule,
+    'Loon/SteamCN/SteamCN.list, policy=🕹️ 国内游戏',
+    'Loon/HoYoverse/HoYoverse.list, policy=🎮 国外游戏',
+  );
+  checkNeedleBefore(
+    record,
+    'loon.cn-game.local-yuanshen-before-foreign-stage',
+    loonRuleSection,
+    'DOMAIN-SUFFIX,yuanshen.com,🕹️ 国内游戏',
+    '# ─── 阶段 19: 国外游戏',
+  );
   record.check('loon.douyin-zjcdn-cnmedia', loon.includes('DOMAIN-SUFFIX,zjcdn.com,📺 国内流媒体'), failureMessage(loon.includes('DOMAIN-SUFFIX,zjcdn.com,📺 国内流媒体'), 'missing Loon zjcdn.com CN media guard'));
   checkNeedleBefore(record, 'loon.douyin-zjcdn-before-local-foreign-tail', loon, 'DOMAIN-SUFFIX,zjcdn.com,📺 国内流媒体', 'DOMAIN-SUFFIX,archive.org,🌐 国外网站');
   // v5.4.18: normalize whitespace around commas to avoid false failures on cosmetic formatting changes
@@ -759,6 +828,20 @@ function validateConfProducts(record, baselineVersion) {
   );
   const qxFilterRemote = extractConfSection(qx, 'filter_remote');
   const qxFilterLocal = extractConfSection(qx, 'filter_local');
+  checkNeedleBefore(
+    record,
+    'qx.cn-game.remote-steamcn-before-hoyoverse',
+    qxFilterRemote,
+    'QuantumultX/SteamCN/SteamCN.list, tag=steamcn, force-policy=🕹️ 国内游戏',
+    'QuantumultX/HoYoverse/HoYoverse.list, tag=hoyoverse, force-policy=🎮 国外游戏',
+  );
+  checkNeedleBefore(
+    record,
+    'qx.cn-game.local-yuanshen-before-foreign-stage',
+    qxFilterLocal,
+    'host-suffix, yuanshen.com, 🕹️ 国内游戏',
+    '# ─── 阶段 19: 国外游戏',
+  );
   const qxLocalRuleInRemote = qxFilterRemote.split(/\r?\n/).some((line) => /^\s*(host|host-suffix|host-keyword|ip-cidr|ip6-cidr|dst-port),/i.test(line));
   record.check(
     'qx.filter-remote-no-local-rules',
@@ -917,6 +1000,18 @@ function validateJsonProducts(record, baselineVersion) {
   record.check('singbox.douyin-zjcdn-before-foreign-tail', singboxDouyinIndex !== -1 && singboxForeignTailIndex !== -1 && singboxDouyinIndex < singboxForeignTailIndex, {
     value: { douyin: singboxDouyinIndex, foreignTail: singboxForeignTailIndex },
   });
+  const singboxCategoryGamesIndex = singboxRules.findIndex((rule) => (
+    Array.isArray(rule.rule_set) && rule.rule_set.includes('geosite-category-games') && rule.outbound === '🎮 国外游戏'
+  ));
+  for (const domain of CN_GAME_PRIORITY_DOMAINS) {
+    const cnGameIndex = singboxRules.findIndex((rule) => (
+      Array.isArray(rule.domain_suffix) && rule.domain_suffix.includes(domain) && rule.outbound === '🕹️ 国内游戏'
+    ));
+    record.check(`singbox.cn-game.${domain}.direct-rule`, cnGameIndex !== -1, failureMessage(cnGameIndex !== -1, `${domain} must route to CN game`));
+    record.check(`singbox.cn-game.${domain}.before-category-games`, cnGameIndex !== -1 && singboxCategoryGamesIndex !== -1 && cnGameIndex < singboxCategoryGamesIndex, {
+      value: { cnGame: cnGameIndex, categoryGames: singboxCategoryGamesIndex },
+    });
+  }
 
   const v2rayn = readJson('v2rayN/v2rayN(xray).json');
   const allowedTags = new Set(['proxy', 'direct', 'block']);
@@ -945,10 +1040,23 @@ function validateJsonProducts(record, baselineVersion) {
   const v2ScholarGoogle = Array.isArray(v2rayn) && v2rayn.some((rule) => (
     rule.id === 'scki-027-google' && rule.outboundTag === 'proxy' && Array.isArray(rule.domain) && rule.domain.includes('domain:scholar.google.com')
   ));
+  const v2CnGameIndex = Array.isArray(v2rayn) ? v2rayn.findIndex((rule) => rule.id === 'scki-025-cn-game') : -1;
+  const v2IntlGameIndex = Array.isArray(v2rayn) ? v2rayn.findIndex((rule) => rule.id === 'scki-026-intl-game') : -1;
+  const v2CnGame = v2CnGameIndex === -1 ? null : v2rayn[v2CnGameIndex];
   record.check('v2rayn.douyin-web-direct-guard', v2DouyinIndex !== -1, failureMessage(v2DouyinIndex !== -1, 'scki-000d must direct all Douyin Web guard domains'));
   record.check('v2rayn.douyin-web-before-ads', v2DouyinIndex !== -1 && v2AdsIndex !== -1 && v2DouyinIndex < v2AdsIndex, {
     value: { douyin: v2DouyinIndex, ads: v2AdsIndex },
   });
+  record.check('v2rayn.cn-game-before-intl-game', v2CnGameIndex !== -1 && v2IntlGameIndex !== -1 && v2CnGameIndex < v2IntlGameIndex, {
+    value: { cnGame: v2CnGameIndex, intlGame: v2IntlGameIndex },
+  });
+  for (const domain of PASSWALL_CN_GAME_REQUIRED) {
+    record.check(
+      `v2rayn.cn-game.${domain}`,
+      v2CnGame && Array.isArray(v2CnGame.domain) && v2CnGame.domain.includes(domain),
+      failureMessage(v2CnGame && Array.isArray(v2CnGame.domain) && v2CnGame.domain.includes(domain), `scki-025-cn-game missing ${domain}`),
+    );
+  }
   record.check('v2rayn.scholar-target-google', v2ScholarGoogle, failureMessage(v2ScholarGoogle, 'scki-027-google must include domain:scholar.google.com'));
   record.check('v2rayn.cloudflarestorage-before-ads', v2CloudflareR2Index !== -1 && v2AdsIndex !== -1 && v2CloudflareR2Index < v2AdsIndex, {
     value: { cloudflarestorage: v2CloudflareR2Index, ads: v2AdsIndex },
@@ -987,6 +1095,30 @@ function validatePasswall(record, baselineVersion) {
       DOUYIN_CNMEDIA_DOMAINS.every((domain) => activeRuleText.includes(`domain:${domain}`)),
       { message: 'CN media shunt rule must include explicit Douyin Web / zjcdn.com domain fallbacks' },
     );
+    checkNeedleBefore(
+      record,
+      `${spec.id}.cn-game-script-before-intl-game`,
+      source,
+      "remarks='🕹️ 国内游戏'",
+      "remarks='🎮 国外游戏'",
+    );
+    const cnGameList = meaningfulRuleLines(path.join(spec.dir, '21-cn-game.list'));
+    const intlGameList = meaningfulRuleLines(path.join(spec.dir, '22-intl-game.list'));
+    for (const domain of PASSWALL_CN_GAME_REQUIRED) {
+      record.check(
+        `${spec.id}.cn-game-list.${domain}`,
+        cnGameList.includes(domain),
+        failureMessage(cnGameList.includes(domain), `21-cn-game.list missing ${domain}`),
+      );
+      record.check(
+        `${spec.id}.cn-game-script.${domain}`,
+        source.includes(`domain_list='${domain}'`),
+        failureMessage(source.includes(`domain_list='${domain}'`), `apply script missing ${domain}`),
+      );
+    }
+    record.check(`${spec.id}.intl-game-no-mihoyo`, !intlGameList.includes('domain:mihoyo.com'), {
+      message: 'domain:mihoyo.com must stay in CN game, not intl game',
+    });
     record.check(`${spec.id}.no-legacy-kakaotalk-geosite`, !activeRuleText.includes('geosite:kakaotalk'), {
       message: 'geosite:kakaotalk is not a valid v2fly/domain-list-community category; use geosite:kakao plus domain fallbacks',
     });

@@ -5,9 +5,9 @@
   },
   "_meta": {
     "name": "SingBox Smart Full",
-    "version": "v5.4.31-sing.1",
-    "build": "2026-06-20",
-    "baseline": "Clash Party v5.4.31",
+    "version": "v5.4.32-sing.1",
+    "build": "2026-06-25",
+    "baseline": "Clash Party v5.4.32",
     "changelog": "见 SingBox/CHANGELOG.md"
   },
   "experimental": {
@@ -5495,6 +5495,167 @@
         "outbound": "🚫 受限网站"
       },
       {
+        "domain_suffix": [
+          "mihoyo.com"
+        ],
+        "action": "route",
+        "outbound": "🕹️ 国内游戏"
+      },
+      {
+        "domain_suffix": [
+          "miyoushe.com"
+        ],
+        "action": "route",
+        "outbound": "🕹️ 国内游戏"
+      },
+      {
+        "domain_suffix": [
+          "yuanshen.com"
+        ],
+        "action": "route",
+        "outbound": "🕹️ 国内游戏"
+      },
+      {
+        "domain_suffix": [
+          "bhsr.com"
+        ],
+        "action": "route",
+        "outbound": "🕹️ 国内游戏"
+      },
+      {
+        "domain_suffix": [
+          "zenlesszonezero.com"
+        ],
+        "action": "route",
+        "outbound": "🕹️ 国内游戏"
+      },
+      {
+        "domain": [
+          "game.163.com"
+        ],
+        "action": "route",
+        "outbound": "🕹️ 国内游戏"
+      },
+      {
+        "domain_suffix": [
+          "gm.163.com"
+        ],
+        "action": "route",
+        "outbound": "🕹️ 国内游戏"
+      },
+      {
+        "domain_suffix": [
+          "ds.163.com"
+        ],
+        "action": "route",
+        "outbound": "🕹️ 国内游戏"
+      },
+      {
+        "domain_suffix": [
+          "nie.163.com"
+        ],
+        "action": "route",
+        "outbound": "🕹️ 国内游戏"
+      },
+      {
+        "domain_suffix": [
+          "nie.netease.com"
+        ],
+        "action": "route",
+        "outbound": "🕹️ 国内游戏"
+      },
+      {
+        "domain_suffix": [
+          "update.netease.com"
+        ],
+        "action": "route",
+        "outbound": "🕹️ 国内游戏"
+      },
+      {
+        "domain_suffix": [
+          "netease.com"
+        ],
+        "action": "route",
+        "outbound": "🕹️ 国内游戏"
+      },
+      {
+        "domain_suffix": [
+          "wegame.com"
+        ],
+        "action": "route",
+        "outbound": "🕹️ 国内游戏"
+      },
+      {
+        "domain_suffix": [
+          "wegame.com.cn"
+        ],
+        "action": "route",
+        "outbound": "🕹️ 国内游戏"
+      },
+      {
+        "domain_suffix": [
+          "perfect-world.com"
+        ],
+        "action": "route",
+        "outbound": "🕹️ 国内游戏"
+      },
+      {
+        "domain_suffix": [
+          "wanmei.com"
+        ],
+        "action": "route",
+        "outbound": "🕹️ 国内游戏"
+      },
+      {
+        "domain_suffix": [
+          "xd.com"
+        ],
+        "action": "route",
+        "outbound": "🕹️ 国内游戏"
+      },
+      {
+        "domain_suffix": [
+          "taptap.com"
+        ],
+        "action": "route",
+        "outbound": "🕹️ 国内游戏"
+      },
+      {
+        "domain_suffix": [
+          "taptap.io"
+        ],
+        "action": "route",
+        "outbound": "🕹️ 国内游戏"
+      },
+      {
+        "domain_suffix": [
+          "papegames.com"
+        ],
+        "action": "route",
+        "outbound": "🕹️ 国内游戏"
+      },
+      {
+        "domain_suffix": [
+          "hypergryph.com"
+        ],
+        "action": "route",
+        "outbound": "🕹️ 国内游戏"
+      },
+      {
+        "domain_suffix": [
+          "gryphline.com"
+        ],
+        "action": "route",
+        "outbound": "🕹️ 国内游戏"
+      },
+      {
+        "domain_suffix": [
+          "lilith.com"
+        ],
+        "action": "route",
+        "outbound": "🕹️ 国内游戏"
+      },
+      {
         "rule_set": [
           "geosite-category-games"
         ],
@@ -6158,167 +6319,6 @@
         ],
         "action": "route",
         "outbound": "🏦 金融支付"
-      },
-      {
-        "domain_suffix": [
-          "mihoyo.com"
-        ],
-        "action": "route",
-        "outbound": "🕹️ 国内游戏"
-      },
-      {
-        "domain_suffix": [
-          "miyoushe.com"
-        ],
-        "action": "route",
-        "outbound": "🕹️ 国内游戏"
-      },
-      {
-        "domain_suffix": [
-          "yuanshen.com"
-        ],
-        "action": "route",
-        "outbound": "🕹️ 国内游戏"
-      },
-      {
-        "domain_suffix": [
-          "bhsr.com"
-        ],
-        "action": "route",
-        "outbound": "🕹️ 国内游戏"
-      },
-      {
-        "domain_suffix": [
-          "zenlesszonezero.com"
-        ],
-        "action": "route",
-        "outbound": "🕹️ 国内游戏"
-      },
-      {
-        "domain": [
-          "game.163.com"
-        ],
-        "action": "route",
-        "outbound": "🕹️ 国内游戏"
-      },
-      {
-        "domain_suffix": [
-          "gm.163.com"
-        ],
-        "action": "route",
-        "outbound": "🕹️ 国内游戏"
-      },
-      {
-        "domain_suffix": [
-          "ds.163.com"
-        ],
-        "action": "route",
-        "outbound": "🕹️ 国内游戏"
-      },
-      {
-        "domain_suffix": [
-          "nie.163.com"
-        ],
-        "action": "route",
-        "outbound": "🕹️ 国内游戏"
-      },
-      {
-        "domain_suffix": [
-          "nie.netease.com"
-        ],
-        "action": "route",
-        "outbound": "🕹️ 国内游戏"
-      },
-      {
-        "domain_suffix": [
-          "update.netease.com"
-        ],
-        "action": "route",
-        "outbound": "🕹️ 国内游戏"
-      },
-      {
-        "domain_suffix": [
-          "netease.com"
-        ],
-        "action": "route",
-        "outbound": "🕹️ 国内游戏"
-      },
-      {
-        "domain_suffix": [
-          "wegame.com"
-        ],
-        "action": "route",
-        "outbound": "🕹️ 国内游戏"
-      },
-      {
-        "domain_suffix": [
-          "wegame.com.cn"
-        ],
-        "action": "route",
-        "outbound": "🕹️ 国内游戏"
-      },
-      {
-        "domain_suffix": [
-          "perfect-world.com"
-        ],
-        "action": "route",
-        "outbound": "🕹️ 国内游戏"
-      },
-      {
-        "domain_suffix": [
-          "wanmei.com"
-        ],
-        "action": "route",
-        "outbound": "🕹️ 国内游戏"
-      },
-      {
-        "domain_suffix": [
-          "xd.com"
-        ],
-        "action": "route",
-        "outbound": "🕹️ 国内游戏"
-      },
-      {
-        "domain_suffix": [
-          "taptap.com"
-        ],
-        "action": "route",
-        "outbound": "🕹️ 国内游戏"
-      },
-      {
-        "domain_suffix": [
-          "taptap.io"
-        ],
-        "action": "route",
-        "outbound": "🕹️ 国内游戏"
-      },
-      {
-        "domain_suffix": [
-          "papegames.com"
-        ],
-        "action": "route",
-        "outbound": "🕹️ 国内游戏"
-      },
-      {
-        "domain_suffix": [
-          "hypergryph.com"
-        ],
-        "action": "route",
-        "outbound": "🕹️ 国内游戏"
-      },
-      {
-        "domain_suffix": [
-          "gryphline.com"
-        ],
-        "action": "route",
-        "outbound": "🕹️ 国内游戏"
-      },
-      {
-        "domain_suffix": [
-          "lilith.com"
-        ],
-        "action": "route",
-        "outbound": "🕹️ 国内游戏"
       },
       {
         "domain_suffix": [

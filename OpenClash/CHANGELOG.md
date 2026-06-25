@@ -7,6 +7,11 @@
 
 ---
 
+## v5.4.32-oc-normal.1 / v5.4.32-oc-smart.1 (2026-06-25)
+
+- ★ FIX#168-CN-GAME：Normal / Smart heredoc YAML 同步将国内游戏块前置到国外游戏块之前，防止 HoYoverse / Game / category-games 先命中代理。
+- `OpenClash(mihomo).conf` 参考快照元数据对齐 v5.4.32。
+
 ## v5.4.31-oc-normal.1 / v5.4.31-oc-smart.1 (2026-06-20)
 
 - ★ FIX#167-DOUYIN：Normal 与 Smart 同步在广告/TikTok/国外尾部规则前增加抖音 Web 国内流媒体守卫，覆盖 `douyin.com` 与 `zjcdn.com` 等视频 CDN 域名。

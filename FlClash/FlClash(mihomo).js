@@ -1,8 +1,8 @@
 // FlClash 覆写脚本 — 标准 Mihomo 内核动态分流版
-// 版本：v5.4.31-flclash.1 (2026-06-20)
+// 版本：v5.4.32-flclash.1 (2026-06-25)
 // 架构：22 url-test 区域组（11 全部 + 11 家宽）+ 33 业务策略组（含 14 流媒体平台组）+ 382 rule-providers 100%+ 服务覆盖
-// 基线：Clash Party v5.4.31（规则 100% 等价；区域组为 url-test — FlClash 内核为标准 Mihomo，不支持 smart + LightGBM）
-// v5.4.31: FIX#167-DOUYIN 抖音 Web / zjcdn.com 前置到 📺 国内流媒体；v5.4.30: FEAT#166-GOOGLE 新增 🔍 Google 服务
+// 基线：Clash Party v5.4.32（规则 100% 等价；区域组为 url-test — FlClash 内核为标准 Mihomo，不支持 smart + LightGBM）
+// v5.4.32: FIX#168-CN-GAME 国内游戏早于 HoYoverse / Game / category-games 国外宽规则；v5.4.31: FIX#167-DOUYIN 抖音 Web 前置到 📺 国内流媒体
 // 适用：FlClash >= v0.8.85（覆盖脚本功能自该版本引入）；其他使用标准 Mihomo 内核的客户端
 // 变更历史：见 `FlClash/CHANGELOG.md`
 //
@@ -36,7 +36,7 @@
 //  版本常量
 // ================================================================
 
-const VERSION = 'v5.4.31-flclash.1'
+const VERSION = 'v5.4.32-flclash.1'
 
 // v5.4.9 FEAT#LOCAL-TOOLS: desktop local-tool direct whitelist.
 const LOCAL_TOOL_DIRECT_PROCESS_NAMES = [
@@ -2013,6 +2013,35 @@ function injectRules(config) {
     `RULE-SET,loyalsoldier-greatfire,${BIZ.GFW}`,
     `RULE-SET,szkane-proxygfw,${BIZ.GFW}`,
 
+    // ============ 🕹️ 国内游戏 ============
+    `DOMAIN-SUFFIX,mihoyo.com,${BIZ.GAME_CN}`,
+    `DOMAIN-SUFFIX,miyoushe.com,${BIZ.GAME_CN}`,
+    `DOMAIN-SUFFIX,yuanshen.com,${BIZ.GAME_CN}`,
+    `DOMAIN-SUFFIX,bhsr.com,${BIZ.GAME_CN}`,
+    `DOMAIN-SUFFIX,zenlesszonezero.com,${BIZ.GAME_CN}`,
+    `DOMAIN,game.163.com,${BIZ.GAME_CN}`,
+    `DOMAIN-SUFFIX,gm.163.com,${BIZ.GAME_CN}`,
+    `DOMAIN-SUFFIX,ds.163.com,${BIZ.GAME_CN}`,
+    `DOMAIN-SUFFIX,nie.163.com,${BIZ.GAME_CN}`,
+    `DOMAIN-SUFFIX,nie.netease.com,${BIZ.GAME_CN}`,
+    `DOMAIN-SUFFIX,update.netease.com,${BIZ.GAME_CN}`,
+    `DOMAIN-SUFFIX,netease.com,${BIZ.GAME_CN}`,
+    `DOMAIN-SUFFIX,wegame.com,${BIZ.GAME_CN}`,
+    `DOMAIN-SUFFIX,wegame.com.cn,${BIZ.GAME_CN}`,
+    `DOMAIN-SUFFIX,perfect-world.com,${BIZ.GAME_CN}`,
+    `DOMAIN-SUFFIX,wanmei.com,${BIZ.GAME_CN}`,
+    `DOMAIN-SUFFIX,xd.com,${BIZ.GAME_CN}`,
+    `DOMAIN-SUFFIX,taptap.com,${BIZ.GAME_CN}`,
+    `DOMAIN-SUFFIX,taptap.io,${BIZ.GAME_CN}`,
+    `DOMAIN-SUFFIX,papegames.com,${BIZ.GAME_CN}`,
+    `DOMAIN-SUFFIX,hypergryph.com,${BIZ.GAME_CN}`,
+    `DOMAIN-SUFFIX,gryphline.com,${BIZ.GAME_CN}`,
+    `DOMAIN-SUFFIX,lilith.com,${BIZ.GAME_CN}`,
+    `RULE-SET,steamcn,${BIZ.GAME_CN}`,
+    `RULE-SET,wanmeishijie,${BIZ.GAME_CN}`,
+    `RULE-SET,wankahuanju,${BIZ.GAME_CN}`,
+    `RULE-SET,majsoul,${BIZ.GAME_CN}`,
+
     // ============ 🎮 国外游戏 ============
     // CLEAN#165: ubisoft.com,ubi.com,riotgames.com,leagueoflegends.com,valorant.com,rockstargames.com,gog.com,gogalaxy.com,supercell.com,garena.com,hoyoverse.com,hoyolab.com 已被同策略 RULE-SET 覆盖
     `RULE-SET,steam,${BIZ.GAME_INTL}`,
@@ -2159,35 +2188,6 @@ function injectRules(config) {
     `DOMAIN-SUFFIX,banksinarmas.com,${BIZ.PAYMENTS}`,
     `DOMAIN-SUFFIX,idx.co.id,${BIZ.PAYMENTS}`,
     `DOMAIN-SUFFIX,ksei.co.id,${BIZ.PAYMENTS}`,
-
-    // ============ 🕹️ 国内游戏 ============
-    `DOMAIN-SUFFIX,mihoyo.com,${BIZ.GAME_CN}`,
-    `DOMAIN-SUFFIX,miyoushe.com,${BIZ.GAME_CN}`,
-    `DOMAIN-SUFFIX,yuanshen.com,${BIZ.GAME_CN}`,
-    `DOMAIN-SUFFIX,bhsr.com,${BIZ.GAME_CN}`,
-    `DOMAIN-SUFFIX,zenlesszonezero.com,${BIZ.GAME_CN}`,
-    `DOMAIN,game.163.com,${BIZ.GAME_CN}`,
-    `DOMAIN-SUFFIX,gm.163.com,${BIZ.GAME_CN}`,
-    `DOMAIN-SUFFIX,ds.163.com,${BIZ.GAME_CN}`,
-    `DOMAIN-SUFFIX,nie.163.com,${BIZ.GAME_CN}`,
-    `DOMAIN-SUFFIX,nie.netease.com,${BIZ.GAME_CN}`,
-    `DOMAIN-SUFFIX,update.netease.com,${BIZ.GAME_CN}`,
-    `DOMAIN-SUFFIX,netease.com,${BIZ.GAME_CN}`,
-    `DOMAIN-SUFFIX,wegame.com,${BIZ.GAME_CN}`,
-    `DOMAIN-SUFFIX,wegame.com.cn,${BIZ.GAME_CN}`,
-    `DOMAIN-SUFFIX,perfect-world.com,${BIZ.GAME_CN}`,
-    `DOMAIN-SUFFIX,wanmei.com,${BIZ.GAME_CN}`,
-    `DOMAIN-SUFFIX,xd.com,${BIZ.GAME_CN}`,
-    `DOMAIN-SUFFIX,taptap.com,${BIZ.GAME_CN}`,
-    `DOMAIN-SUFFIX,taptap.io,${BIZ.GAME_CN}`,
-    `DOMAIN-SUFFIX,papegames.com,${BIZ.GAME_CN}`,
-    `DOMAIN-SUFFIX,hypergryph.com,${BIZ.GAME_CN}`,
-    `DOMAIN-SUFFIX,gryphline.com,${BIZ.GAME_CN}`,
-    `DOMAIN-SUFFIX,lilith.com,${BIZ.GAME_CN}`,
-    `RULE-SET,steamcn,${BIZ.GAME_CN}`,
-    `RULE-SET,wanmeishijie,${BIZ.GAME_CN}`,
-    `RULE-SET,wankahuanju,${BIZ.GAME_CN}`,
-    `RULE-SET,majsoul,${BIZ.GAME_CN}`,
 
     // ============ 📺 国内流媒体 ============
     `RULE-SET,bilibili,${BIZ.CNMEDIA}`,

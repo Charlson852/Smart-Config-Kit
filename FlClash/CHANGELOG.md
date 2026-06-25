@@ -5,6 +5,11 @@
 
 ---
 
+## v5.4.32-flclash.1 (2026-06-25)
+
+- ★ FIX#168-CN-GAME：同步 Clash Party Normal v5.4.32，将国内游戏块前置到国外游戏宽规则之前，避免 HoYoverse / Game / category-games 抢先代理国内游戏域名。
+- 新增 JS 覆写回归断言覆盖国内游戏优先级。
+
 ## v5.4.31-flclash.1 (2026-06-20)
 
 - ★ FIX#167-DOUYIN：同步 Clash Party Normal v5.4.31，新增抖音 Web 国内流媒体前置守卫，`douyin.com` / `zjcdn.com` 等域名先于 TikTok 和国外兜底规则命中 `📺 国内流媒体`。

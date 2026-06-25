@@ -2,13 +2,13 @@
 . /usr/share/openclash/log.sh
 
 # ============================================================================
-# Clash Smart v5.4.31-oc-normal.1 — OpenClash 覆写脚本（非 Smart 内核 / url-test 区域组）
-# Build: 2026-06-20
+# Clash Smart v5.4.32-oc-normal.1 — OpenClash 覆写脚本（非 Smart 内核 / url-test 区域组）
+# Build: 2026-06-25
 # ============================================================================
-# v5.4.31: FIX#167-DOUYIN 抖音 Web / zjcdn.com 前置到 📺 国内流媒体，避免被 TikTok 或国外兜底抢先命中
+# v5.4.32: FIX#168-CN-GAME 国内游戏前置到国外游戏宽规则之前，避免 HoYoverse / Game / category-games 抢先代理
 # 定位：与同目录 OpenClash(mihomo-smart).sh 规则 100% 等价的「非 Smart 内核」版本。
 #       两者唯一区别：22 个区域组（11 全部 + 11 家宽）从 type: smart（uselightgbm）换成 type: url-test。
-#       对齐 Clash Party v5.4.31 JS 基线。
+#       对齐 Clash Party v5.4.32 JS 基线。
 #       适用场景：
 #         - OpenClash 内核选的是 Meta(mihomo 稳定版) 而非 Meta Alpha，不支持 smart + LightGBM
 #         - 或者明确想关闭 LightGBM ML 评估、只靠经典 url-test 延迟选路
@@ -20,14 +20,14 @@
 #   • 1050+ 条 rules
 #   • DNS fake-ip + 嗅探（HTTP/TLS/QUIC）+ nameserver-policy 救援
 #   • Ruby 阶段做：节点过滤 / 区域分类 / url-test 组生成 / TLS 指纹注入
-# 基线：Clash Party v5.4.31（唯一主线；v5.3.1/v5.3.2 为桌面端 PROCESS-NAME 改动，路由器端不适用）── 任何规则/组/DNS 改动必须先改 Clash Party JS，
+# 基线：Clash Party v5.4.32（唯一主线；v5.3.1/v5.3.2 为桌面端 PROCESS-NAME 改动，路由器端不适用）── 任何规则/组/DNS 改动必须先改 Clash Party JS，
 #       再同步到此文件。参见仓库根目录 CLAUDE.md / AGENTS.md。
 # 变更历史：见 `OpenClash/CHANGELOG.md`（Normal 部分）。
 # ============================================================================
 
 
 
-VERSION_TAG="v5.4.31-oc-normal.1"
+VERSION_TAG="v5.4.32-oc-normal.1"
 CONFIG_FILE="$1"
 LOG_FILE="/tmp/openclash.log"
 
@@ -3268,7 +3268,7 @@ rules:
 - "DOMAIN-SUFFIX,getui.com,DIRECT"
 - "DOMAIN-SUFFIX,getui.net,DIRECT"
 - "DOMAIN-SUFFIX,gepush.com,DIRECT"
-# v5.4.31 FIX#167-DOUYIN：Douyin Web 视频域名先锁到国内流媒体，避免被 TikTok / geolocation-!cn 宽规则抢先命中。
+# v5.4.32 FIX#167-DOUYIN：Douyin Web 视频域名先锁到国内流媒体，避免被 TikTok / geolocation-!cn 宽规则抢先命中。
 - "DOMAIN-SUFFIX,douyin.com,\U0001F4FA 国内流媒体"
 - "DOMAIN-SUFFIX,douyincdn.com,\U0001F4FA 国内流媒体"
 - "DOMAIN-SUFFIX,douyinpic.com,\U0001F4FA 国内流媒体"
@@ -4008,6 +4008,35 @@ rules:
 - "RULE-SET,loyalsoldier-greatfire,\U0001F6AB 受限网站"
 - "RULE-SET,szkane-proxygfw,\U0001F6AB 受限网站"
 
+  # ============ 国内游戏 ============
+- "DOMAIN-SUFFIX,mihoyo.com,\U0001F579️ 国内游戏"
+- "DOMAIN-SUFFIX,miyoushe.com,\U0001F579️ 国内游戏"
+- "DOMAIN-SUFFIX,yuanshen.com,\U0001F579️ 国内游戏"
+- "DOMAIN-SUFFIX,bhsr.com,\U0001F579️ 国内游戏"
+- "DOMAIN-SUFFIX,zenlesszonezero.com,\U0001F579️ 国内游戏"
+- "DOMAIN,game.163.com,\U0001F579️ 国内游戏"
+- "DOMAIN-SUFFIX,gm.163.com,\U0001F579️ 国内游戏"
+- "DOMAIN-SUFFIX,ds.163.com,\U0001F579️ 国内游戏"
+- "DOMAIN-SUFFIX,nie.163.com,\U0001F579️ 国内游戏"
+- "DOMAIN-SUFFIX,nie.netease.com,\U0001F579️ 国内游戏"
+- "DOMAIN-SUFFIX,update.netease.com,\U0001F579️ 国内游戏"
+- "DOMAIN-SUFFIX,netease.com,\U0001F579️ 国内游戏"
+- "DOMAIN-SUFFIX,wegame.com,\U0001F579️ 国内游戏"
+- "DOMAIN-SUFFIX,wegame.com.cn,\U0001F579️ 国内游戏"
+- "DOMAIN-SUFFIX,perfect-world.com,\U0001F579️ 国内游戏"
+- "DOMAIN-SUFFIX,wanmei.com,\U0001F579️ 国内游戏"
+- "DOMAIN-SUFFIX,xd.com,\U0001F579️ 国内游戏"
+- "DOMAIN-SUFFIX,taptap.com,\U0001F579️ 国内游戏"
+- "DOMAIN-SUFFIX,taptap.io,\U0001F579️ 国内游戏"
+- "DOMAIN-SUFFIX,papegames.com,\U0001F579️ 国内游戏"
+- "DOMAIN-SUFFIX,hypergryph.com,\U0001F579️ 国内游戏"
+- "DOMAIN-SUFFIX,gryphline.com,\U0001F579️ 国内游戏"
+- "DOMAIN-SUFFIX,lilith.com,\U0001F579️ 国内游戏"
+- "RULE-SET,steamcn,\U0001F579️ 国内游戏"
+- "RULE-SET,wanmeishijie,\U0001F579️ 国内游戏"
+- "RULE-SET,wankahuanju,\U0001F579️ 国内游戏"
+- "RULE-SET,majsoul,\U0001F579️ 国内游戏"
+
   # ============ 国外游戏 ============
   # CLEAN#165: ubisoft.com / ubi.com / riotgames.com / leagueoflegends.com / valorant.com / rockstargames.com / gog.com / gogalaxy.com / supercell.com / garena.com / hoyoverse.com / hoyolab.com 已被同策略 RULE-SET 覆盖
 - "RULE-SET,steam,\U0001F3AE 国外游戏"
@@ -4186,35 +4215,6 @@ rules:
 - "DOMAIN-SUFFIX,idx.co.id,\U0001F3E6 金融支付"
 - "DOMAIN-SUFFIX,ksei.co.id,\U0001F3E6 金融支付"
 
-  # ============ 国内游戏 ============
-- "DOMAIN-SUFFIX,mihoyo.com,\U0001F579️ 国内游戏"
-- "DOMAIN-SUFFIX,miyoushe.com,\U0001F579️ 国内游戏"
-- "DOMAIN-SUFFIX,yuanshen.com,\U0001F579️ 国内游戏"
-- "DOMAIN-SUFFIX,bhsr.com,\U0001F579️ 国内游戏"
-- "DOMAIN-SUFFIX,zenlesszonezero.com,\U0001F579️ 国内游戏"
-- "DOMAIN,game.163.com,\U0001F579️ 国内游戏"
-- "DOMAIN-SUFFIX,gm.163.com,\U0001F579️ 国内游戏"
-- "DOMAIN-SUFFIX,ds.163.com,\U0001F579️ 国内游戏"
-- "DOMAIN-SUFFIX,nie.163.com,\U0001F579️ 国内游戏"
-- "DOMAIN-SUFFIX,nie.netease.com,\U0001F579️ 国内游戏"
-- "DOMAIN-SUFFIX,update.netease.com,\U0001F579️ 国内游戏"
-- "DOMAIN-SUFFIX,netease.com,\U0001F579️ 国内游戏"
-- "DOMAIN-SUFFIX,wegame.com,\U0001F579️ 国内游戏"
-- "DOMAIN-SUFFIX,wegame.com.cn,\U0001F579️ 国内游戏"
-- "DOMAIN-SUFFIX,perfect-world.com,\U0001F579️ 国内游戏"
-- "DOMAIN-SUFFIX,wanmei.com,\U0001F579️ 国内游戏"
-- "DOMAIN-SUFFIX,xd.com,\U0001F579️ 国内游戏"
-- "DOMAIN-SUFFIX,taptap.com,\U0001F579️ 国内游戏"
-- "DOMAIN-SUFFIX,taptap.io,\U0001F579️ 国内游戏"
-- "DOMAIN-SUFFIX,papegames.com,\U0001F579️ 国内游戏"
-- "DOMAIN-SUFFIX,hypergryph.com,\U0001F579️ 国内游戏"
-- "DOMAIN-SUFFIX,gryphline.com,\U0001F579️ 国内游戏"
-- "DOMAIN-SUFFIX,lilith.com,\U0001F579️ 国内游戏"
-- "RULE-SET,steamcn,\U0001F579️ 国内游戏"
-- "RULE-SET,wanmeishijie,\U0001F579️ 国内游戏"
-- "RULE-SET,wankahuanju,\U0001F579️ 国内游戏"
-- "RULE-SET,majsoul,\U0001F579️ 国内游戏"
-
   # ============ 国内流媒体 ============
 - "RULE-SET,bilibili,\U0001F4FA 国内流媒体"
 - "DOMAIN-SUFFIX,iqiyi.com,\U0001F4FA 国内流媒体"
@@ -4347,7 +4347,7 @@ cat > "$RUBY_SCRIPT" << 'RUBY_EOF'
 require 'yaml'
 require 'digest'
 
-VERSION = "v5.4.31-oc-normal.1"
+VERSION = "v5.4.32-oc-normal.1"
 
 STATUS_LOG = ARGV[2]
 File.open(STATUS_LOG, 'w') { |f| f.puts "[#{VERSION}] start" }

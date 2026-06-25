@@ -6,6 +6,11 @@
 
 ---
 
+## v5.4.32-pw2.1 (2026-06-25)
+
+- ★ FIX#168-CN-GAME：Passwall2 shunt rule 创建顺序调整为国内游戏早于国外游戏/国外网站，并补齐米哈游、网易、WeGame、完美世界、TapTap 等国内游戏域名。
+- `shunt-rules/21-cn-game.list` / `22-intl-game.list` 与 Passwall 保持同源；`domain:mihoyo.com` 从国外游戏移入国内游戏。
+
 ## v5.4.31-pw2.1 (2026-06-20)
 
 - ★ FIX#167-DOUYIN：`08-cn-media.list`、apply 脚本与参考 `.conf` 补齐抖音 Web / `zjcdn.com` 视频 CDN 明确 `domain:` 兜底。

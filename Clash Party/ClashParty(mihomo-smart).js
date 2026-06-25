@@ -1,14 +1,14 @@
 ﻿// Clash Smart 内核覆写脚本 - SUB-STORE 多机场精细分流版
-// 版本：v5.4.31 (2026-06-20)
+// 版本：v5.4.32 (2026-06-25)
 // 架构：SUB-STORE 多机场融合 + 22 Smart 区域组（11 全部 + 11 家宽）+ 33 业务策略组（含 14 流媒体平台组）+ 382 rule-providers 100%+ 服务覆盖
-// v5.4.31: FIX#167-DOUYIN 抖音 Web / zjcdn.com 前置到 📺 国内流媒体，避免被 TikTok 或国外兜底抢先命中 · v5.4.30: FEAT#166-GOOGLE 新增 🔍 Google 服务
+// v5.4.32: FIX#168-CN-GAME 国内游戏前置到国外游戏宽规则之前，避免 HoYoverse / Game / category-games 抢先代理 · v5.4.31: FIX#167-DOUYIN 抖音 Web 前置到 📺 国内流媒体
 // 变更历史：见 `Clash Party/CHANGELOG.md`
 
 // ================================================================
 //  版本常量
 // ================================================================
 
-const VERSION = 'v5.4.31'
+const VERSION = 'v5.4.32'
 
 // v5.4.9 FEAT#LOCAL-TOOLS:
 // Desktop-capable local tools that should not be routed through proxy nodes.
@@ -1996,6 +1996,35 @@ function injectRules(config) {
     `RULE-SET,loyalsoldier-greatfire,${BIZ.GFW}`,
     `RULE-SET,szkane-proxygfw,${BIZ.GFW}`,
 
+    // ============ 🕹️ 国内游戏 ============
+    `DOMAIN-SUFFIX,mihoyo.com,${BIZ.GAME_CN}`,
+    `DOMAIN-SUFFIX,miyoushe.com,${BIZ.GAME_CN}`,
+    `DOMAIN-SUFFIX,yuanshen.com,${BIZ.GAME_CN}`,
+    `DOMAIN-SUFFIX,bhsr.com,${BIZ.GAME_CN}`,
+    `DOMAIN-SUFFIX,zenlesszonezero.com,${BIZ.GAME_CN}`,
+    `DOMAIN,game.163.com,${BIZ.GAME_CN}`,
+    `DOMAIN-SUFFIX,gm.163.com,${BIZ.GAME_CN}`,
+    `DOMAIN-SUFFIX,ds.163.com,${BIZ.GAME_CN}`,
+    `DOMAIN-SUFFIX,nie.163.com,${BIZ.GAME_CN}`,
+    `DOMAIN-SUFFIX,nie.netease.com,${BIZ.GAME_CN}`,
+    `DOMAIN-SUFFIX,update.netease.com,${BIZ.GAME_CN}`,
+    `DOMAIN-SUFFIX,netease.com,${BIZ.GAME_CN}`,
+    `DOMAIN-SUFFIX,wegame.com,${BIZ.GAME_CN}`,
+    `DOMAIN-SUFFIX,wegame.com.cn,${BIZ.GAME_CN}`,
+    `DOMAIN-SUFFIX,perfect-world.com,${BIZ.GAME_CN}`,
+    `DOMAIN-SUFFIX,wanmei.com,${BIZ.GAME_CN}`,
+    `DOMAIN-SUFFIX,xd.com,${BIZ.GAME_CN}`,
+    `DOMAIN-SUFFIX,taptap.com,${BIZ.GAME_CN}`,
+    `DOMAIN-SUFFIX,taptap.io,${BIZ.GAME_CN}`,
+    `DOMAIN-SUFFIX,papegames.com,${BIZ.GAME_CN}`,
+    `DOMAIN-SUFFIX,hypergryph.com,${BIZ.GAME_CN}`,
+    `DOMAIN-SUFFIX,gryphline.com,${BIZ.GAME_CN}`,
+    `DOMAIN-SUFFIX,lilith.com,${BIZ.GAME_CN}`,
+    `RULE-SET,steamcn,${BIZ.GAME_CN}`,
+    `RULE-SET,wanmeishijie,${BIZ.GAME_CN}`,
+    `RULE-SET,wankahuanju,${BIZ.GAME_CN}`,
+    `RULE-SET,majsoul,${BIZ.GAME_CN}`,
+
     // ============ 🎮 国外游戏 ============
     `RULE-SET,steam,${BIZ.GAME_INTL}`,
     `RULE-SET,epic,${BIZ.GAME_INTL}`,
@@ -2142,35 +2171,6 @@ function injectRules(config) {
     `DOMAIN-SUFFIX,banksinarmas.com,${BIZ.PAYMENTS}`,
     `DOMAIN-SUFFIX,idx.co.id,${BIZ.PAYMENTS}`,
     `DOMAIN-SUFFIX,ksei.co.id,${BIZ.PAYMENTS}`,
-
-    // ============ 🕹️ 国内游戏 ============
-    `DOMAIN-SUFFIX,mihoyo.com,${BIZ.GAME_CN}`,
-    `DOMAIN-SUFFIX,miyoushe.com,${BIZ.GAME_CN}`,
-    `DOMAIN-SUFFIX,yuanshen.com,${BIZ.GAME_CN}`,
-    `DOMAIN-SUFFIX,bhsr.com,${BIZ.GAME_CN}`,
-    `DOMAIN-SUFFIX,zenlesszonezero.com,${BIZ.GAME_CN}`,
-    `DOMAIN,game.163.com,${BIZ.GAME_CN}`,
-    `DOMAIN-SUFFIX,gm.163.com,${BIZ.GAME_CN}`,
-    `DOMAIN-SUFFIX,ds.163.com,${BIZ.GAME_CN}`,
-    `DOMAIN-SUFFIX,nie.163.com,${BIZ.GAME_CN}`,
-    `DOMAIN-SUFFIX,nie.netease.com,${BIZ.GAME_CN}`,
-    `DOMAIN-SUFFIX,update.netease.com,${BIZ.GAME_CN}`,
-    `DOMAIN-SUFFIX,netease.com,${BIZ.GAME_CN}`,
-    `DOMAIN-SUFFIX,wegame.com,${BIZ.GAME_CN}`,
-    `DOMAIN-SUFFIX,wegame.com.cn,${BIZ.GAME_CN}`,
-    `DOMAIN-SUFFIX,perfect-world.com,${BIZ.GAME_CN}`,
-    `DOMAIN-SUFFIX,wanmei.com,${BIZ.GAME_CN}`,
-    `DOMAIN-SUFFIX,xd.com,${BIZ.GAME_CN}`,
-    `DOMAIN-SUFFIX,taptap.com,${BIZ.GAME_CN}`,
-    `DOMAIN-SUFFIX,taptap.io,${BIZ.GAME_CN}`,
-    `DOMAIN-SUFFIX,papegames.com,${BIZ.GAME_CN}`,
-    `DOMAIN-SUFFIX,hypergryph.com,${BIZ.GAME_CN}`,
-    `DOMAIN-SUFFIX,gryphline.com,${BIZ.GAME_CN}`,
-    `DOMAIN-SUFFIX,lilith.com,${BIZ.GAME_CN}`,
-    `RULE-SET,steamcn,${BIZ.GAME_CN}`,
-    `RULE-SET,wanmeishijie,${BIZ.GAME_CN}`,
-    `RULE-SET,wankahuanju,${BIZ.GAME_CN}`,
-    `RULE-SET,majsoul,${BIZ.GAME_CN}`,
 
     // ============ 📺 国内流媒体 ============
     `DOMAIN-SUFFIX,iqiyi.com,${BIZ.CNMEDIA}`,

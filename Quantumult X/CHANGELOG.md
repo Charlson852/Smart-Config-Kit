@@ -6,6 +6,11 @@
 
 ---
 
+## v5.4.32-QX.1 (2026-06-25)
+
+- ★ FIX#168-CN-GAME：`filter_local` 国内游戏段前置到国外游戏段之前；`filter_remote` 保持国内游戏规则集先于国外游戏规则集。
+- 文件头与 README 对齐 Clash Party v5.4.32。
+
 ## v5.4.31-QX.1 (2026-06-20)
 
 - ★ FIX#167-DOUYIN：在 `[filter_local]` 首段增加抖音 Web 国内流媒体守卫，`douyin.com` / `zjcdn.com` 等域名命中 `📺 国内流媒体`。

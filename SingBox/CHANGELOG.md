@@ -5,6 +5,11 @@
 
 ---
 
+## v5.4.32-sing.1 (2026-06-25)
+
+- ★ FIX#168-CN-GAME：`SingBox(sing-box)-generator.js` 跟随 Clash Party v5.4.32 生成国内游戏 route 早于 HoYoverse / Game / category-games 宽规则的 Full JSON。
+- Full JSON 由 generator 重新生成，保持 meta version/build/baseline 一致。
+
 ## v5.4.31-sing.1 (2026-06-20)
 
 - ★ FIX#167-DOUYIN：`SingBox(sing-box)-generator.js` 跟随 Clash Party v5.4.31 生成抖音 Web 国内流媒体前置 route，`zjcdn.com` 等域名在 TikTok / 国外尾部前命中 `📺 国内流媒体`。

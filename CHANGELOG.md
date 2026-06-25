@@ -6,6 +6,12 @@
 
 ---
 
+## v5.4.32 (2026-06-25)
+
+- FIX#168-CN-GAME：国内游戏直连规则前置到 HoYoverse / Game / category-games 等国外游戏宽规则之前，避免国内游戏被先命中代理。
+- SYNC：Clash Party Smart/Normal、CMFA、OpenClash Normal/Smart、Shadowrocket、Surge、Loon、Quantumult X、SingBox、v2rayN、Passwall、Passwall2、FlClash 同步；Passwall/v2rayN 补齐米哈游/网易/WeGame 等国内游戏域名集合。
+- VERIFY：新增国内游戏优先级合同断言，覆盖 `yuanshen.com` / `mihoyo.com` 早于 HoYoverse、Game、category-games 宽规则。
+
 ## v5.4.31 (2026-06-20)
 
 - FIX#167-DOUYIN：抖音 Web / `zjcdn.com` 视频 CDN 前置到 `📺 国内流媒体`，避免被 TikTok、广告或国外兜底规则抢先命中。

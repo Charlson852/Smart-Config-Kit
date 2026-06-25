@@ -7,6 +7,11 @@
 
 ---
 
+## v5.4.32-v2n.1 (2026-06-25)
+
+- ★ FIX#168-CN-GAME：Xray 路由中的 `scki-025-cn-game` 补齐米哈游、网易、WeGame、完美世界、TapTap、鹰角、莉莉丝等国内游戏域名，并保持在国外游戏规则之前。
+- 元数据对齐 Clash Party v5.4.32；mihomo / sing-box 路径继续复用对应主产物。
+
 ## v5.4.31-v2n.1 (2026-06-20)
 
 - ★ FIX#167-DOUYIN：Xray 降级参考新增 `scki-000d-douyin-web-cnmedia`，将抖音 Web / `zjcdn.com` 视频 CDN 明确前置直连。

@@ -1,7 +1,7 @@
 #!/bin/sh
 # ═══════════════════════════════════════════════════════════════════════════
 # Smart-Config-Kit for Passwall / Passwall2 — UCI batch helper
-# Version: v5.4.31-pw2.1 | Build 2026-06-20 | Baseline: Clash Party v5.4.31
+# Version: v5.4.32-pw2.1 | Build 2026-06-25 | Baseline: Clash Party v5.4.32
 #
 # 用途：一次性在 Passwall2 中创建 33 条 shunt rule（含域名列表 + IP 列表），
 #       每条目标节点留空（NEED_CONFIG），用户之后到 LuCI 里手工选节点。
@@ -433,7 +433,39 @@ uci add_list "${CONFIG_NAME}".${SEC}.domain_list='geosite:greatfire'
 uci set "${CONFIG_NAME}".${SEC}.network='tcp,udp'
 # uci set "${CONFIG_NAME}".${SEC}.node='NEED_CONFIG_IN_LUCI'
 
-# [27] 🎮 国外游戏
+# [27] 🕹️ 国内游戏
+SEC="$(uci add "${CONFIG_NAME}" shunt_rules)"
+uci set "${CONFIG_NAME}".${SEC}.remarks='🕹️ 国内游戏'
+uci add_list "${CONFIG_NAME}".${SEC}.domain_list='geosite:steamcn'
+uci add_list "${CONFIG_NAME}".${SEC}.domain_list='domain:mihoyo.com'
+uci add_list "${CONFIG_NAME}".${SEC}.domain_list='domain:miyoushe.com'
+uci add_list "${CONFIG_NAME}".${SEC}.domain_list='domain:yuanshen.com'
+uci add_list "${CONFIG_NAME}".${SEC}.domain_list='domain:bhsr.com'
+uci add_list "${CONFIG_NAME}".${SEC}.domain_list='domain:zenlesszonezero.com'
+uci add_list "${CONFIG_NAME}".${SEC}.domain_list='domain:game.163.com'
+uci add_list "${CONFIG_NAME}".${SEC}.domain_list='domain:gm.163.com'
+uci add_list "${CONFIG_NAME}".${SEC}.domain_list='domain:ds.163.com'
+uci add_list "${CONFIG_NAME}".${SEC}.domain_list='domain:nie.163.com'
+uci add_list "${CONFIG_NAME}".${SEC}.domain_list='domain:nie.netease.com'
+uci add_list "${CONFIG_NAME}".${SEC}.domain_list='domain:update.netease.com'
+uci add_list "${CONFIG_NAME}".${SEC}.domain_list='domain:netease.com'
+uci add_list "${CONFIG_NAME}".${SEC}.domain_list='domain:wegame.com'
+uci add_list "${CONFIG_NAME}".${SEC}.domain_list='domain:wegame.com.cn'
+uci add_list "${CONFIG_NAME}".${SEC}.domain_list='domain:perfect-world.com'
+uci add_list "${CONFIG_NAME}".${SEC}.domain_list='domain:wanmei.com'
+uci add_list "${CONFIG_NAME}".${SEC}.domain_list='domain:xd.com'
+uci add_list "${CONFIG_NAME}".${SEC}.domain_list='domain:taptap.com'
+uci add_list "${CONFIG_NAME}".${SEC}.domain_list='domain:taptap.io'
+uci add_list "${CONFIG_NAME}".${SEC}.domain_list='domain:papegames.com'
+uci add_list "${CONFIG_NAME}".${SEC}.domain_list='domain:hypergryph.com'
+uci add_list "${CONFIG_NAME}".${SEC}.domain_list='domain:gryphline.com'
+uci add_list "${CONFIG_NAME}".${SEC}.domain_list='domain:lilith.com'
+uci add_list "${CONFIG_NAME}".${SEC}.domain_list='domain:majsoul.com'
+uci add_list "${CONFIG_NAME}".${SEC}.domain_list='domain:battlenet.com.cn'
+uci set "${CONFIG_NAME}".${SEC}.network='tcp,udp'
+# uci set "${CONFIG_NAME}".${SEC}.node='NEED_CONFIG_IN_LUCI'
+
+# [28] 🎮 国外游戏
 SEC="$(uci add "${CONFIG_NAME}" shunt_rules)"
 uci set "${CONFIG_NAME}".${SEC}.remarks='🎮 国外游戏'
 uci add_list "${CONFIG_NAME}".${SEC}.domain_list='geosite:steam'
@@ -445,11 +477,10 @@ uci add_list "${CONFIG_NAME}".${SEC}.domain_list='domain:riotgames.com'
 uci add_list "${CONFIG_NAME}".${SEC}.domain_list='domain:ea.com'
 uci add_list "${CONFIG_NAME}".${SEC}.domain_list='domain:blizzard.com'
 uci add_list "${CONFIG_NAME}".${SEC}.domain_list='domain:hoyoverse.com'
-uci add_list "${CONFIG_NAME}".${SEC}.domain_list='domain:mihoyo.com'
 uci set "${CONFIG_NAME}".${SEC}.network='tcp,udp'
 # uci set "${CONFIG_NAME}".${SEC}.node='NEED_CONFIG_IN_LUCI'
 
-# [28] 🌐 国外网站（合并自原邮件服务 + 云与CDN）
+# [29] 🌐 国外网站（合并自原邮件服务 + 云与CDN）
 SEC="$(uci add "${CONFIG_NAME}" shunt_rules)"
 uci set "${CONFIG_NAME}".${SEC}.remarks='🌐 国外网站'
 uci add_list "${CONFIG_NAME}".${SEC}.domain_list='geosite:geolocation-!cn'
@@ -473,16 +504,6 @@ uci add_list "${CONFIG_NAME}".${SEC}.domain_list='domain:jsdelivr.net'
 uci add_list "${CONFIG_NAME}".${SEC}.domain_list='domain:cloudfront.net'
 uci add_list "${CONFIG_NAME}".${SEC}.ip_list='geoip:cloudflare'
 uci add_list "${CONFIG_NAME}".${SEC}.ip_list='geoip:fastly'
-uci set "${CONFIG_NAME}".${SEC}.network='tcp,udp'
-# uci set "${CONFIG_NAME}".${SEC}.node='NEED_CONFIG_IN_LUCI'
-
-# [29] 🕹️ 国内游戏
-SEC="$(uci add "${CONFIG_NAME}" shunt_rules)"
-uci set "${CONFIG_NAME}".${SEC}.remarks='🕹️ 国内游戏'
-uci add_list "${CONFIG_NAME}".${SEC}.domain_list='geosite:steamcn'
-uci add_list "${CONFIG_NAME}".${SEC}.domain_list='domain:wanmei.com'
-uci add_list "${CONFIG_NAME}".${SEC}.domain_list='domain:majsoul.com'
-uci add_list "${CONFIG_NAME}".${SEC}.domain_list='domain:battlenet.com.cn'
 uci set "${CONFIG_NAME}".${SEC}.network='tcp,udp'
 # uci set "${CONFIG_NAME}".${SEC}.node='NEED_CONFIG_IN_LUCI'
 
@@ -530,5 +551,5 @@ uci commit "${CONFIG_NAME}"
 echo "✓ 33 条 shunt rule 创建完成。"
 echo "下一步："
 echo "  1. LuCI → Passwall2 → 分流控制 → 逐条为每个 rule 指定目标节点"
-echo "  2. 确认规则顺序：#01 广告拦截在最前；#29-#31（受限/国外/FINAL）保持在末尾"
+echo "  2. 确认规则顺序：#01 广告拦截在最前；#27-#32（国内游戏/国外游戏/国外网站/FINAL）保持在末尾"
 echo "  3. 重启 Passwall2: /etc/init.d/passwall2 restart"

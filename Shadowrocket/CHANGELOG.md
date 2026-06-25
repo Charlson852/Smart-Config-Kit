@@ -5,6 +5,11 @@
 
 ---
 
+## v5.4.32-SR.1 (2026-06-25)
+
+- ★ FIX#168-CN-GAME：将国内游戏内联规则和 SteamCN 等规则集整体前置到国外游戏 RULE-SET 之前，避免 HoYoverse/Game 宽规则抢先代理。
+- 文件头与 README 对齐 Clash Party v5.4.32。
+
 ## v5.4.31-SR.1 (2026-06-20)
 
 - ★ FIX#167-DOUYIN：新增抖音 Web 国内流媒体前置规则，`douyin.com` / `zjcdn.com` 等域名先于 TikTok 和国外规则集命中 `📺 国内流媒体`。

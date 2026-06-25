@@ -5,6 +5,11 @@
 
 ---
 
+## v5.4.32-cmfa.1 (2026-06-25)
+
+- ★ FIX#168-CN-GAME：`🕹️ 国内游戏` 规则块前置到 `🎮 国外游戏` 之前；早期散落的 `GEOSITE,category-games` 归回国外游戏块，避免抢先吞掉国内游戏域名。
+- 新增合同断言覆盖 `yuanshen.com` / `mihoyo.com` 早于 HoYoverse/Game/category-games 宽规则。
+
 ## v5.4.31-cmfa.1 (2026-06-20)
 
 - ★ FIX#167-DOUYIN：在广告/TikTok/国外尾部规则前增加抖音 Web 国内流媒体守卫，覆盖 `douyin.com` 与 `zjcdn.com` 等视频 CDN 域名。
