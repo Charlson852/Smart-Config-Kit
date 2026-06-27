@@ -7,6 +7,11 @@
 
 ---
 
+## v5.4.33-oc-normal.1 / v5.4.33-oc-smart.1 (2026-06-27)
+
+- ★ FEAT#169-AI-CODING：Normal / Smart 同步新增 `vpsdance-ai-coding` provider 与 AI 服务规则命中。
+- 保留 v5.4.32 国内游戏优先级修复。
+
 ## v5.4.32-oc-normal.1 / v5.4.32-oc-smart.1 (2026-06-25)
 
 - ★ FIX#168-CN-GAME：Normal / Smart heredoc YAML 同步将国内游戏块前置到国外游戏块之前，防止 HoYoverse / Game / category-games 先命中代理。

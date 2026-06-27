@@ -5,6 +5,11 @@
 
 ---
 
+## v5.4.33-cmfa.1 (2026-06-27)
+
+- ★ FEAT#169-AI-CODING：新增 `vpsdance-ai-coding` rule-provider，来源为 VPSDance `rules/clash/coding.yaml`。
+- 保留国内游戏优先级修复，AI 编程工具仍归入 `🤖 AI 服务`。
+
 ## v5.4.32-cmfa.1 (2026-06-25)
 
 - ★ FIX#168-CN-GAME：`🕹️ 国内游戏` 规则块前置到 `🎮 国外游戏` 之前；早期散落的 `GEOSITE,category-games` 归回国外游戏块，避免抢先吞掉国内游戏域名。

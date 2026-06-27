@@ -5,9 +5,9 @@
   },
   "_meta": {
     "name": "SingBox Smart Full",
-    "version": "v5.4.32-sing.1",
-    "build": "2026-06-25",
-    "baseline": "Clash Party v5.4.32",
+    "version": "v5.4.33-sing.1",
+    "build": "2026-06-27",
+    "baseline": "Clash Party v5.4.33",
     "changelog": "见 SingBox/CHANGELOG.md"
   },
   "experimental": {
@@ -1804,6 +1804,16 @@
       },
       {
         "type": "remote",
+        "tag": "vpsdance-ai-coding",
+        "format": "source",
+        "url": "https://fastly.jsdelivr.net/gh/VPSDance/ai-proxy-rules@main/rules/sing-box/coding.json",
+        "http_client": {
+          "detour": "🌍 全球节点"
+        },
+        "update_interval": "1d"
+      },
+      {
+        "type": "remote",
         "tag": "geosite-category-ads-all",
         "format": "binary",
         "url": "https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geosite/category-ads-all.srs",
@@ -3257,6 +3267,13 @@
         ],
         "action": "route",
         "outbound": "📥 下载更新"
+      },
+      {
+        "rule_set": [
+          "vpsdance-ai-coding"
+        ],
+        "action": "route",
+        "outbound": "🤖 AI 服务"
       },
       {
         "domain_suffix": [

@@ -5,6 +5,10 @@
 
 ---
 
+## v5.4.33-SR.1 (2026-06-27)
+
+- ★ FEAT#169-AI-CODING：新增 VPSDance Shadowrocket `coding.list`，归入 `🤖 AI 服务`。
+
 ## v5.4.32-SR.1 (2026-06-25)
 
 - ★ FIX#168-CN-GAME：将国内游戏内联规则和 SteamCN 等规则集整体前置到国外游戏 RULE-SET 之前，避免 HoYoverse/Game 宽规则抢先代理。

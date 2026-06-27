@@ -1,8 +1,8 @@
 // FlClash 覆写脚本 — 标准 Mihomo 内核动态分流版
-// 版本：v5.4.32-flclash.1 (2026-06-25)
-// 架构：22 url-test 区域组（11 全部 + 11 家宽）+ 33 业务策略组（含 14 流媒体平台组）+ 382 rule-providers 100%+ 服务覆盖
-// 基线：Clash Party v5.4.32（规则 100% 等价；区域组为 url-test — FlClash 内核为标准 Mihomo，不支持 smart + LightGBM）
-// v5.4.32: FIX#168-CN-GAME 国内游戏早于 HoYoverse / Game / category-games 国外宽规则；v5.4.31: FIX#167-DOUYIN 抖音 Web 前置到 📺 国内流媒体
+// 版本：v5.4.33-flclash.1 (2026-06-27)
+// 架构：22 url-test 区域组（11 全部 + 11 家宽）+ 33 业务策略组（含 14 流媒体平台组）+ 383 rule-providers 100%+ 服务覆盖
+// 基线：Clash Party v5.4.33（规则 100% 等价；区域组为 url-test — FlClash 内核为标准 Mihomo，不支持 smart + LightGBM）
+// v5.4.33: FEAT#169-AI-CODING 接入 VPSDance AI coding 规则补齐 AI 编程工具 · v5.4.32: FIX#168-CN-GAME 国内游戏早于 HoYoverse / Game / category-games 国外宽规则；v5.4.31: FIX#167-DOUYIN 抖音 Web 前置到 📺 国内流媒体
 // 适用：FlClash >= v0.8.85（覆盖脚本功能自该版本引入）；其他使用标准 Mihomo 内核的客户端
 // 变更历史：见 `FlClash/CHANGELOG.md`
 //
@@ -36,7 +36,7 @@
 //  版本常量
 // ================================================================
 
-const VERSION = 'v5.4.32-flclash.1'
+const VERSION = 'v5.4.33-flclash.1'
 
 // v5.4.9 FEAT#LOCAL-TOOLS: desktop local-tool direct whitelist.
 const LOCAL_TOOL_DIRECT_PROCESS_NAMES = [
@@ -1049,6 +1049,7 @@ function injectRuleProviders(config) {
       interval: nextInterval(),
       proxy: RP_PROXY
     }
+    config['rule-providers']['vpsdance-ai-coding'] = { type: 'http', behavior: 'classical', url: 'https://fastly.jsdelivr.net/gh/VPSDance/ai-proxy-rules@main/rules/clash/coding.yaml', path: './ruleset/vpsdance-ai-coding.yaml', interval: nextInterval(), proxy: RP_PROXY }
 
     // ── 金融服务：Bank × 10国（原 acc-bank 404 → 拆分为子 provider）──
     for (const cc of ['US', 'UK', 'HK', 'SG', 'JP', 'AU', 'CA', 'DE', 'NL', 'FR']) {
@@ -1487,6 +1488,7 @@ function injectRules(config) {
     // 日志：match RuleSet/acc-copilot) --> geover.prod.do.dsp.mp.microsoft.com:443
     `DOMAIN-SUFFIX,do.dsp.mp.microsoft.com,${BIZ.DOWNLOAD}`,
     `RULE-SET,acc-copilot,${BIZ.AI}`,
+    `RULE-SET,vpsdance-ai-coding,${BIZ.AI}`,
     `DOMAIN-SUFFIX,tradingview.com,${BIZ.CRYPTO}`,
     `DOMAIN-SUFFIX,tvcdn.com,${BIZ.CRYPTO}`,
     `DOMAIN-SUFFIX,coinglass.com,${BIZ.CRYPTO}`,

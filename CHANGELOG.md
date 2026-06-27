@@ -6,6 +6,12 @@
 
 ---
 
+## v5.4.33 (2026-06-27)
+
+- FEAT#169-AI-CODING：接入 `VPSDance/ai-proxy-rules` 的 `coding` 场景，补齐 Codex / Claude Code / Cursor / Zed / Windsurf / Replit / Sourcegraph / Amazon Q / Augment 等 AI 编程工具覆盖。
+- SYNC：Clash Party Smart/Normal、CMFA、OpenClash Normal/Smart、Shadowrocket、Surge、Loon、Quantumult X、SingBox、v2rayN、Passwall、Passwall2、FlClash 同步；SingBox Full 由 generator 重新生成。
+- SCOPE：不新增业务组，仍归入 `🤖 AI 服务`；Passwall / Passwall2 因 VPSDance 暂无 `.srs`，使用手工域名兜底而非 `rule-set:remote`。
+
 ## v5.4.32 (2026-06-25)
 
 - FIX#168-CN-GAME：国内游戏直连规则前置到 HoYoverse / Game / category-games 等国外游戏宽规则之前，避免国内游戏被先命中代理。

@@ -2,7 +2,7 @@
 
 > 一套以 **Mihomo Smart 内核 JS 覆写脚本**为基线、同步产出 12 种客户端等价配置的分流体系。同一套策略覆盖 Windows / macOS / Linux / Android / iOS / OpenWrt，避免”设备 A 可用、设备 B 抽风”。
 >
-> - 🧩 **22 区域组 + 33 业务组**：按语义精细分流（AI / 流媒体 / 社交 / 游戏 / 广告拦截 …），382 rule-provider 全覆盖
+> - 🧩 **22 区域组 + 33 业务组**：按语义精细分流（AI / 流媒体 / 社交 / 游戏 / 广告拦截 …），383 rule-provider 全覆盖
 > - ⚡ **Smart / Normal 双内核**：同规则量，按内核能力选 `smart`（LightGBM ML 择路）或经典 `url-test`
 > - 🤖 **AI 全仓维护**：代码 / 规则 / 文档均由 AI 编写迭代；[Issue](https://github.com/ivansolis1989/Smart-Config-Kit/issues/new/choose) 触发 AI 自动回答，[Telegram 群](https://t.me/Olympus_Habitue) 可讨论
 > - ⚠️ Mihomo 内核由本人实测，其他内核请自行验证后使用
@@ -66,7 +66,7 @@ flowchart LR
 
 | 代理组（与脚本一致） | 主要 rule-providers（示例） | 主要来源仓库 |
 |---|---|---|
-| 🤖 AI 服务 | `openai` `claude` `gemini` `copilot` `szkane-ai` `acc-copilot` | MetaCubeX / blackmatrix7 / szkane / Accademia |
+| 🤖 AI 服务 | `openai` `claude` `gemini` `copilot` `szkane-ai` `acc-copilot` `vpsdance-ai-coding` | MetaCubeX / blackmatrix7 / szkane / Accademia / VPSDance |
 | 💰 加密货币 | `cryptocurrency` `binance` `szkane-web3` | blackmatrix7 / szkane |
 | 🏦 金融支付 | `paypal` `stripe` `paddle.com` `visa` `tigerfintech` `acc-bank-*` `acc-vf-*` | blackmatrix7 / Accademia / 本地误伤白名单 |
 | 💬 即时通讯 | `telegram` `telegram-ip` `discord` `whatsapp` `line` `kakaotalk` `acc-signal` | MetaCubeX / blackmatrix7 / Accademia |
@@ -111,7 +111,7 @@ flowchart LR
 
 | 类型 | geosite 做不到的事 | 本仓库怎么补 | 典型例子 |
 |---|---|---|---|
-| **① 新兴服务** | 新 AI / Web3 上线后 2–4 周才收录 | `szkane-ai` / `acc-grok` + 手工 `DOMAIN-SUFFIX` | cursor.com · character.ai · openrouter.ai · CiciAI |
+| **① 新兴服务** | 新 AI / Web3 上线后 2–4 周才收录 | `szkane-ai` / `vpsdance-ai-coding` / `acc-grok` + 手工 `DOMAIN-SUFFIX` | cursor.com · zed.dev · windsurf.com · openrouter.ai |
 | **② 子类拆分** | `geosite:apple` 是一个整体，无法让 AppStore 直连 + TestFlight 走代理 | bm7 拆成 12 个独立 provider | Apple / Google / Microsoft 家族各子服务独立决策 |
 | **③ 安全纵深** | `category-ads-all` 只管广告，不管钓鱼 / 恶意软件 / SDK 埋点 / DNS 劫持 | 9 个来源互补覆盖不同威胁类型 | anti-AD（广告）+ sukka-phishing（13 万钓鱼）+ hagezi-tif（malware/C2） |
 | **④ 地区长尾** | 国际社区不维护中国特有 SDK / 港澳台细分 / IoT ASN | szkane / Accademia 补充 | B 站港澳台版 · 绿米 IoT · 美日住宅 IP 段 |
@@ -239,7 +239,7 @@ flowchart TB
 
 **📚 规则库**：[geosite](https://github.com/MetaCubeX/meta-rules-dat) / [geoip](https://github.com/Loyalsoldier/geoip) / [clash-rules](https://github.com/Loyalsoldier/clash-rules) / [v2ray-rules-dat](https://github.com/Loyalsoldier/v2ray-rules-dat)
 
-**📦 规则集**：[bm7](https://github.com/blackmatrix7/ios_rule_script) / [Accademia](https://github.com/Accademia/Additional_Rule_For_Clash) / [DustinWin](https://github.com/DustinWin/ruleset_geodata) / [ACL4SSR](https://github.com/ACL4SSR/ACL4SSR) / [SukkaW](https://github.com/SukkaW/Surge) / [Hagezi](https://github.com/hagezi/dns-blocklists) / [MiHomo-Hagezi](https://github.com/MiHomoer/MiHomo-Hagezi) / [szkane](https://github.com/szkane/Rules) / [anti-AD](https://github.com/privacy-protection-tools/anti-AD)
+**📦 规则集**：[bm7](https://github.com/blackmatrix7/ios_rule_script) / [Accademia](https://github.com/Accademia/Additional_Rule_For_Clash) / [DustinWin](https://github.com/DustinWin/ruleset_geodata) / [ACL4SSR](https://github.com/ACL4SSR/ACL4SSR) / [SukkaW](https://github.com/SukkaW/Surge) / [Hagezi](https://github.com/hagezi/dns-blocklists) / [MiHomo-Hagezi](https://github.com/MiHomoer/MiHomo-Hagezi) / [szkane](https://github.com/szkane/Rules) / [VPSDance AI Rules](https://github.com/VPSDance/ai-proxy-rules) / [anti-AD](https://github.com/privacy-protection-tools/anti-AD)
 
 **🛠️ 工具**：[Sub-Store](https://github.com/sub-store-org/Sub-Store) / [PROCESS-NAME 兼容清单](./docs/process-name-compatibility.md) / [QX 脚本](https://github.com/KOP-XIAO/QuantumultX) / [Qure 图标](https://github.com/Koolson/Qure) / [domain-list-community](https://github.com/v2fly/domain-list-community)
 

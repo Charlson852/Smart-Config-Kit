@@ -3,11 +3,11 @@
 > 目录简介：这里是 Mihomo Smart/Normal 覆写脚本的事实基线，面向 Clash Party、Clash Verge Rev、Mihomo Party 等桌面客户端。
 >
 > 覆写脚本：**两份二选一**，规则 100% 等价，仅 22 区域组（11 全部 + 11 家宽）的内核选路算法不同
-> - `ClashParty(mihomo-smart).js`（**v5.4.32**，2026-06-25）— Smart 内核 + LightGBM ML 评估
-> - `ClashParty(mihomo).js`（**v5.4.32-normal.1**，2026-06-25）— 普通内核 url-test 延迟选路
+> - `ClashParty(mihomo-smart).js`（**v5.4.33**，2026-06-27）— Smart 内核 + LightGBM ML 评估
+> - `ClashParty(mihomo).js`（**v5.4.33-normal.1**，2026-06-27）— 普通内核 url-test 延迟选路
 >
 > UI 补充配置：已整合到本文「四、粘贴 UI 补充配置」章节
-> 架构：**SUB-STORE 多机场融合** + 22 区域组（11 全部 + 11 家宽）+ 33 业务策略组 + **382 rule-providers**
+> 架构：**SUB-STORE 多机场融合** + 22 区域组（11 全部 + 11 家宽）+ 33 业务策略组 + **383 rule-providers**
 > 适用客户端：
 > - **Mihomo Party**（桌面端，推荐，原生支持 JS 覆写；内置 Smart 内核）
 > - **Clash Verge Rev**（桌面端，支持 JS/YAML 双覆写）
@@ -334,7 +334,7 @@ sniffer:
 - 打开日志，查看是否有 `No node classified` 提示。
 
 ### Q2：首次连接特别慢？
-- 首次需下载 **382 rule-providers**，约 15–30 MB；
+- 首次需下载 **383 rule-providers**，约 15–30 MB；
 - 建议在 WiFi 环境下完成首次下载。
 
 ### Q3：如何升级到新版本？

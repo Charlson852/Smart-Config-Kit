@@ -6,6 +6,10 @@
 
 ---
 
+## v5.4.33-QX.1 (2026-06-27)
+
+- ★ FEAT#169-AI-CODING：新增 VPSDance Quantumult X `coding.list` filter_remote，归入 `🤖 AI 服务`。
+
 ## v5.4.32-QX.1 (2026-06-25)
 
 - ★ FIX#168-CN-GAME：`filter_local` 国内游戏段前置到国外游戏段之前；`filter_remote` 保持国内游戏规则集先于国外游戏规则集。

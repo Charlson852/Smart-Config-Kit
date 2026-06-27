@@ -2,7 +2,7 @@
     {
         "id": "scki-000-meta",
         "enabled": false,
-        "remarks": "Smart-Config-Kit v5.4.32-v2n.1 | Build 2026-06-25 | Baseline Clash Party v5.4.32 | changelog: v2rayN/CHANGELOG.md | FIX#168-CN-GAME: 国内游戏域名补齐并早于国外游戏宽规则",
+        "remarks": "Smart-Config-Kit v5.4.33-v2n.1 | Build 2026-06-27 | Baseline Clash Party v5.4.33 | changelog: v2rayN/CHANGELOG.md | FEAT#169-AI-CODING: 补充 AI 编程工具域名兜底",
         "outboundTag": "direct",
         "domain": [
             "domain:smart-config-kit.invalid"
@@ -146,7 +146,7 @@
     {
         "id": "scki-010-ai",
         "enabled": true,
-        "remarks": "AI 服务 (OpenAI/Claude/Gemini/Copilot) → 代理",
+        "remarks": "AI 服务 (OpenAI/Claude/Gemini/Copilot + AI coding tools) → 代理",
         "outboundTag": "proxy",
         "domain": [
             "geosite:openai",
@@ -183,7 +183,26 @@
         "outboundTag": "proxy",
         "domain": [
             "domain:pi.ai",
-            "domain:inflection.ai"
+            "domain:inflection.ai",
+            "domain:ampcode.com",
+            "domain:ampworkers.com",
+            "domain:augmentcode.com",
+            "domain:aws.dev",
+            "domain:awsapps.com",
+            "domain:bolt.new",
+            "domain:codeium.com",
+            "domain:continue.dev",
+            "domain:devin.ai",
+            "domain:factory.ai",
+            "domain:kiro.dev",
+            "domain:lovable.dev",
+            "domain:lovable.app",
+            "domain:replit.com",
+            "domain:sourcegraph.com",
+            "domain:tabnine.com",
+            "domain:windsurf.com",
+            "domain:windsurf.ai",
+            "domain:zed.dev"
         ],
         "ip": [],
         "port": "",

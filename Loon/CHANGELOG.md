@@ -4,6 +4,10 @@
 
 ---
 
+## v5.4.33-Loon.1 (2026-06-27)
+
+- ★ FEAT#169-AI-CODING：新增 VPSDance Loon `coding.list` Remote Rule，归入 `🤖 AI 服务`。
+
 ## v5.4.32-Loon.1 (2026-06-25)
 
 - ★ FIX#168-CN-GAME：`[Remote Rule]` 与 `[Rule]` 两处国内游戏段均前置到国外游戏段之前，保持 Loon 私有语法下的首匹配优先级。

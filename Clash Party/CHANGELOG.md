@@ -7,6 +7,12 @@
 
 ---
 
+## v5.4.33 / v5.4.33-normal.1 (2026-06-27)
+
+- ★ FEAT#169-AI-CODING：新增 `vpsdance-ai-coding` rule-provider，来源为 `VPSDance/ai-proxy-rules` 的 `rules/clash/coding.yaml`。
+- 覆盖重点：Codex / Claude Code / Cursor / Zed / Windsurf / Replit / Sourcegraph / Amazon Q / Augment / Lovable / Bolt 等 AI 编程工具；规则仍命中现有 `🤖 AI 服务`，不新增策略组。
+- 保留 v5.4.32 的国内游戏优先级修复顺序。
+
 ## v5.4.32 / v5.4.32-normal.1 (2026-06-25)
 
 - ★ FIX#168-CN-GAME：将 `🕹️ 国内游戏` 块提升到 `🎮 国外游戏` 块之前，确保 `yuanshen.com` / `mihoyo.com` / 网易 / WeGame / SteamCN 等国内游戏域名先于 `RULE-SET,hoyoverse`、`RULE-SET,game`、`GEOSITE,category-games` 命中直连策略。

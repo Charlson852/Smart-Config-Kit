@@ -6,6 +6,11 @@
 
 ---
 
+## v5.4.33-pw2.1 (2026-06-27)
+
+- ★ FEAT#169-AI-CODING：`02-ai-service.list`、apply 脚本与参考 `.conf` 补充 AI 编程工具域名兜底。
+- N/A：VPSDance 暂无 sing-box `.srs` 输出，Passwall2 降级参考不直接使用 `rule-set:remote`。
+
 ## v5.4.32-pw2.1 (2026-06-25)
 
 - ★ FIX#168-CN-GAME：Passwall2 shunt rule 创建顺序调整为国内游戏早于国外游戏/国外网站，并补齐米哈游、网易、WeGame、完美世界、TapTap 等国内游戏域名。

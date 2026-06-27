@@ -5,7 +5,7 @@
 > 覆写脚本：`FlClash(mihomo).js`
 > 适用客户端：**FlClash**（Android / Windows / macOS / Linux）
 > 内核要求：FlClash >= **v0.8.85**
-> 当前版本：**v5.4.32-flclash.1**（22 url-test 区域组 + 33 业务策略组；含借鉴 Proxy-override 批 A+B+C+D：国内 SDK/CDN 直连 + fake-ip-filter 补全 + direct-nameserver-follow-policy + 节点过滤 junk 关键词补充 + QUIC 精细化 + DoH-over-IP bootstrap）
+> 当前版本：**v5.4.33-flclash.1**（22 url-test 区域组 + 33 业务策略组；含借鉴 Proxy-override 批 A+B+C+D：国内 SDK/CDN 直连 + fake-ip-filter 补全 + direct-nameserver-follow-policy + 节点过滤 junk 关键词补充 + QUIC 精细化 + DoH-over-IP bootstrap）
 
 <sub>💖 [支持本项目](../docs/donate.md) · ⭐ [Star](https://github.com/ivansolis1989/Smart-Config-Kit) · 🐛 [Issue](https://github.com/ivansolis1989/Smart-Config-Kit/issues)</sub>
 

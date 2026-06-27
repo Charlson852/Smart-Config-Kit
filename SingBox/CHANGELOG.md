@@ -5,6 +5,11 @@
 
 ---
 
+## v5.4.33-sing.1 (2026-06-27)
+
+- ★ FEAT#169-AI-CODING：`SingBox(sing-box)-generator.js` 将 `vpsdance-ai-coding` 映射到 VPSDance `rules/sing-box/coding.json`。
+- Full JSON 已由 generator 重新生成，新增 1 个 source JSON remote rule_set。
+
 ## v5.4.32-sing.1 (2026-06-25)
 
 - ★ FIX#168-CN-GAME：`SingBox(sing-box)-generator.js` 跟随 Clash Party v5.4.32 生成国内游戏 route 早于 HoYoverse / Game / category-games 宽规则的 Full JSON。

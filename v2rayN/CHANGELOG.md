@@ -7,6 +7,10 @@
 
 ---
 
+## v5.4.33-v2n.1 (2026-06-27)
+
+- ★ FEAT#169-AI-CODING：Xray 降级参考在 `scki-010-ai` 补充 AI 编程工具域名兜底，覆盖 Augment / Amazon Q / Bolt / Continue / Devin / Kiro / Lovable / Replit / Sourcegraph / Tabnine / Windsurf / Zed 等。
+
 ## v5.4.32-v2n.1 (2026-06-25)
 
 - ★ FIX#168-CN-GAME：Xray 路由中的 `scki-025-cn-game` 补齐米哈游、网易、WeGame、完美世界、TapTap、鹰角、莉莉丝等国内游戏域名，并保持在国外游戏规则之前。

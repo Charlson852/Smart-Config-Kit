@@ -1,7 +1,7 @@
 #!/bin/sh
 # ═══════════════════════════════════════════════════════════════════════════
 # Smart-Config-Kit for Passwall — UCI batch helper
-# Version: v5.4.32-pw.1 | Build 2026-06-25 | Baseline: Clash Party v5.4.32
+# Version: v5.4.33-pw.1 | Build 2026-06-27 | Baseline: Clash Party v5.4.33
 #
 # 用途：一次性在 Passwall（全功能版）中创建 33 条 shunt rule（含域名列表 + IP 列表），
 #       每条目标节点留空（NEED_CONFIG），用户之后到 LuCI 里手工选节点。
@@ -158,6 +158,25 @@ uci add_list "${CONFIG_NAME}".${SEC}.domain_list='domain:suno.com'
 uci add_list "${CONFIG_NAME}".${SEC}.domain_list='domain:midjourney.com'
 uci add_list "${CONFIG_NAME}".${SEC}.domain_list='domain:pi.ai'
 uci add_list "${CONFIG_NAME}".${SEC}.domain_list='domain:inflection.ai'
+uci add_list "${CONFIG_NAME}".${SEC}.domain_list='domain:ampcode.com'
+uci add_list "${CONFIG_NAME}".${SEC}.domain_list='domain:ampworkers.com'
+uci add_list "${CONFIG_NAME}".${SEC}.domain_list='domain:augmentcode.com'
+uci add_list "${CONFIG_NAME}".${SEC}.domain_list='domain:aws.dev'
+uci add_list "${CONFIG_NAME}".${SEC}.domain_list='domain:awsapps.com'
+uci add_list "${CONFIG_NAME}".${SEC}.domain_list='domain:bolt.new'
+uci add_list "${CONFIG_NAME}".${SEC}.domain_list='domain:codeium.com'
+uci add_list "${CONFIG_NAME}".${SEC}.domain_list='domain:continue.dev'
+uci add_list "${CONFIG_NAME}".${SEC}.domain_list='domain:devin.ai'
+uci add_list "${CONFIG_NAME}".${SEC}.domain_list='domain:factory.ai'
+uci add_list "${CONFIG_NAME}".${SEC}.domain_list='domain:kiro.dev'
+uci add_list "${CONFIG_NAME}".${SEC}.domain_list='domain:lovable.dev'
+uci add_list "${CONFIG_NAME}".${SEC}.domain_list='domain:lovable.app'
+uci add_list "${CONFIG_NAME}".${SEC}.domain_list='domain:replit.com'
+uci add_list "${CONFIG_NAME}".${SEC}.domain_list='domain:sourcegraph.com'
+uci add_list "${CONFIG_NAME}".${SEC}.domain_list='domain:tabnine.com'
+uci add_list "${CONFIG_NAME}".${SEC}.domain_list='domain:windsurf.com'
+uci add_list "${CONFIG_NAME}".${SEC}.domain_list='domain:windsurf.ai'
+uci add_list "${CONFIG_NAME}".${SEC}.domain_list='domain:zed.dev'
 uci set "${CONFIG_NAME}".${SEC}.network='tcp,udp'
 # uci set "${CONFIG_NAME}".${SEC}.tcp_node='NEED_CONFIG_IN_LUCI'
 

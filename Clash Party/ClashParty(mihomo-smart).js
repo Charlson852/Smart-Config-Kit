@@ -1,14 +1,14 @@
 ﻿// Clash Smart 内核覆写脚本 - SUB-STORE 多机场精细分流版
-// 版本：v5.4.32 (2026-06-25)
-// 架构：SUB-STORE 多机场融合 + 22 Smart 区域组（11 全部 + 11 家宽）+ 33 业务策略组（含 14 流媒体平台组）+ 382 rule-providers 100%+ 服务覆盖
-// v5.4.32: FIX#168-CN-GAME 国内游戏前置到国外游戏宽规则之前，避免 HoYoverse / Game / category-games 抢先代理 · v5.4.31: FIX#167-DOUYIN 抖音 Web 前置到 📺 国内流媒体
+// 版本：v5.4.33 (2026-06-27)
+// 架构：SUB-STORE 多机场融合 + 22 Smart 区域组（11 全部 + 11 家宽）+ 33 业务策略组（含 14 流媒体平台组）+ 383 rule-providers 100%+ 服务覆盖
+// v5.4.33: FEAT#169-AI-CODING 接入 VPSDance AI coding 规则补齐 AI 编程工具 · v5.4.32: FIX#168-CN-GAME 国内游戏前置到国外游戏宽规则之前，避免 HoYoverse / Game / category-games 抢先代理 · v5.4.31: FIX#167-DOUYIN 抖音 Web 前置到 📺 国内流媒体
 // 变更历史：见 `Clash Party/CHANGELOG.md`
 
 // ================================================================
 //  版本常量
 // ================================================================
 
-const VERSION = 'v5.4.32'
+const VERSION = 'v5.4.33'
 
 // v5.4.9 FEAT#LOCAL-TOOLS:
 // Desktop-capable local tools that should not be routed through proxy nodes.
@@ -1025,6 +1025,7 @@ function injectRuleProviders(config) {
       interval: nextInterval(),
       proxy: RP_PROXY
     }
+    config['rule-providers']['vpsdance-ai-coding'] = { type: 'http', behavior: 'classical', url: 'https://fastly.jsdelivr.net/gh/VPSDance/ai-proxy-rules@main/rules/clash/coding.yaml', path: './ruleset/vpsdance-ai-coding.yaml', interval: nextInterval(), proxy: RP_PROXY }
 
     // ── 金融服务：Bank × 10国（原 acc-bank 404 → 拆分为子 provider）──
     for (const cc of ['US', 'UK', 'HK', 'SG', 'JP', 'AU', 'CA', 'DE', 'NL', 'FR']) {
@@ -1465,6 +1466,7 @@ function injectRules(config) {
     // 日志：match RuleSet/acc-copilot) --> geover.prod.do.dsp.mp.microsoft.com:443
     `DOMAIN-SUFFIX,do.dsp.mp.microsoft.com,${BIZ.DOWNLOAD}`,
     `RULE-SET,acc-copilot,${BIZ.AI}`,
+    `RULE-SET,vpsdance-ai-coding,${BIZ.AI}`,
     `DOMAIN-SUFFIX,tradingview.com,${BIZ.CRYPTO}`,
     `DOMAIN-SUFFIX,tvcdn.com,${BIZ.CRYPTO}`,
     `DOMAIN-SUFFIX,coinglass.com,${BIZ.CRYPTO}`,

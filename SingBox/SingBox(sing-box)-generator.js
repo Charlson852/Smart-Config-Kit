@@ -1,9 +1,9 @@
 const fs = require('fs');
 const vm = require('vm');
 
-const VERSION = 'v5.4.32-sing.1';
-const BUILD = '2026-06-25';
-const BASELINE = 'Clash Party v5.4.32';
+const VERSION = 'v5.4.33-sing.1';
+const BUILD = '2026-06-27';
+const BASELINE = 'Clash Party v5.4.33';
 
 const SMART = {
   GLOBAL: '🌍 全球节点',
@@ -464,6 +464,14 @@ function toSrsUrl(url, tag) {
     return 'https://fastly.jsdelivr.net/gh/DustinWin/ruleset_geodata@sing-box-ruleset/ads.srs';
   }
 
+  const vpsdanceAiCoding = url.match(/^(https:\/\/(?:fastly\.|cdn\.)?jsdelivr\.net\/gh\/VPSDance\/ai-proxy-rules)@main\/rules\/clash\/coding\.yaml$/i);
+  if (tag === 'vpsdance-ai-coding' && vpsdanceAiCoding) {
+    return {
+      format: 'source',
+      url: `${vpsdanceAiCoding[1]}@main/rules/sing-box/coding.json`
+    };
+  }
+
   return null;
 }
 
@@ -482,13 +490,14 @@ const extraGeoSiteTags = Array.from(new Set(
 }));
 
 const ruleSet = Object.entries(providers).map(([tag, info]) => {
-  const url = toSrsUrl(info.url, tag);
-  if (!url) return null;
+  const mapped = toSrsUrl(info.url, tag);
+  if (!mapped) return null;
+  const ruleSetUrl = typeof mapped === 'string' ? { format: 'binary', url: mapped } : mapped;
   return {
     type: 'remote',
     tag,
-    format: 'binary',
-    url,
+    format: ruleSetUrl.format,
+    url: ruleSetUrl.url,
     http_client: { detour: SMART.GLOBAL },
     update_interval: '1d'
   };

@@ -2,13 +2,14 @@
 . /usr/share/openclash/log.sh
 
 # ============================================================================
-# Clash Smart v5.4.32-oc-normal.1 — OpenClash 覆写脚本（非 Smart 内核 / url-test 区域组）
-# Build: 2026-06-25
+# Clash Smart v5.4.33-oc-normal.1 — OpenClash 覆写脚本（非 Smart 内核 / url-test 区域组）
+# Build: 2026-06-27
 # ============================================================================
+# v5.4.33: FEAT#169-AI-CODING 接入 VPSDance AI coding 规则补齐 AI 编程工具
 # v5.4.32: FIX#168-CN-GAME 国内游戏前置到国外游戏宽规则之前，避免 HoYoverse / Game / category-games 抢先代理
 # 定位：与同目录 OpenClash(mihomo-smart).sh 规则 100% 等价的「非 Smart 内核」版本。
 #       两者唯一区别：22 个区域组（11 全部 + 11 家宽）从 type: smart（uselightgbm）换成 type: url-test。
-#       对齐 Clash Party v5.4.32 JS 基线。
+#       对齐 Clash Party v5.4.33 JS 基线。
 #       适用场景：
 #         - OpenClash 内核选的是 Meta(mihomo 稳定版) 而非 Meta Alpha，不支持 smart + LightGBM
 #         - 或者明确想关闭 LightGBM ML 评估、只靠经典 url-test 延迟选路
@@ -16,18 +17,18 @@
 # 架构：
 #   • 22 url-test 区域组（11 全部 + 11 家宽；interval 600s / tolerance 150ms / lazy：与 Smart 版同步延迟参数）
 #   • 33 业务策略组（流媒体按平台拆分：TikTok / Netflix / Disney+ / HBO/Max / Hulu / Prime Video / YouTube / 音乐流媒体 / 其他国外流媒体）
-#   • 382 rule-providers（全部 proxy: "🚫 受限网站"，对齐 Clash Party FIX#17-P0）
+#   • 383 rule-providers（全部 proxy: "🚫 受限网站"，对齐 Clash Party FIX#17-P0）
 #   • 1050+ 条 rules
 #   • DNS fake-ip + 嗅探（HTTP/TLS/QUIC）+ nameserver-policy 救援
 #   • Ruby 阶段做：节点过滤 / 区域分类 / url-test 组生成 / TLS 指纹注入
-# 基线：Clash Party v5.4.32（唯一主线；v5.3.1/v5.3.2 为桌面端 PROCESS-NAME 改动，路由器端不适用）── 任何规则/组/DNS 改动必须先改 Clash Party JS，
+# 基线：Clash Party v5.4.33（唯一主线；v5.3.1/v5.3.2 为桌面端 PROCESS-NAME 改动，路由器端不适用）── 任何规则/组/DNS 改动必须先改 Clash Party JS，
 #       再同步到此文件。参见仓库根目录 CLAUDE.md / AGENTS.md。
 # 变更历史：见 `OpenClash/CHANGELOG.md`（Normal 部分）。
 # ============================================================================
 
 
 
-VERSION_TAG="v5.4.32-oc-normal.1"
+VERSION_TAG="v5.4.33-oc-normal.1"
 CONFIG_FILE="$1"
 LOG_FILE="/tmp/openclash.log"
 
@@ -507,7 +508,7 @@ OVERRIDE_EOF
 # 策略：
 #   ✓ 与 Clash Party 主线（BIZ.GFW = '🚫 受限网站'）一致：所有 provider 都走 GFW 组
 #     下载，在中国走代理、在印尼走 DIRECT，规避 jsdelivr/GitHub 冷启动死锁。
-#   ✓ 9 url-test 区域组 + 28 业务组 + 382 rule-providers + ~975 条规则
+#   ✓ 9 url-test 区域组 + 28 业务组 + 383 rule-providers + ~975 条规则
 #   ✓ 区域组统一 type: url-test + include-all-proxies / explicit proxies 分流
 #   ✓ TLS 指纹注入（Ruby 阶段 _simple_hash 分配）
 # ============================================================================
@@ -2667,6 +2668,13 @@ rule-providers:
     path: "./ruleset/acc-Copilot.yaml"
     interval: 90038
     proxy: "\U0001F6AB 受限网站"
+  vpsdance-ai-coding:
+    type: http
+    behavior: classical
+    url: https://fastly.jsdelivr.net/gh/VPSDance/ai-proxy-rules@main/rules/clash/coding.yaml
+    path: "./ruleset/vpsdance-ai-coding.yaml"
+    interval: 90131
+    proxy: "\U0001F6AB 受限网站"
   acc-bank-us:
     type: http
     behavior: classical
@@ -3483,6 +3491,7 @@ rules:
 - "RULE-SET,acc-gemini,\U0001F916 AI 服务"
 - "DOMAIN-SUFFIX,do.dsp.mp.microsoft.com,\U0001F4E5 下载更新"
 - "RULE-SET,acc-copilot,\U0001F916 AI 服务"
+- "RULE-SET,vpsdance-ai-coding,\U0001F916 AI 服务"
 - "DOMAIN-SUFFIX,tradingview.com,\U0001F4B0 加密货币"
 - "DOMAIN-SUFFIX,tvcdn.com,\U0001F4B0 加密货币"
 - "DOMAIN-SUFFIX,coinglass.com,\U0001F4B0 加密货币"
@@ -4347,7 +4356,7 @@ cat > "$RUBY_SCRIPT" << 'RUBY_EOF'
 require 'yaml'
 require 'digest'
 
-VERSION = "v5.4.32-oc-normal.1"
+VERSION = "v5.4.33-oc-normal.1"
 
 STATUS_LOG = ARGV[2]
 File.open(STATUS_LOG, 'w') { |f| f.puts "[#{VERSION}] start" }

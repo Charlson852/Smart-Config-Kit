@@ -1,8 +1,8 @@
-# SingBox 使用教程（对齐 Clash Party v5.4.32 Full 语义）
+# SingBox 使用教程（对齐 Clash Party v5.4.33 Full 语义）
 
 > 目录简介：这里维护 sing-box Full JSON 生成脚本、生成产物和 Hiddify/HomeProxy 等 sing-box 客户端导入教程。
 >
-> 配置文件：`SingBox/SingBox(sing-box)-full.json`（v5.4.32-sing.1；urltest interval 默认 5m）
+> 配置文件：`SingBox/SingBox(sing-box)-full.json`（v5.4.33-sing.1；urltest interval 默认 5m）
 > 生成脚本：`SingBox/SingBox(sing-box)-generator.js`
 > 目标：在 **sing-box** 上复刻 Clash Party 的「20 区域组（10 全部 + 10 家宽）+ 33 业务组」静态策略结构，并只使用 sing-box 官方可消费的 SRS 规则集，保持 sing-box 1.12/1.13/1.14 官方配置兼容。
 > 本目录只提供 Full 配置。
@@ -38,12 +38,12 @@
 ### 跑起来怎么验证？
 - 浏览器打开 `https://www.google.com` 能打开 = 代理通了
 - 客户端的"出站"/"策略"面板应看到 54 个组（1 `🚀 节点选择` + 20 区域 + 33 业务）
-- 首次启动后等 39 个 remote rule_set 下载完（约 1 分钟），日志不报 403/404 即可
+- 首次启动后等 40 个 remote rule_set 下载完（约 1 分钟），日志不报 403/404 即可
 - 额外检查：按根 README 的 [导入后 60 秒验证清单](../README.md#-导入后-60-秒验证清单) 确认规则下载、GEOSITE 命中与 anti-ad 误伤白名单。
 
 ### 最常见踩坑
 - ❌ **客户端说 "config invalid"**：你改节点时漏了逗号/引号。用 `python3 -c 'import json; json.load(open("SingBox(sing-box)-full.json"))'` 校验 JSON 合法性。
-- ❌ **rule_set 下载失败**：jsdelivr 被墙。先用任意一个能通的节点连上，再重新启用本配置，让 sing-box 把 39 个 `.srs` 拉下来缓存。
+- ❌ **rule_set 下载失败**：jsdelivr 被墙。先用任意一个能通的节点连上，再重新启用本配置，让 sing-box 把 39 个 `.srs` + 1 个 source JSON 拉下来缓存。
 - ❌ **Hiddify 提示 TUN 冲突**：Hiddify 会自己管 TUN。把本 JSON 里的 `inbounds.tun` 段删掉就好。
 - ❌ **配置里的节点占位跑不通**：那是示例节点（`proxy-hk-1` 等），需要你替换成真实节点。**不替换直接导入是跑不通的**。
 
@@ -130,7 +130,7 @@ sing-box 由 SagerNet 团队开发，是目前**新协议实现最前沿**的代
 2. 将 `SingBox/SingBox(sing-box)-full.json` 导入客户端。
 3. 将文件内 `proxy-xxx` 示例节点替换成你自己的真实节点（trojan/vless/vmess/hysteria2 都可以）。
 
-> 说明：`SingBox(sing-box)-full.json` 已内置 39 个 sing-box SRS remote rule_set 与 697 条路由规则；你只需要替换节点出站即可。
+> 说明：`SingBox(sing-box)-full.json` 已内置 40 个 sing-box remote rule_set（39 个 SRS + 1 个 source JSON）与 686 条路由规则；你只需要替换节点出站即可。
 
 ### 多机场订阅合并
 
@@ -180,7 +180,7 @@ node 'SingBox/SingBox(sing-box)-generator.js'
 
 - 调用 Clash Party 的 `main(config)` 构建完整规则；
 - 同步导出 sing-box `route.rule_set`（39 项，全部为官方 SRS 兼容 remote rule_set）；
-- 同步导出 sing-box `route.rules`（697 条）。
+- 同步导出 sing-box `route.rules`（686 条）。
 > 说明：Clash YAML/list 规则源不能直接作为 sing-box `source` rule-set 使用；生成器只保留可验证的 SRS 来源，避免用户导入后才遇到远程规则下载失败。
 
 ---
@@ -213,7 +213,7 @@ node 'SingBox/SingBox(sing-box)-generator.js'
 |------|---------------------|---------------------|
 | **路由模型** | 54 组嵌套 selector/urltest（业务组 → 区域组 → 节点） | 平面规则匹配（几个 GUI 开关：中国域名 / 中国 IP / 屏蔽广告 / 屏蔽跟踪器 / 屏蔽 QUIC） |
 | **出站 tag** | 中文 emoji 名称（`🐟 漏网之鱼` / `🚫 受限网站` / `🤖 AI 服务` …） | 内置 tag 常量（`proxy` / `bypass` / `block` / `direct`），导入完整配置后 GUI 路由失效 |
-| **rule_set** | 39 个 remote rule_set（SRS 二进制） | **不支持** rule_set；规则只能写内联的 domain/ip/geosite |
+| **rule_set** | 40 个 remote rule_set（39 个 SRS 二进制 + 1 个 source JSON） | **不支持** rule_set；规则只能写内联的 domain/ip/geosite |
 | **DNS** | 手动多层 DNS（`dns_direct` IP bootstrap + `dns_proxy` DoH + `dns_final` 兜底） | 自动 split-DNS（"直连 DNS / 远程 DNS"自动切换，由 NB4A 封装而非 sing-box 原生） |
 | **配置入口** | 外部 JSON 文件，用户编辑后导入 | GUI 为主，配置存储在 App 内部；自定义 JSON 仅作补丁合并，不作为主配置 |
 
@@ -282,7 +282,7 @@ node 'SingBox/SingBox(sing-box)-generator.js'
 
 1. **出站组是否完整**：能看到 20 区域 + 33 业务组。
 2. **DNS 是否生效**：国内域名走 `dns_direct`，国外域名走 `dns_proxy`。  
-3. **规则集下载是否成功**：应看到 39 个 remote `rule_set` 被加载，且无 403/404。
+3. **规则集下载是否成功**：应看到 40 个 remote `rule_set` 被加载，且无 403/404。
 4. **关键规则集是否存在**：`cn / cn-ip / proxy / geosite-category-ads-all`。
 5. **典型业务是否命中**：
    - ChatGPT 命中 `🤖 AI 服务`

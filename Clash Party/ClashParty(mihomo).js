@@ -1,8 +1,8 @@
 ﻿// Clash 覆写脚本 - SUB-STORE 多机场精细分流版
-// 版本：v5.4.32-normal.1 (2026-06-25)
-// 架构：22 url-test 区域组（11 全部 + 11 家宽）+ 33 业务策略组 + 382 rule-providers
-// 基线：Clash Party v5.4.32（与同目录 ClashParty(mihomo-smart).js 规则 100% 等价，仅区域组从 smart 改为 url-test）
-// v5.4.32: FIX#168-CN-GAME 国内游戏早于 HoYoverse / Game / category-games 国外宽规则；v5.4.31: FIX#167-DOUYIN 抖音 Web 前置到 📺 国内流媒体
+// 版本：v5.4.33-normal.1 (2026-06-27)
+// 架构：22 url-test 区域组（11 全部 + 11 家宽）+ 33 业务策略组 + 383 rule-providers
+// 基线：Clash Party v5.4.33（与同目录 ClashParty(mihomo-smart).js 规则 100% 等价，仅区域组从 smart 改为 url-test）
+// v5.4.33: FEAT#169-AI-CODING 接入 VPSDance AI coding 规则补齐 AI 编程工具 · v5.4.32: FIX#168-CN-GAME 国内游戏早于 HoYoverse / Game / category-games 国外宽规则；v5.4.31: FIX#167-DOUYIN 抖音 Web 前置到 📺 国内流媒体
 // 适用：Mihomo / Clash.Meta 稳定版内核、不支持 smart + LightGBM 的分支；也适用于想完全关闭 ML 评估的用户
 // 变更历史：见 `Clash Party/CHANGELOG.md`
 
@@ -10,7 +10,7 @@
 //  版本常量
 // ================================================================
 
-const VERSION = 'v5.4.32-normal.1'
+const VERSION = 'v5.4.33-normal.1'
 
 // v5.4.9 FEAT#LOCAL-TOOLS: desktop local-tool direct whitelist.
 const LOCAL_TOOL_DIRECT_PROCESS_NAMES = [
@@ -1021,6 +1021,7 @@ function injectRuleProviders(config) {
       interval: nextInterval(),
       proxy: RP_PROXY
     }
+    config['rule-providers']['vpsdance-ai-coding'] = { type: 'http', behavior: 'classical', url: 'https://fastly.jsdelivr.net/gh/VPSDance/ai-proxy-rules@main/rules/clash/coding.yaml', path: './ruleset/vpsdance-ai-coding.yaml', interval: nextInterval(), proxy: RP_PROXY }
 
     // ── 金融服务：Bank × 10国（原 acc-bank 404 → 拆分为子 provider）──
     for (const cc of ['US', 'UK', 'HK', 'SG', 'JP', 'AU', 'CA', 'DE', 'NL', 'FR']) {
@@ -1460,6 +1461,7 @@ function injectRules(config) {
     // 日志：match RuleSet/acc-copilot) --> geover.prod.do.dsp.mp.microsoft.com:443
     `DOMAIN-SUFFIX,do.dsp.mp.microsoft.com,${BIZ.DOWNLOAD}`,
     `RULE-SET,acc-copilot,${BIZ.AI}`,
+    `RULE-SET,vpsdance-ai-coding,${BIZ.AI}`,
     `DOMAIN-SUFFIX,tradingview.com,${BIZ.CRYPTO}`,
     `DOMAIN-SUFFIX,tvcdn.com,${BIZ.CRYPTO}`,
     `DOMAIN-SUFFIX,coinglass.com,${BIZ.CRYPTO}`,

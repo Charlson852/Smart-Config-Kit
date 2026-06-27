@@ -5,6 +5,10 @@
 
 ---
 
+## v5.4.33-flclash.1 (2026-06-27)
+
+- ★ FEAT#169-AI-CODING：新增 `vpsdance-ai-coding` rule-provider，来源为 VPSDance `rules/clash/coding.yaml`，归入 `🤖 AI 服务`。
+
 ## v5.4.32-flclash.1 (2026-06-25)
 
 - ★ FIX#168-CN-GAME：同步 Clash Party Normal v5.4.32，将国内游戏块前置到国外游戏宽规则之前，避免 HoYoverse / Game / category-games 抢先代理国内游戏域名。
