@@ -33,7 +33,7 @@
 | 适用内核 | Mihomo Smart / Meta Alpha | Mihomo Meta 稳定内核（非 Smart） |
 | 区域组类型 | `type: smart` | `type: url-test` |
 | LightGBM | 支持（`uselightgbm: true`） | 不支持 |
-| 规则覆盖 | 383 providers / 1050+ rules | 383 providers / 1050+ rules |
+| 规则覆盖 | 384 providers / 1050+ rules | 384 providers / 1050+ rules |
 | 业务组数量 | 32 | 32 |
 | 区域组数量 | 22 | 22 |
 | DNS / Sniffer / Rule-Providers | 完全一致 | 完全一致 |
@@ -238,7 +238,7 @@ LuCI → **配置订阅** → 添加订阅链接 → 下载 → **全局设置**
 
 ### Q1：我现在不是 Smart 内核，还能用这套规则吗？
 
-可以。直接用 `OpenClash(mihomo).sh` 即可，规则覆盖（383 providers / 1050+ rules）与 Smart 版完全一致。
+可以。直接用 `OpenClash(mihomo).sh` 即可，规则覆盖（384 providers / 1050+ rules）与 Smart 版完全一致。
 
 ### Q2：我后面升级到 Smart 内核，要重做配置吗？
 

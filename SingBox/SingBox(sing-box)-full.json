@@ -5,9 +5,9 @@
   },
   "_meta": {
     "name": "SingBox Smart Full",
-    "version": "v5.4.33-sing.1",
-    "build": "2026-06-27",
-    "baseline": "Clash Party v5.4.33",
+    "version": "v5.4.34-sing.1",
+    "build": "2026-06-28",
+    "baseline": "Clash Party v5.4.34",
     "changelog": "见 SingBox/CHANGELOG.md"
   },
   "experimental": {
@@ -1754,6 +1754,16 @@
       },
       {
         "type": "remote",
+        "tag": "amap",
+        "format": "binary",
+        "url": "https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geosite/amap.srs",
+        "http_client": {
+          "detour": "🌍 全球节点"
+        },
+        "update_interval": "1d"
+      },
+      {
+        "type": "remote",
         "tag": "cn",
         "format": "binary",
         "url": "https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geosite/cn.srs",
@@ -2088,6 +2098,13 @@
           "geosite-category-ads-all"
         ],
         "action": "reject"
+      },
+      {
+        "rule_set": [
+          "amap"
+        ],
+        "action": "route",
+        "outbound": "🏠 国内网站"
       },
       {
         "rule_set": [

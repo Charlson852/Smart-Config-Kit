@@ -5,6 +5,11 @@
 
 ---
 
+## v5.4.34-flclash.1 (2026-06-28)
+
+- ★ FIX#169-AMAP：同步 Clash Party v5.4.34，新增 MetaCubeX `amap` rule-provider 与 `RULE-SET,amap,🏠 国内网站`。
+- 规则放在广告/威胁规则之后、TikTok/GFW/geolocation-!cn 宽规则之前，修复 `webapi.amap.com` 误走国外的首匹配风险。
+
 ## v5.4.33-flclash.1 (2026-06-27)
 
 - ★ FEAT#169-AI-CODING：新增 `vpsdance-ai-coding` rule-provider，来源为 VPSDance `rules/clash/coding.yaml`，归入 `🤖 AI 服务`。

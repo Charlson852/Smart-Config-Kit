@@ -7,6 +7,12 @@
 
 ---
 
+## v5.4.34-oc-normal.1 / v5.4.34-oc-smart.1 (2026-06-28)
+
+- ★ FIX#169-AMAP：Normal / Smart 同步新增 MetaCubeX `amap.mrs` provider，下载代理保持 `🚫 受限网站`。
+- 规则顺序：`RULE-SET,amap,🏠 国内网站` 位于广告/威胁规则之后、`proxy` / `geolocation-!cn` 国外兜底之前，避免 `webapi.amap.com` 依赖尾部 CN 兜底。
+- `OpenClash(mihomo).conf` 参考快照元数据对齐 v5.4.34。
+
 ## v5.4.33-oc-normal.1 / v5.4.33-oc-smart.1 (2026-06-27)
 
 - ★ FEAT#169-AI-CODING：Normal / Smart 同步新增 `vpsdance-ai-coding` provider 与 AI 服务规则命中。

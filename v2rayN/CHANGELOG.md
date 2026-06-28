@@ -7,6 +7,11 @@
 
 ---
 
+## v5.4.34-v2n.1 (2026-06-28)
+
+- ★ FIX#169-AMAP：新增 `scki-000e-amap-direct`，显式直连 `a-map.cn` / `amap.com` / `autonavi.com` / `gaode.com` 等高德地图 / AMap 核心域名。
+- 说明：v2rayN Xray 路由 JSON 不消费 Mihomo `rule-provider`，因此使用域名兜底与主线 `amap` provider 保持语义等价。
+
 ## v5.4.33-v2n.1 (2026-06-27)
 
 - ★ FEAT#169-AI-CODING：Xray 降级参考在 `scki-010-ai` 补充 AI 编程工具域名兜底，覆盖 Augment / Amazon Q / Bolt / Continue / Devin / Kiro / Lovable / Replit / Sourcegraph / Tabnine / Windsurf / Zed 等。

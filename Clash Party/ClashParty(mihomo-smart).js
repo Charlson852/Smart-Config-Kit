@@ -1,14 +1,14 @@
 ﻿// Clash Smart 内核覆写脚本 - SUB-STORE 多机场精细分流版
-// 版本：v5.4.33 (2026-06-27)
-// 架构：SUB-STORE 多机场融合 + 22 Smart 区域组（11 全部 + 11 家宽）+ 33 业务策略组（含 14 流媒体平台组）+ 383 rule-providers 100%+ 服务覆盖
-// v5.4.33: FEAT#169-AI-CODING 接入 VPSDance AI coding 规则补齐 AI 编程工具 · v5.4.32: FIX#168-CN-GAME 国内游戏前置到国外游戏宽规则之前，避免 HoYoverse / Game / category-games 抢先代理 · v5.4.31: FIX#167-DOUYIN 抖音 Web 前置到 📺 国内流媒体
+// 版本：v5.4.34 (2026-06-28)
+// 架构：SUB-STORE 多机场融合 + 22 Smart 区域组（11 全部 + 11 家宽）+ 33 业务策略组（含 14 流媒体平台组）+ 384 rule-providers 100%+ 服务覆盖
+// v5.4.34: FIX#169-AMAP 高德地图前置到 🏠 国内网站，避免 webapi.amap.com 依赖尾部 CN 兜底 · v5.4.33: FEAT#169-AI-CODING 接入 VPSDance AI coding 规则补齐 AI 编程工具 · v5.4.32: FIX#168-CN-GAME 国内游戏前置到国外游戏宽规则之前，避免 HoYoverse / Game / category-games 抢先代理
 // 变更历史：见 `Clash Party/CHANGELOG.md`
 
 // ================================================================
 //  版本常量
 // ================================================================
 
-const VERSION = 'v5.4.33'
+const VERSION = 'v5.4.34'
 
 // v5.4.9 FEAT#LOCAL-TOOLS:
 // Desktop-capable local tools that should not be routed through proxy nodes.
@@ -606,7 +606,10 @@ function injectRuleProviders(config) {
   metaDomain('bilibili', 'bilibili')
   metaDomain('biliintl', 'biliintl')
 
-  // ============ #70~72 国内/国外兜底 ============
+  // ============ #70 高德地图国内站点 ============
+  metaDomain('amap', 'amap')
+
+  // ============ #71~73 国内/国外兜底 ============
   metaDomain('cn', 'cn')
   metaIpCidr('cn-ip', 'cn')
   metaDomain('proxy', 'geolocation-!cn')
@@ -1318,6 +1321,9 @@ function injectRules(config) {
     `RULE-SET,miuiprivacy,${BIZ.AD}`,
     `RULE-SET,privacy,${BIZ.AD}`,
     `RULE-SET,youmengchuangxiang,${BIZ.AD}`,
+    // v5.4.34 FIX#169-AMAP: webapi.amap.com 属高德地图国内 API。专用 amap 规则放在广告/威胁规则之后、
+    //   TikTok/GFW/geolocation-!cn 宽规则之前，避免依赖尾部 RULE-SET,cn 才直连。
+    `RULE-SET,amap,${BIZ.CN_SITE}`,
     // v5.4.22 #1 借鉴 Proxy-override：QUIC 精细化——YouTube/Google/MS/Apple 白名单豁免（QUIC 走对应业务组），其余海外 QUIC REJECT 强制回退 HTTP/2
     `AND,((DST-PORT,443),(NETWORK,UDP),(GEOSITE,youtube)),${BIZ.YT}`,
     `AND,((DST-PORT,443),(NETWORK,UDP),(GEOSITE,google)),${BIZ.GOOGLE}`,

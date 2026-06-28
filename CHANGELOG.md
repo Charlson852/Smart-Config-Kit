@@ -6,6 +6,12 @@
 
 ---
 
+## v5.4.34 (2026-06-28)
+
+- FIX#169-AMAP：新增高德地图 / AMap 专用国内规则前置，`webapi.amap.com` 等高德核心域名早于 `geolocation-!cn` / 国外兜底命中 `🏠 国内网站`。
+- SYNC：Clash Party Smart/Normal、CMFA、OpenClash Normal/Smart、Shadowrocket、Surge、Loon、Quantumult X、SingBox、v2rayN、Passwall、Passwall2、FlClash 同步；SingBox Full 由 generator 重新生成。
+- VERIFY：新增 AMap/GaoDe 首匹配合同断言，确认广告/威胁规则仍在前，高德国内规则早于 foreign tail。
+
 ## v5.4.33 (2026-06-27)
 
 - FEAT#169-AI-CODING：接入 `VPSDance/ai-proxy-rules` 的 `coding` 场景，补齐 Codex / Claude Code / Cursor / Zed / Windsurf / Replit / Sourcegraph / Amazon Q / Augment 等 AI 编程工具覆盖。

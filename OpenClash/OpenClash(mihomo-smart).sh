@@ -2,30 +2,31 @@
 . /usr/share/openclash/log.sh
 
 # ============================================================================
-# Clash Smart v5.4.33-oc-smart.1 — OpenClash 覆写脚本（与 Clash Party 主线同等规则量）
-# Build: 2026-06-27
+# Clash Smart v5.4.34-oc-smart.1 — OpenClash 覆写脚本（与 Clash Party 主线同等规则量）
+# Build: 2026-06-28
 # ============================================================================
+# v5.4.34: FIX#169-AMAP 高德地图前置到 🏠 国内网站，避免 webapi.amap.com 依赖尾部 CN 兜底
 # v5.4.33: FEAT#169-AI-CODING 接入 VPSDance AI coding 规则补齐 AI 编程工具
 # v5.4.32: FIX#168-CN-GAME 国内游戏前置到国外游戏宽规则之前，避免 HoYoverse / Game / category-games 抢先代理
-# 定位：对齐 Clash Party v5.4.33 JS 主线的 OpenClash 全量版本。v5.4.2: P0-FIX#41 小米白名单。
+# 定位：对齐 Clash Party v5.4.34 JS 主线的 OpenClash 全量版本。v5.4.2: P0-FIX#41 小米白名单。
 #       与同目录 OpenClash(mihomo).sh（Normal）互补：
 #         - Normal 面向稳定版 mihomo / 经典 url-test
 #         - full  面向 4GB+ 路由器 / 需要与 Clash Party 桌面端一致的细粒度分流
 # 架构：
 #   • 22 Smart 区域组（11 全部 + 11 家宽；全部 uselightgbm: true）
 #   • 33 业务策略组（流媒体按平台拆分：TikTok / Netflix / Disney+ / HBO/Max / Hulu / Prime Video / YouTube / 音乐流媒体 / 其他国外流媒体）
-#   • 383 rule-providers（全部 proxy: "🚫 受限网站"，对齐 Clash Party FIX#17-P0）
+#   • 384 rule-providers（全部 proxy: "🚫 受限网站"，对齐 Clash Party FIX#17-P0）
 #   • 1050+ 条 rules
 #   • DNS fake-ip + 嗅探（HTTP/TLS/QUIC）+ nameserver-policy 救援
 #   • Ruby 阶段做：节点过滤 / 区域分类 / Smart 组生成 / TLS 指纹注入
-# 基线：Clash Party v5.4.33（唯一主线；v5.3.1/v5.3.2 为桌面端 PROCESS-NAME 改动，路由器端不适用）── 任何规则/组/DNS 改动必须先改 Clash Party JS，
+# 基线：Clash Party v5.4.34（唯一主线；v5.3.1/v5.3.2 为桌面端 PROCESS-NAME 改动，路由器端不适用）── 任何规则/组/DNS 改动必须先改 Clash Party JS，
 #       再同步到此文件。参见仓库根目录 CLAUDE.md / AGENTS.md。
 # 变更历史：见 `OpenClash/CHANGELOG.md`（Full 部分）。
 # ============================================================================
 
 
 
-VERSION_TAG="v5.4.33-oc-smart.1"
+VERSION_TAG="v5.4.34-oc-smart.1"
 CONFIG_FILE="$1"
 LOG_FILE="/tmp/openclash.log"
 
@@ -501,11 +502,11 @@ proxy-groups:
 OVERRIDE_EOF
 
 # ============================================================================
-# OVERRIDE YAML (续) — Rule-Providers：382 项，对齐 Clash Party v5.2.8 主线
+# OVERRIDE YAML (续) — Rule-Providers：384 项，对齐 Clash Party v5.4.34 主线
 # 策略：
 #   ✓ 与 Clash Party 主线（BIZ.GFW = '🚫 受限网站'）一致：所有 provider 都走 GFW 组
 #     下载，在中国走代理、在印尼走 DIRECT，规避 jsdelivr/GitHub 冷启动死锁。
-#   ✓ 9 Smart 区域组 + 28 业务组 + 383 rule-providers + ~975 条规则
+#   ✓ 22 Smart 区域组 + 33 业务组 + 384 rule-providers + 1050+ 条规则
 #   ✓ Smart 组统一 uselightgbm: true + include-all-proxies: true
 #   ✓ TLS 指纹注入（Ruby 阶段 _simple_hash 分配）
 # ============================================================================
@@ -1021,6 +1022,14 @@ rule-providers:
     url: https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/biliintl.mrs
     path: "./ruleset/meta-biliintl.mrs"
     interval: 86565
+    proxy: "\U0001F6AB 受限网站"
+  amap:
+    type: http
+    behavior: domain
+    format: mrs
+    url: https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/amap.mrs
+    path: "./ruleset/meta-amap.mrs"
+    interval: 86532
     proxy: "\U0001F6AB 受限网站"
   cn:
     type: http
@@ -3303,6 +3312,9 @@ rules:
 - "RULE-SET,miuiprivacy,\U0001F6D1 广告拦截"
 - "RULE-SET,privacy,\U0001F6D1 广告拦截"
 - "RULE-SET,youmengchuangxiang,\U0001F6D1 广告拦截"
+  # v5.4.34 FIX#169-AMAP: webapi.amap.com 属高德地图国内 API。专用 amap 规则放在广告/威胁规则之后、
+  #   TikTok/GFW/geolocation-!cn 宽规则之前，避免依赖尾部 RULE-SET,cn 才直连。
+- "RULE-SET,amap,\U0001F3E0 国内网站"
   # v5.4.22 #1 借鉴 Proxy-override：QUIC 精细化——YouTube/Google/MS/Apple 白名单豁免，其余海外 QUIC REJECT
 - "AND,((DST-PORT,443),(NETWORK,UDP),(GEOSITE,youtube)),\U0001F4F9 YouTube"
 - "AND,((DST-PORT,443),(NETWORK,UDP),(GEOSITE,google)),\U0001F50D Google 服务"
@@ -4353,7 +4365,7 @@ cat > "$RUBY_SCRIPT" << 'RUBY_EOF'
 require 'yaml'
 require 'digest'
 
-VERSION = "v5.4.33-oc-smart.1"
+VERSION = "v5.4.34-oc-smart.1"
 
 STATUS_LOG = ARGV[2]
 File.open(STATUS_LOG, 'w') { |f| f.puts "[#{VERSION}] start" }

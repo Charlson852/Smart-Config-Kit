@@ -6,6 +6,11 @@
 
 ---
 
+## v5.4.34-QX.1 (2026-06-28)
+
+- ★ FIX#169-AMAP：新增 blackmatrix7 Quantumult X `GaoDe.list` filter_remote，归入 `🏠 国内网站`。
+- 顺序保持在广告/威胁规则之后、国外网站兜底之前，修复 `webapi.amap.com` 高德 API 误走国外的风险。
+
 ## v5.4.33-QX.1 (2026-06-27)
 
 - ★ FEAT#169-AI-CODING：新增 VPSDance Quantumult X `coding.list` filter_remote，归入 `🤖 AI 服务`。

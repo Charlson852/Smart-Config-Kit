@@ -2,7 +2,7 @@
     {
         "id": "scki-000-meta",
         "enabled": false,
-        "remarks": "Smart-Config-Kit v5.4.33-v2n.1 | Build 2026-06-27 | Baseline Clash Party v5.4.33 | changelog: v2rayN/CHANGELOG.md | FEAT#169-AI-CODING: 补充 AI 编程工具域名兜底",
+        "remarks": "Smart-Config-Kit v5.4.34-v2n.1 | Build 2026-06-28 | Baseline Clash Party v5.4.34 | changelog: v2rayN/CHANGELOG.md | FIX#169-AMAP: 高德地图 / AMap 国内 API 前置直连",
         "outboundTag": "direct",
         "domain": [
             "domain:smart-config-kit.invalid"
@@ -82,6 +82,29 @@
             "domain:iesdouyin.net",
             "domain:amemv.com",
             "domain:zjcdn.com"
+        ],
+        "ip": [],
+        "port": "",
+        "protocol": [],
+        "inboundTag": [],
+        "network": "tcp,udp"
+    },
+    {
+        "id": "scki-000e-amap-direct",
+        "enabled": true,
+        "remarks": "FIX#169-AMAP：高德地图 / AMap 国内 API 前置直连，避免 webapi.amap.com 被国外兜底抢先命中",
+        "outboundTag": "direct",
+        "domain": [
+            "domain:a-map.cn",
+            "domain:a-map.co",
+            "domain:a-map.link",
+            "domain:a-map.vip",
+            "domain:acloudrender.com",
+            "domain:amap.com",
+            "domain:amapauto.com",
+            "domain:anav.com",
+            "domain:autonavi.com",
+            "domain:gaode.com"
         ],
         "ip": [],
         "port": "",

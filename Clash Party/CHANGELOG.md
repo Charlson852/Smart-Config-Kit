@@ -7,6 +7,12 @@
 
 ---
 
+## v5.4.34 / v5.4.34-normal.1 (2026-06-28)
+
+- ★ FIX#169-AMAP：新增 MetaCubeX `amap` rule-provider，并在广告/威胁规则之后、TikTok/GFW/geolocation-!cn 宽规则之前加入 `RULE-SET,amap,🏠 国内网站`。
+- 覆盖重点：`webapi.amap.com`、`amap.com`、`autonavi.com`、`gaode.com` 等高德地图 / AMap 国内 API 不再依赖尾部 `RULE-SET,cn` 才直连。
+- 验证：`tools/validate-js-overwrites.js` 新增 provider 存在与顺序断言，防止后续把 AMap 守卫挪到国外兜底之后。
+
 ## v5.4.33 / v5.4.33-normal.1 (2026-06-27)
 
 - ★ FEAT#169-AI-CODING：新增 `vpsdance-ai-coding` rule-provider，来源为 `VPSDance/ai-proxy-rules` 的 `rules/clash/coding.yaml`。

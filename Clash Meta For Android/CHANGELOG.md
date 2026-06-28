@@ -5,6 +5,11 @@
 
 ---
 
+## v5.4.34-cmfa.1 (2026-06-28)
+
+- ★ FIX#169-AMAP：新增 MetaCubeX `amap.mrs` provider，下载代理保持 `🚫 受限网站`。
+- 将 `RULE-SET,amap,🏠 国内网站` 放在广告/威胁规则之后、`proxy` / `geolocation-!cn` 国外兜底之前，修复 `webapi.amap.com` 误走国外的首匹配风险。
+
 ## v5.4.33-cmfa.1 (2026-06-27)
 
 - ★ FEAT#169-AI-CODING：新增 `vpsdance-ai-coding` rule-provider，来源为 VPSDance `rules/clash/coding.yaml`。

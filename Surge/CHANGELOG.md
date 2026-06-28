@@ -4,6 +4,11 @@
 
 ---
 
+## v5.4.34-Surge.1 (2026-06-28)
+
+- ★ FIX#169-AMAP：新增 blackmatrix7 Surge `GaoDe.list`，归入 `🏠 国内网站`。
+- 顺序保持在广告/威胁规则之后、国外网站兜底之前，修复 `webapi.amap.com` 高德 API 误走国外的风险。
+
 ## v5.4.33-Surge.1 (2026-06-27)
 
 - ★ FEAT#169-AI-CODING：新增 VPSDance Surge `coding.list`，归入 `🤖 AI 服务`。

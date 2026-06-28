@@ -1,7 +1,7 @@
 #!/bin/sh
 # ═══════════════════════════════════════════════════════════════════════════
 # Smart-Config-Kit for Passwall / Passwall2 — UCI batch helper
-# Version: v5.4.33-pw2.1 | Build 2026-06-27 | Baseline: Clash Party v5.4.33
+# Version: v5.4.34-pw2.1 | Build 2026-06-28 | Baseline: Clash Party v5.4.34
 #
 # 用途：一次性在 Passwall2 中创建 33 条 shunt rule（含域名列表 + IP 列表），
 #       每条目标节点留空（NEED_CONFIG），用户之后到 LuCI 里手工选节点。
@@ -553,6 +553,16 @@ uci set "${CONFIG_NAME}".${SEC}.network='tcp,udp'
 # [31] 🏠 国内网站
 SEC="$(uci add "${CONFIG_NAME}" shunt_rules)"
 uci set "${CONFIG_NAME}".${SEC}.remarks='🏠 国内网站'
+uci add_list "${CONFIG_NAME}".${SEC}.domain_list='domain:a-map.cn'
+uci add_list "${CONFIG_NAME}".${SEC}.domain_list='domain:a-map.co'
+uci add_list "${CONFIG_NAME}".${SEC}.domain_list='domain:a-map.link'
+uci add_list "${CONFIG_NAME}".${SEC}.domain_list='domain:a-map.vip'
+uci add_list "${CONFIG_NAME}".${SEC}.domain_list='domain:acloudrender.com'
+uci add_list "${CONFIG_NAME}".${SEC}.domain_list='domain:amap.com'
+uci add_list "${CONFIG_NAME}".${SEC}.domain_list='domain:amapauto.com'
+uci add_list "${CONFIG_NAME}".${SEC}.domain_list='domain:anav.com'
+uci add_list "${CONFIG_NAME}".${SEC}.domain_list='domain:autonavi.com'
+uci add_list "${CONFIG_NAME}".${SEC}.domain_list='domain:gaode.com'
 uci add_list "${CONFIG_NAME}".${SEC}.domain_list='geosite:cn'
 uci add_list "${CONFIG_NAME}".${SEC}.ip_list='geoip:cn'
 uci add_list "${CONFIG_NAME}".${SEC}.ip_list='geoip:private'

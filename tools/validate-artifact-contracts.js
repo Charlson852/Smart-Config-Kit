@@ -65,6 +65,19 @@ const DOUYIN_CNMEDIA_DOMAINS = [
   'amemv.com',
   'zjcdn.com',
 ];
+const AMAP_DOMAINS = [
+  'a-map.cn',
+  'a-map.co',
+  'a-map.link',
+  'a-map.vip',
+  'acloudrender.com',
+  'amap.com',
+  'amapauto.com',
+  'anav.com',
+  'autonavi.com',
+  'gaode.com',
+];
+const PASSWALL_AMAP_REQUIRED = AMAP_DOMAINS.map((domain) => `domain:${domain}`);
 const CN_GAME_PRIORITY_DOMAINS = ['mihoyo.com', 'yuanshen.com'];
 const PASSWALL_CN_GAME_REQUIRED = [
   'domain:mihoyo.com',
@@ -485,6 +498,9 @@ function validateClashYaml(record, baselineVersion, options) {
   record.check('cmfa.restricted-provider-downloads', countLiteral(source, RESTRICTED_SITE) >= MIN_FULL_PROVIDERS, {
     value: countLiteral(source, RESTRICTED_SITE),
   });
+  record.check('cmfa.amap-provider', /amap:\n\s+type:\s+http/.test(providersBlock));
+  checkNeedleBefore(record, 'cmfa.amap-after-ads', rulesBlock, "'RULE-SET,anti-ad,🛑 广告拦截'", "'RULE-SET,amap,🏠 国内网站'");
+  checkNeedleBefore(record, 'cmfa.amap-before-foreign-tail', rulesBlock, "'RULE-SET,amap,🏠 国内网站'", "'RULE-SET,proxy,🌐 国外网站'");
   record.check('cmfa.scholar-target-google', source.includes("'RULE-SET,scholar,🔍 Google 服务'"));
   record.check('cmfa.scholar-not-tools', !source.includes("'RULE-SET,scholar,🔧 工具与服务'"));
   const fakeIpFilterBlock = extractIndentedListBlock(source, 'fake-ip-filter');
@@ -602,6 +618,9 @@ function validateOpenClash(record, baselineVersion, options) {
     record.check(`openclash.${spec.id}.rules-singleton`, topRules === 1, { value: topRules });
     record.check(`openclash.${spec.id}.no-direct-provider-downloads`, !/proxy:\s*['"]?DIRECT['"]?/.test(source));
     record.check(`openclash.${spec.id}.restricted-provider-downloads`, restrictedCount >= spec.minProviders, { value: restrictedCount });
+    record.check(`openclash.${spec.id}.amap-provider`, /amap:\n\s+type:\s+http/.test(yaml));
+    checkNeedleBefore(record, `openclash.${spec.id}.amap-after-ads`, rulesOnly, 'RULE-SET,anti-ad', 'RULE-SET,amap');
+    checkNeedleBefore(record, `openclash.${spec.id}.amap-before-foreign-tail`, rulesOnly, 'RULE-SET,amap', 'RULE-SET,proxy');
     record.check(`openclash.${spec.id}.scholar-target-google`, source.includes('RULE-SET,scholar,\\U0001F50D Google 服务'));
     record.check(`openclash.${spec.id}.scholar-not-tools`, !source.includes('RULE-SET,scholar,\\U0001F527 工具与服务'));
     for (const entry of STUN_FAKE_IP_FILTER_ENTRIES) {
@@ -740,6 +759,48 @@ function validateConfProducts(record, baselineVersion) {
     checkNeedleBefore(record, `${spec.id}.douyin-zjcdn-before-tiktok`, spec.source, spec.guard, spec.tiktok);
     checkNeedleBefore(record, `${spec.id}.douyin-zjcdn-before-foreign-tail`, spec.source, spec.guard, spec.foreign);
   }
+  checkNeedleBefore(
+    record,
+    'shadowrocket.amap-after-ads',
+    shadowrocket,
+    'Shadowrocket/YouMengChuangXiang/YouMengChuangXiang.list,🛑 广告拦截',
+    'Shadowrocket/GaoDe/GaoDe.list,🏠 国内网站',
+  );
+  checkNeedleBefore(
+    record,
+    'shadowrocket.amap-before-foreign-tail',
+    shadowrocket,
+    'Shadowrocket/GaoDe/GaoDe.list,🏠 国内网站',
+    'Shadowrocket/CNN/CNN.list,🌐 国外网站',
+  );
+  checkNeedleBefore(
+    record,
+    'surge.amap-after-ads',
+    surge,
+    'Surge/YouMengChuangXiang/YouMengChuangXiang.list,🛑 广告拦截',
+    'Surge/GaoDe/GaoDe.list,🏠 国内网站',
+  );
+  checkNeedleBefore(
+    record,
+    'surge.amap-before-foreign-tail',
+    surge,
+    'Surge/GaoDe/GaoDe.list,🏠 国内网站',
+    'Surge/CNN/CNN.list,🌐 国外网站',
+  );
+  checkNeedleBefore(
+    record,
+    'loon.amap-after-ads',
+    loonRemoteRule,
+    'Loon/YouMengChuangXiang/YouMengChuangXiang.list, policy=🛑 广告拦截',
+    'Loon/GaoDe/GaoDe.list, policy=🏠 国内网站',
+  );
+  checkNeedleBefore(
+    record,
+    'loon.amap-before-foreign-tail',
+    loonRemoteRule,
+    'Loon/GaoDe/GaoDe.list, policy=🏠 国内网站',
+    'Loon/CNN/CNN.list, policy=🌐 国外网站',
+  );
   for (const spec of [
     {
       id: 'shadowrocket',
@@ -828,6 +889,20 @@ function validateConfProducts(record, baselineVersion) {
   );
   const qxFilterRemote = extractConfSection(qx, 'filter_remote');
   const qxFilterLocal = extractConfSection(qx, 'filter_local');
+  checkNeedleBefore(
+    record,
+    'qx.amap-after-ads',
+    qxFilterRemote,
+    'QuantumultX/YouMengChuangXiang/YouMengChuangXiang.list, tag=youmengchuangxiang, force-policy=🛑 广告拦截',
+    'QuantumultX/GaoDe/GaoDe.list, tag=gaode, force-policy=🏠 国内网站',
+  );
+  checkNeedleBefore(
+    record,
+    'qx.amap-before-foreign-tail',
+    qxFilterRemote,
+    'QuantumultX/GaoDe/GaoDe.list, tag=gaode, force-policy=🏠 国内网站',
+    'QuantumultX/CNN/CNN.list, tag=cnn, force-policy=🌐 国外网站',
+  );
   checkNeedleBefore(
     record,
     'qx.cn-game.remote-steamcn-before-hoyoverse',
@@ -993,12 +1068,19 @@ function validateJsonProducts(record, baselineVersion) {
   const singboxForeignTailIndex = singboxRules.findIndex((rule) => (
     Array.isArray(rule.rule_set) && rule.rule_set.includes('proxy') && rule.outbound === '🌐 国外网站'
   ));
+  const singboxAmapIndex = singboxRules.findIndex((rule) => (
+    Array.isArray(rule.rule_set) && rule.rule_set.includes('amap') && rule.outbound === '🏠 国内网站'
+  ));
   record.check('singbox.douyin-zjcdn-cnmedia', singboxDouyinIndex !== -1, failureMessage(singboxDouyinIndex !== -1, 'zjcdn.com must route to CN media'));
   record.check('singbox.douyin-zjcdn-before-tiktok', singboxDouyinIndex !== -1 && singboxTikTokIndex !== -1 && singboxDouyinIndex < singboxTikTokIndex, {
     value: { douyin: singboxDouyinIndex, tiktok: singboxTikTokIndex },
   });
   record.check('singbox.douyin-zjcdn-before-foreign-tail', singboxDouyinIndex !== -1 && singboxForeignTailIndex !== -1 && singboxDouyinIndex < singboxForeignTailIndex, {
     value: { douyin: singboxDouyinIndex, foreignTail: singboxForeignTailIndex },
+  });
+  record.check('singbox.amap-cnsite', singboxAmapIndex !== -1, failureMessage(singboxAmapIndex !== -1, 'amap rule_set must route to CN site'));
+  record.check('singbox.amap-before-foreign-tail', singboxAmapIndex !== -1 && singboxForeignTailIndex !== -1 && singboxAmapIndex < singboxForeignTailIndex, {
+    value: { amap: singboxAmapIndex, foreignTail: singboxForeignTailIndex },
   });
   const singboxCategoryGamesIndex = singboxRules.findIndex((rule) => (
     Array.isArray(rule.rule_set) && rule.rule_set.includes('geosite-category-games') && rule.outbound === '🎮 国外游戏'
@@ -1037,6 +1119,12 @@ function validateJsonProducts(record, baselineVersion) {
       && Array.isArray(rule.domain)
       && DOUYIN_CNMEDIA_DOMAINS.every((domain) => rule.domain.includes(`domain:${domain}`))
   )) : -1;
+  const v2AmapIndex = Array.isArray(v2rayn) ? v2rayn.findIndex((rule) => (
+    rule.id === 'scki-000e-amap-direct'
+      && rule.outboundTag === 'direct'
+      && Array.isArray(rule.domain)
+      && PASSWALL_AMAP_REQUIRED.every((domain) => rule.domain.includes(domain))
+  )) : -1;
   const v2ScholarGoogle = Array.isArray(v2rayn) && v2rayn.some((rule) => (
     rule.id === 'scki-027-google' && rule.outboundTag === 'proxy' && Array.isArray(rule.domain) && rule.domain.includes('domain:scholar.google.com')
   ));
@@ -1046,6 +1134,10 @@ function validateJsonProducts(record, baselineVersion) {
   record.check('v2rayn.douyin-web-direct-guard', v2DouyinIndex !== -1, failureMessage(v2DouyinIndex !== -1, 'scki-000d must direct all Douyin Web guard domains'));
   record.check('v2rayn.douyin-web-before-ads', v2DouyinIndex !== -1 && v2AdsIndex !== -1 && v2DouyinIndex < v2AdsIndex, {
     value: { douyin: v2DouyinIndex, ads: v2AdsIndex },
+  });
+  record.check('v2rayn.amap-direct-guard', v2AmapIndex !== -1, failureMessage(v2AmapIndex !== -1, 'scki-000e must direct all GaoDe/AMap fallback domains'));
+  record.check('v2rayn.amap-before-ads', v2AmapIndex !== -1 && v2AdsIndex !== -1 && v2AmapIndex < v2AdsIndex, {
+    value: { amap: v2AmapIndex, ads: v2AdsIndex },
   });
   record.check('v2rayn.cn-game-before-intl-game', v2CnGameIndex !== -1 && v2IntlGameIndex !== -1 && v2CnGameIndex < v2IntlGameIndex, {
     value: { cnGame: v2CnGameIndex, intlGame: v2IntlGameIndex },
@@ -1094,6 +1186,11 @@ function validatePasswall(record, baselineVersion) {
       `${spec.id}.douyin-web-domain-fallbacks`,
       DOUYIN_CNMEDIA_DOMAINS.every((domain) => activeRuleText.includes(`domain:${domain}`)),
       { message: 'CN media shunt rule must include explicit Douyin Web / zjcdn.com domain fallbacks' },
+    );
+    record.check(
+      `${spec.id}.amap-domain-fallbacks`,
+      PASSWALL_AMAP_REQUIRED.every((domain) => activeRuleText.includes(domain)),
+      { message: 'CN site shunt rule must include explicit GaoDe / AMap domain fallbacks' },
     );
     checkNeedleBefore(
       record,

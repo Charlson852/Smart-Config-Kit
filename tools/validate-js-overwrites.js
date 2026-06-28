@@ -454,6 +454,17 @@ function validateRulesAndProviders(output, record, target) {
   );
   const tiktokIndex = rules.indexOf('RULE-SET,tiktok,🎵 TikTok');
   const proxyIndex = rules.indexOf('RULE-SET,proxy,🌐 国外网站');
+  const amapIndex = rules.indexOf('RULE-SET,amap,🏠 国内网站');
+  record.expect(providerNames.has('amap'), 'MetaCubeX amap provider exists for GaoDe domestic routing');
+  record.expect(amapIndex !== -1, 'AMap/GaoDe dedicated rule routes to CN site');
+  record.expect(
+    amapIndex !== -1 && antiAdIndex !== -1 && antiAdIndex < amapIndex,
+    'AMap/GaoDe guard stays after ad/phishing rules so ad subdomains can still be rejected',
+  );
+  record.expect(
+    amapIndex !== -1 && proxyIndex !== -1 && amapIndex < proxyIndex,
+    'AMap/GaoDe guard is evaluated before foreign-site tail',
+  );
   for (const guardRule of DOUYIN_CNMEDIA_GUARD_RULES) {
     const guardIndex = rules.indexOf(guardRule);
     record.expect(guardIndex !== -1, `Douyin Web CN media guard exists: ${guardRule}`);

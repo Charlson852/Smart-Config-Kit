@@ -7,6 +7,11 @@
 
 ---
 
+## v5.4.34-pw.1 (2026-06-28)
+
+- ★ FIX#169-AMAP：`27-cn-site.list`、apply 脚本与参考 `.conf` 补充高德地图 / AMap 核心域名直连兜底。
+- 覆盖 `a-map.cn` / `amap.com` / `amapauto.com` / `anav.com` / `autonavi.com` / `gaode.com` 等，避免 `webapi.amap.com` 依赖宽泛 CN 分类。
+
 ## v5.4.33-pw.1 (2026-06-27)
 
 - ★ FEAT#169-AI-CODING：`02-ai-service.list`、apply 脚本与参考 `.conf` 补充 AI 编程工具域名兜底。

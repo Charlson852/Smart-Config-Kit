@@ -5,6 +5,11 @@
 
 ---
 
+## v5.4.34-sing.1 (2026-06-28)
+
+- ★ FIX#169-AMAP：`SingBox(sing-box)-generator.js` 跟随 Clash Party v5.4.34，将 MetaCubeX `amap` 映射为 sing-box `amap.srs` rule_set。
+- `SingBox(sing-box)-full.json` 已由 generator 重新生成，`amap` route 位于国外网站 `proxy` 宽兜底之前并输出到 `🏠 国内网站`。
+
 ## v5.4.33-sing.1 (2026-06-27)
 
 - ★ FEAT#169-AI-CODING：`SingBox(sing-box)-generator.js` 将 `vpsdance-ai-coding` 映射到 VPSDance `rules/sing-box/coding.json`。
