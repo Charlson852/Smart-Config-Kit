@@ -7,6 +7,11 @@
 
 ---
 
+## v5.4.35-pw.1 (2026-06-28)
+
+- ★ CLEAN#170-UPSTREAM：跟随 Clash Party v5.4.35 基线更新版本元数据。
+- N/A：Passwall 展平降级参考不消费 Mihomo rule-provider；`domain:encoretvb.com` 仍作为香港流媒体静态覆盖保留，33 条 shunt rule 语义不变。
+
 ## v5.4.34-pw.1 (2026-06-28)
 
 - ★ FIX#169-AMAP：`27-cn-site.list`、apply 脚本与参考 `.conf` 补充高德地图 / AMap 核心域名直连兜底。

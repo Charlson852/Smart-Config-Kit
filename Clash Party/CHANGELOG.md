@@ -7,6 +7,13 @@
 
 ---
 
+## v5.4.35 / v5.4.35-normal.1 (2026-06-28)
+
+- ★ CLEAN#170-UPSTREAM：删除 8 个已被前序同目标规则覆盖的冗余上游规则集：`marketing`、`acc-vf-paypal`、`encoretvb`、`findmy`、`wildrift`、`acfun`、`acc-fl-douyin`、`acc-fl-xiaohongshu`。
+- CLEAN#170-DIRECT：删除 3 条已被前置 Douyin 国内流媒体守卫同目标覆盖的后置直写规则：`douyin.com`、`douyinpic.com`、`douyinvod.com`。
+- Provider 生成同步缩减：`VirtualFinance` 由 4 个降为 3 个（移除 PayPal 补充源），`FakeLocation` 由 10 个降为 8 个（移除 DouYin / XiaoHongShu 补充源）。
+- 验证：全量 provider 数 384 → 376；匹配顺序不变，`privacy` 保留。
+
 ## v5.4.34 / v5.4.34-normal.1 (2026-06-28)
 
 - ★ FIX#169-AMAP：新增 MetaCubeX `amap` rule-provider，并在广告/威胁规则之后、TikTok/GFW/geolocation-!cn 宽规则之前加入 `RULE-SET,amap,🏠 国内网站`。

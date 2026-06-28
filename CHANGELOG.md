@@ -6,6 +6,14 @@
 
 ---
 
+## v5.4.35 (2026-06-28)
+
+- CLEAN#170-UPSTREAM：删除 8 个经 live upstream recheck 仍被前序同目标规则 100% 覆盖的冗余上游规则集：`marketing`、`acc-vf-paypal`、`encoretvb`、`findmy`、`wildrift`、`acfun`、`acc-fl-douyin`、`acc-fl-xiaohongshu`。
+- CLEAN#170-DIRECT：删除 3 条已被前置 Douyin 国内流媒体守卫同目标覆盖的后置直写规则：`douyin.com`、`douyinpic.com`、`douyinvod.com`。
+- SYNC：Clash Party Smart/Normal、CMFA、OpenClash Normal/Smart、Shadowrocket、Surge、Loon、Quantumult X、SingBox、v2rayN、Passwall、Passwall2、FlClash 同步；SingBox Full 由 generator 重新生成。
+- SCOPE：`privacy` 不删，因仍有 `IP-CIDR,0.0.0.1/32` 未被前序覆盖；Passwall/Passwall2 保留展平静态 `domain:encoretvb.com`，仅做基线元数据对齐。
+- VERIFY：全量 Mihomo provider 数 384 → 376；SR/Surge/Loon 远程规则 288 → 283；QX `filter_remote` 285 → 280。
+
 ## v5.4.34 (2026-06-28)
 
 - FIX#169-AMAP：新增高德地图 / AMap 专用国内规则前置，`webapi.amap.com` 等高德核心域名早于 `geolocation-!cn` / 国外兜底命中 `🏠 国内网站`。

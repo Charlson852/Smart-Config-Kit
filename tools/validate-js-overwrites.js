@@ -431,7 +431,7 @@ function validateRulesAndProviders(output, record, target) {
   const groupNames = new Set((output['proxy-groups'] || []).map((group) => group.name));
 
   record.expect(rules.length >= 900, `injects a full ruleset, got ${rules.length}`);
-  record.expect(providerNames.size >= 380, `injects the full rule-provider set, got ${providerNames.size}`);
+  record.expect(providerNames.size >= 376, `injects the full rule-provider set, got ${providerNames.size}`);
   record.expectEqual(rules[rules.length - 1], 'MATCH,🐟 漏网之鱼', 'keeps MATCH as the final fallback');
   record.expect(!rules.slice(0, -1).some((rule) => String(rule).startsWith('MATCH,')), 'does not place MATCH before the final rule');
   record.expect(!rules.some((rule) => String(rule).includes('机场自动选择')), 'subscription-native rules are removed');

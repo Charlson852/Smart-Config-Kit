@@ -1,8 +1,8 @@
 // FlClash 覆写脚本 — 标准 Mihomo 内核动态分流版
-// 版本：v5.4.34-flclash.1 (2026-06-28)
-// 架构：22 url-test 区域组（11 全部 + 11 家宽）+ 33 业务策略组（含 14 流媒体平台组）+ 384 rule-providers 100%+ 服务覆盖
-// 基线：Clash Party v5.4.34（规则 100% 等价；区域组为 url-test — FlClash 内核为标准 Mihomo，不支持 smart + LightGBM）
-// v5.4.34: FIX#169-AMAP 高德地图前置到 🏠 国内网站 · v5.4.33: FEAT#169-AI-CODING 接入 VPSDance AI coding 规则补齐 AI 编程工具 · v5.4.32: FIX#168-CN-GAME 国内游戏早于 HoYoverse / Game / category-games 国外宽规则
+// 版本：v5.4.35-flclash.1 (2026-06-28)
+// 架构：22 url-test 区域组（11 全部 + 11 家宽）+ 33 业务策略组（含 14 流媒体平台组）+ 376 rule-providers 100%+ 服务覆盖
+// 基线：Clash Party v5.4.35（规则 100% 等价；区域组为 url-test — FlClash 内核为标准 Mihomo，不支持 smart + LightGBM）
+// v5.4.35: CLEAN#170-UPSTREAM 删除 8 个冗余上游规则集 + 3 条 Douyin 后置重复直写规则 · v5.4.34: FIX#169-AMAP 高德地图前置到 🏠 国内网站
 // 适用：FlClash >= v0.8.85（覆盖脚本功能自该版本引入）；其他使用标准 Mihomo 内核的客户端
 // 变更历史：见 `FlClash/CHANGELOG.md`
 //
@@ -36,7 +36,7 @@
 //  版本常量
 // ================================================================
 
-const VERSION = 'v5.4.34-flclash.1'
+const VERSION = 'v5.4.35-flclash.1'
 
 // v5.4.9 FEAT#LOCAL-TOOLS: desktop local-tool direct whitelist.
 const LOCAL_TOOL_DIRECT_PROCESS_NAMES = [
@@ -277,8 +277,8 @@ const BIZ = {
 }
 
 const ACC_BANK_RULES = ['US','UK','HK','SG','JP','AU','CA','DE','NL','FR'].map(function(cc) { return 'RULE-SET,acc-bank-' + cc.toLowerCase() + ',' + BIZ.PAYMENTS })
-const ACC_VF_RULES = ['paypal','wise','monzo','revolut'].map(function(svc) { return 'RULE-SET,acc-vf-' + svc + ',' + BIZ.PAYMENTS })
-const ACC_FAKE_LOCATION_RULES = ['bilibili','douyin','kuaishou','xiaohongshu','xigua','weibo','zhihu','tieba','douban','xianyu'].map(function(app) { return 'RULE-SET,acc-fl-' + app + ',' + BIZ.CNMEDIA })
+const ACC_VF_RULES = ['wise','monzo','revolut'].map(function(svc) { return 'RULE-SET,acc-vf-' + svc + ',' + BIZ.PAYMENTS })
+const ACC_FAKE_LOCATION_RULES = ['bilibili','kuaishou','xigua','weibo','zhihu','tieba','douban','xianyu'].map(function(app) { return 'RULE-SET,acc-fl-' + app + ',' + BIZ.CNMEDIA })
 
 const AD_FALSE_POSITIVE_ALLOWLIST = [
   // v5.4.2 P0-FIX#41: 小米核心服务 DIRECT 白名单——前置 miuiprivacy/advertisingmitv。
@@ -646,7 +646,6 @@ function injectRuleProviders(config) {
     bm7('domob', 'Domob')
     bm7('hijacking', 'Hijacking')
     bm7('jiguangtuisong', 'JiGuangTuiSong')
-    bm7('marketing', 'Marketing')
     bm7('miuiprivacy', 'MIUIPrivacy')
     bm7('privacy', 'Privacy')
     bm7('youmengchuangxiang', 'YouMengChuangXiang')
@@ -694,7 +693,6 @@ function injectRuleProviders(config) {
     bm7('neteasemusic', 'NetEaseMusic')
     bm7('kugoukuwo', 'KugouKuwo')
     bm7('sohu', 'Sohu')
-    bm7('acfun', 'AcFun')
     bm7('douyu', 'Douyu')
     bm7('huya', 'HuYa')
     bm7('himalaya', 'Himalaya')
@@ -756,7 +754,6 @@ function injectRuleProviders(config) {
     bm7('emby', 'Emby')
     bm7('mytvsuper', 'myTVSUPER')
     bm7('tvb', 'TVB')
-    bm7('encoretvb', 'EncoreTVB')
     bm7('nowe', 'NowE')
     bm7('rthk', 'RTHK')
     bm7('cabletv', 'CableTV')
@@ -792,7 +789,6 @@ function injectRuleProviders(config) {
     bm7('garena', 'Garena')
     bm7('hoyoverse', 'HoYoverse')
     bm7('ubi', 'UBI')
-    bm7('wildrift', 'WildRift')
     bm7('sony', 'Sony')
     bm7('yandex', 'Yandex')
     bm7('naver', 'Naver')
@@ -817,7 +813,6 @@ function injectRuleProviders(config) {
     bm7('siri', 'Siri')
     bm7('testflight', 'TestFlight')
     bm7('applefirmware', 'AppleFirmware')
-    bm7('findmy', 'FindMy')
     bm7('download', 'Download')
     bm7('ubuntu', 'Ubuntu')
     bm7('mozilla', 'Mozilla')
@@ -1064,8 +1059,8 @@ function injectRuleProviders(config) {
         proxy: RP_PROXY
       }
     }
-    // ── 金融服务：VirtualFinance × 4（原 acc-virtualfinance 404 → 拆分）──
-    for (const svc of ['Paypal', 'Wise', 'Monzo', 'Revolut']) {
+    // ── 金融服务：VirtualFinance × 3（原 acc-virtualfinance 404 → 拆分；PayPal 被 paypal 主规则覆盖）──
+    for (const svc of ['Wise', 'Monzo', 'Revolut']) {
       config['rule-providers'][`acc-vf-${svc.toLowerCase()}`] = {
         type: 'http', behavior: 'classical',
         url: `${ACC}/VirtualFinance/${svc}.yaml`,
@@ -1154,9 +1149,9 @@ function injectRuleProviders(config) {
       interval: nextInterval(),
       proxy: RP_PROXY
     }
-    // v5.1.1: FakeLocation × 10 平台（原 acc-fakelocation 404 → 拆分）
+    // v5.1.1: FakeLocation × 8 平台（原 acc-fakelocation 404 → 拆分；DouYin / XiaoHongShu 被主规则覆盖）
     for (const app of [
-      'BiliBili', 'DouYin', 'KuaiShou', 'XiaoHongShu', 'XiGua',
+      'BiliBili', 'KuaiShou', 'XiGua',
       'WeiBo', 'ZhiHu', 'TieBa', 'DouBan', 'XianYu'
     ]) {
       config['rule-providers'][`acc-fl-${app.toLowerCase()}`] = {
@@ -1339,7 +1334,6 @@ function injectRules(config) {
     `RULE-SET,domob,${BIZ.AD}`,
     `RULE-SET,hijacking,${BIZ.AD}`,
     `RULE-SET,jiguangtuisong,${BIZ.AD}`,
-    `RULE-SET,marketing,${BIZ.AD}`,
     `RULE-SET,miuiprivacy,${BIZ.AD}`,
     `RULE-SET,privacy,${BIZ.AD}`,
     `RULE-SET,youmengchuangxiang,${BIZ.AD}`,
@@ -1534,7 +1528,7 @@ function injectRules(config) {
     `RULE-SET,stripe,${BIZ.PAYMENTS}`,
     `RULE-SET,visa,${BIZ.PAYMENTS}`,
     `RULE-SET,tigerfintech,${BIZ.PAYMENTS}`,
-    // v5.1.1: Accademia 银行 × 10国 + 虚拟金融 × 4
+    // v5.1.1: Accademia 银行 × 10国 + 虚拟金融 × 3
     ...ACC_BANK_RULES,
     ...ACC_VF_RULES,
     `DOMAIN,login.live.com,${BIZ.MS}`,
@@ -1713,7 +1707,6 @@ function injectRules(config) {
     `DOMAIN-SUFFIX,hmvod.com.hk,${BIZ.STREAM_HK}`,
     `RULE-SET,mytvsuper,${BIZ.STREAM_HK}`,
     `RULE-SET,tvb,${BIZ.STREAM_HK}`,
-    `RULE-SET,encoretvb,${BIZ.STREAM_HK}`,
     `RULE-SET,nowe,${BIZ.STREAM_HK}`,
     `RULE-SET,rthk,${BIZ.STREAM_HK}`,
     `RULE-SET,cabletv,${BIZ.STREAM_HK}`,
@@ -1957,7 +1950,6 @@ function injectRules(config) {
     `RULE-SET,siri,${BIZ.APPLE}`,
     `RULE-SET,testflight,${BIZ.APPLE}`,
     `RULE-SET,applefirmware,${BIZ.APPLE}`,
-    `RULE-SET,findmy,${BIZ.APPLE}`,
     `RULE-SET,acc-applenews,${BIZ.APPLE}`,
     `RULE-SET,acc-apple,${BIZ.APPLE}`,
 
@@ -2067,7 +2059,6 @@ function injectRules(config) {
     `RULE-SET,garena,${BIZ.GAME_INTL}`,
     `RULE-SET,hoyoverse,${BIZ.GAME_INTL}`,
     `RULE-SET,ubi,${BIZ.GAME_INTL}`,
-    `RULE-SET,wildrift,${BIZ.GAME_INTL}`,
     `RULE-SET,sony,${BIZ.GAME_INTL}`,
 
     // ============ 🌐 国外网站 ============
@@ -2211,9 +2202,6 @@ function injectRules(config) {
     `DOMAIN-SUFFIX,mgtv.com,${BIZ.CNMEDIA}`,
     `DOMAIN-SUFFIX,hitv.com,${BIZ.CNMEDIA}`,
     `DOMAIN-SUFFIX,hunantv.com,${BIZ.CNMEDIA}`,
-    `DOMAIN-SUFFIX,douyin.com,${BIZ.CNMEDIA}`,
-    `DOMAIN-SUFFIX,douyinpic.com,${BIZ.CNMEDIA}`,
-    `DOMAIN-SUFFIX,douyinvod.com,${BIZ.CNMEDIA}`,
     `DOMAIN-SUFFIX,ixigua.com,${BIZ.CNMEDIA}`,
     `DOMAIN-SUFFIX,pstatp.com,${BIZ.CNMEDIA}`,
     `DOMAIN-SUFFIX,snssdk.com,${BIZ.CNMEDIA}`,
@@ -2242,7 +2230,6 @@ function injectRules(config) {
     `RULE-SET,neteasemusic,${BIZ.CNMEDIA}`,
     `RULE-SET,kugoukuwo,${BIZ.CNMEDIA}`,
     `RULE-SET,sohu,${BIZ.CNMEDIA}`,
-    `RULE-SET,acfun,${BIZ.CNMEDIA}`,
     `RULE-SET,douyu,${BIZ.CNMEDIA}`,
     `RULE-SET,huya,${BIZ.CNMEDIA}`,
     `RULE-SET,himalaya,${BIZ.CNMEDIA}`,
@@ -2276,7 +2263,7 @@ function injectRules(config) {
     `RULE-SET,acc-alipan,${BIZ.CNMEDIA}`,
     `RULE-SET,acc-baidunetdisk,${BIZ.CNMEDIA}`,
     `RULE-SET,acc-weiyun,${BIZ.CNMEDIA}`,
-    // v5.1.1: Accademia FakeLocation × 10 平台（国内APP IP归属地伪装）
+    // v5.1.1: Accademia FakeLocation × 8 平台（国内APP IP归属地伪装）
     ...ACC_FAKE_LOCATION_RULES,
 
     // ============ 🏠 国内网站 ============

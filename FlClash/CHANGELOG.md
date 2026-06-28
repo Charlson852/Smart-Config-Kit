@@ -5,6 +5,12 @@
 
 ---
 
+## v5.4.35-flclash.1 (2026-06-28)
+
+- ★ CLEAN#170-UPSTREAM：同步 Clash Party v5.4.35，删除 8 个已被前序同目标规则覆盖的冗余上游规则集。
+- CLEAN#170-DIRECT：删除 3 条已被前置 Douyin 国内流媒体守卫同目标覆盖的后置直写规则：`douyin.com`、`douyinpic.com`、`douyinvod.com`。
+- Provider 生成同步缩减到 376；匹配顺序不变，FlClash 仍使用标准 Mihomo `url-test` 区域组。
+
 ## v5.4.34-flclash.1 (2026-06-28)
 
 - ★ FIX#169-AMAP：同步 Clash Party v5.4.34，新增 MetaCubeX `amap` rule-provider 与 `RULE-SET,amap,🏠 国内网站`。

@@ -5,6 +5,13 @@
 
 ---
 
+## v5.4.35-cmfa.1 (2026-06-28)
+
+- ★ CLEAN#170-UPSTREAM：同步删除 8 个冗余 rule-provider 及对应 `RULE-SET` 行：`marketing`、`acc-vf-paypal`、`encoretvb`、`findmy`、`wildrift`、`acfun`、`acc-fl-douyin`、`acc-fl-xiaohongshu`。
+- CLEAN#170-DIRECT：删除 3 条已被前置 Douyin 国内流媒体守卫同目标覆盖的后置直写规则：`douyin.com`、`douyinpic.com`、`douyinvod.com`。
+- Provider / RULE-SET 实测数：384 → 376；所有剩余 provider 下载代理继续保持 `🚫 受限网站`。
+- `privacy` 保留，因 `IP-CIDR,0.0.0.1/32` 未被前序规则覆盖。
+
 ## v5.4.34-cmfa.1 (2026-06-28)
 
 - ★ FIX#169-AMAP：新增 MetaCubeX `amap.mrs` provider，下载代理保持 `🚫 受限网站`。

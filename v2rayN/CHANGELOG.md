@@ -7,6 +7,11 @@
 
 ---
 
+## v5.4.35-v2n.1 (2026-06-28)
+
+- ★ CLEAN#170-UPSTREAM：跟随 Clash Party v5.4.35 基线更新版本元数据。
+- N/A：Xray 路由 JSON 不消费 Mihomo rule-provider；本次清理不改变 40 条启用规则。
+
 ## v5.4.34-v2n.1 (2026-06-28)
 
 - ★ FIX#169-AMAP：新增 `scki-000e-amap-direct`，显式直连 `a-map.cn` / `amap.com` / `autonavi.com` / `gaode.com` 等高德地图 / AMap 核心域名。

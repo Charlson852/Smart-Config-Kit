@@ -7,6 +7,13 @@
 
 ---
 
+## v5.4.35-oc-normal.1 / v5.4.35-oc-smart.1 (2026-06-28)
+
+- ★ CLEAN#170-UPSTREAM：Normal / Smart 同步删除 8 个冗余 rule-provider 及对应 `RULE-SET` 行：`marketing`、`acc-vf-paypal`、`encoretvb`、`findmy`、`wildrift`、`acfun`、`acc-fl-douyin`、`acc-fl-xiaohongshu`。
+- CLEAN#170-DIRECT：删除 3 条已被前置 Douyin 国内流媒体守卫同目标覆盖的后置直写规则：`douyin.com`、`douyinpic.com`、`douyinvod.com`。
+- Provider 数 384 → 376；两份 `.sh` 的规则顺序保持与 Clash Party v5.4.35 对齐。
+- `OpenClash(mihomo).conf` 参考快照元数据对齐 v5.4.35。
+
 ## v5.4.34-oc-normal.1 / v5.4.34-oc-smart.1 (2026-06-28)
 
 - ★ FIX#169-AMAP：Normal / Smart 同步新增 MetaCubeX `amap.mrs` provider，下载代理保持 `🚫 受限网站`。

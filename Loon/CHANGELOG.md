@@ -4,6 +4,12 @@
 
 ---
 
+## v5.4.35-Loon.1 (2026-06-28)
+
+- ★ CLEAN#170-UPSTREAM：删除 5 个已被前序同目标规则覆盖的 Remote Rule：Marketing、EncoreTVB、FindMy、WildRift、AcFun。
+- CLEAN#170-DIRECT：删除 3 条已被前置 Douyin 国内流媒体守卫同目标覆盖的后置直写规则：`douyin.com`、`douyinpic.com`、`douyinvod.com`。
+- `[Remote Rule]` 实测数 288 → 283；Loon 专属 `DEST-PORT` / 分段规则语义不变。
+
 ## v5.4.34-Loon.1 (2026-06-28)
 
 - ★ FIX#169-AMAP：新增 blackmatrix7 Loon `GaoDe.list` Remote Rule，归入 `🏠 国内网站`。

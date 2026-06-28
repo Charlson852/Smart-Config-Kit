@@ -4,6 +4,12 @@
 
 ---
 
+## v5.4.35-Surge.1 (2026-06-28)
+
+- ★ CLEAN#170-UPSTREAM：删除 5 个已被前序同目标规则覆盖的远程 RULE-SET：Marketing、EncoreTVB、FindMy、WildRift、AcFun。
+- CLEAN#170-DIRECT：删除 3 条已被前置 Douyin 国内流媒体守卫同目标覆盖的后置直写规则：`douyin.com`、`douyinpic.com`、`douyinvod.com`。
+- 远程 RULE-SET 实测数 288 → 283；匹配顺序不变。
+
 ## v5.4.34-Surge.1 (2026-06-28)
 
 - ★ FIX#169-AMAP：新增 blackmatrix7 Surge `GaoDe.list`，归入 `🏠 国内网站`。

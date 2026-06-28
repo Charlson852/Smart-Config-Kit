@@ -5,9 +5,9 @@
   },
   "_meta": {
     "name": "SingBox Smart Full",
-    "version": "v5.4.34-sing.1",
+    "version": "v5.4.35-sing.1",
     "build": "2026-06-28",
-    "baseline": "Clash Party v5.4.34",
+    "baseline": "Clash Party v5.4.35",
     "changelog": "见 SingBox/CHANGELOG.md"
   },
   "experimental": {
@@ -6434,27 +6434,6 @@
       {
         "domain_suffix": [
           "hunantv.com"
-        ],
-        "action": "route",
-        "outbound": "📺 国内流媒体"
-      },
-      {
-        "domain_suffix": [
-          "douyin.com"
-        ],
-        "action": "route",
-        "outbound": "📺 国内流媒体"
-      },
-      {
-        "domain_suffix": [
-          "douyinpic.com"
-        ],
-        "action": "route",
-        "outbound": "📺 国内流媒体"
-      },
-      {
-        "domain_suffix": [
-          "douyinvod.com"
         ],
         "action": "route",
         "outbound": "📺 国内流媒体"

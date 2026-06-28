@@ -1,9 +1,9 @@
 # ================================================================
-# Clash Smart v5.4.34-cmfa.1 - CMFA (Clash Meta for Android) 配置
+# Clash Smart v5.4.35-cmfa.1 - CMFA (Clash Meta for Android) 配置
 # Build: 2026-06-28
-# 架构：proxy-providers 订阅 + 22 url-test 区域组（11 全部 + 11 家宽，家宽 filter 新增 IEPL/IPLC/专线识别）+ 33 业务策略组（含 14 流媒体平台组）+ 384 rule-providers
-# 基线：Clash Party v5.4.34（唯一主线）
-# v5.4.34: FIX#169-AMAP 高德地图前置到 🏠 国内网站，避免 webapi.amap.com 依赖尾部 CN 兜底
+# 架构：proxy-providers 订阅 + 22 url-test 区域组（11 全部 + 11 家宽，家宽 filter 新增 IEPL/IPLC/专线识别）+ 33 业务策略组（含 14 流媒体平台组）+ 376 rule-providers
+# 基线：Clash Party v5.4.35（唯一主线）
+# v5.4.35: CLEAN#170-UPSTREAM 删除 8 个已被前序同目标规则覆盖的冗余上游规则集 · v5.4.34: FIX#169-AMAP 高德地图前置到 🏠 国内网站，避免 webapi.amap.com 依赖尾部 CN 兜底
 # v5.4.33: FEAT#169-AI-CODING 接入 VPSDance AI coding 规则补齐 AI 编程工具
 # v5.4.32: FIX#168-CN-GAME 国内游戏前置到国外游戏宽规则之前，避免 HoYoverse / Game / category-games 抢先代理
 # 变更历史：见 `Clash Meta For Android/CHANGELOG.md`
@@ -1412,13 +1412,6 @@ rule-providers:
     path: ./ruleset/bm7-JiGuangTuiSong.yaml
     interval: 86688
     proxy: '🚫 受限网站'
-  marketing:
-    type: http
-    behavior: classical
-    url: 'https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Marketing/Marketing.yaml'
-    path: ./ruleset/bm7-Marketing.yaml
-    interval: 86722
-    proxy: '🚫 受限网站'
   miuiprivacy:
     type: http
     behavior: classical
@@ -1747,13 +1740,6 @@ rule-providers:
     url: 'https://fastly.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Sohu/Sohu.yaml'
     path: ./ruleset/bm7-Sohu.yaml
     interval: 87438
-    proxy: '🚫 受限网站'
-  acfun:
-    type: http
-    behavior: classical
-    url: 'https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/AcFun/AcFun.yaml'
-    path: ./ruleset/bm7-AcFun.yaml
-    interval: 87445
     proxy: '🚫 受限网站'
   douyu:
     type: http
@@ -2182,13 +2168,6 @@ rule-providers:
     path: ./ruleset/bm7-TVB.yaml
     interval: 88326
     proxy: '🚫 受限网站'
-  encoretvb:
-    type: http
-    behavior: classical
-    url: 'https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/EncoreTVB/EncoreTVB.yaml'
-    path: ./ruleset/bm7-EncoreTVB.yaml
-    interval: 88365
-    proxy: '🚫 受限网站'
   nowe:
     type: http
     behavior: classical
@@ -2434,13 +2413,6 @@ rule-providers:
     path: ./ruleset/bm7-UBI.yaml
     interval: 88884
     proxy: '🚫 受限网站'
-  wildrift:
-    type: http
-    behavior: classical
-    url: 'https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/WildRift/WildRift.yaml'
-    path: ./ruleset/bm7-WildRift.yaml
-    interval: 88901
-    proxy: '🚫 受限网站'
   sony:
     type: http
     behavior: classical
@@ -2608,13 +2580,6 @@ rule-providers:
     url: 'https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/AppleFirmware/AppleFirmware.yaml'
     path: ./ruleset/bm7-AppleFirmware.yaml
     interval: 89289
-    proxy: '🚫 受限网站'
-  findmy:
-    type: http
-    behavior: classical
-    url: 'https://fastly.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/FindMy/FindMy.yaml'
-    path: ./ruleset/bm7-FindMy.yaml
-    interval: 89319
     proxy: '🚫 受限网站'
   download:
     type: http
@@ -3224,13 +3189,6 @@ rule-providers:
     path: ./ruleset/acc-BankFR.yaml
     interval: 90629
     proxy: '🚫 受限网站'
-  acc-vf-paypal:
-    type: http
-    behavior: classical
-    url: 'https://fastly.jsdelivr.net/gh/Accademia/Additional_Rule_For_Clash@main/VirtualFinance/Paypal.yaml'
-    path: ./ruleset/acc-Paypal.yaml
-    interval: 90611
-    proxy: '🚫 受限网站'
   acc-vf-wise:
     type: http
     behavior: classical
@@ -3259,26 +3217,12 @@ rule-providers:
     path: ./ruleset/acc-FakeLocationBiliBili.yaml
     interval: 90654
     proxy: '🚫 受限网站'
-  acc-fl-douyin:
-    type: http
-    behavior: classical
-    url: 'https://fastly.jsdelivr.net/gh/Accademia/Additional_Rule_For_Clash@main/FakeLocation/FakeLocationDouYin.yaml'
-    path: ./ruleset/acc-FakeLocationDouYin.yaml
-    interval: 90689
-    proxy: '🚫 受限网站'
   acc-fl-kuaishou:
     type: http
     behavior: classical
     url: 'https://fastly.jsdelivr.net/gh/Accademia/Additional_Rule_For_Clash@main/FakeLocation/FakeLocationKuaiShou.yaml'
     path: ./ruleset/acc-FakeLocationKuaiShou.yaml
     interval: 90706
-    proxy: '🚫 受限网站'
-  acc-fl-xiaohongshu:
-    type: http
-    behavior: classical
-    url: 'https://fastly.jsdelivr.net/gh/Accademia/Additional_Rule_For_Clash@main/FakeLocation/FakeLocationXiaoHongShu.yaml'
-    path: ./ruleset/acc-FakeLocationXiaoHongShu.yaml
-    interval: 90735
     proxy: '🚫 受限网站'
   acc-fl-xigua:
     type: http
@@ -3631,11 +3575,10 @@ rules:
 - 'RULE-SET,domob,🛑 广告拦截'
 - 'RULE-SET,hijacking,🛑 广告拦截'
 - 'RULE-SET,jiguangtuisong,🛑 广告拦截'
-- 'RULE-SET,marketing,🛑 广告拦截'
 - 'RULE-SET,miuiprivacy,🛑 广告拦截'
 - 'RULE-SET,privacy,🛑 广告拦截'
 - 'RULE-SET,youmengchuangxiang,🛑 广告拦截'
-  # v5.4.34 FIX#169-AMAP: webapi.amap.com 属高德地图国内 API。专用 amap 规则放在广告/威胁规则之后、
+  # v5.4.35 FIX#169-AMAP: webapi.amap.com 属高德地图国内 API。专用 amap 规则放在广告/威胁规则之后、
   #   TikTok/GFW/geolocation-!cn 宽规则之前，避免依赖尾部 RULE-SET,cn 才直连。
 - 'RULE-SET,amap,🏠 国内网站'
   # v5.4.22 #1 借鉴 Proxy-override：QUIC 精细化——YouTube/Google/MS/Apple 白名单豁免（QUIC 走对应业务组），其余海外 QUIC REJECT 强制回退 HTTP/2
@@ -3871,7 +3814,6 @@ rules:
 - 'RULE-SET,acc-bank-de,🏦 金融支付'
 - 'RULE-SET,acc-bank-nl,🏦 金融支付'
 - 'RULE-SET,acc-bank-fr,🏦 金融支付'
-- 'RULE-SET,acc-vf-paypal,🏦 金融支付'
 - 'RULE-SET,acc-vf-wise,🏦 金融支付'
 - 'RULE-SET,acc-vf-monzo,🏦 金融支付'
 - 'RULE-SET,acc-vf-revolut,🏦 金融支付'
@@ -4038,7 +3980,6 @@ rules:
 - 'DOMAIN-SUFFIX,hmvod.com.hk,🇭🇰 香港流媒体'
 - 'RULE-SET,mytvsuper,🇭🇰 香港流媒体'
 - 'RULE-SET,tvb,🇭🇰 香港流媒体'
-- 'RULE-SET,encoretvb,🇭🇰 香港流媒体'
 - 'RULE-SET,nowe,🇭🇰 香港流媒体'
 - 'RULE-SET,rthk,🇭🇰 香港流媒体'
 - 'RULE-SET,cabletv,🇭🇰 香港流媒体'
@@ -4284,7 +4225,6 @@ rules:
 - 'RULE-SET,siri,🍎 苹果服务'
 - 'RULE-SET,testflight,🍎 苹果服务'
 - 'RULE-SET,applefirmware,🍎 苹果服务'
-- 'RULE-SET,findmy,🍎 苹果服务'
 - 'RULE-SET,acc-applenews,🍎 苹果服务'
 - 'RULE-SET,acc-apple,🍎 苹果服务'
 
@@ -4392,7 +4332,6 @@ rules:
 - 'RULE-SET,garena,🎮 国外游戏'
 - 'RULE-SET,hoyoverse,🎮 国外游戏'
 - 'RULE-SET,ubi,🎮 国外游戏'
-- 'RULE-SET,wildrift,🎮 国外游戏'
 - 'RULE-SET,sony,🎮 国外游戏'
 
   # ============ 🌐 国外网站 ============
@@ -4565,9 +4504,6 @@ rules:
 - 'DOMAIN-SUFFIX,mgtv.com,📺 国内流媒体'
 - 'DOMAIN-SUFFIX,hitv.com,📺 国内流媒体'
 - 'DOMAIN-SUFFIX,hunantv.com,📺 国内流媒体'
-- 'DOMAIN-SUFFIX,douyin.com,📺 国内流媒体'
-- 'DOMAIN-SUFFIX,douyinpic.com,📺 国内流媒体'
-- 'DOMAIN-SUFFIX,douyinvod.com,📺 国内流媒体'
 - 'DOMAIN-SUFFIX,ixigua.com,📺 国内流媒体'
 - 'DOMAIN-SUFFIX,pstatp.com,📺 国内流媒体'
 - 'DOMAIN-SUFFIX,snssdk.com,📺 国内流媒体'
@@ -4596,7 +4532,6 @@ rules:
 - 'RULE-SET,neteasemusic,📺 国内流媒体'
 - 'RULE-SET,kugoukuwo,📺 国内流媒体'
 - 'RULE-SET,sohu,📺 国内流媒体'
-- 'RULE-SET,acfun,📺 国内流媒体'
 - 'RULE-SET,douyu,📺 国内流媒体'
 - 'RULE-SET,huya,📺 国内流媒体'
 - 'RULE-SET,himalaya,📺 国内流媒体'
@@ -4631,9 +4566,7 @@ rules:
 - 'RULE-SET,acc-baidunetdisk,📺 国内流媒体'
 - 'RULE-SET,acc-weiyun,📺 国内流媒体'
 - 'RULE-SET,acc-fl-bilibili,📺 国内流媒体'
-- 'RULE-SET,acc-fl-douyin,📺 国内流媒体'
 - 'RULE-SET,acc-fl-kuaishou,📺 国内流媒体'
-- 'RULE-SET,acc-fl-xiaohongshu,📺 国内流媒体'
 - 'RULE-SET,acc-fl-xigua,📺 国内流媒体'
 - 'RULE-SET,acc-fl-weibo,📺 国内流媒体'
 - 'RULE-SET,acc-fl-zhihu,📺 国内流媒体'

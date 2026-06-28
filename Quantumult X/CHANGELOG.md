@@ -6,6 +6,12 @@
 
 ---
 
+## v5.4.35-QX.1 (2026-06-28)
+
+- ★ CLEAN#170-UPSTREAM：删除 5 个已被前序同目标规则覆盖的 `filter_remote`：Marketing、EncoreTVB、FindMy、WildRift、AcFun。
+- CLEAN#170-DIRECT：删除 3 条已被前置 Douyin 国内流媒体守卫同目标覆盖的后置 `filter_local`：`douyin.com`、`douyinpic.com`、`douyinvod.com`。
+- `filter_remote` 实测数 285 → 280；`filter_local` 556 → 553，QX 本地规则仍只放在 `[filter_local]`。
+
 ## v5.4.34-QX.1 (2026-06-28)
 
 - ★ FIX#169-AMAP：新增 blackmatrix7 Quantumult X `GaoDe.list` filter_remote，归入 `🏠 国内网站`。

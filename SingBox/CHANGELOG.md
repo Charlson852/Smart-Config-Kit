@@ -5,6 +5,11 @@
 
 ---
 
+## v5.4.35-sing.1 (2026-06-28)
+
+- ★ CLEAN#170-UPSTREAM：`SingBox(sing-box)-generator.js` 跟随 Clash Party v5.4.35 基线重新生成 Full JSON。
+- 说明：被删 8 个上游 provider 均不属于 SingBox remote rule_set 映射输出；后置 Douyin 重复直写规则清理后，route rules 687 → 684。
+
 ## v5.4.34-sing.1 (2026-06-28)
 
 - ★ FIX#169-AMAP：`SingBox(sing-box)-generator.js` 跟随 Clash Party v5.4.34，将 MetaCubeX `amap` 映射为 sing-box `amap.srs` rule_set。
