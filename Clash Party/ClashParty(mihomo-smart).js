@@ -2325,6 +2325,11 @@ function overwriteGeneral(config) {
   ['+.jsdelivr.net', '+.github.com', '+.githubusercontent.com', '+.githubassets.com', '+.fastly.net'].forEach(function(host) {
     if (!config.dns['nameserver-policy'][host]) config.dns['nameserver-policy'][host] = foreignDoH.slice()
   })
+  // v5.4.36 FIX#ECS-LEAK: geosite nameserver-policy — CN domains resolved via domestic DoH
+  //   (fast & local CDN), non-CN domains resolved via foreign DoH through proxy,
+  //   eliminating EDNS Client Subnet leak from AliDNS/DNSPod initial queries.
+  if (!config.dns['nameserver-policy']['geosite:cn']) config.dns['nameserver-policy']['geosite:cn'] = domesticDoH.slice()
+  if (!config.dns['nameserver-policy']['geosite:geolocation-!cn']) config.dns['nameserver-policy']['geosite:geolocation-!cn'] = foreignDoH.slice()
   if (!config.dns['fallback-filter'] || typeof config.dns['fallback-filter'] !== 'object' || Array.isArray(config.dns['fallback-filter'])) {
     config.dns['fallback-filter'] = {}
   }
