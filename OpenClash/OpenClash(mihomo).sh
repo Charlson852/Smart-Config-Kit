@@ -153,7 +153,27 @@ dns:
   - 'https://1.1.1.1/dns-query'
   - '223.5.5.5'
   nameserver-policy:
-    geosite:cn:
+    '+.cn':
+      - https://dns.alidns.com/dns-query
+      - https://doh.pub/dns-query
+    '+.com.cn':
+      - https://dns.alidns.com/dns-query
+      - https://doh.pub/dns-query
+    '+.org.cn':
+      - https://dns.alidns.com/dns-query
+      - https://doh.pub/dns-query
+    '+.net.cn':
+      - https://dns.alidns.com/dns-query
+      - https://doh.pub/dns-query
+    '+.gov.cn':
+      - https://dns.alidns.com/dns-query
+      - https://doh.pub/dns-query
+    '+.edu.cn':
+      - https://dns.alidns.com/dns-query
+      - https://doh.pub/dns-query
+    '+.mil.cn':
+      - https://dns.alidns.com/dns-query
+      - https://doh.pub/dns-query
     - https://dns.alidns.com/dns-query
     - https://doh.pub/dns-query
     geosite:geolocation-!cn:
@@ -174,9 +194,10 @@ dns:
     '+.fastly.net':
     - https://cloudflare-dns.com/dns-query
     - https://dns.google/dns-query
+  # v5.4.37-dnsfix: nameserver = foreign DoH
   nameserver:
-  - https://dns.alidns.com/dns-query
-  - https://doh.pub/dns-query
+    - https://cloudflare-dns.com/dns-query
+    - https://dns.google/dns-query
   proxy-server-nameserver:
   - https://cloudflare-dns.com/dns-query
   - https://dns.google/dns-query
@@ -190,6 +211,7 @@ dns:
   fallback:
   - https://cloudflare-dns.com/dns-query
   - https://dns.google/dns-query
+  # v5.4.37-dnsfix: fallback-filter removed (redundant with foreign DoH nameserver)
   fallback-filter:
     geoip: true
     geoip-code: CN

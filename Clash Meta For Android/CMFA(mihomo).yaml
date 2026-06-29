@@ -125,9 +125,10 @@ dns:
   - 'https://8.8.8.8/dns-query'
   - 'https://1.1.1.1/dns-query'
   - '223.5.5.5'
+  # v5.4.37-dnsfix: nameserver = foreign DoH
   nameserver:
-  - 'https://dns.alidns.com/dns-query'
-  - 'https://doh.pub/dns-query'
+  - 'https://cloudflare-dns.com/dns-query'
+  - 'https://dns.google/dns-query'
   proxy-server-nameserver:
   - 'https://cloudflare-dns.com/dns-query'
   - 'https://dns.google/dns-query'
@@ -139,12 +140,27 @@ dns:
   # v5.4.19 #5 借鉴 Proxy-override：让 direct-nameserver 也遵循 nameserver-policy（默认 false 会忽略它）。policy 覆盖境外 CDN 与 geosite 级分流。
   direct-nameserver-follow-policy: true
   nameserver-policy:
-    geosite:cn:
+    '+.cn':
     - 'https://dns.alidns.com/dns-query'
     - 'https://doh.pub/dns-query'
-    geosite:geolocation-!cn:
-    - 'https://cloudflare-dns.com/dns-query'
-    - 'https://dns.google/dns-query'
+    '+.com.cn':
+    - 'https://dns.alidns.com/dns-query'
+    - 'https://doh.pub/dns-query'
+    '+.org.cn':
+    - 'https://dns.alidns.com/dns-query'
+    - 'https://doh.pub/dns-query'
+    '+.net.cn':
+    - 'https://dns.alidns.com/dns-query'
+    - 'https://doh.pub/dns-query'
+    '+.gov.cn':
+    - 'https://dns.alidns.com/dns-query'
+    - 'https://doh.pub/dns-query'
+    '+.edu.cn':
+    - 'https://dns.alidns.com/dns-query'
+    - 'https://doh.pub/dns-query'
+    '+.mil.cn':
+    - 'https://dns.alidns.com/dns-query'
+    - 'https://doh.pub/dns-query'
     '+.jsdelivr.net':
     - 'https://cloudflare-dns.com/dns-query'
     - 'https://dns.google/dns-query'

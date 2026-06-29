@@ -1,14 +1,14 @@
 ﻿// Clash Smart 内核覆写脚本 - SUB-STORE 多机场精细分流版
 // 版本：v5.4.37 (2026-06-29)
 // 架构：SUB-STORE 多机场融合 + 22 Smart 区域组（11 全部 + 11 家宽）+ 33 业务策略组（含 14 流媒体平台组）+ 376 rule-providers 100%+ 服务覆盖
-// v5.4.37: DNS-POLICY#170 geosite 级解析器分流 · v5.4.36: CLEAN#171-DIRECT 删除冗余直写规则
+// v5.4.37-dnsfix: nameserver = foreign DoH + .cn TLD fallback (原生 geosite nameserver-policy 不支持) · v5.4.36: CLEAN#171-DIRECT 删除冗余直写规则
 // 变更历史：见 `Clash Party/CHANGELOG.md`
 
 // ================================================================
 //  版本常量
 // ================================================================
 
-const VERSION = 'v5.4.37'
+const VERSION = 'v5.4.37-dnsfix'
 
 // v5.4.9 FEAT#LOCAL-TOOLS:
 // Desktop-capable local tools that should not be routed through proxy nodes.
@@ -2312,7 +2312,9 @@ function overwriteGeneral(config) {
   var foreignDoH = ['https://cloudflare-dns.com/dns-query', 'https://dns.google/dns-query']
   var proxyDoH = foreignDoH.concat(domesticDoH)
   config.dns['default-nameserver'] = bootstrapDns.slice()
-  config.dns.nameserver = domesticDoH.slice()
+  // v5.4.37-dnsfix: nameserver = foreign DoH — 消除 EDNS Client Subnet 泄露，
+  //   .cn TLD 通过 nameserver-policy 扣回国内 DoH，其余域名不经过阿里/DNSPod
+  config.dns.nameserver = foreignDoH.slice()
   config.dns['direct-nameserver'] = domesticDoH.slice()
   // v5.4.19 #5 借鉴 Proxy-override：让 direct-nameserver 也遵循 nameserver-policy（默认 false 会忽略它）。
   // 官方 use case 即"direct 用国内 DoH + policy 指定域名走指定 DNS"；本仓库 policy 同时覆盖境外 CDN 与 geosite 级分流。
@@ -2334,14 +2336,8 @@ function overwriteGeneral(config) {
   Object.keys(geositeDnsPolicy).forEach(function(key) {
     if (!config.dns['nameserver-policy'][key]) config.dns['nameserver-policy'][key] = geositeDnsPolicy[key].slice()
   })
-  if (!config.dns['fallback-filter'] || typeof config.dns['fallback-filter'] !== 'object' || Array.isArray(config.dns['fallback-filter'])) {
-    config.dns['fallback-filter'] = {}
-  }
-  config.dns['fallback-filter'].geoip = true
-  config.dns['fallback-filter']['geoip-code'] = 'CN'
-  config.dns['fallback-filter'].geosite = ['gfw', 'geolocation-!cn']
-  config.dns['fallback-filter'].ipcidr = ['240.0.0.0/4', '0.0.0.0/32', '127.0.0.0/8', '10.0.0.0/8', '192.168.0.0/16']
-  if (!Array.isArray(config.dns['fallback-filter'].domain)) config.dns['fallback-filter'].domain = []
+  // v5.4.37-dnsfix: 删除 fallback-filter。nameserver=fallback=境外 DoH，
+  //   fallback-filter 每次触发后重查相同服务器，纯浪费延迟。
   // v5.4.1 P0: fake-ip-filter 扩展（Smart 内核不支持 fake-ip-filter-mode: rule，使用传统域名列表）
   var currentFakeIpFilter = Array.isArray(config.dns['fake-ip-filter']) ? config.dns['fake-ip-filter'] : []
   config.dns['fake-ip-filter'] = uniqList(currentFakeIpFilter.concat([

@@ -10,7 +10,7 @@
 //  版本常量
 // ================================================================
 
-const VERSION = 'v5.4.37-normal.1'
+const VERSION = 'v5.4.37-normal.1-dnsfix'
 
 // v5.4.9 FEAT#LOCAL-TOOLS: desktop local-tool direct whitelist.
 const LOCAL_TOOL_DIRECT_PROCESS_NAMES = [
@@ -2278,7 +2278,8 @@ function overwriteGeneral(config) {
   var foreignDoH = ['https://cloudflare-dns.com/dns-query', 'https://dns.google/dns-query']
   var proxyDoH = foreignDoH.concat(domesticDoH)
   config.dns['default-nameserver'] = bootstrapDns.slice()
-  config.dns.nameserver = domesticDoH.slice()
+  // v5.4.37-dnsfix: nameserver = foreign DoH — 消除 EDNS Client Subnet 泄露
+  config.dns.nameserver = foreignDoH.slice()
   config.dns['direct-nameserver'] = domesticDoH.slice()
   // v5.4.19 #5 借鉴 Proxy-override：让 direct-nameserver 也遵循 nameserver-policy（默认 false 会忽略它）。
   // 官方 use case 即"direct 用国内 DoH + policy 指定域名走指定 DNS"；本仓库 policy 同时覆盖境外 CDN 与 geosite 级分流。
@@ -2300,14 +2301,7 @@ function overwriteGeneral(config) {
   Object.keys(geositeDnsPolicy).forEach(function(key) {
     if (!config.dns['nameserver-policy'][key]) config.dns['nameserver-policy'][key] = geositeDnsPolicy[key].slice()
   })
-  if (!config.dns['fallback-filter'] || typeof config.dns['fallback-filter'] !== 'object' || Array.isArray(config.dns['fallback-filter'])) {
-    config.dns['fallback-filter'] = {}
-  }
-  config.dns['fallback-filter'].geoip = true
-  config.dns['fallback-filter']['geoip-code'] = 'CN'
-  config.dns['fallback-filter'].geosite = ['gfw', 'geolocation-!cn']
-  config.dns['fallback-filter'].ipcidr = ['240.0.0.0/4', '0.0.0.0/32', '127.0.0.0/8', '10.0.0.0/8', '192.168.0.0/16']
-  if (!Array.isArray(config.dns['fallback-filter'].domain)) config.dns['fallback-filter'].domain = []
+  // v5.4.37-dnsfix: fallback-filter removed (redundant with foreign DoH nameserver)
   // v5.4.1 P0+P2: fake-ip-filter 扩展 + Hosts DNS 预解析
   var currentFakeIpFilter = Array.isArray(config.dns['fake-ip-filter']) ? config.dns['fake-ip-filter'] : []
   config.dns['fake-ip-filter'] = uniqList(currentFakeIpFilter.concat(['+.lan','+.local','+.localdomain','+.home.arpa','+.msftconnecttest.com','+.msftncsi.com','localhost.ptlogin2.qq.com','localhost.sec.qq.com','localhost.work.weixin.qq.com','+.in-addr.arpa','+.ip6.arpa','time.*.com','time.*.gov','ntp.*.com','pool.ntp.org','+.ntp.org','+.pool.ntp.org','+.market.xiaomi.com','+.stun.*.*','+.stun.*.*.*','+.turn.*.*','+.turn.*.*.*','+.n.n.srv.nintendo.net','+.stun.playstation.net','+.xboxlive.com','stun.l.google.com','stun1.l.google.com','stun2.l.google.com','stun3.l.google.com','stun4.l.google.com','global.turn.twilio.com','auth.docker.io','registry-1.docker.io','index.docker.io','hub.docker.com','production.cloudflare.docker.com','+.push.apple.com','+.pub.3gppnetwork.org','+.bing.com','+.rustdesk.com','+.todesk.com','+.oray.com','+.sunlogin.com','+.teamviewer.com','+.anydesk.com','+.battlenet.com.cn','+.wotgame.cn','+.wggames.cn','+.wowsgame.cn','+.mcdn.bilivideo.cn','+.miwifi.com','+.courier.push.apple.com','+.miui.com','+.xiaomi.com','+.xiaomi.net','+.mijia.tech','+.gotui.com']))
