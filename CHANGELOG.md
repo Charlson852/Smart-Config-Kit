@@ -6,6 +6,13 @@
 
 ---
 
+## v5.4.36 (2026-06-29)
+
+- CLEAN#171-DIRECT：删除 22 条经逐条确认的冗余直写规则：2 条本地前序覆盖（`video.unext.jp` / `dl.delivery.mp.microsoft.com`）+ 20 条远程 provider 同策略前序覆盖。
+- CONFIRM：20 条确认可删候选覆盖 Stripe、Outlook mail、Notion/Atlassian 协作、英欧流媒体、Yandex/Python、Mozilla/Ubuntu；对应前序同策略 provider 为 `stripe`、`mail`、`notion` / `atlassian`、`all4` / `my5` / `skygo`、`yandex` / `python` / `developer`、`mozilla` / `ubuntu`。
+- KEEP：12 条候选保留（AI 7 条、Binance 3 条、Microsoft login 2 条），因为同目标证明之前存在不同策略 `.mrs` 规则集，无法证明严格无行为变化。
+- SYNC：Clash Party Smart/Normal、CMFA、OpenClash Normal/Smart、Shadowrocket、Surge、Loon、Quantumult X、SingBox、FlClash 已同步；Passwall / Passwall2 同步删除展平规则 `channel4.com` / `sky.com`；v2rayN 仅更新版本元数据。
+
 ## v5.4.35 (2026-06-28)
 
 - CLEAN#170-UPSTREAM：删除 8 个经 live upstream recheck 仍被前序同目标规则 100% 覆盖的冗余上游规则集：`marketing`、`acc-vf-paypal`、`encoretvb`、`findmy`、`wildrift`、`acfun`、`acc-fl-douyin`、`acc-fl-xiaohongshu`。

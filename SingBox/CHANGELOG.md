@@ -5,6 +5,11 @@
 
 ---
 
+## v5.4.36-sing.1 (2026-06-29)
+
+- CLEAN#171-DIRECT：`SingBox(sing-box)-generator.js` 对齐 Clash Party v5.4.36 并重新生成 Full JSON。
+- route rules 删除 22 条经逐条确认的冗余 domain / domain_suffix 规则，remote rule_set 保持不变。
+
 ## v5.4.35-sing.1 (2026-06-28)
 
 - ★ CLEAN#170-UPSTREAM：`SingBox(sing-box)-generator.js` 跟随 Clash Party v5.4.35 基线重新生成 Full JSON。

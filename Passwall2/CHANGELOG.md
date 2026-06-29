@@ -6,6 +6,11 @@
 
 ---
 
+## v5.4.36-pw2.1 (2026-06-29)
+
+- CLEAN#171-DIRECT：跟随 Clash Party v5.4.36 清理结果，删除展平规则 `channel4.com` / `sky.com`，其余候选不适用于 Passwall2 展平层或需继续保留。
+- 版本元数据同步；shunt 规则数量相应减少。
+
 ## v5.4.35-pw2.1 (2026-06-28)
 
 - ★ CLEAN#170-UPSTREAM：跟随 Clash Party v5.4.35 基线更新版本元数据。

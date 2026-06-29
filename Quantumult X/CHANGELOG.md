@@ -6,6 +6,11 @@
 
 ---
 
+## v5.4.36-QX.1 (2026-06-29)
+
+- CLEAN#171-DIRECT：同步删除 22 条经逐条确认的冗余 `host` / `host-suffix` 规则，`filter_remote` 保持不变。
+- AI / Binance / Microsoft login 候选因不同策略 `.mrs` 前置阻断，继续保留。
+
 ## v5.4.35-QX.1 (2026-06-28)
 
 - ★ CLEAN#170-UPSTREAM：删除 5 个已被前序同目标规则覆盖的 `filter_remote`：Marketing、EncoreTVB、FindMy、WildRift、AcFun。

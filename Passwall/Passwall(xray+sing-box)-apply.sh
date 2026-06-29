@@ -1,7 +1,7 @@
 #!/bin/sh
 # ═══════════════════════════════════════════════════════════════════════════
 # Smart-Config-Kit for Passwall — UCI batch helper
-# Version: v5.4.35-pw.1 | Build 2026-06-28 | Baseline: Clash Party v5.4.35
+# Version: v5.4.36-pw.1 | Build 2026-06-29 | Baseline: Clash Party v5.4.36
 #
 # 用途：一次性在 Passwall（全功能版）中创建 33 条 shunt rule（含域名列表 + IP 列表），
 #       每条目标节点留空（NEED_CONFIG），用户之后到 LuCI 里手工选节点。
@@ -350,9 +350,7 @@ SEC="$(uci add "${CONFIG_NAME}" shunt_rules)"
 uci set "${CONFIG_NAME}".${SEC}.remarks='🇪🇺 欧洲流媒体'
 uci add_list "${CONFIG_NAME}".${SEC}.domain_list='geosite:bbc'
 uci add_list "${CONFIG_NAME}".${SEC}.domain_list='domain:itv.com'
-uci add_list "${CONFIG_NAME}".${SEC}.domain_list='domain:channel4.com'
 uci add_list "${CONFIG_NAME}".${SEC}.domain_list='domain:my5.tv'
-uci add_list "${CONFIG_NAME}".${SEC}.domain_list='domain:sky.com'
 uci add_list "${CONFIG_NAME}".${SEC}.domain_list='domain:skygo.com'
 uci add_list "${CONFIG_NAME}".${SEC}.domain_list='domain:britbox.co.uk'
 uci set "${CONFIG_NAME}".${SEC}.network='tcp,udp'

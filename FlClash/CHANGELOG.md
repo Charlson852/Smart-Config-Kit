@@ -5,6 +5,11 @@
 
 ---
 
+## v5.4.36-flclash.1 (2026-06-29)
+
+- CLEAN#171-DIRECT：同步删除 22 条经逐条确认的冗余直写规则。
+- 与 Clash Party Normal 保持 100% 规则等价；AI / Binance / Microsoft login 候选因不同策略 `.mrs` 前置阻断，继续保留。
+
 ## v5.4.35-flclash.1 (2026-06-28)
 
 - ★ CLEAN#170-UPSTREAM：同步 Clash Party v5.4.35，删除 8 个已被前序同目标规则覆盖的冗余上游规则集。

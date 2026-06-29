@@ -1,9 +1,9 @@
 # ================================================================
-# Clash Smart v5.4.35-cmfa.1 - CMFA (Clash Meta for Android) 配置
-# Build: 2026-06-28
+# Clash Smart v5.4.36-cmfa.1 - CMFA (Clash Meta for Android) 配置
+# Build: 2026-06-29
 # 架构：proxy-providers 订阅 + 22 url-test 区域组（11 全部 + 11 家宽，家宽 filter 新增 IEPL/IPLC/专线识别）+ 33 业务策略组（含 14 流媒体平台组）+ 376 rule-providers
-# 基线：Clash Party v5.4.35（唯一主线）
-# v5.4.35: CLEAN#170-UPSTREAM 删除 8 个已被前序同目标规则覆盖的冗余上游规则集 · v5.4.34: FIX#169-AMAP 高德地图前置到 🏠 国内网站，避免 webapi.amap.com 依赖尾部 CN 兜底
+# 基线：Clash Party v5.4.36（唯一主线）
+# v5.4.36: CLEAN#171-DIRECT 删除 22 条严格确认冗余直写规则 · v5.4.35: CLEAN#170-UPSTREAM 删除冗余上游规则集
 # v5.4.33: FEAT#169-AI-CODING 接入 VPSDance AI coding 规则补齐 AI 编程工具
 # v5.4.32: FIX#168-CN-GAME 国内游戏前置到国外游戏宽规则之前，避免 HoYoverse / Game / category-games 抢先代理
 # 变更历史：见 `Clash Meta For Android/CHANGELOG.md`
@@ -3777,10 +3777,6 @@ rules:
 - 'RULE-SET,binance,💰 加密货币'
 - 'RULE-SET,szkane-web3,💰 加密货币'
 - 'RULE-SET,paypal,🏦 金融支付'
-- 'DOMAIN-SUFFIX,stripe.com,🏦 金融支付'
-- 'DOMAIN-SUFFIX,stripe.network,🏦 金融支付'
-- 'DOMAIN-SUFFIX,stripecdn.com,🏦 金融支付'
-- 'DOMAIN-SUFFIX,stripe.dev,🏦 金融支付'
 - 'DOMAIN-SUFFIX,wise.com,🏦 金融支付'
 - 'DOMAIN-SUFFIX,transferwise.com,🏦 金融支付'
 - 'DOMAIN-SUFFIX,revolut.com,🏦 金融支付'
@@ -3824,7 +3820,6 @@ rules:
 - 'DOMAIN-SUFFIX,outlook.live.com,🌐 国外网站'
 - 'DOMAIN-SUFFIX,hotmail.com,🌐 国外网站'
 - 'DOMAIN,mail.live.com,🌐 国外网站'
-- 'DOMAIN,outlook.office365.com,🌐 国外网站'
 - 'DOMAIN,outlook.office.com,🌐 国外网站'
 - 'DOMAIN,mail.yahoo.com,🌐 国外网站'
 - 'DOMAIN-SUFFIX,ymail.com,🌐 国外网站'
@@ -3911,14 +3906,9 @@ rules:
 - 'DOMAIN-SUFFIX,webex.com,🧑‍💼 会议协作'
 - 'DOMAIN-SUFFIX,wbx2.com,🧑‍💼 会议协作'
 - 'DOMAIN-SUFFIX,ciscospark.com,🧑‍💼 会议协作'
-- 'DOMAIN-SUFFIX,notion.so,🧑‍💼 会议协作'
-- 'DOMAIN-SUFFIX,notion.site,🧑‍💼 会议协作'
 - 'DOMAIN-SUFFIX,figma.com,🧑‍💼 会议协作'
 - 'DOMAIN-SUFFIX,linear.app,🧑‍💼 会议协作'
-- 'DOMAIN-SUFFIX,atlassian.com,🧑‍💼 会议协作'
 - 'DOMAIN-SUFFIX,jira.com,🧑‍💼 会议协作'
-- 'DOMAIN-SUFFIX,trello.com,🧑‍💼 会议协作'
-- 'DOMAIN-SUFFIX,bitbucket.org,🧑‍💼 会议协作'
 - 'DOMAIN-SUFFIX,asana.com,🧑‍💼 会议协作'
 - 'DOMAIN-SUFFIX,monday.com,🧑‍💼 会议协作'
 - 'DOMAIN-SUFFIX,clickup.com,🧑‍💼 会议协作'
@@ -4007,7 +3997,6 @@ rules:
 - 'RULE-SET,abema,🇯🇵 日韩流媒体'
 - 'RULE-SET,dazn,🇯🇵 日韩流媒体'
 - 'DOMAIN-SUFFIX,unext.jp,🇯🇵 日韩流媒体'
-- 'DOMAIN-SUFFIX,video.unext.jp,🇯🇵 日韩流媒体'
 - 'DOMAIN-SUFFIX,nhk.jp,🇯🇵 日韩流媒体'
 - 'DOMAIN-SUFFIX,nhk.or.jp,🇯🇵 日韩流媒体'
 - 'DOMAIN-SUFFIX,dtv.jp,🇯🇵 日韩流媒体'
@@ -4045,9 +4034,6 @@ rules:
   # ============ 🇪🇺 欧洲流媒体 ============
 # CLEAN#165: itv.com,itvstatic.com,britbox.com 已被同策略 RULE-SET 覆盖
 - 'RULE-SET,bbc,🇪🇺 欧洲流媒体'
-- 'DOMAIN-SUFFIX,channel4.com,🇪🇺 欧洲流媒体'
-- 'DOMAIN-SUFFIX,channel5.com,🇪🇺 欧洲流媒体'
-- 'DOMAIN-SUFFIX,sky.com,🇪🇺 欧洲流媒体'
 - 'DOMAIN-SUFFIX,nowtv.co.uk,🇪🇺 欧洲流媒体'
 - 'DOMAIN-SUFFIX,canalplus.com,🇪🇺 欧洲流媒体'
 - 'DOMAIN-SUFFIX,mycanal.fr,🇪🇺 欧洲流媒体'
@@ -4139,8 +4125,6 @@ rules:
 - 'DOMAIN-SUFFIX,duckduckgo.com,🔧 工具与服务'
 - 'DOMAIN-SUFFIX,ddg.co,🔧 工具与服务'
 - 'DOMAIN-SUFFIX,brave.com,🔧 工具与服务'
-- 'DOMAIN-SUFFIX,yandex.com,🔧 工具与服务'
-- 'DOMAIN-SUFFIX,yandex.ru,🔧 工具与服务'
 - 'DOMAIN-SUFFIX,ecosia.org,🔧 工具与服务'
 - 'DOMAIN-SUFFIX,startpage.com,🔧 工具与服务'
 - 'DOMAIN-SUFFIX,you.com,🔧 工具与服务'
@@ -4153,8 +4137,6 @@ rules:
 - 'DOMAIN-SUFFIX,npmjs.com,🔧 工具与服务'
 - 'DOMAIN-SUFFIX,npmjs.org,🔧 工具与服务'
 - 'DOMAIN-SUFFIX,yarnpkg.com,🔧 工具与服务'
-- 'DOMAIN-SUFFIX,pypi.org,🔧 工具与服务'
-- 'DOMAIN-SUFFIX,pythonhosted.org,🔧 工具与服务'
 - 'DOMAIN-SUFFIX,crates.io,🔧 工具与服务'
 - 'DOMAIN-SUFFIX,rubygems.org,🔧 工具与服务'
 - 'DOMAIN-SUFFIX,packagist.org,🔧 工具与服务'
@@ -4234,12 +4216,8 @@ rules:
 - 'DOMAIN-SUFFIX,update.microsoft.com,📥 下载更新'
 - 'DOMAIN-SUFFIX,download.microsoft.com,📥 下载更新'
 - 'DOMAIN-SUFFIX,delivery.mp.microsoft.com,📥 下载更新'
-- 'DOMAIN-SUFFIX,dl.delivery.mp.microsoft.com,📥 下载更新'
 - 'DOMAIN-SUFFIX,officecdn.microsoft.com,📥 下载更新'
 - 'DOMAIN-SUFFIX,officecdn.microsoft.com.edgesuite.net,📥 下载更新'
-- 'DOMAIN-SUFFIX,download.mozilla.org,📥 下载更新'
-- 'DOMAIN-SUFFIX,archive.mozilla.org,📥 下载更新'
-- 'DOMAIN-SUFFIX,releases.ubuntu.com,📥 下载更新'
 - 'DOMAIN-SUFFIX,archive.ubuntu.com,📥 下载更新'
 - 'DOMAIN-SUFFIX,security.ubuntu.com,📥 下载更新'
 - 'DOMAIN-SUFFIX,mirrors.kernel.org,📥 下载更新'

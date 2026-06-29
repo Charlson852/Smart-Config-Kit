@@ -2,15 +2,15 @@
 . /usr/share/openclash/log.sh
 
 # ============================================================================
-# Clash Smart v5.4.35-oc-normal.1 — OpenClash 覆写脚本（非 Smart 内核 / url-test 区域组）
-# Build: 2026-06-28
+# Clash Smart v5.4.36-oc-normal.1 — OpenClash 覆写脚本（非 Smart 内核 / url-test 区域组）
+# Build: 2026-06-29
 # ============================================================================
-# v5.4.35: CLEAN#170-UPSTREAM 删除 8 个已被前序同目标规则覆盖的冗余上游规则集 · v5.4.34: FIX#169-AMAP 高德地图前置到 🏠 国内网站，避免 webapi.amap.com 依赖尾部 CN 兜底
+# v5.4.36: CLEAN#171-DIRECT 删除 22 条严格确认冗余直写规则 · v5.4.35: CLEAN#170-UPSTREAM 删除冗余上游规则集
 # v5.4.33: FEAT#169-AI-CODING 接入 VPSDance AI coding 规则补齐 AI 编程工具
 # v5.4.32: FIX#168-CN-GAME 国内游戏前置到国外游戏宽规则之前，避免 HoYoverse / Game / category-games 抢先代理
 # 定位：与同目录 OpenClash(mihomo-smart).sh 规则 100% 等价的「非 Smart 内核」版本。
 #       两者唯一区别：22 个区域组（11 全部 + 11 家宽）从 type: smart（uselightgbm）换成 type: url-test。
-#       对齐 Clash Party v5.4.35 JS 基线。
+#       对齐 Clash Party v5.4.36 JS 基线。
 #       适用场景：
 #         - OpenClash 内核选的是 Meta(mihomo 稳定版) 而非 Meta Alpha，不支持 smart + LightGBM
 #         - 或者明确想关闭 LightGBM ML 评估、只靠经典 url-test 延迟选路
@@ -19,17 +19,17 @@
 #   • 22 url-test 区域组（11 全部 + 11 家宽；interval 600s / tolerance 150ms / lazy：与 Smart 版同步延迟参数）
 #   • 33 业务策略组（流媒体按平台拆分：TikTok / Netflix / Disney+ / HBO/Max / Hulu / Prime Video / YouTube / 音乐流媒体 / 其他国外流媒体）
 #   • 376 rule-providers（全部 proxy: "🚫 受限网站"，对齐 Clash Party FIX#17-P0）
-#   • 1040+ 条 rules
+#   • 1020+ 条 rules
 #   • DNS fake-ip + 嗅探（HTTP/TLS/QUIC）+ nameserver-policy 救援
 #   • Ruby 阶段做：节点过滤 / 区域分类 / url-test 组生成 / TLS 指纹注入
-# 基线：Clash Party v5.4.35（唯一主线；v5.3.1/v5.3.2 为桌面端 PROCESS-NAME 改动，路由器端不适用）── 任何规则/组/DNS 改动必须先改 Clash Party JS，
+# 基线：Clash Party v5.4.36（唯一主线；v5.3.1/v5.3.2 为桌面端 PROCESS-NAME 改动，路由器端不适用）── 任何规则/组/DNS 改动必须先改 Clash Party JS，
 #       再同步到此文件。参见仓库根目录 CLAUDE.md / AGENTS.md。
 # 变更历史：见 `OpenClash/CHANGELOG.md`（Normal 部分）。
 # ============================================================================
 
 
 
-VERSION_TAG="v5.4.35-oc-normal.1"
+VERSION_TAG="v5.4.36-oc-normal.1"
 CONFIG_FILE="$1"
 LOG_FILE="/tmp/openclash.log"
 
@@ -57,7 +57,7 @@ trap cleanup_temp_files EXIT INT TERM
 
 LOG_OUT "Info" "[Clash-Normal] $VERSION_TAG overwrite starting..."
 LOG_OUT "Info" "[Clash-Normal] Processing: $CONFIG_FILE"
-LOG_OUT "Info" "[Clash-Normal] Full-rule build (v5.4.35, 33 business groups, non-Smart kernel)"
+LOG_OUT "Info" "[Clash-Normal] Full-rule build (v5.4.36, 33 business groups, non-Smart kernel)"
 
 # ============================================================================
 # OVERRIDE YAML
@@ -505,7 +505,7 @@ proxy-groups:
 OVERRIDE_EOF
 
 # ============================================================================
-# OVERRIDE YAML (续) — Rule-Providers：376 项，对齐 Clash Party v5.4.35 主线
+# OVERRIDE YAML (续) — Rule-Providers：376 项，对齐 Clash Party v5.4.36 主线
 # 策略：
 #   ✓ 与 Clash Party 主线（BIZ.GFW = '🚫 受限网站'）一致：所有 provider 都走 GFW 组
 #     下载，在中国走代理、在印尼走 DIRECT，规避 jsdelivr/GitHub 冷启动死锁。
@@ -3458,10 +3458,6 @@ rules:
 - "RULE-SET,binance,\U0001F4B0 加密货币"
 - "RULE-SET,szkane-web3,\U0001F4B0 加密货币"
 - "RULE-SET,paypal,\U0001F3E6 金融支付"
-- "DOMAIN-SUFFIX,stripe.com,\U0001F3E6 金融支付"
-- "DOMAIN-SUFFIX,stripe.network,\U0001F3E6 金融支付"
-- "DOMAIN-SUFFIX,stripecdn.com,\U0001F3E6 金融支付"
-- "DOMAIN-SUFFIX,stripe.dev,\U0001F3E6 金融支付"
 - "DOMAIN-SUFFIX,wise.com,\U0001F3E6 金融支付"
 - "DOMAIN-SUFFIX,transferwise.com,\U0001F3E6 金融支付"
 - "DOMAIN-SUFFIX,revolut.com,\U0001F3E6 金融支付"
@@ -3505,7 +3501,6 @@ rules:
 - "DOMAIN-SUFFIX,outlook.live.com,\U0001F310 国外网站"
 - "DOMAIN-SUFFIX,hotmail.com,\U0001F310 国外网站"
 - "DOMAIN,mail.live.com,\U0001F310 国外网站"
-- "DOMAIN,outlook.office365.com,\U0001F310 国外网站"
 - "DOMAIN,outlook.office.com,\U0001F310 国外网站"
 - "DOMAIN,mail.yahoo.com,\U0001F310 国外网站"
 - "DOMAIN-SUFFIX,ymail.com,\U0001F310 国外网站"
@@ -3593,14 +3588,9 @@ rules:
 - "DOMAIN-SUFFIX,webex.com,\U0001F9D1‍\U0001F4BC 会议协作"
 - "DOMAIN-SUFFIX,wbx2.com,\U0001F9D1‍\U0001F4BC 会议协作"
 - "DOMAIN-SUFFIX,ciscospark.com,\U0001F9D1‍\U0001F4BC 会议协作"
-- "DOMAIN-SUFFIX,notion.so,\U0001F9D1‍\U0001F4BC 会议协作"
-- "DOMAIN-SUFFIX,notion.site,\U0001F9D1‍\U0001F4BC 会议协作"
 - "DOMAIN-SUFFIX,figma.com,\U0001F9D1‍\U0001F4BC 会议协作"
 - "DOMAIN-SUFFIX,linear.app,\U0001F9D1‍\U0001F4BC 会议协作"
-- "DOMAIN-SUFFIX,atlassian.com,\U0001F9D1‍\U0001F4BC 会议协作"
 - "DOMAIN-SUFFIX,jira.com,\U0001F9D1‍\U0001F4BC 会议协作"
-- "DOMAIN-SUFFIX,trello.com,\U0001F9D1‍\U0001F4BC 会议协作"
-- "DOMAIN-SUFFIX,bitbucket.org,\U0001F9D1‍\U0001F4BC 会议协作"
 - "DOMAIN-SUFFIX,asana.com,\U0001F9D1‍\U0001F4BC 会议协作"
 - "DOMAIN-SUFFIX,monday.com,\U0001F9D1‍\U0001F4BC 会议协作"
 - "DOMAIN-SUFFIX,clickup.com,\U0001F9D1‍\U0001F4BC 会议协作"
@@ -3689,7 +3679,6 @@ rules:
 - "RULE-SET,abema,\U0001F1EF\U0001F1F5 日韩流媒体"
 - "RULE-SET,dazn,\U0001F1EF\U0001F1F5 日韩流媒体"
 - "DOMAIN-SUFFIX,unext.jp,\U0001F1EF\U0001F1F5 日韩流媒体"
-- "DOMAIN-SUFFIX,video.unext.jp,\U0001F1EF\U0001F1F5 日韩流媒体"
 - "DOMAIN-SUFFIX,nhk.jp,\U0001F1EF\U0001F1F5 日韩流媒体"
 - "DOMAIN-SUFFIX,nhk.or.jp,\U0001F1EF\U0001F1F5 日韩流媒体"
 - "DOMAIN-SUFFIX,dtv.jp,\U0001F1EF\U0001F1F5 日韩流媒体"
@@ -3727,9 +3716,6 @@ rules:
   # ============ 欧洲流媒体 ============
   # CLEAN#165: itv.com / itvstatic.com / britbox.com 已被同策略 RULE-SET 覆盖
 - "RULE-SET,bbc,\U0001F1EA\U0001F1FA 欧洲流媒体"
-- "DOMAIN-SUFFIX,channel4.com,\U0001F1EA\U0001F1FA 欧洲流媒体"
-- "DOMAIN-SUFFIX,channel5.com,\U0001F1EA\U0001F1FA 欧洲流媒体"
-- "DOMAIN-SUFFIX,sky.com,\U0001F1EA\U0001F1FA 欧洲流媒体"
 - "DOMAIN-SUFFIX,nowtv.co.uk,\U0001F1EA\U0001F1FA 欧洲流媒体"
 - "DOMAIN-SUFFIX,canalplus.com,\U0001F1EA\U0001F1FA 欧洲流媒体"
 - "DOMAIN-SUFFIX,mycanal.fr,\U0001F1EA\U0001F1FA 欧洲流媒体"
@@ -3819,8 +3805,6 @@ rules:
 - "DOMAIN-SUFFIX,duckduckgo.com,\U0001F527 工具与服务"
 - "DOMAIN-SUFFIX,ddg.co,\U0001F527 工具与服务"
 - "DOMAIN-SUFFIX,brave.com,\U0001F527 工具与服务"
-- "DOMAIN-SUFFIX,yandex.com,\U0001F527 工具与服务"
-- "DOMAIN-SUFFIX,yandex.ru,\U0001F527 工具与服务"
 - "DOMAIN-SUFFIX,ecosia.org,\U0001F527 工具与服务"
 - "DOMAIN-SUFFIX,startpage.com,\U0001F527 工具与服务"
 - "DOMAIN-SUFFIX,you.com,\U0001F527 工具与服务"
@@ -3834,8 +3818,6 @@ rules:
 - "DOMAIN-SUFFIX,npmjs.com,\U0001F527 工具与服务"
 - "DOMAIN-SUFFIX,npmjs.org,\U0001F527 工具与服务"
 - "DOMAIN-SUFFIX,yarnpkg.com,\U0001F527 工具与服务"
-- "DOMAIN-SUFFIX,pypi.org,\U0001F527 工具与服务"
-- "DOMAIN-SUFFIX,pythonhosted.org,\U0001F527 工具与服务"
 - "DOMAIN-SUFFIX,crates.io,\U0001F527 工具与服务"
 - "DOMAIN-SUFFIX,rubygems.org,\U0001F527 工具与服务"
 - "DOMAIN-SUFFIX,packagist.org,\U0001F527 工具与服务"
@@ -3915,12 +3897,8 @@ rules:
 - "DOMAIN-SUFFIX,update.microsoft.com,\U0001F4E5 下载更新"
 - "DOMAIN-SUFFIX,download.microsoft.com,\U0001F4E5 下载更新"
 - "DOMAIN-SUFFIX,delivery.mp.microsoft.com,\U0001F4E5 下载更新"
-- "DOMAIN-SUFFIX,dl.delivery.mp.microsoft.com,\U0001F4E5 下载更新"
 - "DOMAIN-SUFFIX,officecdn.microsoft.com,\U0001F4E5 下载更新"
 - "DOMAIN-SUFFIX,officecdn.microsoft.com.edgesuite.net,\U0001F4E5 下载更新"
-- "DOMAIN-SUFFIX,download.mozilla.org,\U0001F4E5 下载更新"
-- "DOMAIN-SUFFIX,archive.mozilla.org,\U0001F4E5 下载更新"
-- "DOMAIN-SUFFIX,releases.ubuntu.com,\U0001F4E5 下载更新"
 - "DOMAIN-SUFFIX,archive.ubuntu.com,\U0001F4E5 下载更新"
 - "DOMAIN-SUFFIX,security.ubuntu.com,\U0001F4E5 下载更新"
 - "DOMAIN-SUFFIX,mirrors.kernel.org,\U0001F4E5 下载更新"
@@ -4301,7 +4279,7 @@ cat > "$RUBY_SCRIPT" << 'RUBY_EOF'
 require 'yaml'
 require 'digest'
 
-VERSION = "v5.4.35-oc-normal.1"
+VERSION = "v5.4.36-oc-normal.1"
 
 STATUS_LOG = ARGV[2]
 File.open(STATUS_LOG, 'w') { |f| f.puts "[#{VERSION}] start" }

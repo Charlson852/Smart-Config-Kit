@@ -5,9 +5,9 @@
   },
   "_meta": {
     "name": "SingBox Smart Full",
-    "version": "v5.4.35-sing.1",
-    "build": "2026-06-28",
-    "baseline": "Clash Party v5.4.35",
+    "version": "v5.4.36-sing.1",
+    "build": "2026-06-29",
+    "baseline": "Clash Party v5.4.36",
     "changelog": "见 SingBox/CHANGELOG.md"
   },
   "experimental": {
@@ -3343,34 +3343,6 @@
       },
       {
         "domain_suffix": [
-          "stripe.com"
-        ],
-        "action": "route",
-        "outbound": "🏦 金融支付"
-      },
-      {
-        "domain_suffix": [
-          "stripe.network"
-        ],
-        "action": "route",
-        "outbound": "🏦 金融支付"
-      },
-      {
-        "domain_suffix": [
-          "stripecdn.com"
-        ],
-        "action": "route",
-        "outbound": "🏦 金融支付"
-      },
-      {
-        "domain_suffix": [
-          "stripe.dev"
-        ],
-        "action": "route",
-        "outbound": "🏦 金融支付"
-      },
-      {
-        "domain_suffix": [
           "wise.com"
         ],
         "action": "route",
@@ -3554,13 +3526,6 @@
       {
         "domain": [
           "mail.live.com"
-        ],
-        "action": "route",
-        "outbound": "🌐 国外网站"
-      },
-      {
-        "domain": [
-          "outlook.office365.com"
         ],
         "action": "route",
         "outbound": "🌐 国外网站"
@@ -3938,20 +3903,6 @@
       },
       {
         "domain_suffix": [
-          "notion.so"
-        ],
-        "action": "route",
-        "outbound": "🧑‍💼 会议协作"
-      },
-      {
-        "domain_suffix": [
-          "notion.site"
-        ],
-        "action": "route",
-        "outbound": "🧑‍💼 会议协作"
-      },
-      {
-        "domain_suffix": [
           "figma.com"
         ],
         "action": "route",
@@ -3966,28 +3917,7 @@
       },
       {
         "domain_suffix": [
-          "atlassian.com"
-        ],
-        "action": "route",
-        "outbound": "🧑‍💼 会议协作"
-      },
-      {
-        "domain_suffix": [
           "jira.com"
-        ],
-        "action": "route",
-        "outbound": "🧑‍💼 会议协作"
-      },
-      {
-        "domain_suffix": [
-          "trello.com"
-        ],
-        "action": "route",
-        "outbound": "🧑‍💼 会议协作"
-      },
-      {
-        "domain_suffix": [
-          "bitbucket.org"
         ],
         "action": "route",
         "outbound": "🧑‍💼 会议协作"
@@ -4298,13 +4228,6 @@
       },
       {
         "domain_suffix": [
-          "video.unext.jp"
-        ],
-        "action": "route",
-        "outbound": "🇯🇵 日韩流媒体"
-      },
-      {
-        "domain_suffix": [
           "nhk.jp"
         ],
         "action": "route",
@@ -4495,27 +4418,6 @@
       {
         "rule_set": [
           "bbc"
-        ],
-        "action": "route",
-        "outbound": "🇪🇺 欧洲流媒体"
-      },
-      {
-        "domain_suffix": [
-          "channel4.com"
-        ],
-        "action": "route",
-        "outbound": "🇪🇺 欧洲流媒体"
-      },
-      {
-        "domain_suffix": [
-          "channel5.com"
-        ],
-        "action": "route",
-        "outbound": "🇪🇺 欧洲流媒体"
-      },
-      {
-        "domain_suffix": [
-          "sky.com"
         ],
         "action": "route",
         "outbound": "🇪🇺 欧洲流媒体"
@@ -4865,20 +4767,6 @@
       },
       {
         "domain_suffix": [
-          "yandex.com"
-        ],
-        "action": "route",
-        "outbound": "🔧 工具与服务"
-      },
-      {
-        "domain_suffix": [
-          "yandex.ru"
-        ],
-        "action": "route",
-        "outbound": "🔧 工具与服务"
-      },
-      {
-        "domain_suffix": [
           "ecosia.org"
         ],
         "action": "route",
@@ -4943,20 +4831,6 @@
       {
         "domain_suffix": [
           "yarnpkg.com"
-        ],
-        "action": "route",
-        "outbound": "🔧 工具与服务"
-      },
-      {
-        "domain_suffix": [
-          "pypi.org"
-        ],
-        "action": "route",
-        "outbound": "🔧 工具与服务"
-      },
-      {
-        "domain_suffix": [
-          "pythonhosted.org"
         ],
         "action": "route",
         "outbound": "🔧 工具与服务"
@@ -5292,13 +5166,6 @@
       },
       {
         "domain_suffix": [
-          "dl.delivery.mp.microsoft.com"
-        ],
-        "action": "route",
-        "outbound": "📥 下载更新"
-      },
-      {
-        "domain_suffix": [
           "officecdn.microsoft.com"
         ],
         "action": "route",
@@ -5307,27 +5174,6 @@
       {
         "domain_suffix": [
           "officecdn.microsoft.com.edgesuite.net"
-        ],
-        "action": "route",
-        "outbound": "📥 下载更新"
-      },
-      {
-        "domain_suffix": [
-          "download.mozilla.org"
-        ],
-        "action": "route",
-        "outbound": "📥 下载更新"
-      },
-      {
-        "domain_suffix": [
-          "archive.mozilla.org"
-        ],
-        "action": "route",
-        "outbound": "📥 下载更新"
-      },
-      {
-        "domain_suffix": [
-          "releases.ubuntu.com"
         ],
         "action": "route",
         "outbound": "📥 下载更新"

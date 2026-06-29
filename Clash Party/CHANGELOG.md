@@ -7,6 +7,13 @@
 
 ---
 
+## v5.4.36 / v5.4.36-normal.1 (2026-06-29)
+
+- CLEAN#171-DIRECT：删除 22 条经逐条确认的冗余直写规则：`video.unext.jp` / `dl.delivery.mp.microsoft.com` 两条为本地前序覆盖，另 20 条为 provider 前序同策略覆盖。
+- 已删除候选：`stripe.com` / `stripe.network` / `stripecdn.com` / `stripe.dev`、`outlook.office365.com`、`notion.so` / `notion.site` / `atlassian.com` / `trello.com` / `bitbucket.org`、`channel4.com` / `channel5.com` / `sky.com`、`yandex.com` / `yandex.ru` / `pypi.org` / `pythonhosted.org`、`download.mozilla.org` / `archive.mozilla.org` / `releases.ubuntu.com`。
+- 已保留候选：AI 7 条、Binance 3 条、Microsoft login 2 条；保留原因是同目标证明之前存在不同策略 `.mrs` 规则集。
+- 规则数量从 1023 降到 1001，provider 保持 376。
+
 ## v5.4.35 / v5.4.35-normal.1 (2026-06-28)
 
 - ★ CLEAN#170-UPSTREAM：删除 8 个已被前序同目标规则覆盖的冗余上游规则集：`marketing`、`acc-vf-paypal`、`encoretvb`、`findmy`、`wildrift`、`acfun`、`acc-fl-douyin`、`acc-fl-xiaohongshu`。

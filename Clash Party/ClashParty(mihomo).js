@@ -1,8 +1,8 @@
 ﻿// Clash 覆写脚本 - SUB-STORE 多机场精细分流版
-// 版本：v5.4.35-normal.1 (2026-06-28)
+// 版本：v5.4.36-normal.1 (2026-06-29)
 // 架构：22 url-test 区域组（11 全部 + 11 家宽）+ 33 业务策略组 + 376 rule-providers
-// 基线：Clash Party v5.4.35（与同目录 ClashParty(mihomo-smart).js 规则 100% 等价，仅区域组从 smart 改为 url-test）
-// v5.4.35: CLEAN#170-UPSTREAM 删除 8 个冗余上游规则集 + 3 条 Douyin 后置重复直写规则 · v5.4.34: FIX#169-AMAP 高德地图前置到 🏠 国内网站
+// 基线：Clash Party v5.4.36（与同目录 ClashParty(mihomo-smart).js 规则 100% 等价，仅区域组从 smart 改为 url-test）
+// v5.4.36: CLEAN#171-DIRECT 删除 22 条严格确认冗余直写规则 · v5.4.35: CLEAN#170-UPSTREAM 删除冗余上游规则集
 // 适用：Mihomo / Clash.Meta 稳定版内核、不支持 smart + LightGBM 的分支；也适用于想完全关闭 ML 评估的用户
 // 变更历史：见 `Clash Party/CHANGELOG.md`
 
@@ -10,7 +10,7 @@
 //  版本常量
 // ================================================================
 
-const VERSION = 'v5.4.35-normal.1'
+const VERSION = 'v5.4.36-normal.1'
 
 // v5.4.9 FEAT#LOCAL-TOOLS: desktop local-tool direct whitelist.
 const LOCAL_TOOL_DIRECT_PROCESS_NAMES = [
@@ -1474,10 +1474,6 @@ function injectRules(config) {
     // v5.1: szkane Web3（DeFi/NFT/区块链RPC）★量化交易核心
     `RULE-SET,szkane-web3,${BIZ.CRYPTO}`,
     `RULE-SET,paypal,${BIZ.PAYMENTS}`,
-    `DOMAIN-SUFFIX,stripe.com,${BIZ.PAYMENTS}`,
-    `DOMAIN-SUFFIX,stripe.network,${BIZ.PAYMENTS}`,
-    `DOMAIN-SUFFIX,stripecdn.com,${BIZ.PAYMENTS}`,
-    `DOMAIN-SUFFIX,stripe.dev,${BIZ.PAYMENTS}`,
     `DOMAIN-SUFFIX,wise.com,${BIZ.PAYMENTS}`,
     `DOMAIN-SUFFIX,transferwise.com,${BIZ.PAYMENTS}`,
     `DOMAIN-SUFFIX,revolut.com,${BIZ.PAYMENTS}`,
@@ -1512,7 +1508,6 @@ function injectRules(config) {
     `DOMAIN-SUFFIX,outlook.live.com,${BIZ.INTL_SITE}`,
     `DOMAIN-SUFFIX,hotmail.com,${BIZ.INTL_SITE}`,
     `DOMAIN,mail.live.com,${BIZ.INTL_SITE}`,
-    `DOMAIN,outlook.office365.com,${BIZ.INTL_SITE}`,
     `DOMAIN,outlook.office.com,${BIZ.INTL_SITE}`,
     `DOMAIN,mail.yahoo.com,${BIZ.INTL_SITE}`,
     `DOMAIN-SUFFIX,ymail.com,${BIZ.INTL_SITE}`,
@@ -1602,14 +1597,9 @@ function injectRules(config) {
     `DOMAIN-SUFFIX,webex.com,${BIZ.WORK}`,
     `DOMAIN-SUFFIX,wbx2.com,${BIZ.WORK}`,
     `DOMAIN-SUFFIX,ciscospark.com,${BIZ.WORK}`,
-    `DOMAIN-SUFFIX,notion.so,${BIZ.WORK}`,
-    `DOMAIN-SUFFIX,notion.site,${BIZ.WORK}`,
     `DOMAIN-SUFFIX,figma.com,${BIZ.WORK}`,
     `DOMAIN-SUFFIX,linear.app,${BIZ.WORK}`,
-    `DOMAIN-SUFFIX,atlassian.com,${BIZ.WORK}`,
     `DOMAIN-SUFFIX,jira.com,${BIZ.WORK}`,
-    `DOMAIN-SUFFIX,trello.com,${BIZ.WORK}`,
-    `DOMAIN-SUFFIX,bitbucket.org,${BIZ.WORK}`,
     `DOMAIN-SUFFIX,asana.com,${BIZ.WORK}`,
     `DOMAIN-SUFFIX,monday.com,${BIZ.WORK}`,
     `DOMAIN-SUFFIX,clickup.com,${BIZ.WORK}`,
@@ -1708,7 +1698,6 @@ function injectRules(config) {
     `RULE-SET,abema,${BIZ.STREAM_JP}`,
     `RULE-SET,dazn,${BIZ.STREAM_JP}`,
     `DOMAIN-SUFFIX,unext.jp,${BIZ.STREAM_JP}`,
-    `DOMAIN-SUFFIX,video.unext.jp,${BIZ.STREAM_JP}`,
     `DOMAIN-SUFFIX,nhk.jp,${BIZ.STREAM_JP}`,
     `DOMAIN-SUFFIX,nhk.or.jp,${BIZ.STREAM_JP}`,
     `DOMAIN-SUFFIX,dtv.jp,${BIZ.STREAM_JP}`,
@@ -1746,9 +1735,6 @@ function injectRules(config) {
     // ============ 🇪🇺 欧洲流媒体 ============
     // CLEAN#165: itv.com, itvstatic.com, britbox.com 已被同策略 RULE-SET 覆盖
     `RULE-SET,bbc,${BIZ.STREAM_EU}`,
-    `DOMAIN-SUFFIX,channel4.com,${BIZ.STREAM_EU}`,
-    `DOMAIN-SUFFIX,channel5.com,${BIZ.STREAM_EU}`,
-    `DOMAIN-SUFFIX,sky.com,${BIZ.STREAM_EU}`,
     `DOMAIN-SUFFIX,nowtv.co.uk,${BIZ.STREAM_EU}`,
     `DOMAIN-SUFFIX,canalplus.com,${BIZ.STREAM_EU}`,
     `DOMAIN-SUFFIX,mycanal.fr,${BIZ.STREAM_EU}`,
@@ -1837,8 +1823,6 @@ function injectRules(config) {
     `DOMAIN-SUFFIX,duckduckgo.com,${BIZ.TOOLS}`,
     `DOMAIN-SUFFIX,ddg.co,${BIZ.TOOLS}`,
     `DOMAIN-SUFFIX,brave.com,${BIZ.TOOLS}`,
-    `DOMAIN-SUFFIX,yandex.com,${BIZ.TOOLS}`,
-    `DOMAIN-SUFFIX,yandex.ru,${BIZ.TOOLS}`,
     `DOMAIN-SUFFIX,ecosia.org,${BIZ.TOOLS}`,
     `DOMAIN-SUFFIX,startpage.com,${BIZ.TOOLS}`,
     `DOMAIN-SUFFIX,you.com,${BIZ.TOOLS}`,
@@ -1852,8 +1836,6 @@ function injectRules(config) {
     `DOMAIN-SUFFIX,npmjs.com,${BIZ.TOOLS}`,
     `DOMAIN-SUFFIX,npmjs.org,${BIZ.TOOLS}`,
     `DOMAIN-SUFFIX,yarnpkg.com,${BIZ.TOOLS}`,
-    `DOMAIN-SUFFIX,pypi.org,${BIZ.TOOLS}`,
-    `DOMAIN-SUFFIX,pythonhosted.org,${BIZ.TOOLS}`,
     `DOMAIN-SUFFIX,crates.io,${BIZ.TOOLS}`,
     `DOMAIN-SUFFIX,rubygems.org,${BIZ.TOOLS}`,
     `DOMAIN-SUFFIX,packagist.org,${BIZ.TOOLS}`,
@@ -1934,12 +1916,8 @@ function injectRules(config) {
     `DOMAIN-SUFFIX,update.microsoft.com,${BIZ.DOWNLOAD}`,
     `DOMAIN-SUFFIX,download.microsoft.com,${BIZ.DOWNLOAD}`,
     `DOMAIN-SUFFIX,delivery.mp.microsoft.com,${BIZ.DOWNLOAD}`,
-    `DOMAIN-SUFFIX,dl.delivery.mp.microsoft.com,${BIZ.DOWNLOAD}`,
     `DOMAIN-SUFFIX,officecdn.microsoft.com,${BIZ.DOWNLOAD}`,
     `DOMAIN-SUFFIX,officecdn.microsoft.com.edgesuite.net,${BIZ.DOWNLOAD}`,
-    `DOMAIN-SUFFIX,download.mozilla.org,${BIZ.DOWNLOAD}`,
-    `DOMAIN-SUFFIX,archive.mozilla.org,${BIZ.DOWNLOAD}`,
-    `DOMAIN-SUFFIX,releases.ubuntu.com,${BIZ.DOWNLOAD}`,
     `DOMAIN-SUFFIX,archive.ubuntu.com,${BIZ.DOWNLOAD}`,
     `DOMAIN-SUFFIX,security.ubuntu.com,${BIZ.DOWNLOAD}`,
     `DOMAIN-SUFFIX,mirrors.kernel.org,${BIZ.DOWNLOAD}`,

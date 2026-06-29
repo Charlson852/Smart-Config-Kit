@@ -7,6 +7,11 @@
 
 ---
 
+## v5.4.36-oc-normal.1 / v5.4.36-oc-smart.1 (2026-06-29)
+
+- CLEAN#171-DIRECT：Normal / Smart 同步删除 22 条经逐条确认的冗余直写规则，provider 保持 376，规则语义与 Clash Party v5.4.36 对齐。
+- `OpenClash(mihomo).conf` 参考快照同步到 v5.4.36；AI / Binance / Microsoft login 候选因不同策略 `.mrs` 前置阻断，继续保留。
+
 ## v5.4.35-oc-normal.1 / v5.4.35-oc-smart.1 (2026-06-28)
 
 - ★ CLEAN#170-UPSTREAM：Normal / Smart 同步删除 8 个冗余 rule-provider 及对应 `RULE-SET` 行：`marketing`、`acc-vf-paypal`、`encoretvb`、`findmy`、`wildrift`、`acfun`、`acc-fl-douyin`、`acc-fl-xiaohongshu`。
