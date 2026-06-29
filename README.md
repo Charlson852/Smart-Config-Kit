@@ -140,15 +140,15 @@ config:
 flowchart TB
     Start(["<b>🚀 客户端启动</b>"])
 
-    L1["<b>① default-nameserver</b> &nbsp;·&nbsp; 明文 UDP &nbsp;·&nbsp; 仅用于 bootstrap<br/><br/><b>223.5.5.5 &nbsp;·&nbsp; 119.29.29.29 &nbsp;·&nbsp; 1.1.1.1 &nbsp;·&nbsp; 8.8.8.8</b><br/>启动时解析下方 DoH 服务的域名（dns.alidns.com 等）<br/>只查 4 个 IP，不参与任何业务查询 &nbsp;→&nbsp; 零暴露面"]
+    L1["<b>① default-nameserver</b> &nbsp;·&nbsp; DoH-over-IP + 明文兜底 &nbsp;·&nbsp; 仅用于 bootstrap<br/><br/><b>https://223.5.5.5/dns-query &nbsp;·&nbsp; https://223.6.6.6/dns-query</b><br/><b>https://8.8.8.8/dns-query &nbsp;·&nbsp; https://1.1.1.1/dns-query &nbsp;·&nbsp; 223.5.5.5</b><br/>启动时解析下方 DoH 服务的域名（dns.alidns.com 等）<br/>业务查询由 nameserver-policy / nameserver / fallback 接管"]
 
     Gate{{"<b>🔀 按域名性质分三路查询</b>"}}
 
-    L2["<b>② nameserver</b> &nbsp;·&nbsp; 国内域名主通道 &nbsp;·&nbsp; DoH<br/><br/><b>AliDNS</b> &nbsp; https://dns.alidns.com/dns-query<br/><b>DNSPod</b> &nbsp; https://doh.pub/dns-query<br/>大陆站点 / 国内 CDN 用国内权威 DoH &nbsp;→&nbsp; 不被 ISP 记录"]
+    L2["<b>② nameserver-policy / nameserver</b> &nbsp;·&nbsp; 国内域名主通道 &nbsp;·&nbsp; DoH<br/><br/><b>geosite:cn</b> &nbsp;→&nbsp; AliDNS / DNSPod<br/><b>AliDNS</b> &nbsp; https://dns.alidns.com/dns-query<br/><b>DNSPod</b> &nbsp; https://doh.pub/dns-query<br/>大陆站点 / 国内 CDN 固定走国内 DoH"]
 
     L3["<b>③ proxy-server-nameserver</b> &nbsp;·&nbsp; 机场节点域名解析 &nbsp;·&nbsp; DoH<br/><br/><b>Cloudflare</b> &nbsp; https://cloudflare-dns.com/dns-query<br/><b>Google</b> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; https://dns.google/dns-query<br/><b>AliDNS</b> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; https://dns.alidns.com/dns-query<br/><b>DNSPod</b> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; https://doh.pub/dns-query<br/>解析 node.xxx-airport.com 走加密 DoH<br/>→&nbsp; 节点域名与 IP 都不暴露给 ISP，也不被 DNS 污染"]
 
-    L4["<b>④ fallback</b> &nbsp;·&nbsp; 海外域名回退通道 &nbsp;·&nbsp; DoH + GeoIP 解毒<br/><br/><b>Cloudflare</b> &nbsp; https://cloudflare-dns.com/dns-query<br/><b>Google</b> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; https://dns.google/dns-query<br/><b>fallback-filter.geoip-code: CN</b><br/>海外域名若查出 CN 段 IP（说明被污染）<br/>→&nbsp; 自动切 fallback 重查，避开 GFW 注入的假 IP"]
+    L4["<b>④ nameserver-policy / fallback</b> &nbsp;·&nbsp; 海外域名通道 &nbsp;·&nbsp; DoH + GeoIP 解毒<br/><br/><b>geosite:geolocation-!cn</b> &nbsp;→&nbsp; Cloudflare / Google<br/><b>Cloudflare</b> &nbsp; https://cloudflare-dns.com/dns-query<br/><b>Google</b> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; https://dns.google/dns-query<br/><b>fallback-filter.geoip-code: CN</b><br/>海外域名优先海外 DoH；污染结果再由 fallback-filter 兜底"]
 
     Start --> L1
     L1 ==>|"<b>bootstrap 成功后，所有业务查询全走加密 DoH</b>"| Gate

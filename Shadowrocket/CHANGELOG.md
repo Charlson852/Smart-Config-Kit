@@ -5,6 +5,11 @@
 
 ---
 
+## v5.4.37-SR.1 (2026-06-29)
+
+- META#170-DNS-POLICY：跟随 Clash Party v5.4.37 更新版本元数据。
+- N/A：Shadowrocket `.conf` 不支持 Mihomo `nameserver-policy` / `geosite:*` DNS policy 字段；现有 `dns-server` / `fallback-dns-server` 语义不变。
+
 ## v5.4.36-SR.1 (2026-06-29)
 
 - CLEAN#171-DIRECT：同步删除 22 条经逐条确认的冗余 `DOMAIN` / `DOMAIN-SUFFIX` 规则，远程规则集保持不变。

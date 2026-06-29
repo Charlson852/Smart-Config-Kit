@@ -4,6 +4,11 @@
 
 ---
 
+## v5.4.37-Loon.1 (2026-06-29)
+
+- META#170-DNS-POLICY：跟随 Clash Party v5.4.37 更新版本元数据。
+- N/A：Loon 使用 `dns-server` / `doh-server` / `[Host]` 语法，没有 Mihomo `nameserver-policy` 同字段面；规则与 DNS 语义不变。
+
 ## v5.4.36-Loon.1 (2026-06-29)
 
 - CLEAN#171-DIRECT：同步删除 22 条经逐条确认的冗余 `DOMAIN` / `DOMAIN-SUFFIX` 规则，远程规则集保持不变。

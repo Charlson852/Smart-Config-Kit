@@ -7,6 +7,11 @@
 
 ---
 
+## v5.4.37-v2n.1 (2026-06-29)
+
+- META#170-DNS-POLICY：跟随 Clash Party v5.4.37 更新版本元数据。
+- N/A：Xray 路由 JSON 不承载 DNS 解析策略；mihomo / sing-box 路径分别复用 CMFA / SingBox 产物，本文件规则语义不变。
+
 ## v5.4.36-v2n.1 (2026-06-29)
 
 - META#171-DIRECT：跟随 Clash Party v5.4.36 更新版本元数据。

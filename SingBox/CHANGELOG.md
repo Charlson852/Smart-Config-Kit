@@ -5,6 +5,11 @@
 
 ---
 
+## v5.4.37-sing.1 (2026-06-29)
+
+- META#170-DNS-POLICY：`SingBox(sing-box)-generator.js` 跟随 Clash Party v5.4.37 更新版本元数据并重新生成 Full JSON。
+- N/A：sing-box 使用原生 `dns.rules` / `dns.servers`，没有 Mihomo `nameserver-policy` 同字段面；现有 `geosite-cn` / `cn-ip` 走 `dns_direct`、最终走 `dns_proxy` 的 DNS 语义不变。
+
 ## v5.4.36-sing.1 (2026-06-29)
 
 - CLEAN#171-DIRECT：`SingBox(sing-box)-generator.js` 对齐 Clash Party v5.4.36 并重新生成 Full JSON。

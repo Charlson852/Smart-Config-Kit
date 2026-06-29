@@ -1,9 +1,9 @@
 # ================================================================
-# Clash Smart v5.4.36-cmfa.1 - CMFA (Clash Meta for Android) 配置
+# Clash Smart v5.4.37-cmfa.1 - CMFA (Clash Meta for Android) 配置
 # Build: 2026-06-29
 # 架构：proxy-providers 订阅 + 22 url-test 区域组（11 全部 + 11 家宽，家宽 filter 新增 IEPL/IPLC/专线识别）+ 33 业务策略组（含 14 流媒体平台组）+ 376 rule-providers
-# 基线：Clash Party v5.4.36（唯一主线）
-# v5.4.36: CLEAN#171-DIRECT 删除 22 条严格确认冗余直写规则 · v5.4.35: CLEAN#170-UPSTREAM 删除冗余上游规则集
+# 基线：Clash Party v5.4.37（唯一主线）
+# v5.4.37: DNS-POLICY#170 geosite 级解析器分流 · v5.4.36: CLEAN#171-DIRECT 删除冗余直写规则
 # v5.4.33: FEAT#169-AI-CODING 接入 VPSDance AI coding 规则补齐 AI 编程工具
 # v5.4.32: FIX#168-CN-GAME 国内游戏前置到国外游戏宽规则之前，避免 HoYoverse / Game / category-games 抢先代理
 # 变更历史：见 `Clash Meta For Android/CHANGELOG.md`
@@ -136,9 +136,15 @@ dns:
   direct-nameserver:
   - 'https://dns.alidns.com/dns-query'
   - 'https://doh.pub/dns-query'
-  # v5.4.19 #5 借鉴 Proxy-override：让 direct-nameserver 也遵循 nameserver-policy（默认 false 会忽略它）。policy 仅含境外 CDN，零国内误伤。
+  # v5.4.19 #5 借鉴 Proxy-override：让 direct-nameserver 也遵循 nameserver-policy（默认 false 会忽略它）。policy 覆盖境外 CDN 与 geosite 级分流。
   direct-nameserver-follow-policy: true
   nameserver-policy:
+    geosite:cn:
+    - 'https://dns.alidns.com/dns-query'
+    - 'https://doh.pub/dns-query'
+    geosite:geolocation-!cn:
+    - 'https://cloudflare-dns.com/dns-query'
+    - 'https://dns.google/dns-query'
     '+.jsdelivr.net':
     - 'https://cloudflare-dns.com/dns-query'
     - 'https://dns.google/dns-query'

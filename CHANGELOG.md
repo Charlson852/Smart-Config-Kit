@@ -6,6 +6,14 @@
 
 ---
 
+## v5.4.37 (2026-06-29)
+
+- DNS-POLICY#170：Mihomo 系列补齐 `nameserver-policy` 的 `geosite:cn` 与 `geosite:geolocation-!cn` 绑定，国内域名固定国内 DoH，非国内域名固定 Cloudflare/Google DoH，减少先走国内递归再 fallback 的 DNS 暴露面。
+- SYNC：Clash Party Smart/Normal、CMFA、OpenClash Normal/Smart、FlClash 同步；OpenClash 参考快照元数据同步到 v5.4.37。
+- DOCS：根 README DNS 流程图、Clash Party / FlClash 手动 DNS 示例同步 DoH-over-IP bootstrap、hosts 预解析、geosite nameserver-policy 与 Sniffer skip 列表；清理 Clash Party README 旧业务组/规则数说明。
+- VERIFY：`validate-js-overwrites.js` 与 `validate-artifact-contracts.js` 新增 geosite DNS policy 断言，覆盖 JS 输出、CMFA YAML 与 OpenClash heredoc。
+- SCOPE：Shadowrocket / Surge / Loon / Quantumult X / SingBox / v2rayN / Passwall / Passwall2 没有 Mihomo `nameserver-policy` 同字段面，配置不改；PR 描述需逐项列出不适用原因。
+
 ## v5.4.36 (2026-06-29)
 
 - CLEAN#171-DIRECT：删除 22 条经逐条确认的冗余直写规则：2 条本地前序覆盖（`video.unext.jp` / `dl.delivery.mp.microsoft.com`）+ 20 条远程 provider 同策略前序覆盖。

@@ -283,7 +283,7 @@ function extractIndentedListBlock(source, key) {
       inBlock = true;
       continue;
     }
-    if (inBlock && /^\s*[A-Za-z0-9_.-]+:/.test(line)) break;
+    if (inBlock && /^\s*(?!-\s).+:\s*$/.test(line)) break;
     if (inBlock) output.push(line.trim());
   }
   return output.join('\n');
@@ -532,6 +532,8 @@ function validateClashYaml(record, baselineVersion, options) {
     if (dupN >= 1) record.check(`cmfa.dns.singleton.${dnsKey}`, dupN === 1, { value: dupN, message: `dns 块标量键 ${dnsKey} 出现 ${dupN} 次（重复键 → YAML last-wins 静默覆盖）` });
   }
   record.check('cmfa.dns.githubusercontent-policy', /['"]?\+\.githubusercontent\.com['"]?:/.test(source));
+  checkExactList(record, 'cmfa.dns.policy-geosite-cn', extractYamlListItems(source, 'geosite:cn'), DNS_DOMESTIC_DOH);
+  checkExactList(record, 'cmfa.dns.policy-geosite-not-cn', extractYamlListItems(source, 'geosite:geolocation-!cn'), DNS_FOREIGN_DOH);
   record.check('cmfa.dns.fallback-geosite-gfw', /fallback-filter:[^]*?geosite:[^]*?-\s*gfw/.test(source));
   record.check('cmfa.dns.fallback-geosite-not-cn', /fallback-filter:[^]*?geosite:[^]*?-\s*geolocation-!cn/.test(source));
   checkExactList(record, 'cmfa.dns.default-nameserver-exact', extractYamlListItems(source, 'default-nameserver'), DNS_BOOTSTRAP_IPS);
@@ -645,6 +647,8 @@ function validateOpenClash(record, baselineVersion, options) {
       if (dupN >= 1) record.check(`openclash.${spec.id}.dns.singleton.${dnsKey}`, dupN === 1, { value: dupN, message: `dns 块标量键 ${dnsKey} 出现 ${dupN} 次（重复键 → YAML last-wins 静默覆盖；见 FIX#HOSTS-DEDUP）` });
     }
     record.check(`openclash.${spec.id}.dns.githubusercontent-policy`, /['"]?\+\.githubusercontent\.com['"]?:/.test(yaml));
+    checkExactList(record, `openclash.${spec.id}.dns.policy-geosite-cn`, extractYamlListItems(yaml, 'geosite:cn'), DNS_DOMESTIC_DOH);
+    checkExactList(record, `openclash.${spec.id}.dns.policy-geosite-not-cn`, extractYamlListItems(yaml, 'geosite:geolocation-!cn'), DNS_FOREIGN_DOH);
     record.check(`openclash.${spec.id}.dns.fallback-geosite-gfw`, /fallback-filter:[^]*?geosite:[^]*?-\s*gfw/.test(yaml));
     record.check(`openclash.${spec.id}.dns.fallback-geosite-not-cn`, /fallback-filter:[^]*?geosite:[^]*?-\s*geolocation-!cn/.test(yaml));
     checkExactList(record, `openclash.${spec.id}.dns.default-nameserver-exact`, extractYamlListItems(yaml, 'default-nameserver'), DNS_BOOTSTRAP_IPS);

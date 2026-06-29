@@ -6,6 +6,11 @@
 
 ---
 
+## v5.4.37-pw2.1 (2026-06-29)
+
+- META#170-DNS-POLICY：跟随 Clash Party v5.4.37 更新版本元数据。
+- N/A：Passwall2 展平 shunt rule 不承载 Mihomo `nameserver-policy` DNS 字段；`.list` 规则语义不变。
+
 ## v5.4.36-pw2.1 (2026-06-29)
 
 - CLEAN#171-DIRECT：跟随 Clash Party v5.4.36 清理结果，删除展平规则 `channel4.com` / `sky.com`，其余候选不适用于 Passwall2 展平层或需继续保留。

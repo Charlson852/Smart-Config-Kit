@@ -607,6 +607,8 @@ function validateGeneral(output, record) {
   const nameserverPolicy = output.dns['nameserver-policy'] && typeof output.dns['nameserver-policy'] === 'object' ? output.dns['nameserver-policy'] : {};
   record.expect(Object.keys(nameserverPolicy).length > 0, 'DNS nameserver-policy exists');
   record.expectArrayEqual(nameserverPolicy['+.githubusercontent.com'] || [], ['https://cloudflare-dns.com/dns-query', 'https://dns.google/dns-query'], 'GitHub asset DNS policy uses foreign DoH');
+  record.expectArrayEqual(nameserverPolicy['geosite:cn'] || [], ['https://dns.alidns.com/dns-query', 'https://doh.pub/dns-query'], 'CN geosite DNS policy uses domestic DoH');
+  record.expectArrayEqual(nameserverPolicy['geosite:geolocation-!cn'] || [], ['https://cloudflare-dns.com/dns-query', 'https://dns.google/dns-query'], 'non-CN geosite DNS policy uses foreign DoH');
   const fallbackFilter = output.dns['fallback-filter'] && typeof output.dns['fallback-filter'] === 'object' ? output.dns['fallback-filter'] : {};
   record.expect(Object.keys(fallbackFilter).length > 0, 'DNS fallback-filter exists');
   record.expectArrayEqual(fallbackFilter.geosite || [], ['gfw', 'geolocation-!cn'], 'fallback-filter routes GFW/non-CN domains to fallback DNS');

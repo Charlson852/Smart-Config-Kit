@@ -2,7 +2,7 @@
     {
         "id": "scki-000-meta",
         "enabled": false,
-        "remarks": "Smart-Config-Kit v5.4.36-v2n.1 | Build 2026-06-29 | Baseline Clash Party v5.4.36 | changelog: v2rayN/CHANGELOG.md | CLEAN#171-DIRECT: 基线清理 22 条严格确认冗余直写规则；本产物规则语义不变",
+        "remarks": "Smart-Config-Kit v5.4.37-v2n.1 | Build 2026-06-29 | Baseline Clash Party v5.4.37 | changelog: v2rayN/CHANGELOG.md | META#170-DNS-POLICY: Xray 路由 JSON 不承载 Mihomo nameserver-policy；本产物规则语义不变",
         "outboundTag": "direct",
         "domain": [
             "domain:smart-config-kit.invalid"

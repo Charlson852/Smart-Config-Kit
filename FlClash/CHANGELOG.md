@@ -5,6 +5,11 @@
 
 ---
 
+## v5.4.37-flclash.1 (2026-06-29)
+
+- ★ DNS-POLICY#170：同步 Clash Party Normal v5.4.37，`overwriteGeneral()` 为 Mihomo `nameserver-policy` 新增 `geosite:cn` 与 `geosite:geolocation-!cn` 解析器分流。
+- 手动 DNS 示例同步 DoH-over-IP bootstrap、hosts 预解析、geosite policy 与 `direct-nameserver-follow-policy: true`，避免 FlClash UI 进阶配置覆盖掉脚本 DNS 合同。
+
 ## v5.4.36-flclash.1 (2026-06-29)
 
 - CLEAN#171-DIRECT：同步删除 22 条经逐条确认的冗余直写规则。

@@ -6,6 +6,11 @@
 
 ---
 
+## v5.4.37-QX.1 (2026-06-29)
+
+- META#170-DNS-POLICY：跟随 Clash Party v5.4.37 更新版本元数据。
+- N/A：Quantumult X 使用 `[dns]` / `[filter_remote]` / `[filter_local]` 私有语法，没有 Mihomo `nameserver-policy` 同字段面；规则与 DNS 语义不变。
+
 ## v5.4.36-QX.1 (2026-06-29)
 
 - CLEAN#171-DIRECT：同步删除 22 条经逐条确认的冗余 `host` / `host-suffix` 规则，`filter_remote` 保持不变。

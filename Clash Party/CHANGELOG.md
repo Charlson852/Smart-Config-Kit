@@ -7,6 +7,15 @@
 
 ---
 
+## v5.4.37 / v5.4.37-normal.1 (2026-06-29)
+
+- ★ DNS-POLICY#170：`overwriteGeneral()` 在既有 GitHub / jsdelivr / Fastly CDN policy 之外，新增 geosite 级解析器分流：
+  - `geosite:cn` → AliDNS / DNSPod DoH。
+  - `geosite:geolocation-!cn` → Cloudflare / Google DoH。
+- 目的：`nameserver-policy` 优先于 `nameserver/fallback`，先把国内/非国内域名的 resolver 选路固定下来，避免非国内域名先向国内递归 resolver 查询后再由 `fallback-filter` 纠偏。
+- 文档：`Clash Party/README.md` 的 UI Mixin 示例同步 DoH-over-IP bootstrap、hosts 预解析、geosite policy、`direct-nameserver-follow-policy` 与 Sniffer skip 列表；旧的 31 业务组 / 963 规则 / 373 providers 说明更新为当前 33 业务组 / 1000+ 规则 / 376 providers。
+- 验证：`tools/validate-js-overwrites.js` 新增 geosite policy 断言，防止后续 DNS policy 回退。
+
 ## v5.4.36 / v5.4.36-normal.1 (2026-06-29)
 
 - CLEAN#171-DIRECT：删除 22 条经逐条确认的冗余直写规则：`video.unext.jp` / `dl.delivery.mp.microsoft.com` 两条为本地前序覆盖，另 20 条为 provider 前序同策略覆盖。

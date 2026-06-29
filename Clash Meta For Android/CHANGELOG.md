@@ -5,6 +5,11 @@
 
 ---
 
+## v5.4.37-cmfa.1 (2026-06-29)
+
+- ★ DNS-POLICY#170：`dns.nameserver-policy` 新增 `geosite:cn` → AliDNS / DNSPod DoH、`geosite:geolocation-!cn` → Cloudflare / Google DoH。
+- 与 Clash Party v5.4.37 的 DNS 行为对齐；`direct-nameserver-follow-policy: true` 保持启用，说明文字同步为 CDN + geosite policy。
+
 ## v5.4.36-cmfa.1 (2026-06-29)
 
 - CLEAN#171-DIRECT：同步删除 22 条经逐条确认的冗余直写规则，provider 保持 376，规则语义与 Clash Party v5.4.36 对齐。

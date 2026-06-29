@@ -5,7 +5,7 @@
 > 覆写脚本：`FlClash(mihomo).js`
 > 适用客户端：**FlClash**（Android / Windows / macOS / Linux）
 > 内核要求：FlClash >= **v0.8.85**
-> 当前版本：**v5.4.36-flclash.1**（22 url-test 区域组 + 33 业务策略组；标准 Mihomo 内核动态分流；变更历史见 `FlClash/CHANGELOG.md`）
+> 当前版本：**v5.4.37-flclash.1**（22 url-test 区域组 + 33 业务策略组；标准 Mihomo 内核动态分流；变更历史见 `FlClash/CHANGELOG.md`）
 
 <sub>💖 [支持本项目](../docs/donate.md) · ⭐ [Star](https://github.com/ivansolis1989/Smart-Config-Kit) · 🐛 [Issue](https://github.com/ivansolis1989/Smart-Config-Kit/issues)</sub>
 
@@ -52,7 +52,7 @@
 
 点「代理」标签，应看到：
 - **最多 22 个区域组**（11 全部 + 11 家宽；空区域自动跳过）：🌍 全球节点、🇭🇰 香港节点、🇸🇬 狮城节点、🌏 其他节点……
-- **33 业务组**（新增 🔍 Google 服务）：🤖 AI 服务、🎵 TikTok、🎥 Netflix、📱 社交媒体……
+- **33 业务组**：🤖 AI 服务、🎵 TikTok、🎥 Netflix、📱 社交媒体……
 - 额外检查：按根 README 的 [导入后 60 秒验证清单](../README.md#-导入后-60-秒验证清单) 确认规则下载、GEOSITE 命中与 anti-ad 误伤白名单。
 
 ---
@@ -87,16 +87,45 @@ geo-auto-update: true
 ### 进阶配置（DNS）
 工具 → 进阶配置 ⋮ → DNS：
 ```yaml
+hosts:
+  dns.alidns.com: [223.5.5.5, 223.6.6.6]
+  doh.pub: [119.29.29.29]
+  dns.google: [8.8.8.8, 8.8.4.4]
+  cloudflare-dns.com: [1.1.1.1, 1.0.0.1]
+
 dns:
-  use-hosts: false
+  use-hosts: true
   use-system-hosts: false
   respect-rules: true
   prefer-h3: false
   default-nameserver:
+    - https://223.5.5.5/dns-query
+    - https://223.6.6.6/dns-query
+    - https://8.8.8.8/dns-query
+    - https://1.1.1.1/dns-query
     - 223.5.5.5
-    - 119.29.29.29
-    - 1.1.1.1
-    - 8.8.8.8
+  nameserver-policy:
+    geosite:cn:
+      - https://dns.alidns.com/dns-query
+      - https://doh.pub/dns-query
+    geosite:geolocation-!cn:
+      - https://cloudflare-dns.com/dns-query
+      - https://dns.google/dns-query
+    '+.jsdelivr.net':
+      - https://cloudflare-dns.com/dns-query
+      - https://dns.google/dns-query
+    '+.github.com':
+      - https://cloudflare-dns.com/dns-query
+      - https://dns.google/dns-query
+    '+.githubusercontent.com':
+      - https://cloudflare-dns.com/dns-query
+      - https://dns.google/dns-query
+    '+.githubassets.com':
+      - https://cloudflare-dns.com/dns-query
+      - https://dns.google/dns-query
+    '+.fastly.net':
+      - https://cloudflare-dns.com/dns-query
+      - https://dns.google/dns-query
   nameserver:
     - https://dns.alidns.com/dns-query
     - https://doh.pub/dns-query
@@ -108,6 +137,7 @@ dns:
   direct-nameserver:
     - https://dns.alidns.com/dns-query
     - https://doh.pub/dns-query
+  direct-nameserver-follow-policy: true
   fallback:
     - https://cloudflare-dns.com/dns-query
     - https://dns.google/dns-query

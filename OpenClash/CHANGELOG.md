@@ -7,6 +7,14 @@
 
 ---
 
+## v5.4.37-oc-normal.1 / v5.4.37-oc-smart.1 (2026-06-29)
+
+- ★ DNS-POLICY#170：Normal / Smart heredoc YAML 的 `dns.nameserver-policy` 同步新增：
+  - `geosite:cn` → AliDNS / DNSPod DoH。
+  - `geosite:geolocation-!cn` → Cloudflare / Google DoH。
+- 两份 `.sh` 的 `VERSION_TAG` 与内嵌 Ruby `VERSION` 同步到 v5.4.37；`OpenClash(mihomo).conf` 参考快照元数据同步到 v5.4.37。
+- `direct-nameserver-follow-policy: true` 保持启用，说明文字同步为 CDN + geosite policy。
+
 ## v5.4.36-oc-normal.1 / v5.4.36-oc-smart.1 (2026-06-29)
 
 - CLEAN#171-DIRECT：Normal / Smart 同步删除 22 条经逐条确认的冗余直写规则，provider 保持 376，规则语义与 Clash Party v5.4.36 对齐。
